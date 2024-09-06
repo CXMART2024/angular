@@ -35,8 +35,6 @@ export class InformacionBecaViewComponent implements OnInit {
     this.solicitudService.getSolicitudData().subscribe((data) => {
       this.solicitud = data;
       if (this.solicitud) {
-        console.log('solicitud')
-        console.log(this.solicitud)
         this.getCiclos();
         this.getMallaCurricular();
       }

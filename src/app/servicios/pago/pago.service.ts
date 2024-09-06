@@ -24,12 +24,12 @@ export class PagoService {
 
   //Crear pago
   createPago(pago: Pago) {
-    return this.http.post(`${this.apiUrl}`,pago);
+    return this.http.post<Pago>(`${this.apiUrl}`,pago);
   }
   
   //Actualizar pago
   updatePago(pago: Pago) {
-    return this.http.put(`${this.apiUrl}/${pago.id}`,pago);
+    return this.http.put<Pago>(`${this.apiUrl}/${pago.id}`,pago);
   }
 
   //Eliminar pago
