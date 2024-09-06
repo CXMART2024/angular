@@ -23,7 +23,8 @@
                     </li>
 
                     <li class="nav-item m-4">
-                        <a class="nav-link text-white btn-image-text p-2" href="" routerLink="/informacion">
+                        <a class="nav-link text-white btn-image-text p-2" href=""
+                            [routerLink]="solicitud?.url_doc_contrato ? '/informacion-view' : '/informacion'">
                             <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Form.png" alt="Icon">
                             <span>Información Beca</span>
                         </a>
@@ -114,64 +115,44 @@
                 </div>
                 <div class="card-body">
                     <div class="container table-responsive">
-                        <h6>Ciclo 2024-1 (01/04/2024 - 30/06/2024)</h6>
-                        <table class="table table-bordered">
-                            <thead class="bg-light">
+                        <table class="table table-bordered" *ngFor="let ciclo of cicloCursoRelacion">
+                            <thead>
                                 <tr>
-                                    <th class="text-center">Curso</th>
-                                    <th class="text-center">Créditos</th>
-                                    <th class="text-center">Nota</th>
+                                    <th class="align-middle" style="background-color: #ECF2F9;">
+                                        <div class="d-flex justify-content-left align-items-center">
+                                            <span class="me-2">{{ciclo.ciclo.nombre_ciclo}} ({{formatDate(ciclo.ciclo.fecha_inicio)}} - {{formatDate(ciclo.ciclo.fecha_fin)}})</span>
+                                        </div>
+                                    </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="m-0 p-0">
                                 <tr>
-                                    <td class="text-center">Ciencias</td>
-                                    <td class="text-center">45</td>
-                                    <td class="text-center">6</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">Ciencias</td>
-                                    <td class="text-center">45</td>
-                                    <td class="text-center">6</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">Ciencias</td>
-                                    <td class="text-center">45</td>
-                                    <td class="text-center">6</td>
+                                    <td>
+                                        <table class="table table-bordered">
+                                            <thead class="bg-light">
+                                                <tr>
+                                                    <th class="text-center">Curso</th>
+                                                    <th class="text-center">Créditos</th>
+                                                    <th class="text-center">Nota</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let curso of ciclo.cursos">
+                                                    <td class="text-center">{{curso.nombre}}</td>
+                                                    <td class="text-center">{{curso.creditos}}</td>
+                                                    <td class="text-center"><input type="text" class="form-control form-control-sm" [(ngModel)]="curso.nota" name="curso.nota"></td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
 
                     </div>
-                    <div class="container table-responsive">
-                        <h6>Ciclo 2024-1 (01/04/2024 - 30/06/2024)</h6>
-                        <table class="table table-bordered">
-                            <thead class="bg-light">
-                                <tr>
-                                    <th class="text-center">Curso</th>
-                                    <th class="text-center">Créditos</th>
-                                    <th class="text-center">Nota</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="text-center">Ciencias</td>
-                                    <td class="text-center">45</td>
-                                    <td class="text-center">6</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">Ciencias</td>
-                                    <td class="text-center">45</td>
-                                    <td class="text-center">6</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">Ciencias</td>
-                                    <td class="text-center">45</td>
-                                    <td class="text-center">6</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    
                     <div class="container table-responsive">
                         <h6>Evidencia de notas</h6>
                         <div class="input-group mb-3">
@@ -282,18 +263,19 @@
                 <form [formGroup]="formUpdateLogin">
                     <div class="mb-3">
                         <label class="form-label text-dark">DNI: </label>
-                        <input type="text" class="form-control" formControlName="dni" name="" value="" readonly >
+                        <input type="text" class="form-control" formControlName="dni" [readOnly]="true">
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-dark">Contraseña Actual: </label>
-                        <input type="password" class="form-control" formControlName="antiguaClave" name="antiguaClave" value="">
+                        <input type="password" class="form-control" formControlName="antiguaClave" name="antiguaClave"
+                            value="">
                         @if(formUpdateLogin.get('antiguaClave')?.errors?.['required'] &&
                         formUpdateLogin.get('antiguaClave')?.touched)
                         {<div class="mistake">
                             Por favor coloque su contraseña actual correctamente
                         </div>
                         }
-                
+
                     </div>
 
                     <div class="mb-3">
@@ -307,8 +289,8 @@
                         }
                     </div>
                     <div class="d-grid mb-2">
-                        <button class="btn btn-primary" [disabled]="!formUpdateLogin.valid"
-                            (click)="updateLogin()" data-bs-dismiss="modal">Guardar Cambios</button>
+                        <button class="btn btn-primary" [disabled]="!formUpdateLogin.valid" (click)="updateLogin()"
+                            data-bs-dismiss="modal">Guardar Cambios</button>
                     </div>
                 </form>
             </div>
