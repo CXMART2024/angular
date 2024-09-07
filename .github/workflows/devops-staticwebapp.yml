@@ -1,0 +1,39 @@
+name: Deploy Angular App to Static Web
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Clean npm cache
+        run: npm cache clean --force
+
+      - name: Install dependencies without cache
+        run: npm install --prefer-online --fetch-retries=3 --fetch-timeout=60000
+
+      - name: Build Angular app
+        run: npm run build
+    
+      - name: List directory after build
+        run: ls -R dist/
+
+      - name: Deploy to Static Web App
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          app_location: "/"
+          output_location: "/dist/becas-form-main/browser/"
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          deployment_action: "upload"
