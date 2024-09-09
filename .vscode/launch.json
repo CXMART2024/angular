@@ -7,7 +7,7 @@
       "type": "chrome",
       "request": "launch",
       "preLaunchTask": "npm: start",
-      "url": "http://localhost:4200/"
+      "url": "https://wonderful-smoke-023520d0f.5.azurestaticapps.net/"
     },
     {
       "name": "ng test",
