@@ -31,20 +31,20 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     this.router.navigate(['detalle'])
-    /* this.authService.login(this.dni, this.clave).subscribe({
-       next: (response: any) => {
-         console.log('Login successful');
-         this.router.navigate(['detalle'])
-       },
-       error: (error) => {
-         if (this.dni == '' || this.clave == '') {
-           alert('Por favor ingresar DNI y clave para poder ingresar.')
-         } else {
-           alert('El DNI y/o la clave no coinciden')
-         }
-       }
-     }
-     )*/
+    this.authService.login(this.dni, this.clave).subscribe({
+      next: (response: any) => {
+        console.log('Login successful');
+        this.router.navigate(['detalle'])
+      },
+      error: (error) => {
+        if (this.dni == '' || this.clave == '') {
+          alert('Por favor ingresar DNI y clave para poder ingresar.')
+        } else {
+          alert('El DNI y/o la clave no coinciden')
+        }
+      }
+    }
+    )
   }
 
 }
