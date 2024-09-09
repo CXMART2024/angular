@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Ciclo } from '../../modelos/ciclo';
 import { DatePipe } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -35,9 +36,14 @@ export class CicloService {
   }
 
   //Actualizar ciclo
+
   updateCiclo(ciclo: Ciclo) {
     return this.http.put<Ciclo>(`${this.apiUrl}/${ciclo.id}`, ciclo);
   }
+ /*
+  updateCiclo(ciclo: Ciclo): Observable<Ciclo> {
+    return this.http.put<Ciclo>(`${this.apiUrl}/${ciclo.id}`, ciclo);
+  }*/
 
   //Eliminar ciclo
   deleteCiclo(id: number) {

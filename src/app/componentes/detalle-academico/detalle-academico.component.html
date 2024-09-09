@@ -69,11 +69,10 @@
                             <strong>Información del Estudiante</strong>
                         </div>
                         <div class="col-4">
-                            <select class="form-select form-select-sm">
-                                <option selected>Seleccionar un ciclo</option>
-                                <option value="">Ciclo 2024</option>
-                                <option value="">Ciclo 2023</option>
-                                <option value="">Ciclo 2022</option>
+                            <select class="form-select form-select-sm" (change)="obtenerCursosDeCiclo($event)">
+                                <option selected disabled>Seleccionar una opción</option>
+                                <option *ngFor="let ciclo of listCiclo" [value]="ciclo.id">{{ciclo.nombre_ciclo}}
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -110,53 +109,40 @@
             </div>
 
             <div class="card mb-3">
-                <div class="card-header">
-                    <strong>Calificaciones</strong>
+                <div class="card-header d-flex justify-content-between">
+                    <strong class="my-auto">Calificaciones</strong>
+                    <button class="btn btn-primary" 
+                        [disabled]="!id_documento_evidencia.files?.length" (click)="updateInformacionBecario()">Registrar Calificaciones</button>
                 </div>
                 <div class="card-body">
                     <div class="container table-responsive">
-                        <table class="table table-bordered" *ngFor="let ciclo of cicloCursoRelacion">
-                            <thead>
+                        <table class="table table-bordered">
+                            <thead class="bg-light">
                                 <tr>
-                                    <th class="align-middle" style="background-color: #ECF2F9;">
-                                        <div class="d-flex justify-content-left align-items-center">
-                                            <span class="me-2">{{ciclo.ciclo.nombre_ciclo}} ({{formatDate(ciclo.ciclo.fecha_inicio)}} - {{formatDate(ciclo.ciclo.fecha_fin)}})</span>
-                                        </div>
-                                    </th>
+                                    <th class="text-center">Curso</th>
+                                    <th class="text-center">Créditos</th>
+                                    <th class="text-center">Nota</th>
+
                                 </tr>
                             </thead>
-                            <tbody class="m-0 p-0">
-                                <tr>
-                                    <td>
-                                        <table class="table table-bordered">
-                                            <thead class="bg-light">
-                                                <tr>
-                                                    <th class="text-center">Curso</th>
-                                                    <th class="text-center">Créditos</th>
-                                                    <th class="text-center">Nota</th>
+                            <tbody>
+                                <tr *ngFor="let curso of listCurso">
+                                    <td class="text-center">{{curso.nombre}}</td>
+                                    <td class="text-center">{{curso.creditos}}</td>
+                                    <td class="text-center"><input type="text" class="form-control form-control-sm"
+                                            [(ngModel)]="curso.nota" name="curso.nota"></td>
 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let curso of ciclo.cursos">
-                                                    <td class="text-center">{{curso.nombre}}</td>
-                                                    <td class="text-center">{{curso.creditos}}</td>
-                                                    <td class="text-center"><input type="text" class="form-control form-control-sm" [(ngModel)]="curso.nota" name="curso.nota"></td>
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
 
                     </div>
-                    
+
                     <div class="container table-responsive">
                         <h6>Evidencia de notas</h6>
                         <div class="input-group mb-3">
-                            <input type="file" class="form-control" id="cargarArchivo">
+                            <input type="file" class="form-control" id="cargarArchivo" #id_documento_evidencia
+                                (change)="onFileChange_id_documento_evidencia($event)" required>
                             <label class="input-group-text" for=""><i class="bi bi-cloud-arrow-down-fill"
                                     style="color: #4180C2;"></i></label>
                         </div>
@@ -298,5 +284,3 @@
         </div>
     </div>
 </div>
-
-{{solicitud| json}}
