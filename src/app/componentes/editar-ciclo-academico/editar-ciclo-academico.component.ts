@@ -10,6 +10,7 @@ import { CursoMalla } from '../../modelos/curso-malla';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-editar-ciclo-academico',
@@ -35,7 +36,8 @@ export class EditarCicloAcademicoComponent implements OnInit {
     private mallaService: MallaCurricularService,
     private cdr: ChangeDetectorRef,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -177,8 +179,12 @@ export class EditarCicloAcademicoComponent implements OnInit {
             next: (ciclo: Ciclo) => {
               this.actualizarCursos(ciclo.id, this.listCursos);
               this.cicloService.setSelectedCiclo(ciclo);
+              this.toastr.success(`Ciclo ${ciclo.nombre_ciclo} actualizado correctamente`)
               this.router.navigate(['/concepto-modulo-academico']);
             },
+            error: (error) => {
+              this.toastr.error(`Ha ocurrido un error, no se ha podido actualizar el ciclo correctamente`)
+            }
           });
         }
       },
@@ -202,11 +208,16 @@ export class EditarCicloAcademicoComponent implements OnInit {
   guardarCurso(curso: Curso): void {
     this.cursoService.createCurso(curso).subscribe({
       next: () => {
-        console.log('Curso guardado exitosamente');
       },
       error: (err) => {
-        console.error('Error al guardar curso', err);
       },
     });
   }
+
+  isFileSelected(): boolean {
+    return this.url.has('file');
+  }
+
 }
+
+

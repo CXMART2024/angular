@@ -11,6 +11,7 @@ import { Curso } from '../../modelos/curso';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nuevo-ciclo-academico',
@@ -45,7 +46,8 @@ export class NuevoCicloAcademicoComponent implements OnInit {
     private cicloService: CicloService,
     private cursoService: CursoService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -155,8 +157,12 @@ export class NuevoCicloAcademicoComponent implements OnInit {
                 curso.Nombre
               );
               this.guardarCurso(newCurso);
+              this.toastr.success(`Ciclo registrado correctamente`)
               this.router.navigate(['informacion-view']);
             }
+          },
+          error: (err) => {
+            this.toastr.error(`Error al guardar ciclo`)
           },
         });
       },
@@ -166,11 +172,14 @@ export class NuevoCicloAcademicoComponent implements OnInit {
   guardarCurso(curso: Curso): void {
     this.cursoService.createCurso(curso).subscribe({
       next: () => {
-        console.log('Curso guardado exitosamente,');
-      },
-      error: (err) => {
-        console.error('Error al guardar curso', err);
-      },
+        
+      }
     });
   }
+
+  isFileSelected(): boolean {
+    return this.url.has('file');
+  }
+
 }
+

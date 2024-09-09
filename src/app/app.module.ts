@@ -20,6 +20,9 @@ import { RegisterFormFinalComponent } from './componentes/register-form-final/re
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { EditarMallasCursosComponent } from './componentes/editar-mallas-cursos/editar-mallas-cursos.component';
 import { DatePipe } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +47,14 @@ import { DatePipe } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxCaptchaModule
+    NgxCaptchaModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right', // Puedes cambiar la posición aquí
+      timeOut: 3000,
+      preventDuplicates: true,
+      progressBar: true,
+    })
   ],
   providers: [
     provideAnimationsAsync(),

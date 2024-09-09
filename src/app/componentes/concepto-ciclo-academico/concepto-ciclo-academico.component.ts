@@ -10,6 +10,8 @@ import { PagoService } from '../../servicios/pago/pago.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-concepto-ciclo-academico',
@@ -27,6 +29,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
     fechaSolicitud: new FormControl('', Validators.required)
   })
 
+  fechaConceptoPago: string = '';
   url = new FormData();
   pago: Pago = new Pago(0,new Date,0,'','','',0,0,'','','','','');
   selectedPago: Pago | null = null;
@@ -43,6 +46,8 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
     private pagoService: PagoService,
     private cdr: ChangeDetectorRef,
     private http: HttpClient,
+    private datePipe: DatePipe,
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -77,11 +82,17 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
       
       this.pagoService.createPago(pago).subscribe({
         next: (newPago: Pago) => {
-          console.log(newPago);
+          if(this.selectedCiclo) {
+            this.getPagosCiclo(this.selectedCiclo.id);
+            this.toastr.success(`Pago ${newPago.concepto} registrado correctamente`)
+          }
+        },
+        error: (error) => {
+          this.toastr.error(`Ha ocurrido un error, no se ha podido registrar el pago correctamente`)
         }
       })
     } else {
-      console.log('Formulario invalido')
+      this.toastr.error(`Ha ocurrido un error, no se ha podido registrar el pago correctamente`)
     }
   }
 
@@ -100,7 +111,6 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
     this.pagoService.getPagoByCiclo(id_ciclo).subscribe({
       next: (listPagos: Array<Pago>) => {
         this.listPagos = listPagos;
-        this.cdr.detectChanges();
       }
     })
   }
@@ -127,6 +137,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
   setSelectedPago(pago: Pago): void {
     this.selectedPago = pago;
     this.url = new FormData();
+    this.fechaConceptoPago = this.datePipe.transform(pago.fecha_solicitud, 'yyyy-MM-dd') ?? ''
   }
 
   //Al agregar archivo
@@ -166,9 +177,13 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
           this.selectedPago.PagoEstado= 'Solicitado'
           this.selectedPago.TesoreriaEstado= 'Solicitado'
           this.selectedPago.ContabilidadEstado= 'Solicitado'
+          this.selectedPago.fecha_solicitud = new Date(this.fechaConceptoPago);
           this.pagoService.updatePago(this.selectedPago).subscribe({
             next: (pago: Pago) => {
-
+              this.toastr.success(`Pago ${pago.concepto} registrado correctamente`)
+            },
+            error: (error) => {
+              this.toastr.error(`Ha ocurrido un error, no se ha podido registrar el pago correctamente`)
             }
           })
         }
