@@ -2,35 +2,35 @@
     "routes": [
         {
             "route": "/login",
-            "rewrite": "/index.html"
+            "rewrite": "src/index.html"
         },
         {
             "route": "/informacion-beca-view",
-            "rewrite": "/index.html"
+            "rewrite": "/src/index.html"
         },
         {
             "route": "/reporte-academico",
-            "rewrite": "/index.html"
+            "rewrite": "/src/index.html"
         },
         {
             "route": "/detalle-academico",
-            "rewrite": "/index.html"
+            "rewrite": "/src/index.html"
         },
         {
             "route": "/nuevo-ciclo",
-            "rewrite": "/index.html"
+            "rewrite": "/src/index.html"
         },
         {
             "route": "/register-form",
-            "rewrite": "/index.html"
+            "rewrite": "/src/index.html"
         },
         {
             "route": "/register-form-next",
-            "rewrite": "/index.html"
+            "rewrite": "/src/index.html"
         },
         {
             "route": "/register-form-final",
-            "rewrite": "/index.html"
+            "rewrite": "/src/index.html"
         }
     ]
 }
