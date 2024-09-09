@@ -74,24 +74,24 @@
                                 <div class="col-12 col-md-4 d-flex align-items-center"><label
                                         class="form-label my-auto"><strong>Ciclo:</strong></label></div>
                                 <div class="col-12 col-md-8 my-auto"><input type="text"
-                                        class="form-control-plaintext text-muted disabled" formControlName="" name=""
-                                        readonly value="{{selectedCiclo?.nombre_ciclo}}"></div>
+                                        class="form-control-plaintext text-muted disabled" 
+                                        readonly value="{{selectedCiclo?.nombre_ciclo}}" [disabled]="true"></div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-12 col-md-4 d-flex align-items-center"><label
                                         class="form-label my-auto"><strong>N° Cursos:</strong></label></div>
                                 <div class="col-12 col-md-8 my-auto"><input type="text"
-                                        class="form-control-plaintext text-muted disabled" formControlName="" name=""
-                                        readonly value="{{getNumCursos()}}"></div>
+                                        class="form-control-plaintext text-muted disabled" 
+                                        readonly value="{{getNumCursos()}}" [disabled]="true"></div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-12 col-md-5 d-flex align-items-center"><label
                                         class="form-label my-auto"><strong>N° Créditos:</strong></label></div>
                                 <div class="col-12 col-md-7 my-auto"><input type="text"
-                                        class="form-control-plaintext text-muted disabled" formControlName="" name=""
-                                        readonly value="{{getTotaCreditos()}}"></div>
+                                        class="form-control-plaintext text-muted disabled" 
+                                        readonly value="{{getTotaCreditos()}}" [disabled]="true"></div>
                             </div>
                         </div>
 
@@ -101,8 +101,7 @@
                                     <div class="col-12 col-md-4 d-flex align-items-center"><label
                                             class="form-label my-auto"><strong>Fecha Inicio:</strong></label></div>
                                     <div class="col-12 col-md-8"><input type="text"
-                                            class="form-control-plaintext text-muted disabled" formControlName=""
-                                            name="" readonly value="{{selectedCiclo?.fecha_inicio | date:'dd/MM/yyyy'}}"></div>
+                                            class="form-control-plaintext text-muted disabled"  readonly value="{{selectedCiclo?.fecha_inicio | date:'dd/MM/yyyy'}}" [disabled]="true"></div>
                                 </div>
                             </div>
                             <div class="col-6 col-md-4">
@@ -110,8 +109,7 @@
                                     <div class="col-12 col-md-4 d-flex align-items-center"><label
                                             class="form-label my-auto"><strong>Fecha Fin:</strong></label></div>
                                     <div class="col-12 col-md-8"><input type="text"
-                                            class="form-control-plaintext text-muted disabled" formControlName=""
-                                            name="" readonly value="{{selectedCiclo?.fecha_fin | date:'dd/MM/yyyy'}}"></div>
+                                            class="form-control-plaintext text-muted disabled"  readonly value="{{selectedCiclo?.fecha_fin | date:'dd/MM/yyyy'}}" [disabled]="true"></div>
                                 </div>
                             </div>
                         </div>
@@ -159,29 +157,27 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="text-center">Ciencias</td>
-                                            <td class="text-center">Pago Banco de la Nación código 25002515A</td>
-                                            <td class="text-center">S/ 420.00</td>
-                                            <td class="text-center">25/06/2024</td>
-                                            <td class="text-center text-primary">boleta_matrícula.pdf</td>
-                                            <td class="text-center"><span class="badge rounded-pill text-dark"
-                                                    style="background-color: rgba(255, 249, 196, 1);">Aprobado</span>
+                                        <tr *ngFor="let pago of listPagos">
+                                            <td class="text-center">{{pago.concepto}}</td>
+                                            <td class="text-center">{{pago.descripcion}}</td>
+                                            <td class="text-center">S/ {{pago.monto}}</td>
+                                            <td class="text-center">{{pago.fecha_solicitud | date:'dd/MM/yyyy'}}</td>
+                                            <td class="text-center text-primary">
+                                                <ng-container *ngIf="pago.id_constancia_pago; else empty">
+                                                    <a class="form-control-plaintext text-primary" href="{{pago.id_constancia_pago}}" target="_blank">
+                                                      Constancia Pago
+                                                    </a>
+                                                  </ng-container>
+                                                  <ng-template #empty>
+                                                    <span>-</span>
+                                                  </ng-template>
                                             </td>
-                                            <td><button class="btn" data-bs-toggle="modal"
+                                            <td class="text-center"><span class="badge rounded-pill text-dark"
+                                                    style="background-color: rgba(255, 249, 196, 1);">{{pago.EstudianteEstado}}</span>
+                                            </td>
+                                            <td><button (click)="setSelectedPago(pago)" class="btn" data-bs-toggle="modal"
                                                     data-bs-target="#editConcepto" type="button"><i
                                                         class="bi bi-pencil"></i></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">Ciencias</td>
-                                            <td class="text-center">Pago Banco de la Nación código 25002515A</td>
-                                            <td class="text-center">S/ 420.00</td>
-                                            <td class="text-center">25/06/2024</td>
-                                            <td class="text-center text-primary">boleta_matrícula.pdf</td>
-                                            <td class="text-center"><span class="badge rounded-pill text-dark"
-                                                    style="background-color: rgba(200, 230, 201, 1);">En Trámite</span>
-                                            </td>
-                                            <td><button class="btn"><i class="bi bi-pencil"></i></button></td>
                                         </tr>
 
                                     </tbody>
@@ -307,25 +303,25 @@
                 </div>
             </div>
             <div class="modal-body">
-                <form action="">
+                <form [formGroup]="conceptoPagoForm" (ngSubmit)="onAgregarConceptoPago()">
                     <div class="mb-3">
                         <label class="form-label text-dark">Concepto: </label>
-                        <input type="text" class="form-control" formControlName="" name="" value="">
+                        <input type="text" class="form-control" formControlName="concepto" >
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-dark">Descripción: </label>
-                        <textarea class="form-control" id="" rows="3"></textarea>
+                        <textarea class="form-control" formControlName="descripcion" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-dark">Monto: </label>
-                        <input type="text" class="form-control" formControlName="" name="" value="">
+                        <input type="number" class="form-control" formControlName="monto" >
                     </div>
                     <div class="mb-4">
                         <label class="form-label text-dark">Fecha Solicitud Programada: </label>
-                        <input type="date" class="form-control" formControlName="" name="" value="">
+                        <input type="date" class="form-control" formControlName="fechaSolicitud">
                     </div>
                     <div class="d-grid mb-2">
-                        <button class="btn btn-primary">Añadir Concepto de Pago</button>
+                        <button type="submit" data-bs-dismiss="modal" class="btn btn-primary" [disabled]="conceptoPagoForm.invalid" >Añadir Concepto de Pago</button>
                     </div>
                 </form>
             </div>
@@ -344,34 +340,34 @@
                         <h6>Concepto</h6>
                     </div>
                     <div class="col d-flex justify-content-end"><button class="btn-close"
-                            data-bs-dismiss="modal"></button></div>
+                           (click)="resetFileInput()" data-bs-dismiss="modal"></button></div>
 
                 </div>
             </div>
-            <div class="modal-body">
+            <div *ngIf="selectedPago" class="modal-body">
                 <form action="">
                     <div class="mb-3">
                         <label class="form-label text-dark">Concepto: </label>
-                        <input type="text" class="form-control disabled" formControlName="" name="" value="">
+                        <input [(ngModel)]="selectedPago.concepto" name="concepto" type="text" class="form-control disabled" >
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-dark">Descripción: </label>
-                        <textarea class="form-control" id="" rows="3" disabled></textarea>
+                        <textarea [(ngModel)]="selectedPago.descripcion" name="conceptoDescripcion" class="form-control" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-dark">Monto: </label>
-                        <input type="text" class="form-control disabled" formControlName="" name="" value="">
+                        <input [(ngModel)]="selectedPago.monto" name="conceptoMonto" type="number" class="form-control disabled">
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-dark">Fecha Solicitud Programada: </label>
-                        <input type="date" class="form-control disabled" formControlName="" name="" value="">
+                        <input [(ngModel)]="fechaConceptoPago" name="conceptoFechaSolicitud" type="date" class="form-control disabled">
                     </div>
                     <div class="mb-4">
-                        <label class="form-label text-dark">Constancia de Pago: </label>
-                        <input type="file" class="form-control" formControlName="" name="" value="">
+                        <label for="constanciaFile" class="form-label text-dark">Constancia de Pago: </label>
+                        <input (change)="onFileChange($event)" id="constanciaFile"  type="file" class="form-control" #constanciaFile>
                     </div>
                     <div class="d-grid mb-2">
-                        <button class="btn btn-primary">Enviar Constancia de Pago</button>
+                        <button (click)="updateConceptoPago()" [disabled]="!isFileSelected()" data-bs-dismiss="modal"  class="btn btn-primary">Enviar Constancia de Pago</button>
                     </div>
                 </form>
             </div>

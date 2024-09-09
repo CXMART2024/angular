@@ -35,7 +35,6 @@ export class InformacionBecaComponent implements OnInit {
   fecha_fin_estimada: string = '';
 
   constructor(
-    private formBuilder: FormBuilder,
     private solicitudService: SolicitudService,
     private http: HttpClient,
     private mallaCurricularService: MallaCurricularService,

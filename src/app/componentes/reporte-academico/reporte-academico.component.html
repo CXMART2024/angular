@@ -22,7 +22,8 @@
                     </li>
 
                     <li class="nav-item m-4">
-                        <a class="nav-link text-white btn-image-text p-3" href="" routerLink="/informacion">
+                        <a class="nav-link text-white btn-image-text p-3" href=""
+                            [routerLink]="solicitud?.url_doc_contrato ? '/informacion-view' : '/informacion'">
                             <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Form.png" alt="Icon">
                             <span>Información Beca</span>
                         </a>
