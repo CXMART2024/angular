@@ -26,7 +26,13 @@ jobs:
 
       - name: Build Angular app
         run: npm run build
-    
+
+      - name: List directory after build
+        run: ls -R dist/
+
+      - name: Move staticwebapp.config.json
+        run: cp staticwebapp.config.json dist/becas-form-main/browser/
+
       - name: List directory after build
         run: ls -R dist/
 
@@ -50,6 +56,7 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           app_location: "/"
-          output_location: "browser"  # Coincide con la ruta descargada
+          output_location: "/dist/becas-form-main/browser/"
+          config_file_location: "./"
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           deployment_action: "upload"
