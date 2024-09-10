@@ -7,7 +7,7 @@ import { Pago } from '../../modelos/pago';
 })
 export class PagoService {
 
-  private apiUrl = 'http://localhost:3000/pago';
+  private apiUrl = 'https://backendbecas.azurewebsites.net/pago';
 
 
   constructor(private http: HttpClient) { }

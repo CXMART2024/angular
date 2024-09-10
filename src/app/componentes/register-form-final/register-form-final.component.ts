@@ -68,10 +68,10 @@ export class RegisterFormFinalComponent implements OnInit {
 
     //Lista de solicitudes HTTP para subir archivos
     const cargaArchivos = [
-      this.http.post('http://localhost:3000/upload', this.url_evidencia),
-      this.http.post('http://localhost:3000/upload', this.url_dni),
-      this.http.post('http://localhost:3000/upload', this.url_certificado),
-      this.http.post('http://localhost:3000/upload', this.url_comprobante)
+      this.http.post('https://backendbecas.azurewebsites.net/upload', this.url_evidencia),
+      this.http.post('https://backendbecas.azurewebsites.net/upload', this.url_dni),
+      this.http.post('https://backendbecas.azurewebsites.net/upload', this.url_certificado),
+      this.http.post('https://backendbecas.azurewebsites.net/upload', this.url_comprobante)
     ]
 
     forkJoin(cargaArchivos).subscribe({
@@ -85,7 +85,7 @@ export class RegisterFormFinalComponent implements OnInit {
         console.log(this.formData);
 
 
-        this.http.post('http://localhost:3000/solicitudes/upsert', this.formData).subscribe({
+        this.http.post('https://backendbecas.azurewebsites.net/solicitudes/upsert', this.formData).subscribe({
           next: (response: any) => {
             if (response.value == '0') {
               alert(response.message);

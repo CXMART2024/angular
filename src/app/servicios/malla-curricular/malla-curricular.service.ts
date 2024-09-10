@@ -12,7 +12,7 @@ export class MallaCurricularService {
 
   private cursoMallaArray: CursoMalla[] = [];
 
-  private apiUrl = 'http://localhost:3000/malla';
+  private apiUrl = 'https://backendbecas.azurewebsites.net/malla';
 
   constructor(private http: HttpClient) { }
 

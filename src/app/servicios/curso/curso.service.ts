@@ -7,7 +7,7 @@ import { Curso } from '../../modelos/curso';
 })
 export class CursoService {
 
-  private apiUrl = 'http://localhost:3000/registro/curso';
+  private apiUrl = 'https://backendbecas.azurewebsites.net/registro/curso';
 
   constructor(private http: HttpClient) { 
   }

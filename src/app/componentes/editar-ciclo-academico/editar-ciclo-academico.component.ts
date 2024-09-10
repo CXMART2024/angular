@@ -163,7 +163,7 @@ export class EditarCicloAcademicoComponent implements OnInit {
 
   guardarCiclo(): void {
     const cargaArchivos = [
-      this.http.post('http://localhost:3000/upload', this.url),
+      this.http.post('https://backendbecas.azurewebsites.net/upload', this.url),
     ];
 
     forkJoin(cargaArchivos).subscribe({

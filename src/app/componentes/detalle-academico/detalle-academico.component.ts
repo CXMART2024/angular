@@ -228,7 +228,7 @@ export class DetalleAcademicoComponent implements OnInit {
       const cargaArchivos: Observable<any>[] = [];
   
       if (this.id_documento_evidencia.has('file')) {
-        cargaArchivos.push(this.http.post('http://localhost:3000/upload', this.id_documento_evidencia));
+        cargaArchivos.push(this.http.post('https://backendbecas.azurewebsites.net/upload', this.id_documento_evidencia));
       }
   
       forkJoin(cargaArchivos).subscribe({
@@ -272,7 +272,7 @@ export class DetalleAcademicoComponent implements OnInit {
     const cursoUpdateRequests: Observable<any>[] = [];
 
     if (this.id_documento_evidencia.has('file')) {
-      cargaArchivos.push(this.http.post('http://localhost:3000/upload', this.id_documento_evidencia));
+      cargaArchivos.push(this.http.post('https://backendbecas.azurewebsites.net/upload', this.id_documento_evidencia));
     }
 
 

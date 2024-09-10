@@ -89,15 +89,15 @@ export class InformacionBecaComponent implements OnInit {
     const cargaArchivos: Observable<any>[] = [];
 
     if (this.url_foto_estudiante.has('file')) {
-      cargaArchivos.push(this.http.post('http://localhost:3000/upload', this.url_foto_estudiante));
+      cargaArchivos.push(this.http.post('https://backendbecas.azurewebsites.net/upload', this.url_foto_estudiante));
     }
 
     if (this.id_malla_curricular.has('file')) {
-      cargaArchivos.push(this.http.post('http://localhost:3000/upload', this.id_malla_curricular));
+      cargaArchivos.push(this.http.post('https://backendbecas.azurewebsites.net/upload', this.id_malla_curricular));
     }
 
     if (this.url_doc_contrato.has('file')) {
-      cargaArchivos.push(this.http.post('http://localhost:3000/upload', this.url_doc_contrato));
+      cargaArchivos.push(this.http.post('https://backendbecas.azurewebsites.net/upload', this.url_doc_contrato));
     }
 
     if (cargaArchivos.length > 0) {

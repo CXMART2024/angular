@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class CicloService {
 
-  private apiUrl = 'http://localhost:3000/registro/ciclo';
+  private apiUrl = 'https://backendbecas.azurewebsites.net/registro/ciclo';
   private selectedCiclo: Ciclo | null = null;
   private readonly STORAGE_KEY = 'selectedCiclo'
 

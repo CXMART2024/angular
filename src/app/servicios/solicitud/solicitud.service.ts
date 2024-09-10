@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class SolicitudService {
 
   private solicitudData: any;
-  private apiUrl = 'http://localhost:3000/solicitudes';
+  private apiUrl = 'https://backendbecas.azurewebsites.net/solicitudes';
   private solicitudDataSubject: BehaviorSubject<any>;
 
   constructor(private http: HttpClient) {
