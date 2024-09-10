@@ -1,45 +1,33 @@
 {
-    "routes": [
-      {
-        "route": "/",
-        "rewrite": "/src/index.html"
-      },
-      {
-        "route": "/login",
-        "rewrite": "/src/index.html"
-      },
-      {
-        "route": "/informacion-beca-view",
-        "rewrite": "/src/index.html"
-      },
-      {
-        "route": "/reporte-academico",
-        "rewrite": "/src/index.html"
-      },
-      {
-        "route": "/detalle-academico",
-        "rewrite": "/src/index.html"
-      },
-      {
-        "route": "/nuevo-ciclo",
-        "rewrite": "/src/index.html"
-      },
-      {
-        "route": "/register-form",
-        "rewrite": "/src/index.html"
-      },
-      {
-        "route": "/register-form-next",
-        "rewrite": "/src/index.html"
-      },
-      {
-        "route": "/register-form-final",
-        "rewrite": "/src/index.html"
-      }
-    ],
-    "navigationFallback": {
-      "rewrite": "/src/index.html",
-      "exclude": ["/assets/*", "/static/*"]
+  "trailingSlash": "auto",
+  "routes": [
+    {
+      "route": "/detalle"
     }
+  ],
+  "navigationFallback": {
+    "rewrite": "index.html",
+    "exclude": ["/images/*.{png,jpg,gif}", "/css/*"]
+  },
+  "responseOverrides": {
+    "400": {
+      "rewrite": "/invalid-invitation-error.html"
+    },
+    "401": {
+      "redirect": "/login",
+      "statusCode": 302
+    },
+    "403": {
+      "rewrite": "/custom-forbidden-page.html"
+    },
+    "404": {
+      "rewrite": "/404.html"
+    }
+  },
+  "globalHeaders": {
+    "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'"
+  },
+  "mimeTypes": {
+    ".json": "text/json"
   }
-  
+}
