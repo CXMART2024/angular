@@ -12,6 +12,7 @@ import { RelacionCiclo } from '../../modelos/relacion-ciclo';
 import { Curso } from '../../modelos/curso';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-detalle-academico',
@@ -47,7 +48,8 @@ export class DetalleAcademicoComponent implements OnInit {
     private cursoAcademico: CursoService,
     private cicloAcademico: CicloService,
     private datePipe: DatePipe,
-    private http: HttpClient
+    private http: HttpClient,
+    private toastr: ToastrService
   ) {
 
   }
@@ -312,8 +314,8 @@ export class DetalleAcademicoComponent implements OnInit {
 
           this.cicloAcademico.updateCiclo(cicloToUpdate).subscribe({
             next: (response: any) => {
-              console.log('Ciclo actualizado correctamente', response);
-
+              console.log('Actualizado correctamente', response);
+              this.toastr.success(`Actualizado correctamente`);
               this.id_documento_evidencia = new FormData();
               this.selectedCicloId = 0;
               this.cdr.detectChanges();
@@ -321,6 +323,7 @@ export class DetalleAcademicoComponent implements OnInit {
             },
             error: (error: any) => {
               console.error('Error al actualizar ciclo', error);
+              this.toastr.error(`Error al actualizar ciclo. Por favor, refresca la página y vuelve a intentarlo.`);
             }
           });
         } else {
@@ -329,6 +332,7 @@ export class DetalleAcademicoComponent implements OnInit {
       },
       error: (error: any) => {
         console.error('Error subiendo archivos o actualizando cursos', error);
+        this.toastr.error(`Error subiendo archivos o actualizando cursos. Por favor, refresca la página y vuelve a intentarlo.`);
       }
     });
   }
