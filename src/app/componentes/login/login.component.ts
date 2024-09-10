@@ -22,7 +22,8 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(private authService: AuthService, private router: Router, private formLogin: FormBuilder, private solicitudService: SolicitudService) {
-    this.siteKey = '6LcZfCsqAAAAAOq1XKb40u3iAqU6etAVZrFu8JEi';
+
+    this.siteKey = '6LcOtz0qAAAAALBGjDY2HBGy9CtpBPAxPR9CsYA3';
   }
 
   ngOnInit() {
