@@ -2,18 +2,15 @@
 
     <div class="row">
 
-        <div class="col-12 col-md-6 d-flex" style="background-color:#F3F3F3;">
-
+        <div class="col" style="background-color:#F3F3F3;">
+            
             <div class="row">
-
                 <div class="col-12">
                     <img class="img-fluid float-end"
                         src="https://blobauroranuevo.blob.core.windows.net/images3d/fxemoji_graduationcap.png" alt="">
                 </div>
 
-
-
-                <div class="col-8 mx-auto">
+                <div class="col-8 col-sm-4 mx-auto">
                     <form [formGroup]="loginFormGroup" (ngSubmit)="onLogin()">
                         <div class="mb-3">
                             <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Group 10.png" alt="">
@@ -40,14 +37,15 @@
                             </div>
                             }
                         </div>
-                    
+
                         <div class="mb-3">
                             <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha">
                             </ngx-recaptcha2>
                         </div>
 
                         <div class="d-grid mb-3">
-                            <button class="btn text-white" style="background-color: #4180C2;" type="submit" (click)="onLogin()">Ingresar</button>
+                            <button class="btn text-white" style="background-color: #4180C2;" type="submit"
+                                (click)="onLogin()" [disabled]="loginFormGroup.invalid">Ingresar</button>
                         </div>
                     </form>
                 </div>
@@ -60,12 +58,10 @@
         </div>
 
 
-        <div class="col-12 col-md-6 g-0">
+        <!--<div class="col-12 col-md-6 g-0">
             <img class="img-fluid w-100" src="https://blobauroranuevo.blob.core.windows.net/images3d/Rectangle 110.png">
-        </div>
+        </div>-->
 
     </div>
 
 </div>
-
-

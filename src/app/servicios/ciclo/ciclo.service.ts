@@ -17,13 +17,15 @@ export class CicloService {
   constructor(
     private http: HttpClient,
     private datePipe: DatePipe,
-  ) { 
+  ) {
   }
 
   //Retornar ciclo
-  getCiclo(id: number) {
-    return this.http.get(`${this.apiUrl}/${id}`);
+
+  getCiclo(id: number): Observable<Ciclo[]> {
+    return this.http.get<Ciclo[]>(`${this.apiUrl}/${id}`);
   }
+ 
 
   //Retornar ciclo por solicitud
   getCiclosBySolicitud(id_solicitud: number) {
@@ -40,10 +42,10 @@ export class CicloService {
   updateCiclo(ciclo: Ciclo) {
     return this.http.put<Ciclo>(`${this.apiUrl}/${ciclo.id}`, ciclo);
   }
- /*
-  updateCiclo(ciclo: Ciclo): Observable<Ciclo> {
-    return this.http.put<Ciclo>(`${this.apiUrl}/${ciclo.id}`, ciclo);
-  }*/
+  /*
+   updateCiclo(ciclo: Ciclo): Observable<Ciclo> {
+     return this.http.put<Ciclo>(`${this.apiUrl}/${ciclo.id}`, ciclo);
+   }*/
 
   //Eliminar ciclo
   deleteCiclo(id: number) {
@@ -60,7 +62,7 @@ export class CicloService {
 
   //obtener ciclo seleccionado
   getSelectedCiclo(): Ciclo | null {
-    if(this.selectedCiclo) return this.selectedCiclo;
+    if (this.selectedCiclo) return this.selectedCiclo;
 
     const cicloData = localStorage.getItem(this.STORAGE_KEY);
     if (cicloData) {
@@ -78,7 +80,7 @@ export class CicloService {
   }
 
   //Formatear fecha
-  formatDate(date: Date): string  {
+  formatDate(date: Date): string {
     return this.datePipe.transform(date, 'yyyy-MM-dd') ?? '';
   }
 }

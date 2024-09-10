@@ -26,8 +26,10 @@ export class DetalleAcademicoComponent implements OnInit {
   solicitud: any;
   isChecked: boolean = false;
   listCiclo: Array<Ciclo> = [];
+  cicloData: Ciclo | null = null;
   listCurso: Array<Curso> = [];
   selectedCicloId: number = 0;
+  promedio: number = 0
   cicloCursoRelacion?: RelacionCiclo[];
   id_documento_evidencia = new FormData();
   formUpdateLogin = this.formBuilder.group({
@@ -68,12 +70,14 @@ export class DetalleAcademicoComponent implements OnInit {
               console.error('Error obteniendo ciclos:', error);
             },
           });
+
       }
       if (this.solicitud.contratoBecario == '0') {
         this.showModal();
       }
 
     });
+
     this.cdr.detectChanges();
   }
 
@@ -213,24 +217,33 @@ export class DetalleAcademicoComponent implements OnInit {
 
   obtenerCursosDeCiclo(ciclo: any) {
     this.selectedCicloId = ciclo.target.value;
+
     this.cursoAcademico.getCursoByCiclo(this.selectedCicloId).subscribe({
       next: (listCurso: Array<Curso>) => {
         this.listCurso = listCurso;
+
+        this.promedio = this.sumarPromedio();
+
+        console.log('Promedio Calculado:', this.promedio);
+
       },
       error: (error) => {
         console.error('Error obteniendo cursos:', error);
       },
     });
+
+    this.getDataCiclo();
   }
+
 
   /*
     updateInformacionBecario() {
       const cargaArchivos: Observable<any>[] = [];
-  
+   
       if (this.id_documento_evidencia.has('file')) {
         cargaArchivos.push(this.http.post('https://backendbecas.azurewebsites.net/upload', this.id_documento_evidencia));
       }
-  
+   
       forkJoin(cargaArchivos).subscribe({
         next: (responses: any[]) => {
           let fileUrl = '';
@@ -239,16 +252,16 @@ export class DetalleAcademicoComponent implements OnInit {
               fileUrl = responses[0].url;
             }
           }
-  
+   
           const selectedId = +this.selectedCicloId;
-  
+   
           const cicloToUpdate = this.listCiclo.find(ciclo => ciclo.id === selectedId);
           if (cicloToUpdate) {
             cicloToUpdate.id_documento_evidencia = fileUrl;
-  
+   
             this.cicloAcademico.updateCiclo(cicloToUpdate).subscribe({
               next: (response: any) => {
-  
+   
                 console.log('Ciclo actualizado correctamente', response);
                 this.id_documento_evidencia = new FormData();
                 this.selectedCicloId = 0;
@@ -274,7 +287,6 @@ export class DetalleAcademicoComponent implements OnInit {
     if (this.id_documento_evidencia.has('file')) {
       cargaArchivos.push(this.http.post('https://backendbecas.azurewebsites.net/upload', this.id_documento_evidencia));
     }
-
 
     this.listCurso.forEach(curso => {
       if (curso.nota) {
@@ -305,6 +317,7 @@ export class DetalleAcademicoComponent implements OnInit {
               this.id_documento_evidencia = new FormData();
               this.selectedCicloId = 0;
               this.cdr.detectChanges();
+
             },
             error: (error: any) => {
               console.error('Error al actualizar ciclo', error);
@@ -320,6 +333,37 @@ export class DetalleAcademicoComponent implements OnInit {
     });
   }
 
+  contarCursos(): number {
+    return this.listCurso.length;
+  }
+
+  sumarCredito(): number {
+    return this.listCurso.reduce((total, curso) => total + curso.creditos, 0);
+  }
+
+  sumarPromedio(): number {
+    if (this.listCurso.length === 0) return 0;
+    const totalNotas = this.listCurso.reduce((total, curso) => total + (curso.nota || 0), 0);
+    const promedio = totalNotas / this.listCurso.length;
+    //console.log(`Total Notas: ${totalNotas}, Promedio: ${promedio}`);
+    return parseFloat(promedio.toFixed(2));
+  }
+
+  getDataCiclo(): void {
+    this.cicloAcademico.getCiclo(this.selectedCicloId).subscribe({
+      next: (cicloDetails: Ciclo[]) => {
+        if (cicloDetails.length > 0) {
+          this.cicloData = cicloDetails[0];
+        } else {
+          this.cicloData = null;
+        }
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Error obteniendo ciclo:', error);
+      }
+    });
+  }
 
 
 }
