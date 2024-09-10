@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.dni, this.clave).subscribe({
       next: (response: any) => {
         console.log('Login successful');
-        this.toastr.success('Ingreso exitosamente');
+        this.toastr.success('Ingreso Exitosamente');
         this.solicitudService.getSolicitudData().subscribe({
           next: (solicitud: any) => {
             if (solicitud && solicitud.url_doc_contrato) {

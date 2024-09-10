@@ -127,14 +127,13 @@ export class DetalleAcademicoComponent implements OnInit {
     this.authService.actualizarClave(dni, antiguaClave, nuevaClave).subscribe({
       next: (response: any) => {
         console.log('Clave actualizada correctamente', response);
-
+        this.toastr.success(`Clave actualizada correctamente`);
       },
       error: (error: any) => {
         console.error('Error actualizando clave', error);
         console.log('---');
         console.log(error.error.message);
-
-
+        this.toastr.error(`Error actualizando clave. Por favor, refresca la página y vuelve a intentarlo.`);
       }
     });
   }
@@ -315,7 +314,7 @@ export class DetalleAcademicoComponent implements OnInit {
           this.cicloAcademico.updateCiclo(cicloToUpdate).subscribe({
             next: (response: any) => {
               console.log('Actualizado correctamente', response);
-              this.toastr.success(`Actualizado correctamente`);
+              this.toastr.success(`Actualizado Correctamente`);
               this.id_documento_evidencia = new FormData();
               this.selectedCicloId = 0;
               this.cdr.detectChanges();
@@ -328,6 +327,7 @@ export class DetalleAcademicoComponent implements OnInit {
           });
         } else {
           console.error('Ciclo no encontrado para actualizar');
+          this.toastr.error(`Error al actualizar ciclo. Por favor, refresca la página y vuelve a intentarlo.`);
         }
       },
       error: (error: any) => {
