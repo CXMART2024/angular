@@ -80,6 +80,7 @@ export class InformacionBecaViewComponent implements OnInit {
     this.cicloService.getCiclosBySolicitud(this.solicitud.id).subscribe({
       next: (listCiclo: Array<Ciclo>) => {
         this.listCiclos = listCiclo;
+        this.viewRegistrarCiclo();
         this.listCiclos.forEach((ciclo) => {
           try {
             this.cursoService.getCursoByCiclo(ciclo.id).subscribe({
