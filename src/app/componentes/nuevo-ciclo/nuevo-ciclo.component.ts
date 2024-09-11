@@ -4,6 +4,7 @@ import { CursoMalla } from '../../modelos/curso-malla';
 import { MallaCurricularService } from '../../servicios/malla-curricular/malla-curricular.service';
 import { SolicitudService } from '../../servicios/solicitud/solicitud.service';
 import { CicloMalla } from '../../modelos/ciclo-malla';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nuevo-ciclo',
@@ -20,7 +21,7 @@ export class NuevoCicloComponent implements OnInit {
 
 
 
-  constructor(private cursoMallaService: MallaCurricularService, private solicitudService: SolicitudService, private cdr: ChangeDetectorRef) {
+  constructor(private cursoMallaService: MallaCurricularService, private solicitudService: SolicitudService, private cdr: ChangeDetectorRef,  private toastr: ToastrService) {
 
   }
 
@@ -93,20 +94,25 @@ export class NuevoCicloComponent implements OnInit {
                 this.cursoMallaService.clearCursoMallasTemporal();
                 this.nombre = '';
                 this.cdr.detectChanges();
+                this.toastr.success(`Se actualizó correctamente.`);
               })
               .catch(error => {
                 console.error('Error saving CursoMalla records:', error);
+                this.toastr.error(`Error creando el ciclo. Por favor, refresca la página y vuelve a intentarlo.`);
               });
           } else {
             console.error('Created CicloMalla does not have a valid ID.');
+            this.toastr.error(`Error creando el ciclo. Por favor, refresca la página y vuelve a intentarlo.`);
           }
         },
         error => {
           console.error('Error creating CicloMalla:', error);
+          this.toastr.error(`Error creando el ciclo. Por favor, refresca la página y vuelve a intentarlo.`);
         }
       );
     } else {
       console.error('Solicitud not found.');
+      this.toastr.error(`Error creando el ciclo. Por favor, refresca la página y vuelve a intentarlo.`);
     }
   }
 
