@@ -71,13 +71,11 @@ export class InformacionBecaComponent implements OnInit {
 
 
   showModal() {
-    // Wait for the DOM to be ready
     setTimeout(() => {
-      // Ensure the global `window` object has access to Bootstrap's modal
       const modalElement = document.getElementById('contrato_becario');
       if (modalElement && (window as any).bootstrap) {
         const modal = new (window as any).bootstrap.Modal(modalElement);
-        modal.show(); // Show the modal automatically
+        modal.show(); 
       }
     }, 0);
   }
@@ -278,19 +276,16 @@ export class InformacionBecaComponent implements OnInit {
     return this.mallaCurricularService.clearCursoMallasTemporal();
   }
 
+
   aceptarContrato(solicitudData: any) {
     solicitudData.contratoBecario = '1';
     console.log(solicitudData);
     this.solicitudService.updateSolicitud(solicitudData).subscribe({
       next: (response: any) => {
         console.log(response);
-        const modalElement = document.getElementById('contrato_becario');
-        if (modalElement && (window as any).bootstrap) {
-          const modal = new (window as any).bootstrap.Modal(modalElement);
-          modal.hide(); // Hide the modal
-        }
+
       }
-    })
+    });
   }
 
 

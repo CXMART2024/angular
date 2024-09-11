@@ -13,7 +13,7 @@
                     </li>
 
                     <li class="nav-item m-4">
-                        <a class="nav-link text-white btn-image-text p-3" href="" routerLink="/detalle">
+                        <a class="nav-link text-white btn-image-text p-3" routerLink="/detalle">
                             <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Question Circle.png"
                                 alt="Icon">
                             <span>Detalle Académico</span>
@@ -22,14 +22,14 @@
 
                     <li class="nav-item m-4">
                         <a class="nav-link text-white btn-image-text active p-3"
-                            style="background-color:rgba(255, 255, 255, 0.2);" href="" routerLink="/informacion">
+                            style="background-color:rgba(255, 255, 255, 0.2);" routerLink="/informacion">
                             <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Form.png" alt="Icon">
                             <span><strong>Información Beca</strong></span>
                         </a>
                     </li>
 
                     <li class="nav-item m-4">
-                        <a class="nav-link text-white btn-image-text p-3" href="#" routerLink="/reporte-academico">
+                        <a class="nav-link text-white btn-image-text p-3" routerLink="/reporte-academico">
                             <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Data Trending (1).png"
                                 alt="Icon">
                             <span>Reporte Rendimiento</span>
@@ -294,8 +294,8 @@
     </div>
 </div>
 
-<div class="modal" id="contrato_becario" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true" data-bs-backdrop="static">
+<div class="modal fade" id="contrato_becario" data-bs-backdrop="false" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -321,7 +321,7 @@
                         </div>
                     </div>
                     <div class="col-12 mb-2 d-grid">
-                        <button class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!isChecked"
+                        <button class="btn btn-primary" [disabled]="!isChecked" data-bs-dismiss="modal"
                             (click)="aceptarContrato(solicitud)">Empezar a usar
                             la Intranet</button>
                     </div>
