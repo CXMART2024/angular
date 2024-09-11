@@ -23,6 +23,8 @@ export class InformacionBecaViewComponent implements OnInit {
   numCursosMap = new Map<number, number>();
   mallaCurricular: any[] = [];
 
+  registrarCicloBool : boolean = true;
+
   constructor(
     private solicitudService: SolicitudService,
     private mallaService: MallaCurricularService,
@@ -101,8 +103,8 @@ export class InformacionBecaViewComponent implements OnInit {
   }
 
 
-  viewRegistrarCiclo(): boolean {
-    return (
+  viewRegistrarCiclo(): void {
+    this.registrarCicloBool =(
       this.listCiclos.filter((ciclo) => ciclo.estado == 'En Proceso').length == 0 
       && this.solicitud.MallaEstado == 'Aprobado'
     );
