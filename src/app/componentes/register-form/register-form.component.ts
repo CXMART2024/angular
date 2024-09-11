@@ -246,7 +246,7 @@ export class RegisterFormComponent {
       return;
     }
 
-    this.http.get(`http://localhost:3000/solicitudes/dni/${bydni}`).subscribe({
+    this.http.get(`https://backendbecas.azurewebsites.net/solicitudes/dni/${bydni}`).subscribe({
 
       next: (response: any) => {
 
