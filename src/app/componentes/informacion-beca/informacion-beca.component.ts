@@ -51,7 +51,7 @@ export class InformacionBecaComponent implements OnInit {
     this.solicitudService.getSolicitudData().subscribe(data => {
       this.solicitud = data;
       if (this.solicitud) {
-        this.editMallaCurricular = (this.solicitud.MallaEstado=='No Cargado' || this.solicitud.MallaEstado=='Observado');
+        this.editMallaCurricular = (this.solicitud.MallaEstado == 'No Cargado' || this.solicitud.MallaEstado == 'Observado');
         this.nombre_completo = this.solicitud.nombre_completo;
         this.dni = this.solicitud.dni;
         this.institucion_nombre = this.solicitud.institucion_nombre;
@@ -67,6 +67,25 @@ export class InformacionBecaComponent implements OnInit {
     });
     this.cdr.detectChanges();
 
+  }
+
+
+  showModal() {
+    // Wait for the DOM to be ready
+    setTimeout(() => {
+      // Ensure the global `window` object has access to Bootstrap's modal
+      const modalElement = document.getElementById('contrato_becario');
+      if (modalElement && (window as any).bootstrap) {
+        const modal = new (window as any).bootstrap.Modal(modalElement);
+        modal.show(); // Show the modal automatically
+      }
+    }, 0);
+  }
+
+  // Method to update checkbox status
+  onCheckboxChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.isChecked = input.checked;
   }
 
   onFileChange_url_foto_estudiante(event: Event) {
@@ -269,22 +288,6 @@ export class InformacionBecaComponent implements OnInit {
     })
   }
 
-  showModal() {
-    // Wait for the DOM to be ready
-    setTimeout(() => {
-      // Ensure the global `window` object has access to Bootstrap's modal
-      const modalElement = document.getElementById('contrato_becario');
-      if (modalElement && (window as any).bootstrap) {
-        const modal = new (window as any).bootstrap.Modal(modalElement);
-        modal.show(); // Show the modal automatically
-      }
-    }, 0);
-  }
 
-  // Method to update checkbox status
-  onCheckboxChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    this.isChecked = input.checked;
-  }
 }
 

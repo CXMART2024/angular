@@ -177,7 +177,8 @@
                             <div class="col-7">
                                 <h6 class="mt-2 mb-2"><strong>Ciclos Malla Curricular</strong></h6>
                             </div>
-                            <div *ngIf="editMallaCurricular" class="col-5 d-flex justify-content-end"><button class="btn text-primary"
+                            <div *ngIf="editMallaCurricular" class="col-5 d-flex justify-content-end"><button
+                                    class="btn text-primary"
                                     style="background-color: #ECF2F9;border: #4180C2 solid 1px;" type="button"
                                     routerLink="/addmodulo" (click)="clearData()">Nuevo Ciclo</button></div>
                         </div>
@@ -193,10 +194,12 @@
                                                 <th class="align-middle" style="background-color: #ECF2F9;">
                                                     <div class="d-flex justify-content-center align-items-center">
                                                         <span class="me-5">{{ciclo.ciclo.nombre}}</span>
-                                                        <button *ngIf="editMallaCurricular" class="btn btn-outline-info btn-sm me-2"
+                                                        <button *ngIf="editMallaCurricular"
+                                                            class="btn btn-outline-info btn-sm me-2"
                                                             (click)="selectCiclo(ciclo.ciclo.id)"><i
                                                                 class="bi bi-pencil-fill"></i></button>
-                                                        <button *ngIf="editMallaCurricular" class="btn btn-outline-danger btn-sm"
+                                                        <button *ngIf="editMallaCurricular"
+                                                            class="btn btn-outline-danger btn-sm"
                                                             (click)="deleteCicloAll(ciclo.ciclo)"><i
                                                                 class="bi bi-trash3"></i></button>
 
@@ -289,41 +292,42 @@
 
         </div>
     </div>
+</div>
 
-    <div class="modal fade" id="contrato_becario" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true" data-bs-backdrop="static">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Contrato de Becario</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="embed-responsive">
-                        <iframe class="embed-responsive-item"
-                            src="https://blobauroranuevo.blob.core.windows.net/images3d/Contrato_Aceptacion_Beca.pdf"
-                            width="100%" height="600px"></iframe>
-                    </div>
-                </div>
-                <div class="modal-footer mx-auto">
-                    <div class="row">
-                        <div class="col-12 mb-3 d-flex justify-content-center ">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="contrato" id="contrato"
-                                    (change)="onCheckboxChange($event)">
-                                <label class="form-check-label" for="contrato"
-                                    style="font-size: larger; margin-left: 5px;">Acepto todos los términos de la
-                                    fundación y
-                                    me comprometo a cumplir todo lo estipulado.</label>
-                            </div>
-                        </div>
-                        <div class="col-12 mb-2 d-grid">
-                            <button class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!isChecked"
-                                (click)="aceptarContrato(solicitud)">Empezar a usar
-                                la Intranet</button>
-                        </div>
-                    </div>
-                </div>
-
+<div class="modal fade" id="contrato_becario" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Contrato de Becario</h5>
             </div>
+            <div class="modal-body">
+                <div class="embed-responsive">
+                    <iframe class="embed-responsive-item"
+                        src="https://blobauroranuevo.blob.core.windows.net/images3d/Contrato_Aceptacion_Beca.pdf"
+                        width="100%" height="600px"></iframe>
+                </div>
+            </div>
+            <div class="modal-footer mx-auto">
+                <div class="row">
+                    <div class="col-12 mb-3 d-flex justify-content-center ">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="contrato" id="contrato"
+                                (change)="onCheckboxChange($event)">
+                            <label class="form-check-label" for="contrato"
+                                style="font-size: larger; margin-left: 5px;">Acepto todos los términos de la
+                                fundación y
+                                me comprometo a cumplir todo lo estipulado.</label>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-2 d-grid">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!isChecked"
+                            (click)="aceptarContrato(solicitud)">Empezar a usar
+                            la Intranet</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
+</div>
