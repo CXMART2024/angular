@@ -58,12 +58,14 @@ export class InformacionBecaComponent implements OnInit {
         this.fecha_inicio = this.formatDateForInput(this.solicitud.fecha_inicio);
         this.fecha_fin_estimada = this.formatDateForInput(this.solicitud.fecha_fin_estimada);
         this.getMallaCiclos();
+
+        if (this.solicitud.contratoBecario == '0') {
+          this.showModal();
+        }
       } else {
         console.error('Solicitud data is not available');
       }
-      if (this.solicitud.contratoBecario == '0') {
-        this.showModal();
-      }
+
     });
     this.cdr.detectChanges();
 
@@ -74,7 +76,7 @@ export class InformacionBecaComponent implements OnInit {
     const modalElement = document.getElementById('contrato_becario');
     if (modalElement && (window as any).bootstrap) {
       const modal = new (window as any).bootstrap.Modal(modalElement, {
-        backdrop: false,
+        backdrop: 'static',
         keyboard: false
       });
       modal.show();
