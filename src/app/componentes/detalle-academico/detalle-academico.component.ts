@@ -25,7 +25,7 @@ export class DetalleAcademicoComponent implements OnInit {
 
 
   solicitud: any;
-  isChecked: boolean = false;
+  //isChecked: boolean = false;
   listCiclo: Array<Ciclo> = [];
   cicloData: Ciclo | null = null;
   listCurso: Array<Curso> = [];
@@ -74,15 +74,17 @@ export class DetalleAcademicoComponent implements OnInit {
           });
 
       }
-      if (this.solicitud.contratoBecario == '0') {
+      /*if (this.solicitud.contratoBecario == '0') {
         this.showModal();
-      }
+      }*/
 
     });
 
     this.cdr.detectChanges();
   }
 
+
+  /*
   showModal() {
     // Wait for the DOM to be ready
     setTimeout(() => {
@@ -94,26 +96,26 @@ export class DetalleAcademicoComponent implements OnInit {
       }
     }, 0);
   }
-
   // Method to update checkbox status
   onCheckboxChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.isChecked = input.checked;
   }
+  aceptarContrato(solicitudData: any) {
+    solicitudData.contratoBecario = '1';
+
+    this.solicitudService.updateSolicitud(solicitudData).subscribe({
+      next: (response: any) => {
+
+      }
+    })
+  }
+*/
+
 
 
   logout() {
     this.authService.logout()
-  }
-
-  aceptarContrato(solicitudData: any) {
-    solicitudData.contratoBecario = '1';
-    
-    this.solicitudService.updateSolicitud(solicitudData).subscribe({
-      next: (response: any) => {
-        
-      }
-    })
   }
 
   /*Resetear los controles al actualizar*/
@@ -180,7 +182,7 @@ export class DetalleAcademicoComponent implements OnInit {
 
         this.promedio = this.sumarPromedio();
 
-        
+
 
       },
       error: (error) => {
@@ -223,7 +225,7 @@ export class DetalleAcademicoComponent implements OnInit {
 
           this.cicloAcademico.updateCiclo(cicloToUpdate).subscribe({
             next: (response: any) => {
-              
+
               this.toastr.success(`Se actualizó correctamente.`);
               this.id_documento_evidencia = new FormData();
               this.selectedCicloId = 0;
