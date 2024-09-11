@@ -245,5 +245,9 @@ export class InformacionBecaComponent implements OnInit {
       console.error('No Ciclo ID selected');
     }
   }
+
+  clearData() {
+    return this.mallaCurricularService.clearCursoMallasTemporal();
+  }
 }
 

@@ -227,7 +227,7 @@ export class DetalleAcademicoComponent implements OnInit {
 
           this.cicloAcademico.updateCiclo(cicloToUpdate).subscribe({
             next: (response: any) => {
-              console.log('Actualizado correctamente', response);
+              console.log('Actualizado correctamente.', response);
               this.toastr.success(`Se actualizó correctamente.`);
               this.id_documento_evidencia = new FormData();
               this.selectedCicloId = 0;
