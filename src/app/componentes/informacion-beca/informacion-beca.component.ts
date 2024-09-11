@@ -11,6 +11,7 @@ import { CursoMalla } from '../../modelos/curso-malla';
 import { RelacionMalla } from '../../modelos/relacion-malla';
 import { Ciclo } from '../../modelos/ciclo';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -41,7 +42,8 @@ export class InformacionBecaComponent implements OnInit {
     private http: HttpClient,
     private mallaCurricularService: MallaCurricularService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -125,15 +127,19 @@ export class InformacionBecaComponent implements OnInit {
           this.solicitudService.updateSolicitud(this.solicitud).subscribe({
             next: (response: any) => {
               console.log('Se actualizó correctamente', response);
+              this.toastr.success(`Se actualizó correctamente.`);
               this.cdr.detectChanges();
             },
             error: (error: any) => {
               console.error('Error al actualizar información', error);
+              this.toastr.error(`Error al actualizar información. Por favor, refresca la página y vuelve a intentarlo.`);
             }
           });
         },
         error: (error) => {
           console.error('Error subiendo archivos', error);
+          this.toastr.error(`Error subiendo archivos. Por favor, refresca la página y vuelve a intentarlo.`);
+
         }
       });
     } else {
@@ -143,10 +149,12 @@ export class InformacionBecaComponent implements OnInit {
       this.solicitudService.updateSolicitud(this.solicitud).subscribe({
         next: (response: any) => {
           console.log('Se actualizó correctamente', response);
+          this.toastr.success(`Se actualizó correctamente.`);
           this.cdr.detectChanges();
         },
         error: (error: any) => {
           console.error('Error al actualizar información', error);
+          this.toastr.error(`Error al actualizar información. Por favor, refresca la página y vuelve a intentarlo.`);
         }
       });
     }
@@ -158,6 +166,7 @@ export class InformacionBecaComponent implements OnInit {
       this.updateInformacionBecario();
     } else {
       console.log('Formulario invalido');
+      this.toastr.error(`Por favor, selecciona una fecha de inicio y una fecha estimada.`);
     }
   }
 
@@ -169,7 +178,7 @@ export class InformacionBecaComponent implements OnInit {
     if (this.solicitud && this.solicitud.id) {
       this.mallaCurricularService.getCiclosMallaBySolicitud(this.solicitud.id).subscribe({
         next: (ciclos: CicloMalla[]) => {
-          console.log('Ciclos received:', ciclos);
+          //console.log('Ciclos received:', ciclos);
           this.ciclosMallaLista = ciclos;
           this.fetchCursosForCiclos(ciclos);
         },
@@ -196,7 +205,7 @@ export class InformacionBecaComponent implements OnInit {
     forkJoin(cursoRequests).subscribe({
       next: (cicloCursoPairs: RelacionMalla[]) => {
         this.cicloCursoRelacion = cicloCursoPairs;
-        console.log('Ciclos and Cursos recibidos:', cicloCursoPairs);
+        //console.log('Ciclos and Cursos recibidos:', cicloCursoPairs);
       },
       error: (error) => {
         console.error('Error fetching cursos', error);
@@ -239,6 +248,10 @@ export class InformacionBecaComponent implements OnInit {
     } else {
       console.error('No Ciclo ID selected');
     }
+  }
+
+  clearData() {
+    return this.mallaCurricularService.clearCursoMallasTemporal();
   }
 }
 

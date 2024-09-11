@@ -116,6 +116,7 @@ export class DetalleAcademicoComponent implements OnInit {
     })
   }
 
+  /*Resetear los controles al actualizar*/
   updateLogin() {
 
     const dni: string = this.formUpdateLogin.get('dni')?.value as string;
@@ -123,63 +124,21 @@ export class DetalleAcademicoComponent implements OnInit {
     const nuevaClave: string = this.formUpdateLogin.get('nuevaClave')?.value as string;
 
 
-
     this.authService.actualizarClave(dni, antiguaClave, nuevaClave).subscribe({
       next: (response: any) => {
+        this.formUpdateLogin.reset();
         console.log('Clave actualizada correctamente', response);
-        this.toastr.success(`Clave actualizada correctamente`);
+        this.toastr.success(`Se actualizó correctamente.`);
       },
       error: (error: any) => {
         console.error('Error actualizando clave', error);
         console.log('---');
         console.log(error.error.message);
+        this.formUpdateLogin.reset();
         this.toastr.error(`Error actualizando clave. Por favor, refresca la página y vuelve a intentarlo.`);
       }
     });
   }
-
-  /*
-  getAllCiclosAcademicos(): void {
-    if (this.solicitud && this.solicitud.id) {
-      this.cicloAcademico.getCiclosBySolicitud(this.solicitud.id).subscribe({
-        next: (ciclos: Array<Ciclo>) => {
-          this.ciclosAcademicos = ciclos;
-
-          this.fetchCursosForCiclos(ciclos);
-
-
-          console.log('Ciclos academicos recibidos y formateados exitosamente', this.ciclosAcademicos);
-        },
-        error: (error) => {
-          console.error('Error al obtener ciclos academicos', error);
-        }
-      });
-    } else {
-      console.error('Solicitud ID no disponible');
-    }
-  }
-
-  fetchCursosForCiclos(ciclos: Ciclo[]) {
-    if (ciclos.length === 0) {
-      return;
-    }
-
-    const cursoRequests = ciclos.map(ciclo =>
-      this.cursoAcademico.getCursoByCiclo(ciclo.id).pipe(
-        map(cursos => ({ ciclo, cursos }))
-      )
-    );
-
-    forkJoin(cursoRequests).subscribe({
-      next: (cicloCursoPairs: RelacionCiclo[]) => {
-        this.cicloCursoRelacion = cicloCursoPairs;
-        console.log('Ciclos y Cursos recibidos:', cicloCursoPairs);
-      },
-      error: (error) => {
-        console.error('Error fetching cursos', error);
-      }
-    });
-  }*/
 
 
   formatDate(date: Date | null): string {
@@ -236,51 +195,6 @@ export class DetalleAcademicoComponent implements OnInit {
     this.getDataCiclo();
   }
 
-
-  /*
-    updateInformacionBecario() {
-      const cargaArchivos: Observable<any>[] = [];
-   
-      if (this.id_documento_evidencia.has('file')) {
-        cargaArchivos.push(this.http.post('https://backendbecas.azurewebsites.net/upload', this.id_documento_evidencia));
-      }
-   
-      forkJoin(cargaArchivos).subscribe({
-        next: (responses: any[]) => {
-          let fileUrl = '';
-          if (responses.length > 0) {
-            if (this.id_documento_evidencia.has('file')) {
-              fileUrl = responses[0].url;
-            }
-          }
-   
-          const selectedId = +this.selectedCicloId;
-   
-          const cicloToUpdate = this.listCiclo.find(ciclo => ciclo.id === selectedId);
-          if (cicloToUpdate) {
-            cicloToUpdate.id_documento_evidencia = fileUrl;
-   
-            this.cicloAcademico.updateCiclo(cicloToUpdate).subscribe({
-              next: (response: any) => {
-   
-                console.log('Ciclo actualizado correctamente', response);
-                this.id_documento_evidencia = new FormData();
-                this.selectedCicloId = 0;
-                this.cdr.detectChanges();
-              },
-              error: (error: any) => {
-                console.error('Error al actualizar ciclo', error);
-              }
-            });
-          } else {
-            console.error('Ciclo no encontrado para actualizar');
-          }
-        },
-        error: (error: any) => {
-          console.error('Error subiendo archivos', error);
-        }
-      });
-    }*/
   updateInformacionBecario() {
     const cargaArchivos: Observable<any>[] = [];
     const cursoUpdateRequests: Observable<any>[] = [];
@@ -313,8 +227,8 @@ export class DetalleAcademicoComponent implements OnInit {
 
           this.cicloAcademico.updateCiclo(cicloToUpdate).subscribe({
             next: (response: any) => {
-              console.log('Actualizado correctamente', response);
-              this.toastr.success(`Actualizado Correctamente`);
+              console.log('Actualizado correctamente.', response);
+              this.toastr.success(`Se actualizó correctamente.`);
               this.id_documento_evidencia = new FormData();
               this.selectedCicloId = 0;
               this.cdr.detectChanges();

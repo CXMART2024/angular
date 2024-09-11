@@ -148,7 +148,7 @@
                             <div class="d-flex justify-content-center mb-4">
                                 <img id="selectedAvatar"
                                     src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
-                                    class="rounded-circle" style="width: 200px; height: 200px; object-fit: cover;"
+                                    class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;"
                                     alt="example placeholder" />
 
                             </div>
@@ -179,7 +179,7 @@
                             </div>
                             <div *ngIf="editMallaCurricular" class="col-5 d-flex justify-content-end"><button class="btn text-primary"
                                     style="background-color: #ECF2F9;border: #4180C2 solid 1px;" type="button"
-                                    routerLink="/addmodulo">Nuevo Ciclo</button></div>
+                                    routerLink="/addmodulo" (click)="clearData()">Nuevo Ciclo</button></div>
                         </div>
                     </div>
                     <div class="card-body">

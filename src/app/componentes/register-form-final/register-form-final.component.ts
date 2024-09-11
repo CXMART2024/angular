@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { catchError } from 'rxjs';
 import { of } from 'rxjs';
 import { forkJoin } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -24,7 +25,7 @@ export class RegisterFormFinalComponent implements OnInit {
 
   formData: any = {};
 
-  constructor(private http: HttpClient, private formDataService: FormularioBecasService, private router: Router) { }
+  constructor(private http: HttpClient, private formDataService: FormularioBecasService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.formData = this.formDataService.getFormData();
@@ -82,28 +83,32 @@ export class RegisterFormFinalComponent implements OnInit {
         this.formData.url_comprobando_domicilio = responses[3].url;
         this.formData.EvaluacionEstado = 'Por Evaluar';
         this.formData.contratoBecario = '0';
-        console.log(this.formData);
+        
 
 
         this.http.post('https://backendbecas.azurewebsites.net/solicitudes/upsert', this.formData).subscribe({
           next: (response: any) => {
             if (response.value == '0') {
               alert(response.message);
+              this.router.navigate(['/register-form']);
+              this.formDataService.clearFormData();
             } else {
               console.log('Solicitud creada', response);
-              alert("Solicitud enviada correctamente.");
-              this.router.navigate(['/']);
+              this.toastr.success(`Solicitud enviada correctamente.`);
+              this.router.navigate(['/register-form']);
               this.formDataService.clearFormData();
             }
           },
           error: (error) => {
             console.error('Upload error', error);
+            this.toastr.error(`Error al enviar solicitud. Por favor, refresca la página y vuelve a intentarlo.`);
           }
         });
 
       },
       error: (error) => {
         console.error('Error subiendo archivos', error);
+        this.toastr.error(`Error subiendo archivos. Por favor, refresca la página y vuelve a intentarlo.`);
       }
     })
 

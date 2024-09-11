@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { FormularioBecasService } from '../../servicios/formulario-becas.service';
 import { Becas_Solicitudes } from '../../modelos/Becas_Solicitudes';
 import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+import moment from 'moment';
 
 @Component({
   selector: 'app-register-form',
@@ -164,7 +166,7 @@ export class RegisterFormComponent {
 
 
 
-  constructor(private formDataService: FormularioBecasService, private router: Router, private fb: FormBuilder, private http: HttpClient) {
+  constructor(private formDataService: FormularioBecasService, private router: Router, private fb: FormBuilder, private http: HttpClient, private toastr: ToastrService) {
 
   }
 
@@ -212,29 +214,37 @@ export class RegisterFormComponent {
     console.log(this.registrationForm.value);
   }
 
-
   getDni() {
 
     const bydni = this.registrationForm.get('bydni')?.value;
 
     if (!bydni) {
-      alert('El documento de identidad no existe');
+      this.toastr.warning(`El documento de identidad no existe`);
       return;
     }
 
     this.http.get(`https://backendbecas.azurewebsites.net/solicitudes/dni/${bydni}`).subscribe({
+
       next: (response: any) => {
+
+        if (response.fecha_nacimiento) {
+          response.fecha_nacimiento = this.formatDateForInput(response.fecha_nacimiento);
+        }
+
         console.log(response);
         this.registrationForm.patchValue(response);
-        alert('Se cargo sus datos exitosamente');
+        this.toastr.success(`Se cargo sus datos exitosamente`);
       },
       error: (error) => {
         console.error('Upload error', error);
-        alert('Intente de nuevo');
+        this.toastr.error(`Error intente de nuevo. Por favor, refresca la página y vuelve a intentarlo.`);
       }
     });
   }
 
+  formatDateForInput(dateString: string): string {
+    return moment.utc(dateString).format('YYYY-MM-DD');
+  }
 }
 
 

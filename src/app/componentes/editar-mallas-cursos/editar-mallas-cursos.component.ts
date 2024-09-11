@@ -6,6 +6,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { RelacionMalla } from '../../modelos/relacion-malla';
 import { Ciclo } from '../../modelos/ciclo';
 import { CursoMalla } from '../../modelos/curso-malla';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-editar-mallas-cursos',
@@ -21,7 +22,7 @@ export class EditarMallasCursosComponent implements OnInit {
   newCursoMalla: CursoMalla = new CursoMalla(0, '', 0, 0, '');
   nombre: string = '';
 
-  constructor(private route: ActivatedRoute, private mallaService: MallaCurricularService, private fb: FormBuilder) {
+  constructor(private route: ActivatedRoute, private mallaService: MallaCurricularService, private fb: FormBuilder, private toastr: ToastrService) {
 
   }
 
@@ -182,13 +183,16 @@ export class EditarMallasCursosComponent implements OnInit {
       this.mallaService.updateCicloMalla(updatedCiclo).subscribe({
         next: (response) => {
           console.log('Ciclo updated successfully:', response);
+          this.toastr.success(`Se actualizó correctamente.`);
           this.getMalla(); // Refresh the data to reflect changes
         },
         error: (error) => {
           console.error('Error updating ciclo', error);
+          this.toastr.error(`Error actualizando el ciclo. Por favor, refresca la página y vuelve a intentarlo.`);
         },
         complete: () => {
           console.log('Ciclo update complete');
+          this.toastr.success(`Se actualizó correctamente.`);
         }
       });
     }
