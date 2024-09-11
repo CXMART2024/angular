@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormularioBecasService } from '../../servicios/formulario-becas.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register-form-next',
@@ -148,7 +149,7 @@ export class RegisterFormNextComponent implements OnInit {
     bydni: ''
   });
 
-  constructor(private http: HttpClient, private router: Router, private formDataService: FormularioBecasService, private fb: FormBuilder) { }
+  constructor(private http: HttpClient, private router: Router, private formDataService: FormularioBecasService, private fb: FormBuilder,private toastr: ToastrService) { }
 
   ngOnInit() {
     this.formData = this.formDataService.getFormData();
@@ -203,7 +204,7 @@ export class RegisterFormNextComponent implements OnInit {
     const bydni = this.registrationForm.get('bydni')?.value;
 
     if (!bydni) {
-      alert('El documento de identidad no existe');
+      this.toastr.warning(`El documento de identidad no existe`);
       return;
     }
 
@@ -211,11 +212,11 @@ export class RegisterFormNextComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         this.registrationForm.patchValue(response);
-        alert('Se cargo sus datos exitosamente');
+        this.toastr.success(`Se cargo sus datos exitosamente`);
       },
       error: (error) => {
         console.error('Upload error', error);
-        alert('Intente de nuevo');
+        this.toastr.error(`Error intente de nuevo. Por favor, refresca la página y vuelve a intentarlo.`);
       }
     });
   }

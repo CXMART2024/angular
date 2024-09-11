@@ -214,29 +214,6 @@ export class RegisterFormComponent {
     console.log(this.registrationForm.value);
   }
 
-  /*
-    getDni() {
-  
-      const bydni = this.registrationForm.get('bydni')?.value;
-  
-      if (!bydni) {
-        this.toastr.warning(`El documento de identidad no existe`);
-        return;
-      }
-  
-      this.http.get(`https://backendbecas.azurewebsites.net/solicitudes/dni/${bydni}`).subscribe({
-        next: (response: any) => {
-          console.log(response);
-          this.registrationForm.patchValue(response);
-          this.toastr.success(`Se cargo sus datos exitosamente`);
-        },
-        error: (error) => {
-          console.error('Upload error', error);
-          this.toastr.error(`Error Intente de nuevo. Por favor, refresca la página y vuelve a intentarlo.`);
-        }
-      });
-    }
-  */
   getDni() {
 
     const bydni = this.registrationForm.get('bydni')?.value;
