@@ -294,8 +294,10 @@
     </div>
 </div>
 
-<div class="modal fade" id="contrato_becario" tabindex="-1" role="dialog"
-    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+
+<!--NGiF IF SOLICITID.CON THEN SHOW IT -->
+<div *ngIf="solicitud.contratoBecario === 0" class="modal fade" data-bs-backdrop="static" id="contrato_becario"
+    tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
