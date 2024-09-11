@@ -23,7 +23,7 @@ export class InformacionBecaViewComponent implements OnInit {
   numCursosMap = new Map<number, number>();
   mallaCurricular: any[] = [];
 
-  registrarCicloBool : boolean = true;
+  registrarCicloBool : boolean = false;
 
   constructor(
     private solicitudService: SolicitudService,

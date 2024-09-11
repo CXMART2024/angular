@@ -60,6 +60,13 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
           this.getCursosCiclo(this.selectedCiclo.id);
           this.getPagosCiclo(this.selectedCiclo.id);
           this.cdr.detectChanges();
+        };
+
+        const myModal = document.getElementById('addConcepto');
+        if(myModal) {
+          myModal.addEventListener('shown.bs.modal', () => {
+          this.conceptoPagoForm.reset(); // Reset form when modal is shown
+          })
         }
       }
     })
