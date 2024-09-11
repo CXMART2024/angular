@@ -71,13 +71,13 @@ export class InformacionBecaComponent implements OnInit {
 
 
   showModal() {
-    const modalElement = document.getElementById('contrato_becario');
-    if (modalElement) {
-      const modal = new (window as any).bootstrap.Modal(modalElement);
-      modal.show();
-    } else {
-      console.error('Modal element not found!');
-    }
+    setTimeout(() => {
+      const modalElement = document.getElementById('contrato_becario');
+      if (modalElement && (window as any).bootstrap) {
+        const modal = new (window as any).bootstrap.Modal(modalElement);
+        modal.show(); 
+      }
+    }, 0);
   }
 
   // Method to update checkbox status
@@ -283,7 +283,6 @@ export class InformacionBecaComponent implements OnInit {
     this.solicitudService.updateSolicitud(solicitudData).subscribe({
       next: (response: any) => {
         console.log(response);
-        // Close the modal after the update
 
       }
     });
