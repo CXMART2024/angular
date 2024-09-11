@@ -17,6 +17,7 @@ import { forkJoin } from 'rxjs';
   styleUrl: './informacion-beca-view.component.css',
 })
 export class InformacionBecaViewComponent implements OnInit {
+
   solicitud: any;
   listCiclos: Array<Ciclo> = [];
   numCursosMap = new Map<number, number>();
@@ -29,7 +30,7 @@ export class InformacionBecaViewComponent implements OnInit {
     private cursoService: CursoService,
     private router: Router,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.solicitudService.getSolicitudData().subscribe((data) => {
@@ -38,6 +39,7 @@ export class InformacionBecaViewComponent implements OnInit {
         this.getCiclos();
         this.getMallaCurricular();
       }
+   
     });
     this.cdr.detectChanges();
   }
@@ -95,4 +97,10 @@ export class InformacionBecaViewComponent implements OnInit {
     this.cicloService.setSelectedCiclo(ciclo);
     this.router.navigate(['/concepto-modulo-academico']);
   }
+
+
+ 
+ 
+
+  
 }

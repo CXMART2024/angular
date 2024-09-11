@@ -9,7 +9,7 @@
 
                     <li class="nav-item mb-2">
                         <img src="https://blobauroranuevo.blob.core.windows.net/images3d/fxemoji_graduationcap (1).png"
-                                alt="">
+                            alt="">
                     </li>
 
                     <li class="nav-item m-4">
@@ -287,5 +287,43 @@
                 </ul>
             </div>
 
+        </div>
+    </div>
+
+    <div class="modal fade" id="contrato_becario" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Contrato de Becario</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="embed-responsive">
+                        <iframe class="embed-responsive-item"
+                            src="https://blobauroranuevo.blob.core.windows.net/images3d/Contrato_Aceptacion_Beca.pdf"
+                            width="100%" height="600px"></iframe>
+                    </div>
+                </div>
+                <div class="modal-footer mx-auto">
+                    <div class="row">
+                        <div class="col-12 mb-3 d-flex justify-content-center ">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="contrato" id="contrato"
+                                    (change)="onCheckboxChange($event)">
+                                <label class="form-check-label" for="contrato"
+                                    style="font-size: larger; margin-left: 5px;">Acepto todos los términos de la
+                                    fundación y
+                                    me comprometo a cumplir todo lo estipulado.</label>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2 d-grid">
+                            <button class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!isChecked"
+                                (click)="aceptarContrato(solicitud)">Empezar a usar
+                                la Intranet</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>

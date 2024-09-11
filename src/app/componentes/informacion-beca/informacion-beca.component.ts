@@ -21,6 +21,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class InformacionBecaComponent implements OnInit {
   solicitud: any;
+  isChecked: boolean = false;
   ciclosMallaLista?: CicloMalla[];
   cursoMallaLista?: CursoMalla[];
   cicloCursoRelacion?: RelacionMalla[];
@@ -59,6 +60,9 @@ export class InformacionBecaComponent implements OnInit {
         this.getMallaCiclos();
       } else {
         console.error('Solicitud data is not available');
+      }
+      if (this.solicitud.contratoBecario == '0') {
+        this.showModal();
       }
     });
     this.cdr.detectChanges();
@@ -253,6 +257,34 @@ export class InformacionBecaComponent implements OnInit {
 
   clearData() {
     return this.mallaCurricularService.clearCursoMallasTemporal();
+  }
+
+  aceptarContrato(solicitudData: any) {
+    solicitudData.contratoBecario = '1';
+    console.log(solicitudData);
+    this.solicitudService.updateSolicitud(solicitudData).subscribe({
+      next: (response: any) => {
+        console.log(response);
+      }
+    })
+  }
+
+  showModal() {
+    // Wait for the DOM to be ready
+    setTimeout(() => {
+      // Ensure the global `window` object has access to Bootstrap's modal
+      const modalElement = document.getElementById('contrato_becario');
+      if (modalElement && (window as any).bootstrap) {
+        const modal = new (window as any).bootstrap.Modal(modalElement);
+        modal.show(); // Show the modal automatically
+      }
+    }, 0);
+  }
+
+  // Method to update checkbox status
+  onCheckboxChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.isChecked = input.checked;
   }
 }
 
