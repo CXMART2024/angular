@@ -71,13 +71,14 @@ export class InformacionBecaComponent implements OnInit {
 
 
   showModal() {
-    setTimeout(() => {
-      const modalElement = document.getElementById('contrato_becario');
-      if (modalElement && (window as any).bootstrap) {
-        const modal = new (window as any).bootstrap.Modal(modalElement);
-        modal.show();
-      }
-    }, 0);
+    const modalElement = document.getElementById('contrato_becario');
+    if (modalElement && (window as any).bootstrap) {
+      const modal = new (window as any).bootstrap.Modal(modalElement, {
+        backdrop: false,
+        keyboard: false
+      });
+      modal.show();
+    }
   }
 
   // Method to update checkbox status
