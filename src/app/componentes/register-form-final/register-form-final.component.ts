@@ -90,10 +90,12 @@ export class RegisterFormFinalComponent implements OnInit {
           next: (response: any) => {
             if (response.value == '0') {
               alert(response.message);
+              this.router.navigate(['/register-form']);
+              this.formDataService.clearFormData();
             } else {
               console.log('Solicitud creada', response);
               this.toastr.success(`Solicitud enviada correctamente.`);
-              this.router.navigate(['/']);
+              this.router.navigate(['/register-form']);
               this.formDataService.clearFormData();
             }
           },
