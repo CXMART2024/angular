@@ -213,12 +213,12 @@
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let ciclo of listCiclos">
-                                            <td class="text-center my-auto">{{ciclo.nombre_ciclo}}</td>
-                                            <td class="text-center my-auto">{{ciclo.fecha_inicio | date:'dd/MM/yyyy'}}</td>
-                                            <td class="text-center my-auto">{{ciclo.fecha_fin | date:'dd/MM/yyyy'}}</td>
-                                            <td class="text-center my-auto">{{ciclo.creditos}}</td>
-                                            <td class="text-center my-auto">{{numCursosMap.get(ciclo.id)}}</td>
-                                            <td class="text-center my-auto"><span class="badge rounded-pill text-dark"
+                                            <td class="text-center">{{ciclo.nombre_ciclo}}</td>
+                                            <td class="text-center">{{ciclo.fecha_inicio | date:'dd/MM/yyyy'}}</td>
+                                            <td class="text-center">{{ciclo.fecha_fin | date:'dd/MM/yyyy'}}</td>
+                                            <td class="text-center">{{ciclo.creditos}}</td>
+                                            <td class="text-center">{{numCursosMap.get(ciclo.id)}}</td>
+                                            <td class="text-center"><span class="badge rounded-pill text-dark"
                                                     style="background-color: rgba(255, 249, 196, 1);">{{ciclo.estado}}</span>
                                             </td>
                                             <td><button class="btn" (click)="selectCiclo(ciclo)" type="button"><i
@@ -322,3 +322,4 @@
         </div>
     </div>
 </div>
+
