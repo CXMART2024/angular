@@ -57,13 +57,12 @@ export class InformacionBecaComponent implements OnInit {
         this.institucion_nombre = this.solicitud.institucion_nombre;
         this.fecha_inicio = this.formatDateForInput(this.solicitud.fecha_inicio);
         this.fecha_fin_estimada = this.formatDateForInput(this.solicitud.fecha_fin_estimada);
-        this.getMallaCiclos();
 
-    
       } else {
         console.error('Solicitud data is not available');
       }
-
+      this.getMallaCiclos();
+      this.solicitud = { contratoBecario: 0 };
     });
     this.cdr.detectChanges();
 
