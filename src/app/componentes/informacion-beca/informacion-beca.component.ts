@@ -105,6 +105,7 @@ export class InformacionBecaComponent implements OnInit {
       cargaArchivos.push(this.http.post('https://backendbecas.azurewebsites.net/upload', this.url_doc_contrato));
     }
 
+    this.solicitud.MallaEstado = (this.editMallaCurricular) ? 'Por Revisar' : this.solicitud.MallaEstado;
 
     if (cargaArchivos.length > 0) {
       forkJoin(cargaArchivos).subscribe({
