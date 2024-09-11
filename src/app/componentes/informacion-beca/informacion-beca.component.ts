@@ -28,6 +28,8 @@ export class InformacionBecaComponent implements OnInit {
   url_doc_contrato = new FormData();
   id_malla_curricular = new FormData();
 
+  editMallaCurricular: boolean = true;
+
   nombre_completo: string = '';
   dni: string = '';
   institucion_nombre: string = '';
@@ -46,17 +48,18 @@ export class InformacionBecaComponent implements OnInit {
     this.solicitudService.getSolicitudData().subscribe(data => {
       this.solicitud = data;
       if (this.solicitud) {
+        this.editMallaCurricular = (this.solicitud.MallaEstado=='No Cargado' || this.solicitud.MallaEstado=='Observado');
         this.nombre_completo = this.solicitud.nombre_completo;
         this.dni = this.solicitud.dni;
         this.institucion_nombre = this.solicitud.institucion_nombre;
         this.fecha_inicio = this.formatDateForInput(this.solicitud.fecha_inicio);
         this.fecha_fin_estimada = this.formatDateForInput(this.solicitud.fecha_fin_estimada);
         this.getMallaCiclos();
-        this.cdr.detectChanges();
       } else {
         console.error('Solicitud data is not available');
       }
     });
+    this.cdr.detectChanges();
 
   }
 
@@ -99,6 +102,7 @@ export class InformacionBecaComponent implements OnInit {
     if (this.url_doc_contrato.has('file')) {
       cargaArchivos.push(this.http.post('https://backendbecas.azurewebsites.net/upload', this.url_doc_contrato));
     }
+
 
     if (cargaArchivos.length > 0) {
       forkJoin(cargaArchivos).subscribe({

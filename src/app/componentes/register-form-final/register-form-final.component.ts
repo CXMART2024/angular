@@ -80,7 +80,7 @@ export class RegisterFormFinalComponent implements OnInit {
         this.formData.url_dni = responses[1].url;
         this.formData.url_certificado_estudios = responses[2].url;
         this.formData.url_comprobando_domicilio = responses[3].url;
-        this.formData.EvaluacionEstado = 'Enviado';
+        this.formData.EvaluacionEstado = 'Por Evaluar';
         this.formData.contratoBecario = '0';
         console.log(this.formData);
 
