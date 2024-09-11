@@ -294,7 +294,8 @@
     </div>
 </div>
 
-<div class="modal" id="contrato_becario" data-bs-backdrop="static">
+<div class="modal fade" id="contrato_becario" data-bs-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -320,7 +321,7 @@
                         </div>
                     </div>
                     <div class="col-12 mb-2 d-grid">
-                        <button class="btn btn-primary" [disabled]="!isChecked"
+                        <button class="btn btn-primary" [disabled]="!isChecked" data-bs-dismiss="modal"
                             (click)="aceptarContrato(solicitud)">Empezar a usar
                             la Intranet</button>
                     </div>

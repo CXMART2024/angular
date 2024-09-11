@@ -71,16 +71,13 @@ export class InformacionBecaComponent implements OnInit {
 
 
   showModal() {
-    setTimeout(() => {
-      const modalElement = document.getElementById('contrato_becario');
-      if (modalElement && (window as any).bootstrap) {
-        const modal = new (window as any).bootstrap.Modal(modalElement, {
-          backdrop: 'static',
-          keyboard: false
-        });
-        modal.show();
-      }
-    }, 0);
+    const modalElement = document.getElementById('contrato_becario');
+    if (modalElement) {
+      const modal = new (window as any).bootstrap.Modal(modalElement);
+      modal.show();
+    } else {
+      console.error('Modal element not found!');
+    }
   }
 
   // Method to update checkbox status
@@ -287,18 +284,7 @@ export class InformacionBecaComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         // Close the modal after the update
-        const modalElement = document.getElementById('contrato_becario');
-        if (modalElement && (window as any).bootstrap) {
-          const modal = new (window as any).bootstrap.Modal(modalElement);
-          modal.hide();
-          modalElement.addEventListener('hidden.bs.modal', () => {
-            document.body.classList.remove('modal-open');
-            const backdrop = document.querySelector('.modal-backdrop');
-            if (backdrop) {
-              backdrop.remove();
-            }
-          });
-        }
+
       }
     });
   }
