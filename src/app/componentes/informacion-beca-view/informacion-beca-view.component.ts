@@ -44,31 +44,33 @@ export class InformacionBecaViewComponent implements OnInit {
 
   getMallaCurricular(): void {
     // Obtener los ciclos asociados a la solicitud
-    this.mallaService.getCiclosMallaBySolicitud(this.solicitud.id).pipe(
-      switchMap((ciclos: any[]) => {
-        // Crear un array de observables para obtener los cursos de cada ciclo
-        const ciclosConCursosObservables = ciclos.map(ciclo =>
-          this.mallaService.getCursoMallaByCiclo(ciclo.id).pipe(
-            // Adjuntar los cursos al ciclo
-            switchMap((cursos: any[]) => {
-              ciclo.cursos = cursos;
-              return [ciclo]; // Retornar ciclo con los cursos adjuntos
-            })
-          )
-        );
-        // Ejecutar todos los observables en paralelo y juntar los resultados
-        return forkJoin(ciclosConCursosObservables);
-      })
-    ).subscribe({
-      next: (ciclosConCursos: any[]) => {
-        this.mallaCurricular = ciclosConCursos;
-      },
-      error: (error) => {
-        console.error('Error al obtener ciclos o cursos:', error);
-      }
-    });
+    this.mallaService
+      .getCiclosMallaBySolicitud(this.solicitud.id)
+      .pipe(
+        switchMap((ciclos: any[]) => {
+          // Crear un array de observables para obtener los cursos de cada ciclo
+          const ciclosConCursosObservables = ciclos.map((ciclo) =>
+            this.mallaService.getCursoMallaByCiclo(ciclo.id).pipe(
+              // Adjuntar los cursos al ciclo
+              switchMap((cursos: any[]) => {
+                ciclo.cursos = cursos;
+                return [ciclo]; // Retornar ciclo con los cursos adjuntos
+              })
+            )
+          );
+          // Ejecutar todos los observables en paralelo y juntar los resultados
+          return forkJoin(ciclosConCursosObservables);
+        })
+      )
+      .subscribe({
+        next: (ciclosConCursos: any[]) => {
+          this.mallaCurricular = ciclosConCursos;
+        },
+        error: (error) => {
+          console.error('Error al obtener ciclos o cursos:', error);
+        },
+      });
   }
-
 
   getCiclos(): void {
     this.cicloService.getCiclosBySolicitud(this.solicitud.id).subscribe({
@@ -94,5 +96,12 @@ export class InformacionBecaViewComponent implements OnInit {
   selectCiclo(ciclo: Ciclo): void {
     this.cicloService.setSelectedCiclo(ciclo);
     this.router.navigate(['/concepto-modulo-academico']);
+  }
+
+  viewRegistrarCiclo(): boolean {
+    return (
+      this.listCiclos.filter((ciclo) => ciclo.estado == 'En Proceso').length == 0 
+      && this.solicitud.MallaEstado == 'Aprobado'
+    );
   }
 }

@@ -195,7 +195,7 @@ export class RegisterFormNextComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.registrationForm.value);
+    
   }
 
 
@@ -210,7 +210,7 @@ export class RegisterFormNextComponent implements OnInit {
 
     this.http.get(`https://backendbecas.azurewebsites.net/solicitudes/dni/${bydni}`).subscribe({
       next: (response: any) => {
-        console.log(response);
+        
         this.registrationForm.patchValue(response);
         this.toastr.success(`Se cargo sus datos exitosamente`);
       },

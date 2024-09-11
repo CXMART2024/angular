@@ -93,7 +93,7 @@ export class RegisterFormFinalComponent implements OnInit {
               this.router.navigate(['/register-form']);
               this.formDataService.clearFormData();
             } else {
-              console.log('Solicitud creada', response);
+              
               this.toastr.success(`Solicitud enviada correctamente.`);
               this.router.navigate(['/register-form']);
               this.formDataService.clearFormData();

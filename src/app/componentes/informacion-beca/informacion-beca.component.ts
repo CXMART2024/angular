@@ -127,7 +127,7 @@ export class InformacionBecaComponent implements OnInit {
 
           this.solicitudService.updateSolicitud(this.solicitud).subscribe({
             next: (response: any) => {
-              console.log('Se actualizó correctamente', response);
+              
               this.toastr.success(`Se actualizó correctamente.`);
               this.cdr.detectChanges();
             },
@@ -149,7 +149,7 @@ export class InformacionBecaComponent implements OnInit {
 
       this.solicitudService.updateSolicitud(this.solicitud).subscribe({
         next: (response: any) => {
-          console.log('Se actualizó correctamente', response);
+          
           this.toastr.success(`Se actualizó correctamente.`);
           this.cdr.detectChanges();
         },
@@ -166,7 +166,7 @@ export class InformacionBecaComponent implements OnInit {
     if (this.fecha_inicio && this.fecha_fin_estimada) {
       this.updateInformacionBecario();
     } else {
-      console.log('Formulario invalido');
+      
       this.toastr.error(`Por favor, selecciona una fecha de inicio y una fecha estimada.`);
     }
   }
@@ -220,7 +220,7 @@ export class InformacionBecaComponent implements OnInit {
         next: () => {
           this.mallaCurricularService.deleteCicloMalla(ciclo).subscribe({
             next: (response) => {
-              console.log('CicloMalla deleted successfully:', response);
+              
               this.getMallaCiclos();
             },
             error: (err) => {
@@ -239,7 +239,7 @@ export class InformacionBecaComponent implements OnInit {
 
   selectCiclo(id: number): void {
     this.selectedCicloId = id;
-    console.log('Selected Ciclo ID:', id);
+    
     this.navigateToEditMallaCursos();
   }
 

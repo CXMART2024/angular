@@ -32,7 +32,7 @@ export class EditarMallasCursosComponent implements OnInit {
       const id = params.get('id');
       if (id) {
         this.cicloId = +id;
-        console.log('Received Ciclo ID:', this.cicloId);
+        //console.log('Received Ciclo ID:', this.cicloId);
         this.getMalla();
 
       }
@@ -61,12 +61,12 @@ export class EditarMallasCursosComponent implements OnInit {
     const id = this.cicloId;
     this.mallaService.getCicloMalla(id).subscribe({
       next: (data: CicloMalla[]) => {
-        console.log('API Response:', data);
+        
         this.relacionMallaData = data;
 
         if (this.relacionMallaData.length > 0) {
           this.nombre = this.relacionMallaData[0].nombre;
-          console.log('Nombre:', this.nombre);
+         
           this.getMallaCursos();
         }
 
@@ -75,7 +75,7 @@ export class EditarMallasCursosComponent implements OnInit {
         console.error('Error fetching data', error);
       },
       complete: () => {
-        console.log('Data complete');
+        
       }
     });
   }
@@ -83,14 +83,14 @@ export class EditarMallasCursosComponent implements OnInit {
   getMallaCursos() {
     this.mallaService.getCursoMallaByCiclo(this.cicloId).subscribe({
       next: (data: CursoMalla[]) => {
-        console.log('Cursos API Response:', data);
+        
         this.cursos = data;
       },
       error: (error) => {
         console.error('Error fetching cursos data', error);
       },
       complete: () => {
-        console.log('Cursos data complete');
+        
       }
     });
   }
@@ -137,7 +137,7 @@ export class EditarMallasCursosComponent implements OnInit {
       // Create new curso
       this.mallaService.createCursoMalla(this.newCursoMalla).subscribe({
         next: (response) => {
-          console.log('Curso created successfully:', response);
+          
           this.newCursoMalla = new CursoMalla(0, '', 0, 0, '');
           this.getMallaCursos();
         },
@@ -145,7 +145,7 @@ export class EditarMallasCursosComponent implements OnInit {
           console.error('Error creating curso', error);
         },
         complete: () => {
-          console.log('Curso creation complete');
+          
         }
       });
     } else {
@@ -153,7 +153,7 @@ export class EditarMallasCursosComponent implements OnInit {
       this.newCursoMalla.id = this.cursos[this.editingIndex].id;
       this.mallaService.updateCursoMalla(this.newCursoMalla).subscribe({
         next: (response) => {
-          console.log('Curso updated successfully:', response);
+          
           this.newCursoMalla = new CursoMalla(0, '', 0, 0, '');
           this.getMallaCursos();
         },
@@ -161,7 +161,7 @@ export class EditarMallasCursosComponent implements OnInit {
           console.error('Error updating curso', error);
         },
         complete: () => {
-          console.log('Curso update complete');
+          
         }
       });
     }
@@ -182,7 +182,7 @@ export class EditarMallasCursosComponent implements OnInit {
 
       this.mallaService.updateCicloMalla(updatedCiclo).subscribe({
         next: (response) => {
-          console.log('Ciclo updated successfully:', response);
+          
           this.toastr.success(`Se actualizó correctamente.`);
           this.getMalla(); // Refresh the data to reflect changes
         },
@@ -191,7 +191,7 @@ export class EditarMallasCursosComponent implements OnInit {
           this.toastr.error(`Error actualizando el ciclo. Por favor, refresca la página y vuelve a intentarlo.`);
         },
         complete: () => {
-          console.log('Ciclo update complete');
+          
           this.toastr.success(`Se actualizó correctamente.`);
         }
       });

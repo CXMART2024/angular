@@ -132,7 +132,7 @@ export class EditarCicloAcademicoComponent implements OnInit {
     );
     if (curso) {
       this.cursoSeleccionadoPopUp = curso;
-      console.log(this.cursoSeleccionadoPopUp);
+      
     }
   }
 
@@ -217,6 +217,9 @@ export class EditarCicloAcademicoComponent implements OnInit {
   isFileSelected(): boolean {
     return this.url.has('file');
   }
+
+
+
 
 }
 

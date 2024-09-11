@@ -108,10 +108,10 @@ export class DetalleAcademicoComponent implements OnInit {
 
   aceptarContrato(solicitudData: any) {
     solicitudData.contratoBecario = '1';
-    console.log(solicitudData);
+    
     this.solicitudService.updateSolicitud(solicitudData).subscribe({
       next: (response: any) => {
-        console.log(response);
+        
       }
     })
   }
@@ -127,13 +127,10 @@ export class DetalleAcademicoComponent implements OnInit {
     this.authService.actualizarClave(dni, antiguaClave, nuevaClave).subscribe({
       next: (response: any) => {
         this.formUpdateLogin.reset();
-        console.log('Clave actualizada correctamente', response);
         this.toastr.success(`Se actualizó correctamente.`);
       },
       error: (error: any) => {
         console.error('Error actualizando clave', error);
-        console.log('---');
-        console.log(error.error.message);
         this.formUpdateLogin.reset();
         this.toastr.error(`Error actualizando clave. Por favor, refresca la página y vuelve a intentarlo.`);
       }
@@ -157,7 +154,6 @@ export class DetalleAcademicoComponent implements OnInit {
     forkJoin(updateRequests).subscribe({
       next: (responses) => {
         this.cdr.detectChanges();
-        console.log('Cursos actualizados correctamente', responses);
       },
       error: (error) => {
         console.error('Error actualizando cursos', error);
@@ -184,7 +180,7 @@ export class DetalleAcademicoComponent implements OnInit {
 
         this.promedio = this.sumarPromedio();
 
-        console.log('Promedio Calculado:', this.promedio);
+        
 
       },
       error: (error) => {
@@ -227,7 +223,7 @@ export class DetalleAcademicoComponent implements OnInit {
 
           this.cicloAcademico.updateCiclo(cicloToUpdate).subscribe({
             next: (response: any) => {
-              console.log('Actualizado correctamente.', response);
+              
               this.toastr.success(`Se actualizó correctamente.`);
               this.id_documento_evidencia = new FormData();
               this.selectedCicloId = 0;

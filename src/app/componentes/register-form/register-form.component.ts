@@ -205,13 +205,13 @@ export class RegisterFormComponent {
     };
     this.formDataService.setFormData(bodyData);
     this.router.navigate(['register-form-next']);
-    console.log(this.formDataService)
+    
   }
 
 
 
   onSubmit() {
-    console.log(this.registrationForm.value);
+    
   }
 
   getDni() {
@@ -231,7 +231,7 @@ export class RegisterFormComponent {
           response.fecha_nacimiento = this.formatDateForInput(response.fecha_nacimiento);
         }
 
-        console.log(response);
+        
         this.registrationForm.patchValue(response);
         this.toastr.success(`Se cargo sus datos exitosamente`);
       },

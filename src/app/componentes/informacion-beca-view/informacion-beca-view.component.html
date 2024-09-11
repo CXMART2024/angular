@@ -191,7 +191,7 @@
                         <div class="col-7 d-flex align-items-center">
                             <h6 class="my-auto"><strong>Ciclos Académicos</strong></h6>
                         </div>
-                        <div class="col-5 d-flex justify-content-end"><button class="btn btn-primary" type="button"
+                        <div *ngIf="viewRegistrarCiclo()" class="col-5 d-flex justify-content-end"><button class="btn btn-primary" type="button"
                                 routerLink="/add-modulo-academico">Registrar Nuevo Ciclo</button></div>
                     </div>
                 </div>
