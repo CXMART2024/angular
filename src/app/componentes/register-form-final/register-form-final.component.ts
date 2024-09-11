@@ -83,7 +83,7 @@ export class RegisterFormFinalComponent implements OnInit {
         this.formData.url_comprobando_domicilio = responses[3].url;
         this.formData.EvaluacionEstado = 'Enviado';
         this.formData.contratoBecario = '0';
-        console.log(this.formData);
+        
 
 
         this.http.post('https://backendbecas.azurewebsites.net/solicitudes/upsert', this.formData).subscribe({
