@@ -37,7 +37,7 @@ export class InformacionBecaComponent implements OnInit {
   institucion_nombre: string = '';
   fecha_inicio: string = '';
   fecha_fin_estimada: string = '';
-  contratoBecario?: number;
+
 
   constructor(
     private solicitudService: SolicitudService,
@@ -58,7 +58,7 @@ export class InformacionBecaComponent implements OnInit {
         this.institucion_nombre = this.solicitud.institucion_nombre;
         this.fecha_inicio = this.formatDateForInput(this.solicitud.fecha_inicio);
         this.fecha_fin_estimada = this.formatDateForInput(this.solicitud.fecha_fin_estimada);
-        this.contratoBecario = this.solicitud.contratoBecario;
+
         this.getMallaCiclos();
         if (this.solicitud.contratoBecario === 0) {
           this.showModal();
@@ -75,10 +75,7 @@ export class InformacionBecaComponent implements OnInit {
   showModal() {
     const modalElement = document.getElementById('contrato_becario');
     if (modalElement && (window as any).bootstrap) {
-      const modal = new (window as any).bootstrap.Modal(modalElement, {
-        backdrop: 'static',
-        keyboard: false
-      });
+      const modal = new (window as any).bootstrap.Modal(modalElement);
       modal.show();
     }
   }
