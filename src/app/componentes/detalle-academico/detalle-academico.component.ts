@@ -222,6 +222,7 @@ export class DetalleAcademicoComponent implements OnInit {
 
         if (cicloToUpdate) {
           cicloToUpdate.id_documento_evidencia = fileUrl;
+          cicloToUpdate.estado = 'Finalizado';
 
           this.cicloAcademico.updateCiclo(cicloToUpdate).subscribe({
             next: (response: any) => {
