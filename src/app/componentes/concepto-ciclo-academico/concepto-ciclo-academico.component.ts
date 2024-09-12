@@ -83,7 +83,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
       pago.monto = this.conceptoPagoForm.value.monto;
       pago.PagoEstado = 'Programado';
       pago.adminestado = 'Programado';
-      
+      pago.ContabilidadEstado = 'Por Revisar';
       this.pagoService.createPago(pago).subscribe({
         next: (newPago: Pago) => {
           if(this.selectedCiclo) {
