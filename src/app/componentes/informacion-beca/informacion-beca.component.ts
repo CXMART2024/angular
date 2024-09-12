@@ -12,6 +12,7 @@ import { RelacionMalla } from '../../modelos/relacion-malla';
 import { Ciclo } from '../../modelos/ciclo';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../servicios/auth/auth.service';
 
 
 @Component({
@@ -36,7 +37,11 @@ export class InformacionBecaComponent implements OnInit {
   institucion_nombre: string = '';
   fecha_inicio: string = '';
   fecha_fin_estimada: string = '';
-
+  formUpdateLogin = this.formBuilder.group({
+    dni: ['', [Validators.required]],
+    antiguaClave: ['', [Validators.required]],
+    nuevaClave: ['', [Validators.required]]
+  });
 
   constructor(
     private solicitudService: SolicitudService,
@@ -44,13 +49,16 @@ export class InformacionBecaComponent implements OnInit {
     private mallaCurricularService: MallaCurricularService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authService: AuthService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.solicitudService.getSolicitudData().subscribe(data => {
       this.solicitud = data;
       if (this.solicitud) {
+
         this.editMallaCurricular = (this.solicitud.MallaEstado == 'No Cargado' || this.solicitud.MallaEstado == 'Observado');
         this.nombre_completo = this.solicitud.nombre_completo;
         this.dni = this.solicitud.dni;
@@ -59,6 +67,10 @@ export class InformacionBecaComponent implements OnInit {
         this.fecha_fin_estimada = this.formatDateForInput(this.solicitud.fecha_fin_estimada);
         this.getMallaCiclos();
 
+        this.formUpdateLogin.patchValue({
+          dni: this.solicitud.dni
+        });
+        
         if (this.solicitud.contratoBecario == '0') {
           this.showModal();
         }
@@ -289,6 +301,28 @@ export class InformacionBecaComponent implements OnInit {
     });
   }
 
+  logout() {
+    this.authService.logout()
+  }
 
+  updateLogin() {
+
+    const dni: string = this.formUpdateLogin.get('dni')?.value as string;
+    const antiguaClave: string = this.formUpdateLogin.get('antiguaClave')?.value as string;
+    const nuevaClave: string = this.formUpdateLogin.get('nuevaClave')?.value as string;
+
+
+    this.authService.actualizarClave(dni, antiguaClave, nuevaClave).subscribe({
+      next: (response: any) => {
+        this.formUpdateLogin.reset();
+        this.toastr.success(`Se actualizó correctamente.`);
+      },
+      error: (error: any) => {
+        console.error('Error actualizando clave', error);
+        this.formUpdateLogin.reset();
+        this.toastr.error(`Error actualizando clave. Por favor, refresca la página y vuelve a intentarlo.`);
+      }
+    });
+  }
 }
 

@@ -41,7 +41,7 @@
                 </li>
 
                 <li class="nav-item m-4">
-                    <a class="nav-link p-3" routerLink="/reporte-academico">
+                    <a class="nav-link p-2 btn-image" routerLink="/reporte-academico">
                         <div class="row">
                             <div class="col-12">
                                 <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Data Trending (1).png"
@@ -55,15 +55,15 @@
                     </a>
                 </li>
 
-                <li>
-                    <div class="d-flex justify-content-center m-5">
+                <li class="nav-item m-4">
+                    <div class="d-flex justify-content-center">
                         <button type="button" class="btn text-white rounded-circle" data-bs-toggle="modal"
                             data-bs-target="#showNot" style="background-color: rgba(255, 255, 255, 0.1);">
                             <i class="bi bi-bell"></i>
                         </button>
                     </div>
                 </li>
-                <li>
+                <li class="nav-item m-2">
                     <div class="d-flex justify-content-center">
                         <button type="button" class="btn text-white rounded-circle" data-bs-toggle="modal"
                             data-bs-target="#updateUser" style="background-color: rgba(255, 255, 255, 0.1);">
@@ -72,10 +72,10 @@
                     </div>
 
                 </li>
-                <li>
+                <li class="nav-item m-5">
                     <div class="d-flex justify-content-center" style="margin-top: 5rem; margin-bottom: 2rem;">
                         <button type="button" class="btn text-white rounded-circle"
-                            style="background-color: rgba(255, 255, 255, 0.1);">
+                            style="background-color: rgba(255, 255, 255, 0.1);" (click)="logout()">
                             <i class="bi bi-box-arrow-left"></i>
                         </button>
                     </div>
@@ -367,6 +367,62 @@
                             la Intranet</button>
                     </div>
                 </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="updateUser" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row w-100 g-0">
+                    <div class="col">
+                        <h6>Actualizar Contraseña</h6>
+                    </div>
+                    <div class="col d-flex justify-content-end"><button class="btn-close"
+                            data-bs-dismiss="modal"></button></div>
+
+                </div>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formUpdateLogin">
+                    <div class="mb-3">
+                        <label class="form-label text-dark">DNI: </label>
+                        <input type="text" class="form-control" formControlName="dni" [readOnly]="true">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Contraseña Actual: </label>
+                        <input type="password" class="form-control" formControlName="antiguaClave" name="antiguaClave"
+                            value="">
+                        @if(formUpdateLogin.get('antiguaClave')?.errors?.['required'] &&
+                        formUpdateLogin.get('antiguaClave')?.touched)
+                        {<div class="mistake">
+                            Por favor coloque su contraseña actual correctamente
+                        </div>
+                        }
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Nueva Contraseña: </label>
+                        <input type="password" class="form-control" formControlName="nuevaClave" name="" value="">
+                        @if(formUpdateLogin.get('nuevaClave')?.errors?.['required'] &&
+                        formUpdateLogin.get('nuevaClave')?.touched)
+                        {<div class="mistake">
+                            Por favor coloque su nueva contraseña correctamente
+                        </div>
+                        }
+                    </div>
+                    <div class="d-grid mb-2">
+                        <button class="btn btn-primary" [disabled]="!formUpdateLogin.valid" (click)="updateLogin()"
+                            data-bs-dismiss="modal">Guardar Cambios</button>
+                    </div>
+                </form>
             </div>
 
         </div>
