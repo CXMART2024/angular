@@ -32,7 +32,7 @@ export class EditarMallasCursosComponent implements OnInit {
       const id = params.get('id');
       if (id) {
         this.cicloId = +id;
-        //console.log('Received Ciclo ID:', this.cicloId);
+  
         this.getMalla();
 
       }

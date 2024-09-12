@@ -70,7 +70,6 @@ export class InformacionBecaComponent implements OnInit {
         this.formUpdateLogin.patchValue({
           dni: this.solicitud.dni
         });
-        console.log(this.solicitud);
         if (this.solicitud.contratoBecario == '0') {
           this.showModal();
         }
@@ -213,7 +212,6 @@ export class InformacionBecaComponent implements OnInit {
     if (this.solicitud && this.solicitud.id) {
       this.mallaCurricularService.getCiclosMallaBySolicitud(this.solicitud.id).subscribe({
         next: (ciclos: CicloMalla[]) => {
-          //console.log('Ciclos received:', ciclos);
           this.ciclosMallaLista = ciclos;
           this.fetchCursosForCiclos(ciclos);
         },
@@ -240,7 +238,7 @@ export class InformacionBecaComponent implements OnInit {
     forkJoin(cursoRequests).subscribe({
       next: (cicloCursoPairs: RelacionMalla[]) => {
         this.cicloCursoRelacion = cicloCursoPairs;
-        //console.log('Ciclos and Cursos recibidos:', cicloCursoPairs);
+       
       },
       error: (error) => {
         console.error('Error fetching cursos', error);
