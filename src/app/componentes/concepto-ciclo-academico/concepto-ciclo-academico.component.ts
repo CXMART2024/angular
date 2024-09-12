@@ -7,18 +7,19 @@ import { Curso } from '../../modelos/curso';
 import { CursoService } from '../../servicios/curso/curso.service';
 import { Pago } from '../../modelos/pago';
 import { PagoService } from '../../servicios/pago/pago.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../servicios/auth/auth.service';
 
 @Component({
   selector: 'app-concepto-ciclo-academico',
   templateUrl: './concepto-ciclo-academico.component.html',
   styleUrl: './concepto-ciclo-academico.component.css'
 })
-export class ConceptoCicloAcademicoComponent implements OnInit{
+export class ConceptoCicloAcademicoComponent implements OnInit {
 
   @ViewChild('constanciaFile') constanciaFile!: ElementRef;
 
@@ -31,13 +32,18 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
 
   fechaConceptoPago: string = '';
   url = new FormData();
-  pago: Pago = new Pago(0,new Date,0,'','','',0,0,'','','','','');
+  pago: Pago = new Pago(0, new Date, 0, '', '', '', 0, 0, '', '', '', '', '');
   selectedPago: Pago | null = null;
   solicitud: any;
   selectedCiclo: Ciclo | null = null;
   listCursos: Array<Curso> = [];
   listPagos: Array<Pago> = [];
-  
+  formUpdateLogin = this.formBuilder.group({
+    dni: ['', [Validators.required]],
+    antiguaClave: ['', [Validators.required]],
+    nuevaClave: ['', [Validators.required]]
+  });
+
   constructor(
     private router: Router,
     private solicitudService: SolicitudService,
@@ -48,26 +54,32 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
     private http: HttpClient,
     private datePipe: DatePipe,
     private toastr: ToastrService,
-  ) {}
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+
+  ) { }
 
   ngOnInit(): void {
-    
+
     this.solicitudService.getSolicitudData().subscribe(data => {
       this.solicitud = data;
-      if(this.solicitud){
+      if (this.solicitud) {
         this.selectedCiclo = this.cicloService.getSelectedCiclo();
-        if(this.selectedCiclo){
+        if (this.selectedCiclo) {
           this.getCursosCiclo(this.selectedCiclo.id);
           this.getPagosCiclo(this.selectedCiclo.id);
           this.cdr.detectChanges();
         };
 
         const myModal = document.getElementById('addConcepto');
-        if(myModal) {
+        if (myModal) {
           myModal.addEventListener('shown.bs.modal', () => {
-          this.conceptoPagoForm.reset(); // Reset form when modal is shown
+            this.conceptoPagoForm.reset(); // Reset form when modal is shown
           })
         }
+        this.formUpdateLogin.patchValue({
+          dni: this.solicitud.dni
+        });
       }
     })
   }
@@ -85,7 +97,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
       pago.adminestado = 'Programado';
       this.pagoService.createPago(pago).subscribe({
         next: (newPago: Pago) => {
-          if(this.selectedCiclo) {
+          if (this.selectedCiclo) {
             this.getPagosCiclo(this.selectedCiclo.id);
             this.toastr.success(`Pago ${newPago.concepto} registrado correctamente`)
           }
@@ -125,13 +137,13 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
   }
 
   //Retorna el total de creditos
-  getTotaCreditos(): number{
+  getTotaCreditos(): number {
     return this.cursoService.getTotalCreditos(this.listCursos);
   }
 
 
   //Volver pantalla anterior
-  regresarInformacionBeca(){
+  regresarInformacionBeca() {
     this.cicloService.clearSelectedCiclo();
     this.router.navigate(['/informacion']);
   }
@@ -151,7 +163,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
       this.url.append('file', file, file.name)
     }
   }
-  
+
   //Verificar si hay un archivo seleccionado
   isFileSelected(): boolean {
     return this.url.has('file');
@@ -173,7 +185,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
 
     forkJoin(cargaArchivos).subscribe({
       next: (response: any[]) => {
-        if (this.selectedPago){
+        if (this.selectedPago) {
           this.selectedPago.id_constancia_pago = response[0].url;
           this.selectedPago.PagoEstado = 'En Trámite';
           this.selectedPago.ContabilidadEstado = 'Por Revisar';
@@ -206,6 +218,30 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
       default:
         return 'rgba(255, 255, 255, 1)';
     }
+  }
+
+  logout() {
+    this.authService.logout()
+  }
+
+  updateLogin() {
+
+    const dni: string = this.formUpdateLogin.get('dni')?.value as string;
+    const antiguaClave: string = this.formUpdateLogin.get('antiguaClave')?.value as string;
+    const nuevaClave: string = this.formUpdateLogin.get('nuevaClave')?.value as string;
+
+
+    this.authService.actualizarClave(dni, antiguaClave, nuevaClave).subscribe({
+      next: (response: any) => {
+        this.formUpdateLogin.reset();
+        this.toastr.success(`Se actualizó correctamente.`);
+      },
+      error: (error: any) => {
+        console.error('Error actualizando clave', error);
+        this.formUpdateLogin.reset();
+        this.toastr.error(`Error actualizando clave. Por favor, refresca la página y vuelve a intentarlo.`);
+      }
+    });
   }
 
 }
