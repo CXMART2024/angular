@@ -296,7 +296,7 @@
 
 
 <!--NGiF IF SOLICITID.CON THEN SHOW IT -->
-<div class="modal fade" data-bs-backdrop="static" id="contrato_becario"
+<div  *ngIf="solicitud.contratoBecario === 0" class="modal fade" data-bs-backdrop="static" id="contrato_becario"
     tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -333,3 +333,6 @@
         </div>
     </div>
 </div>
+
+{{contratoBecario}}
+{{solicitud.id}}
