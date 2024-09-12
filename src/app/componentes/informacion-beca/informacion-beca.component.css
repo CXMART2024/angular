@@ -3,38 +3,3 @@ button {
     font-family: sans-serif;
 }
 
-
-.btn-image-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 0;
-    border: none;
-    background: none;
-}
-
-.btn-image-text img {
-    width: 32px;
-    /* Adjust as needed */
-    height: 32px;
-    /* Adjust as needed */
-}
-
-.btn-image-text span {
-    margin-top: 4px;
-    /* Adjust spacing as needed */
-}
-
-.modal-dialog-custom {
-    position: fixed;
-    top: auto;
-    right: auto;
-    left: 8rem;
-    bottom: 3rem;
-}
-
-a:hover {
-    color:rgba(255, 255, 255, 0.2);
-
-}
