@@ -60,7 +60,7 @@ export class InformacionBecaComponent implements OnInit {
         this.fecha_fin_estimada = this.formatDateForInput(this.solicitud.fecha_fin_estimada);
 
         this.getMallaCiclos();
-        if (this.solicitud.contratoBecario === 0) {
+        if (this.solicitud.contratoBecario === '0') {
           this.showModal();
         }
       } else {
@@ -73,11 +73,14 @@ export class InformacionBecaComponent implements OnInit {
 
 
   showModal() {
-    const modalElement = document.getElementById('contrato_becario');
-    if (modalElement && (window as any).bootstrap) {
-      const modal = new (window as any).bootstrap.Modal(modalElement);
-      modal.show();
-    }
+    setTimeout(() => {
+      // Ensure the global `window` object has access to Bootstrap's modal
+      const modalElement = document.getElementById('contrato_becario');
+      if (modalElement && (window as any).bootstrap) {
+        const modal = new (window as any).bootstrap.Modal(modalElement);
+        modal.show(); // Show the modal automatically
+      }
+    }, 0);
   }
 
   // Method to update checkbox status
