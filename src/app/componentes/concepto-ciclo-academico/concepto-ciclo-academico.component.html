@@ -150,9 +150,9 @@
                                                 </ng-template>
                                             </td>
                                             <td class="text-center"><span class="badge rounded-pill text-dark"
-                                                    style="background-color: rgba(255, 249, 196, 1);">{{pago.EstudianteEstado}}</span>
+                                                    style="background-color: rgba(255, 249, 196, 1);">{{pago.PagoEstado}}</span>
                                             </td>
-                                            <td><button (click)="setSelectedPago(pago)" class="btn"
+                                            <td><button *ngIf="pago.PagoEstado == 'Programado'" (click)="setSelectedPago(pago)" class="btn"
                                                     data-bs-toggle="modal" data-bs-target="#editConcepto"
                                                     type="button"><i class="bi bi-pencil"></i></button></td>
                                         </tr>

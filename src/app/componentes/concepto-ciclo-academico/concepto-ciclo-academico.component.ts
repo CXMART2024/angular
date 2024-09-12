@@ -81,10 +81,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
       pago.concepto = this.conceptoPagoForm.value.concepto;
       pago.descripcion = this.conceptoPagoForm.value.descripcion;
       pago.monto = this.conceptoPagoForm.value.monto;
-      pago.EstudianteEstado = 'Programado';
       pago.PagoEstado = 'Programado';
-      pago.TesoreriaEstado = 'Programado';
-      pago.ContabilidadEstado = 'Programado';
       pago.adminestado = 'Programado';
       
       this.pagoService.createPago(pago).subscribe({
@@ -179,11 +176,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
       next: (response: any[]) => {
         if (this.selectedPago){
           this.selectedPago.id_constancia_pago = response[0].url;
-          this.selectedPago.EstudianteEstado= 'En Trámite'
-          this.selectedPago.adminestado= 'Solicitado'
-          this.selectedPago.PagoEstado= 'Solicitado'
-          this.selectedPago.TesoreriaEstado= 'Solicitado'
-          this.selectedPago.ContabilidadEstado= 'Solicitado'
+          this.selectedPago.PagoEstado = 'En Trámite';
           this.selectedPago.fecha_solicitud = new Date(this.fechaConceptoPago);
           this.pagoService.updatePago(this.selectedPago).subscribe({
             next: (pago: Pago) => {
