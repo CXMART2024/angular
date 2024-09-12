@@ -145,7 +145,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
   //Volver pantalla anterior
   regresarInformacionBeca() {
     this.cicloService.clearSelectedCiclo();
-    this.router.navigate(['/informacion']);
+    this.router.navigate(['/informacion-view']);
   }
 
   //Setear pago a editar
