@@ -37,7 +37,7 @@ export class InformacionBecaComponent implements OnInit {
   institucion_nombre: string = '';
   fecha_inicio: string = '';
   fecha_fin_estimada: string = '';
-  contratoBecario?: number ;
+  contratoBecario?: number;
 
   constructor(
     private solicitudService: SolicitudService,
@@ -59,11 +59,13 @@ export class InformacionBecaComponent implements OnInit {
         this.fecha_inicio = this.formatDateForInput(this.solicitud.fecha_inicio);
         this.fecha_fin_estimada = this.formatDateForInput(this.solicitud.fecha_fin_estimada);
         this.contratoBecario = this.solicitud.contratoBecario;
-        this.getMallaCiclos(); 
+        this.getMallaCiclos();
       } else {
         console.error('Solicitud data is not available');
       }
-   
+      if (this.solicitud.contratoBecario === 0 || this.contratoBecario === 0) {
+        this.showModal();
+      }
     });
     this.cdr.detectChanges();
 
