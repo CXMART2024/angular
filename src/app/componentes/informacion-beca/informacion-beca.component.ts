@@ -61,7 +61,7 @@ export class InformacionBecaComponent implements OnInit {
         this.getMallaCiclos();
 
 
-        if (this.solicitud.contrato_becario == '0') {
+        if (this.solicitud.contrato_becario == "0" ? this.vcontratoBecario = !0 : this.vcontratoBecario = !1) {
           this.vcontratoBecario = true;
         } else {
           this.vcontratoBecario = false;
