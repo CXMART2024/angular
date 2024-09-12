@@ -83,7 +83,6 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
       pago.monto = this.conceptoPagoForm.value.monto;
       pago.PagoEstado = 'Programado';
       pago.adminestado = 'Programado';
-      pago.ContabilidadEstado = 'Por Revisar';
       this.pagoService.createPago(pago).subscribe({
         next: (newPago: Pago) => {
           if(this.selectedCiclo) {
@@ -177,6 +176,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
         if (this.selectedPago){
           this.selectedPago.id_constancia_pago = response[0].url;
           this.selectedPago.PagoEstado = 'En Trámite';
+          this.selectedPago.ContabilidadEstado = 'Por Revisar';
           this.selectedPago.fecha_solicitud = new Date(this.fechaConceptoPago);
           this.pagoService.updatePago(this.selectedPago).subscribe({
             next: (pago: Pago) => {
@@ -189,6 +189,23 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
         }
       }
     })
+  }
+
+
+  //Colores de fondo estado
+  getColorByState(pagoEstado: string): string {
+    switch (pagoEstado) {
+      case 'Programado':
+        return 'rgba(255, 249, 196, 1)';
+      case 'En Trámite':
+        return 'rgba(255, 224, 130, 1)';
+      case 'Aprobado':
+        return 'rgba(200, 230, 201, 1)';
+      case 'Observado':
+        return 'rgba(248, 187, 208, 1)';
+      default:
+        return 'rgba(255, 255, 255, 1)';
+    }
   }
 
 }
