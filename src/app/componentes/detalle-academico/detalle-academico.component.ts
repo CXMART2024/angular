@@ -230,6 +230,7 @@ export class DetalleAcademicoComponent implements OnInit {
               this.toastr.success(`Se actualizó correctamente.`);
               this.id_documento_evidencia = new FormData();
               this.selectedCicloId = 0;
+              this.getDataCiclo();
               this.cdr.detectChanges();
 
             },

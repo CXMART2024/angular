@@ -131,7 +131,7 @@
             <div class="card mb-3">
                 <div class="card-header d-flex justify-content-between">
                     <strong class="my-auto">Calificaciones</strong>
-                    <button class="btn btn-primary" [disabled]="!id_documento_evidencia.files?.length"
+                    <button *ngIf="cicloData?.estado != 'Finalizado'" class="btn btn-primary" [disabled]="!id_documento_evidencia.files?.length"
                         (click)="updateInformacionBecario()">Registrar Calificaciones</button>
                 </div>
                 <div class="card-body">
@@ -163,7 +163,7 @@
                                         </td>
                                         <td class="text-center" style="width: 30%;">
                                             <input type="text" class="form-control form-control-sm text"
-                                                [(ngModel)]="curso.nota" name="curso.nota">
+                                                [(ngModel)]="curso.nota" name="curso.nota" [disabled]="cicloData?.estado == 'Finalizado'" >
                                         </td>
                                     </tr>
                                 </tbody>
