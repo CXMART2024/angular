@@ -3,41 +3,58 @@
     <div class="row">
 
         <div class="col-12 col-md-2" style="background-color: #4180C2;">
-            <nav>
-
+       
                 <ul class="nav flex-column nav-fill nav-pills">
 
-                    <li class="nav-item mb-2">
+                    <li class="nav-item mb-2 mt-2">
                         <img src="https://blobauroranuevo.blob.core.windows.net/images3d/fxemoji_graduationcap (1).png"
                             alt="">
                     </li>
 
                     <li class="nav-item m-4">
-                        <a class="nav-link text-white btn-image-text p-3" routerLink="/detalle">
-                            <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Question Circle.png"
-                                alt="Icon">
-                            <span>Detalle Académico</span>
+                      
+                                <a class="nav-link text-white p-3" routerLink="/detalle">
+                                    <div class="row">
+                                        <div class="col-12"><img src="https://blobauroranuevo.blob.core.windows.net/images3d/Question Circle.png"
+                                        alt="Icon"></div>
+                                        <div class="col-12"><span class="text-white">Detalle Académico</span></div>
+                                    </div>
+                                </a>
+                      
+                    </li>
+
+                    <li class="nav-item m-4">
+
+                        <a class="nav-link active p-3" routerLink="/informacion"
+                            style="background-color:rgba(255, 255, 255, 0.2)">
+                            <div class="row">
+                                <div class="col"><img
+                                        src="https://blobauroranuevo.blob.core.windows.net/images3d/Form.png"
+                                        alt="Icon"></div>
+                                <div class="col">
+                                    <label class="text-white fw-bold text-sm-start">Información Beca</label>
+                                </div>
+                            </div>
                         </a>
                     </li>
 
                     <li class="nav-item m-4">
-                        <a class="nav-link text-white btn-image-text active p-3"
-                            style="background-color:rgba(255, 255, 255, 0.2);" routerLink="/informacion">
-                            <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Form.png" alt="Icon">
-                            <span><strong>Información Beca</strong></span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item m-4">
-                        <a class="nav-link text-white btn-image-text p-3" routerLink="/reporte-academico">
-                            <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Data Trending (1).png"
-                                alt="Icon">
-                            <span>Reporte Rendimiento</span>
+                        <a class="nav-link p-3" routerLink="/reporte-academico">
+                            <div class="row">
+                                <div class="col-12">
+                                    <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Data Trending (1).png"
+                                        alt="Icon">
+                                </div>
+                                <div class="col-12">
+                                    <span class="text-white">Reporte
+                                        Rendimiento</span>
+                                </div>
+                            </div>
                         </a>
                     </li>
 
                 </ul>
-            </nav>
+     
             <div class="d-flex justify-content-center m-5">
                 <button type="button" class="btn text-white rounded-circle" data-bs-toggle="modal"
                     data-bs-target="#showNot" style="background-color: rgba(255, 255, 255, 0.1);">
@@ -294,8 +311,9 @@
     </div>
 </div>
 
-<div class="modal fade" id="contrato_becario" data-bs-backdrop="false" tabindex="-1" role="dialog"
-    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+
+
+<div class="modal" data-bs-backdrop="static" id="contrato_becario">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
