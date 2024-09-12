@@ -59,7 +59,7 @@ export class InformacionBecaComponent implements OnInit {
         this.fecha_fin_estimada = this.formatDateForInput(this.solicitud.fecha_fin_estimada);
         this.getMallaCiclos();
 
-        if (this.solicitud == "0") {
+        if (this.solicitud.contratoBecario == '0') {
           this.showModal();
         }
       }
