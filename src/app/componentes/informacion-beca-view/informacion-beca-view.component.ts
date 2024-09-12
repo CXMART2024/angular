@@ -10,6 +10,9 @@ import { Curso } from '../../modelos/curso';
 import { Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { forkJoin } from 'rxjs';
+import { FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../../servicios/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-informacion-beca-view',
@@ -23,7 +26,12 @@ export class InformacionBecaViewComponent implements OnInit {
   numCursosMap = new Map<number, number>();
   mallaCurricular: any[] = [];
 
-  registrarCicloBool : boolean = false;
+  registrarCicloBool: boolean = false;
+  formUpdateLogin = this.formBuilder.group({
+    dni: ['', [Validators.required]],
+    antiguaClave: ['', [Validators.required]],
+    nuevaClave: ['', [Validators.required]]
+  });
 
   constructor(
     private solicitudService: SolicitudService,
@@ -31,7 +39,10 @@ export class InformacionBecaViewComponent implements OnInit {
     private cicloService: CicloService,
     private cursoService: CursoService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -40,8 +51,13 @@ export class InformacionBecaViewComponent implements OnInit {
       if (this.solicitud) {
         this.getCiclos();
         this.getMallaCurricular();
+
+        this.formUpdateLogin.patchValue({
+          dni: this.solicitud.dni
+        });
+
       }
-   
+
     });
     this.cdr.detectChanges();
   }
@@ -105,10 +121,33 @@ export class InformacionBecaViewComponent implements OnInit {
 
 
   viewRegistrarCiclo(): void {
-    this.registrarCicloBool =(
-      this.listCiclos.filter((ciclo) => ciclo.estado == 'En Proceso').length == 0 
+    this.registrarCicloBool = (
+      this.listCiclos.filter((ciclo) => ciclo.estado == 'En Proceso').length == 0
       && this.solicitud.MallaEstado == 'Aprobado'
     );
   }
 
+  logout() {
+    this.authService.logout()
+  }
+
+  updateLogin() {
+
+    const dni: string = this.formUpdateLogin.get('dni')?.value as string;
+    const antiguaClave: string = this.formUpdateLogin.get('antiguaClave')?.value as string;
+    const nuevaClave: string = this.formUpdateLogin.get('nuevaClave')?.value as string;
+
+
+    this.authService.actualizarClave(dni, antiguaClave, nuevaClave).subscribe({
+      next: (response: any) => {
+        this.formUpdateLogin.reset();
+        this.toastr.success(`Se actualizó correctamente.`);
+      },
+      error: (error: any) => {
+        console.error('Error actualizando clave', error);
+        this.formUpdateLogin.reset();
+        this.toastr.error(`Error actualizando clave. Por favor, refresca la página y vuelve a intentarlo.`);
+      }
+    });
+  }
 }

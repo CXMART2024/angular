@@ -3,3 +3,8 @@ button {
     font-family: sans-serif;
 }
 
+.mistake{
+    color: red;
+    margin-top: 2px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

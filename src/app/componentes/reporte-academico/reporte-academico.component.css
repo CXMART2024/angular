@@ -35,10 +35,8 @@ button {
     bottom: 3rem;
 }
 
-/*.modal-dialog {
-   position:fixed;
-   top:auto;
-   right:auto;
-   left:auto;
-   bottom:0;
-}  */
+.mistake{
+    color: red;
+    margin-top: 2px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

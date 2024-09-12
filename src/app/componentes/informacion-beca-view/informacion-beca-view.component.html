@@ -3,47 +3,82 @@
     <div class="row">
 
         <div class="col-12 col-md-2" style="background-color: #4180C2;">
-            <nav>
 
-                <ul class="nav flex-column nav-fill nav-pills">
+            <ul class="nav flex-column nav-fill nav-pills">
 
-                    <li class="nav-item mb-2">
-                        <img src="https://blobauroranuevo.blob.core.windows.net/images3d/fxemoji_graduationcap (1).png"
-                            alt="">
-                    </li>
+                <li class="nav-item mb-2 mt-2">
+                    <img src="https://blobauroranuevo.blob.core.windows.net/images3d/fxemoji_graduationcap (1).png"
+                        alt="">
+                </li>
 
-                    <li class="nav-item m-4">
-                        <a class="nav-link text-white btn-image-text p-3" href="" routerLink="/detalle">
-                            <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Question Circle.png"
-                                alt="Icon">
-                            <span>Detalle Académico</span>
-                        </a>
-                    </li>
+                <li class="nav-item m-4">
+                    <a class="nav-link text-white p-3" routerLink="/detalle">
+                        <div class="row">
+                            <div class="col-12"><img
+                                    src="https://blobauroranuevo.blob.core.windows.net/images3d/Question Circle.png"
+                                    alt="Icon"></div>
+                            <div class="col-12"><span class="text-white" style="font-size: smaller;">Detalle
+                                    Académico</span></div>
+                        </div>
+                    </a>
+                </li>
 
-                    <li class="nav-item m-4">
-                        <a class="nav-link text-white btn-image-text active p-3"
-                            style="background-color:rgba(255, 255, 255, 0.2);" href="" routerLink="/informacion">
-                            <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Form.png" alt="Icon">
-                            <span><strong>Información Beca</strong></span>
-                        </a>
-                    </li>
+                <li class="nav-item m-4">
+                    <a class="nav-link active p-3" routerLink="/informacion"
+                        style="background-color:rgba(255, 255, 255, 0.2)">
+                        <div class="row">
+                            <div class="col-12"><img
+                                    src="https://blobauroranuevo.blob.core.windows.net/images3d/Form.png" alt="Icon">
+                            </div>
+                            <div class="col-12">
+                                <label class="text-white" style="font-size: smaller;">Información Beca</label>
+                            </div>
+                        </div>
+                    </a>
+                </li>
 
-                    <li class="nav-item m-4">
-                        <a class="nav-link text-white btn-image-text p-3" href="#" routerLink="/reporte-academico">
-                            <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Data Trending (1).png"
-                                alt="Icon">
-                            <span>Reporte Rendimiento</span>
-                        </a>
-                    </li>
+                <li class="nav-item m-4">
+                    <a class="nav-link p-2" routerLink="/reporte-academico">
+                        <div class="row">
+                            <div class="col-12">
+                                <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Data Trending (1).png"
+                                    alt="Icon">
+                            </div>
+                            <div class="col-12">
+                                <span class="text-white" style="font-size: smaller;">Reporte
+                                    Rendimiento</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
 
-                </ul>
-            </nav>
-            <div class="d-flex justify-content-center m-5">
-                <button type="button" class="btn text-white rounded-circle" data-bs-toggle="modal"
-                    data-bs-target="#showNot" style="background-color: rgba(255, 255, 255, 0.1);">
-                    <i class="bi bi-bell"></i>
-                </button>
-            </div>
+                <li class="nav-item m-4">
+                    <div class="d-flex justify-content-center">
+                        <button type="button" class="btn text-white rounded-circle" data-bs-toggle="modal"
+                            data-bs-target="#showNot" style="background-color: rgba(255, 255, 255, 0.1);">
+                            <i class="bi bi-bell"></i>
+                        </button>
+                    </div>
+                </li>
+                <li class="nav-item m-2">
+                    <div class="d-flex justify-content-center">
+                        <button type="button" class="btn text-white rounded-circle" data-bs-toggle="modal"
+                            data-bs-target="#updateUser" style="background-color: rgba(255, 255, 255, 0.1);">
+                            <i class="bi bi-person-check"></i>
+                        </button>
+                    </div>
+
+                </li>
+                <li class="nav-item m-5">
+                    <div class="d-flex justify-content-center" style="margin-bottom: 2rem;">
+                        <button type="button" class="btn text-white rounded-circle"
+                            style="background-color: rgba(255, 255, 255, 0.1);" (click)="logout()">
+                            <i class="bi bi-box-arrow-left"></i>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+
         </div>
 
         <div class="col-12 col-md-10" style="background-color: #F3F3F3;">
@@ -191,8 +226,9 @@
                         <div class="col-7 d-flex align-items-center">
                             <h6 class="my-auto"><strong>Ciclos Académicos</strong></h6>
                         </div>
-                        <div *ngIf="registrarCicloBool" class="col-5 d-flex justify-content-end"><button class="btn btn-primary" type="button"
-                                routerLink="/add-modulo-academico">Registrar Nuevo Ciclo</button></div>
+                        <div *ngIf="registrarCicloBool" class="col-5 d-flex justify-content-end"><button
+                                class="btn btn-primary" type="button" routerLink="/add-modulo-academico">Registrar Nuevo
+                                Ciclo</button></div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -323,3 +359,57 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="updateUser" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row w-100 g-0">
+                    <div class="col">
+                        <h6>Actualizar Contraseña</h6>
+                    </div>
+                    <div class="col d-flex justify-content-end"><button class="btn-close"
+                            data-bs-dismiss="modal"></button></div>
+
+                </div>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formUpdateLogin">
+                    <div class="mb-3">
+                        <label class="form-label text-dark">DNI: </label>
+                        <input type="text" class="form-control" formControlName="dni" [readOnly]="true">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Contraseña Actual: </label>
+                        <input type="password" class="form-control" formControlName="antiguaClave" name="antiguaClave"
+                            value="">
+                        @if(formUpdateLogin.get('antiguaClave')?.errors?.['required'] &&
+                        formUpdateLogin.get('antiguaClave')?.touched)
+                        {<div class="mistake">
+                            Por favor coloque su contraseña actual correctamente
+                        </div>
+                        }
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Nueva Contraseña: </label>
+                        <input type="password" class="form-control" formControlName="nuevaClave" name="" value="">
+                        @if(formUpdateLogin.get('nuevaClave')?.errors?.['required'] &&
+                        formUpdateLogin.get('nuevaClave')?.touched)
+                        {<div class="mistake">
+                            Por favor coloque su nueva contraseña correctamente
+                        </div>
+                        }
+                    </div>
+                    <div class="d-grid mb-2">
+                        <button class="btn btn-primary" [disabled]="!formUpdateLogin.valid" (click)="updateLogin()"
+                            data-bs-dismiss="modal">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
