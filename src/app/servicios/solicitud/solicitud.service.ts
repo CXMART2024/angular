@@ -19,9 +19,12 @@ export class SolicitudService {
 
   //setear data solicitud después del login
   setSolicitudData(data: any) {
-    //this.solicitudData = data;
-    this.solicitudDataSubject.next(data);
-    localStorage.setItem('solicitudData', JSON.stringify(data));
+    this.getSolicitudByDni(data.dni).subscribe({
+      next: (data: any) => {
+        this.solicitudDataSubject.next(data);
+        localStorage.setItem('solicitudData', JSON.stringify(data));
+      }
+    })
     
   }
 
@@ -43,7 +46,7 @@ export class SolicitudService {
     return this.http.put(`${this.apiUrl}/${data.id}`, data);
   };
 
-  getSolicitudByDni(dni: string): Observable<any> {
+  getSolicitudByDni(dni: string) {
     return this.http.get(`${this.apiUrl}/dni/${dni}`)
   }
 

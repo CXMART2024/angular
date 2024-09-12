@@ -70,7 +70,7 @@ export class InformacionBecaComponent implements OnInit {
         this.formUpdateLogin.patchValue({
           dni: this.solicitud.dni
         });
-        
+        console.log(this.solicitud);
         if (this.solicitud.contratoBecario == '0') {
           this.showModal();
         }
@@ -161,7 +161,7 @@ export class InformacionBecaComponent implements OnInit {
 
           this.solicitudService.updateSolicitud(this.solicitud).subscribe({
             next: (response: any) => {
-
+              this.solicitudService.setSolicitudData(response);
               this.toastr.success(`Se actualizó correctamente.`);
               this.cdr.detectChanges();
             },
@@ -183,7 +183,7 @@ export class InformacionBecaComponent implements OnInit {
 
       this.solicitudService.updateSolicitud(this.solicitud).subscribe({
         next: (response: any) => {
-
+          this.solicitudService.setSolicitudData(response);
           this.toastr.success(`Se actualizó correctamente.`);
           this.cdr.detectChanges();
         },
@@ -290,15 +290,16 @@ export class InformacionBecaComponent implements OnInit {
   }
 
 
-  aceptarContrato(solicitudData: any) {
-    solicitudData.contratoBecario = '1';
-    console.log(solicitudData);
-    this.solicitudService.updateSolicitud(solicitudData).subscribe({
+  aceptarContrato() {
+    if(this.solicitud) {
+      this.solicitud.contratoBecario = '1';
+      this.solicitudService.updateSolicitud(this.solicitud).subscribe({
       next: (response: any) => {
-        console.log(response);
-        this.cdr.detectChanges();
+        this.solicitudService.setSolicitudData(response);
       }
-    });
+    })
+    }
+    ;
   }
 
   logout() {
