@@ -31,7 +31,7 @@ export class InformacionBecaComponent implements OnInit {
   id_malla_curricular = new FormData();
 
   editMallaCurricular: boolean = true;
-  contratoBecario: string = '';
+  contratoBecario: boolean = true;
   nombre_completo: string = '';
   dni: string = '';
   institucion_nombre: string = '';
@@ -58,15 +58,13 @@ export class InformacionBecaComponent implements OnInit {
         this.institucion_nombre = this.solicitud.institucion_nombre;
         this.fecha_inicio = this.formatDateForInput(this.solicitud.fecha_inicio);
         this.fecha_fin_estimada = this.formatDateForInput(this.solicitud.fecha_fin_estimada);
-        this.contratoBecario = this.solicitud.contratoBecario;
+        this.contratoBecario = (this.solicitud.contratoBecario == '0');
         this.getMallaCiclos();
       } else {
         console.error('Solicitud data is not available');
       }
     });
-    if (this.solicitud.contratoBecario === '0' ||  this.contratoBecario === '0') {
-      this.showModal();
-    }
+
     this.cdr.detectChanges();
 
   }
@@ -74,11 +72,10 @@ export class InformacionBecaComponent implements OnInit {
 
   showModal() {
     setTimeout(() => {
-      // Ensure the global `window` object has access to Bootstrap's modal
       const modalElement = document.getElementById('contrato_becario');
       if (modalElement && (window as any).bootstrap) {
         const modal = new (window as any).bootstrap.Modal(modalElement);
-        modal.show(); // Show the modal automatically
+        modal.show(); 
       }
     }, 0);
   }
