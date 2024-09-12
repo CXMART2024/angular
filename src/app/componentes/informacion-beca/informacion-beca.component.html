@@ -3,8 +3,7 @@
     <div class="row">
 
         <div class="col-12 col-md-2" style="background-color: #4180C2;">
-            <nav>
-
+            <nav class="d-grid gap-5">
                 <ul class="nav flex-column nav-fill nav-pills">
 
                     <li class="nav-item mb-2 mt-2">
@@ -15,37 +14,38 @@
                     <li class="nav-item m-4">
                         <div class="row">
                             <div class="col">
-                                <a class="btn btn-info nav-link text-white p-3" routerLink="/detalle" id="detalle_nav">
+                                <a class="btn btn-info nav-link text-white p-3" routerLink="/detalle">
                                     <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Question Circle.png"
                                         alt="Icon">
                                 </a>
                             </div>
-                            <div class="col"><span class="text-white" for="detalle_nav">Detalle Académico</span></div>
+                            <div class="col"><span class="text-white">Detalle Académico</span></div>
                         </div>
                     </li>
 
                     <li class="nav-item m-4">
-                        <div class="row">
-                            <div class="col bg-transparent">
-                                <a class="nav-link active p-3" routerLink="/informacion">
-                                    <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Form.png"
-                                        alt="Icon">
-                                </a>
+
+                        <a class="nav-link active p-3" routerLink="/informacion"
+                            style="background-color:rgba(255, 255, 255, 0.2);">
+                            <div class="row">
+                                <div class="col"><img
+                                        src="https://blobauroranuevo.blob.core.windows.net/images3d/Form.png"
+                                        alt="Icon"></div>
+                                <div class="col">
+                                    <label class="text-white"><strong>Información Beca</strong></label>
+                                </div>
                             </div>
-                            <div class="col bg-transparent">
-                                <label class="text-white"><strong>Información Beca</strong></label>
-                            </div>
-                        </div>
+                        </a>
                     </li>
 
                     <li class="nav-item m-4">
                         <a class="nav-link p-3" routerLink="/reporte-academico">
                             <div class="row">
-                                <div class="col">
+                                <div class="col-6 col-md-12">
                                     <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Data Trending (1).png"
                                         alt="Icon">
                                 </div>
-                                <div class="col">
+                                <div class="col-6 col-md-12">
                                     <span class="text-white">Reporte
                                         Rendimiento</span>
                                 </div>
