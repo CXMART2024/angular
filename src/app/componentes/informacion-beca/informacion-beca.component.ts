@@ -31,7 +31,6 @@ export class InformacionBecaComponent implements OnInit {
   id_malla_curricular = new FormData();
 
   editMallaCurricular: boolean = true;
-  vcontratoBecario: boolean = false;
   nombre_completo: string = '';
   dni: string = '';
   institucion_nombre: string = '';
@@ -60,12 +59,6 @@ export class InformacionBecaComponent implements OnInit {
         this.fecha_fin_estimada = this.formatDateForInput(this.solicitud.fecha_fin_estimada);
         this.getMallaCiclos();
 
-
-        if (this.solicitud.contrato_becario == "0" ? this.vcontratoBecario = !0 : this.vcontratoBecario = !1) {
-          this.vcontratoBecario = true;
-        } else {
-          this.vcontratoBecario = false;
-        }
       } else {
         console.error('Solicitud data is not available');
       }
