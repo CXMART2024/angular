@@ -7,7 +7,7 @@
 
                 <ul class="nav flex-column nav-fill nav-pills">
 
-                    <li class="nav-item mb-2">
+                    <li class="nav-item mb-2 mt-2">
                         <img src="https://blobauroranuevo.blob.core.windows.net/images3d/fxemoji_graduationcap (1).png"
                             alt="">
                     </li>
@@ -15,41 +15,42 @@
                     <li class="nav-item m-4">
                         <div class="row">
                             <div class="col">
-                                <a class="btn btn-info nav-link text-white p-3" routerLink="/detalle">
+                                <a class="btn btn-info nav-link text-white p-3" routerLink="/detalle" id="detalle_nav">
                                     <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Question Circle.png"
                                         alt="Icon">
                                 </a>
                             </div>
-                            <div class="col"><span class="text-white">Detalle Académico</span></div>
+                            <div class="col"><span class="text-white" for="detalle_nav">Detalle Académico</span></div>
                         </div>
                     </li>
 
                     <li class="nav-item m-4">
                         <div class="row">
-                            <div class="col">
-                                <a class="btn btn-info nav-link active p-3" routerLink="/informacion" id="info_nav">
+                            <div class="col bg-transparent">
+                                <a class="nav-link active p-3" routerLink="/informacion">
                                     <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Form.png"
                                         alt="Icon">
                                 </a>
                             </div>
-                            <div class="col">
-                                <label class="text-white" for="info_nav"><strong>Información Beca</strong></label>
+                            <div class="col bg-transparent">
+                                <label class="text-white"><strong>Información Beca</strong></label>
                             </div>
                         </div>
                     </li>
 
                     <li class="nav-item m-4">
-                        <div class="row">
-                            <div class="col">
-                                <a class="btn btn-info nav-link p-3" routerLink="/reporte-academico">
+                        <a class="nav-link p-3" routerLink="/reporte-academico">
+                            <div class="row">
+                                <div class="col">
                                     <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Data Trending (1).png"
                                         alt="Icon">
-                                </a>
+                                </div>
+                                <div class="col">
+                                    <span class="text-white">Reporte
+                                        Rendimiento</span>
+                                </div>
                             </div>
-                            <div class="col">
-                                <span class="text-white">Reporte Rendimiento</span>
-                            </div>
-                        </div>
+                        </a>
                     </li>
 
                 </ul>
