@@ -255,7 +255,7 @@
                                             <td class="text-center">{{ciclo.creditos}}</td>
                                             <td class="text-center">{{numCursosMap.get(ciclo.id)}}</td>
                                             <td class="text-center"><span class="badge rounded-pill text-dark"
-                                                [ngStyle]="{'background-color': getColorByState(ciclo.estado)}">{{ciclo.estado}}</span>
+                                                    [ngStyle]="{'background-color': getColorByState(ciclo.estado)}">{{ciclo.estado}}</span>
                                             </td>
                                             <td><button class="btn" (click)="selectCiclo(ciclo)" type="button"><i
                                                         class="bi bi-chevron-right"></i></button></td>
@@ -288,8 +288,8 @@
                     <div class="col d-flex align-items-center">
                         <h6 class="my-auto">Ciclos Malla Curricular</h6>
                     </div>
-                    <div class="col d-flex justify-content-end"><button class="btn-close"
-                            data-bs-dismiss="modal"></button></div>
+                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
+                            data-bs-dismiss="modal"></i></div>
 
                 </div>
             </div>
@@ -333,8 +333,8 @@
                     <div class="col">
                         <h6>Notificaciones</h6>
                     </div>
-                    <div class="col d-flex justify-content-end"><button class="btn-close"
-                            data-bs-dismiss="modal"></button></div>
+                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
+                            data-bs-dismiss="modal"></i></div>
 
                 </div>
             </div>
@@ -369,8 +369,8 @@
                     <div class="col">
                         <h6>Actualizar Contraseña</h6>
                     </div>
-                    <div class="col d-flex justify-content-end"><button class="btn-close"
-                            data-bs-dismiss="modal"></button></div>
+                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
+                            data-bs-dismiss="modal"></i></div>
 
                 </div>
             </div>
