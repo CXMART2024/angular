@@ -127,6 +127,20 @@ export class InformacionBecaViewComponent implements OnInit {
     );
   }
 
+  getColorByState(cicloEstado: string): string {
+    switch (cicloEstado) {
+      case 'En Proceso':
+        return 'rgba(255, 249, 196, 1)';
+      case 'Finalizado':
+        return 'rgba(200, 230, 201, 1)';
+      case 'Observado':
+        return 'rgba(248, 187, 208, 1)';
+      default:
+        return 'rgba(255, 255, 255, 1)';
+    }
+  }
+
+
   logout() {
     this.authService.logout()
   }

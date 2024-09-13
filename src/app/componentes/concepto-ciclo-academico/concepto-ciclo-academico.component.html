@@ -145,7 +145,7 @@
                         <div class="col-7 d-flex align-items-center">
                             <h6 class="my-auto"><strong>Cronograma de Pagos</strong></h6>
                         </div>
-                        <div class="col-5 d-flex justify-content-end"><button class="btn btn-primary" type="button"
+                        <div *ngIf="selectedCiclo && selectedCiclo.estado !='Finalizado'" class="col-5 d-flex justify-content-end"><button class="btn btn-primary" type="button"
                                 data-bs-toggle="modal" data-bs-target="#addConcepto">Agregar Concepto</button></div>
                     </div>
                 </div>
