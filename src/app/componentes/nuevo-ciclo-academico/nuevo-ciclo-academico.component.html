@@ -5,8 +5,8 @@
                 <div class="col d-flex align-items-center">
                     <h6 class="my-auto">Nuevo Ciclo Académico</h6>
                 </div>
-                <div class="col d-flex justify-content-end"><button class="btn-close"
-                        routerLink="/informacion-view"></button></div>
+                <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
+                        routerLink="/informacion-view"></i></div>
             </div>
         </div>
         <div class="card-body">
@@ -27,7 +27,8 @@
                 <div class="col-12 col-md-6 mb-3">
                     <div class="row">
                         <div class="col"><label class="form-label"><strong>Fecha Inicio</strong></label>
-                            <input [(ngModel)]="ciclo.fecha_inicio" name="fecha_inicio" type="date" class="form-control" />
+                            <input [(ngModel)]="ciclo.fecha_inicio" name="fecha_inicio" type="date"
+                                class="form-control" />
                         </div>
                         <div class="col"><label class="form-label"><strong>Fecha Fin</strong></label>
                             <input [(ngModel)]="ciclo.fecha_fin" name="fecha_fin" type="date" class="form-control" />
@@ -46,7 +47,8 @@
                             <input type="text" class="form-control" value={{contarCursos()}} readonly />
                         </div>
                         <div class="col"><label class="form-label"><strong>N° Créditos</strong></label>
-                            <input [(ngModel)]="ciclo.creditos" name="" type="text" class="form-control" value={{sumarCredito()}} readonly />
+                            <input [(ngModel)]="ciclo.creditos" name="" type="text" class="form-control"
+                                value={{sumarCredito()}} readonly />
                         </div>
                     </div>
                 </div>
@@ -97,7 +99,8 @@
             </div>
 
             <div class="d-flex justify-content-end">
-                <button (click)="guardarCicloAcademico()" [disabled]="!isFileSelected()" class="btn btn-primary w-25 btn-sm" >Guardar Ciclo Académico</button>
+                <button (click)="guardarCicloAcademico()" [disabled]="!isFileSelected()"
+                    class="btn btn-primary w-25 btn-sm">Guardar Ciclo Académico</button>
                 <!-- routerLink="/informacion-view" -->
             </div>
 
@@ -117,8 +120,8 @@
                     <div class="col">
                         <h6>Añadir Curso</h6>
                     </div>
-                    <div class="col d-flex justify-content-end"><button class="btn-close"
-                            data-bs-dismiss="modal"></button></div>
+                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
+                            data-bs-dismiss="modal"></i></div>
 
                 </div>
             </div>
@@ -133,25 +136,29 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-dark">Curso: </label>
-                        <select class="form-select" name="cursoSeleccionado" [(ngModel)]="cursoSeleccionadoPopUp" >
+                        <select class="form-select" name="cursoSeleccionado" [(ngModel)]="cursoSeleccionadoPopUp">
                             <option value="" selected disabled class="text-muted">Seleccione una opción</option>
-                            <option value="" *ngFor="let curso of listCursoPopUp" [ngValue]="curso">{{curso.Nombre}}</option>
+                            <option value="" *ngFor="let curso of listCursoPopUp" [ngValue]="curso">{{curso.Nombre}}
+                            </option>
                         </select>
                     </div>
                     <div class="mb-4">
                         <div class="row">
                             <div class="col">
                                 <label class="form-label text-dark">Tipo: </label>
-                                <input type="text" class="form-control disabled" name="cursoSeleccionadoTipo"  [(ngModel)]="cursoSeleccionadoPopUp.tipo" readonly >
+                                <input type="text" class="form-control disabled" name="cursoSeleccionadoTipo"
+                                    [(ngModel)]="cursoSeleccionadoPopUp.tipo" readonly>
                             </div>
                             <div class="col">
                                 <label class="form-label text-dark">Crédito: </label>
-                                <input type="text" class="form-control disabled" name="cursoSeleccionadoCreditos" [(ngModel)]="cursoSeleccionadoPopUp.creditos" readonly >
+                                <input type="text" class="form-control disabled" name="cursoSeleccionadoCreditos"
+                                    [(ngModel)]="cursoSeleccionadoPopUp.creditos" readonly>
                             </div>
                         </div>
                     </div>
                     <div class="d-grid mb-3">
-                        <button data-bs-dismiss="modal" (click)="agregarCurso()" class="btn btn-primary">Añadir Curso</button>
+                        <button data-bs-dismiss="modal" (click)="agregarCurso()" class="btn btn-primary">Añadir
+                            Curso</button>
                     </div>
                 </form>
             </div>

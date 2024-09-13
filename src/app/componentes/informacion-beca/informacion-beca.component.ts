@@ -203,6 +203,7 @@ export class InformacionBecaComponent implements OnInit {
   submitForm() {
     if (this.fecha_inicio && this.fecha_fin_estimada) {
       this.updateInformacionBecario();
+      this.router.navigate(['/informacion-view']);
     } else {
 
       this.toastr.error(`Por favor, selecciona una fecha de inicio y una fecha estimada.`);
@@ -243,8 +244,6 @@ export class InformacionBecaComponent implements OnInit {
     forkJoin(cursoRequests).subscribe({
       next: (cicloCursoPairs: RelacionMalla[]) => {
         this.cicloCursoRelacion = cicloCursoPairs;
-        console.log(this.cicloCursoRelacion);
-        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error fetching cursos', error);
@@ -295,13 +294,13 @@ export class InformacionBecaComponent implements OnInit {
 
 
   aceptarContrato() {
-    if(this.solicitud) {
+    if (this.solicitud) {
       this.solicitud.contratoBecario = '1';
       this.solicitudService.updateSolicitud(this.solicitud).subscribe({
-      next: (response: any) => {
-        this.solicitudService.setSolicitudData(response);
-      }
-    })
+        next: (response: any) => {
+          this.solicitudService.setSolicitudData(response);
+        }
+      })
     }
     ;
   }

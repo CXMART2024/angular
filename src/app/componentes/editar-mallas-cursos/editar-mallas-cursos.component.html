@@ -5,8 +5,8 @@
                 <div class="col">
                     <h6 class="mb-2 mt-2">Editar Ciclo</h6>
                 </div>
-                <div class="col d-flex justify-content-end"><button class="btn-close mb-2 mt-2"
-                        routerLink="/informacion"></button></div>
+                <div class="col d-flex justify-content-end"><i class="bi bi-x-circle mb-2 mt-2" style="color: black;"
+                        routerLink="/informacion"></i></div>
             </div>
         </div>
         <form #formEditMalla="ngForm">
@@ -14,7 +14,7 @@
 
                 <p class="card-subtitle mb-2"><strong>Ciclo</strong></p>
                 <div class="w-50">
-                    <input type="text" class="form-control rounded" name="nombre" [(ngModel)]="nombre"  required/>
+                    <input type="text" class="form-control rounded" name="nombre" [(ngModel)]="nombre" required />
                 </div>
                 <div class="row mb-4">
                     <div class="col-4 col-md-6 d-flex align-items-center">
@@ -71,7 +71,8 @@
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <button class="btn btn-primary w-25" routerLink="/informacion" type="btn" (click)="updateCiclo()" [disabled]="formEditMalla.invalid">Guardar Ciclo</button>
+                    <button class="btn btn-primary w-25" routerLink="/informacion" type="btn" (click)="updateCiclo()"
+                        [disabled]="formEditMalla.invalid">Guardar Ciclo</button>
                 </div>
 
             </div>
@@ -91,8 +92,8 @@
                     <div class="col">
                         <h6>{{ editingIndex === null ? 'Añadir Curso' : 'Editar Curso' }}</h6>
                     </div>
-                    <div class="col d-flex justify-content-end"><button class="btn-close"
-                            data-bs-dismiss="modal"></button></div>
+                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
+                            data-bs-dismiss="modal"></i></div>
 
                 </div>
             </div>
@@ -127,4 +128,3 @@
         </div>
     </div>
 </div>
-
