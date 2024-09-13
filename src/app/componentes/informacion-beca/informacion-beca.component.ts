@@ -10,7 +10,7 @@ import { CicloMalla } from '../../modelos/ciclo-malla';
 import { CursoMalla } from '../../modelos/curso-malla';
 import { RelacionMalla } from '../../modelos/relacion-malla';
 import { Ciclo } from '../../modelos/ciclo';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../servicios/auth/auth.service';
 
@@ -66,7 +66,12 @@ export class InformacionBecaComponent implements OnInit {
         this.fecha_inicio = this.formatDateForInput(this.solicitud.fecha_inicio);
         this.fecha_fin_estimada = this.formatDateForInput(this.solicitud.fecha_fin_estimada);
         this.getMallaCiclos();
-
+        this.router.events.subscribe(event => {
+          if (event instanceof NavigationEnd) {
+            this.getMallaCiclos();
+          }
+        })
+        this.cdr.detectChanges();
         this.formUpdateLogin.patchValue({
           dni: this.solicitud.dni
         });
@@ -238,7 +243,8 @@ export class InformacionBecaComponent implements OnInit {
     forkJoin(cursoRequests).subscribe({
       next: (cicloCursoPairs: RelacionMalla[]) => {
         this.cicloCursoRelacion = cicloCursoPairs;
-       
+        console.log(this.cicloCursoRelacion);
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error fetching cursos', error);
