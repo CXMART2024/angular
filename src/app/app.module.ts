@@ -22,7 +22,7 @@ import { EditarMallasCursosComponent } from './componentes/editar-mallas-cursos/
 import { DatePipe } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 
 
 @NgModule({
@@ -49,7 +49,6 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ReactiveFormsModule,
     HttpClientModule,
     NgxCaptchaModule,
-    BsDatepickerModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right', // Puedes cambiar la posición aquí

@@ -141,10 +141,7 @@ export class RegisterFormComponent {
   StudentArray: any[] = [];
   isResultLoaded = false;
   isUpdateFormActive = false;
-  bsValue: Date = new Date();
-  bsConfig = {
-    dateInputFormat: 'YYYY-MM-DD'  
-  };
+  
 
 
 
@@ -251,10 +248,7 @@ export class RegisterFormComponent {
     return moment.utc(dateString).format('YYYY-MM-DD');
   }
 
-  onDateChange(value: Date) {
-    const formattedDate = `${value.getFullYear()}-${(value.getMonth() + 1).toString().padStart(2, '0')}-${value.getDate().toString().padStart(2, '0')}`;
-    console.log('Formatted Date:', formattedDate);
-  }
+ 
 
 }
 
