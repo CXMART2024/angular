@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormularioBecasService } from '../../servicios/formulario-becas.service';
-import { Becas_Solicitudes } from '../../modelos/Becas_Solicitudes';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import moment from 'moment';
