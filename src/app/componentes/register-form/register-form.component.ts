@@ -141,7 +141,7 @@ export class RegisterFormComponent {
   StudentArray: any[] = [];
   isResultLoaded = false;
   isUpdateFormActive = false;
-  
+
 
 
 
@@ -150,7 +150,7 @@ export class RegisterFormComponent {
     dni: ['', [Validators.required, Validators.minLength(8)]],
     celular: ['', [Validators.required]],
     genero: ["", [Validators.required]],
-    fecha_nacimiento: ["", [Validators.required]],
+    fecha_nacimiento: [ null, [Validators.required]],
     correo: ["", [Validators.required, Validators.email]],
     departamento: ["", [Validators.required]],
     provincia: ["", [Validators.required]],
@@ -248,7 +248,15 @@ export class RegisterFormComponent {
     return moment.utc(dateString).format('YYYY-MM-DD');
   }
 
- 
+  formatDate(inputDate: string | null | undefined): string {
+    if (!inputDate) return '';
+
+    const date = new Date(inputDate);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
 
 }
 
