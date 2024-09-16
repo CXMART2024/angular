@@ -86,10 +86,12 @@
             <div class="card mt-4 mb-5">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col d-flex align-items-center"><h5 class="text-capitalize my-auto"
+                        <div class="col d-flex align-items-center">
+                            <h5 class="text-capitalize my-auto"
                                 [ngStyle]="{'color': getColorByMalla(solicitud.MallaEstado)}"><strong
                                     class="text-dark">Periodo de Beca - </strong>
-                                {{solicitud.MallaEstado}}</h5></div>
+                                {{solicitud.MallaEstado}}</h5>
+                        </div>
                         <div class="col d-flex justify-content-end"><button class="btn btn-outline-primary w-50"
                                 routerLink="/informacion">Modificar Datos</button></div>
                     </div>
@@ -184,6 +186,9 @@
                                         href="{{solicitud.id_malla_curricular}}" target="_blank">
                                         Malla Curricular - {{solicitud.nombre_completo}}.pdf
                                     </a>
+                                    <span class="text-capitalize"
+                                        [ngStyle]="{'color': getColorByMalla(solicitud.MallaEstado)}">
+                                        {{solicitud.MallaEstado}}</span>
                                 </div>
 
                             </div>
