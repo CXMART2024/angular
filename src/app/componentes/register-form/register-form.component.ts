@@ -175,12 +175,7 @@ export class RegisterFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.registrationForm.get('fecha_nacimiento')?.valueChanges.subscribe(value => {
-      if (value) {
-        const formattedDate = this.formatDate(value);
-        this.updateDateValue(formattedDate);
-      }
-    });
+   
   }
 
   openDialog() {
@@ -241,7 +236,7 @@ export class RegisterFormComponent implements OnInit {
       next: (response: any) => {
 
         if (response.fecha_nacimiento) {
-          response.fecha_nacimiento = this.formatDate(response.fecha_nacimiento);
+          response.fecha_nacimiento = this.formatDateForInput(response.fecha_nacimiento);
         }
 
 
@@ -272,13 +267,7 @@ export class RegisterFormComponent implements OnInit {
   }
 
 
-  updateDateValue(formattedDate: string) {
-
-    const [day, month, year] = formattedDate.split('/').map(Number);
-    const formattedForInput = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-
-    this.registrationForm.get('fecha_nacimiento')?.setValue(formattedForInput, { emitEvent: false });
-  }
+  
 
 }
 
