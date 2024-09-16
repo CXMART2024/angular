@@ -122,7 +122,7 @@
                         <div class="col-md-4">
                             <label class="form-label" style="font-weight: bold;">Fecha Nacimiento *</label>
                             <input type="date" class="form-control"
-                                [formControlName]="formatDate(registrationForm.get('fecha_nacimiento')?.value)">
+                                formControlName="fecha_nacimiento">
                             @if(registrationForm.get('fecha_nacimiento')?.errors?.['required'] &&
                             registrationForm.get('fecha_nacimiento')?.touched)
                             {<div class="mistake">

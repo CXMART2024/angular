@@ -150,7 +150,7 @@ export class RegisterFormComponent implements OnInit {
     dni: ['', [Validators.required, Validators.minLength(8)]],
     celular: ['', [Validators.required]],
     genero: ["", [Validators.required]],
-    fecha_nacimiento: ["", [Validators.required]],
+    fecha_nacimiento: [null, [Validators.required]],
     correo: ["", [Validators.required, Validators.email]],
     departamento: ["", [Validators.required]],
     provincia: ["", [Validators.required]],
@@ -175,7 +175,12 @@ export class RegisterFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-   
+    this.registrationForm.get('fecha_nacimiento')?.valueChanges.subscribe(value => {
+      if (value) {
+        const formattedDate = this.formatDate(value);
+        console.log('Formatted Date:', formattedDate);
+      }
+    });
   }
 
   openDialog() {
@@ -267,7 +272,7 @@ export class RegisterFormComponent implements OnInit {
   }
 
 
-  
+
 
 }
 
