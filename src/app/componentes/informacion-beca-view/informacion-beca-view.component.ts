@@ -149,7 +149,7 @@ export class InformacionBecaViewComponent implements OnInit {
       case 'Observado':
         return 'rgba(248, 187, 208, 1)';
       default:
-        return 'rgba(255, 255, 130, 1)';
+        return 'rgba(235, 245, 130, 1)'; 
     }
   }
 
