@@ -11,7 +11,7 @@ import moment from 'moment';
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.css'
 })
-export class RegisterFormComponent implements OnInit{
+export class RegisterFormComponent implements OnInit {
 
 
   //fb = inject(FormBuilder)
@@ -150,7 +150,7 @@ export class RegisterFormComponent implements OnInit{
     dni: ['', [Validators.required, Validators.minLength(8)]],
     celular: ['', [Validators.required]],
     genero: ["", [Validators.required]],
-    fecha_nacimiento: [ null, [Validators.required]],
+    fecha_nacimiento: ["", [Validators.required]],
     correo: ["", [Validators.required, Validators.email]],
     departamento: ["", [Validators.required]],
     provincia: ["", [Validators.required]],
@@ -174,10 +174,11 @@ export class RegisterFormComponent implements OnInit{
 
 
   ngOnInit(): void {
-    
+
     this.registrationForm.get('fecha_nacimiento')?.valueChanges.subscribe(value => {
       if (value) {
-        this.formatDate(value);      
+        const formattedDate = this.formatDate(value);
+        this.updateDateValue(formattedDate);
       }
     });
   }
@@ -260,17 +261,24 @@ export class RegisterFormComponent implements OnInit{
 
   formatDate(inputDate: string | null | undefined): string {
     if (!inputDate) return '';
-  
+
     const date = new Date(inputDate);
-  
+
     const day = String(date.getUTCDate()).padStart(2, '0');
     const month = String(date.getUTCMonth() + 1).padStart(2, '0');
     const year = date.getUTCFullYear();
-    
+
     return `${day}/${month}/${year}`;
   }
-  
- 
+
+
+  updateDateValue(formattedDate: string) {
+
+    const [day, month, year] = formattedDate.split('/').map(Number);
+    const formattedForInput = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+    this.registrationForm.get('fecha_nacimiento')?.setValue(formattedForInput, { emitEvent: false });
+  }
 
 }
 
