@@ -252,12 +252,10 @@ export class RegisterFormComponent {
     if (!inputDate) return '';
   
     const date = new Date(inputDate);
-    
-    const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
   
-    const day = String(localDate.getDate()).padStart(2, '0');
-    const month = String(localDate.getMonth() + 1).padStart(2, '0');
-    const year = localDate.getFullYear();
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const year = date.getUTCFullYear();
     
     return `${day}/${month}/${year}`;
   }
