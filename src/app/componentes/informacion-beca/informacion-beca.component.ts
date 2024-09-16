@@ -78,6 +78,14 @@ export class InformacionBecaComponent implements OnInit {
         if (this.solicitud.contratoBecario == '0') {
           this.showModal();
         }
+
+        const savedFormData = localStorage.getItem('formularioDatos');
+        if (savedFormData) {
+          const formData = JSON.parse(savedFormData);
+          this.fecha_inicio = formData.fecha_inicio;
+          this.fecha_fin_estimada = formData.fecha_fin_estimada;
+        }
+
       }
 
     });
@@ -204,6 +212,7 @@ export class InformacionBecaComponent implements OnInit {
     if (this.fecha_inicio && this.fecha_fin_estimada) {
       this.updateInformacionBecario();
       this.router.navigate(['/informacion-view']);
+      localStorage.removeItem('formularioDatos');
     } else {
 
       this.toastr.error(`Por favor, selecciona una fecha de inicio y una fecha estimada.`);
@@ -289,6 +298,7 @@ export class InformacionBecaComponent implements OnInit {
   }
 
   clearData() {
+    this.guardarDatosForm()
     return this.mallaCurricularService.clearCursoMallasTemporal();
   }
 
@@ -338,5 +348,14 @@ export class InformacionBecaComponent implements OnInit {
       }
     });
   }
+
+  guardarDatosForm() {
+    const formData = {
+      fecha_inicio: this.fecha_inicio,
+      fecha_fin_estimada: this.fecha_fin_estimada
+    };
+    localStorage.setItem('formularioDatos',JSON.stringify(formData));
+  }
+
 }
 
