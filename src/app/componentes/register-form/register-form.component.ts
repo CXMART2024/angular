@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormularioBecasService } from '../../servicios/formulario-becas.service';
@@ -11,7 +11,7 @@ import moment from 'moment';
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.css'
 })
-export class RegisterFormComponent {
+export class RegisterFormComponent implements OnInit{
 
 
   //fb = inject(FormBuilder)
@@ -172,6 +172,16 @@ export class RegisterFormComponent {
 
   }
 
+
+  ngOnInit(): void {
+    
+    this.registrationForm.get('fecha_nacimiento')?.valueChanges.subscribe(value => {
+      if (value) {
+        this.formatDate(value);      
+      }
+    });
+  }
+
   openDialog() {
     /*this.dialogRef.open(SubsanacionPopupComponent, {
       width: '400px', height: '295px'
@@ -230,7 +240,7 @@ export class RegisterFormComponent {
       next: (response: any) => {
 
         if (response.fecha_nacimiento) {
-          response.fecha_nacimiento = this.formatDateForInput(response.fecha_nacimiento);
+          response.fecha_nacimiento = this.formatDate(response.fecha_nacimiento);
         }
 
 
@@ -260,6 +270,7 @@ export class RegisterFormComponent {
     return `${day}/${month}/${year}`;
   }
   
+ 
 
 }
 
