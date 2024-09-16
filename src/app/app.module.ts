@@ -49,7 +49,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ReactiveFormsModule,
     HttpClientModule,
     NgxCaptchaModule,
-    BsDatepickerModule.forRoot(),
+    BsDatepickerModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right', // Puedes cambiar la posición aquí
