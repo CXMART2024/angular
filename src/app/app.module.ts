@@ -22,11 +22,11 @@ import { EditarMallasCursosComponent } from './componentes/editar-mallas-cursos/
 import { DatePipe } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+/*import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
+*/
 export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -70,15 +70,15 @@ export const MY_DATE_FORMATS = {
       preventDuplicates: true,
       progressBar: true,
     }),
-    MatDatepickerModule,
+    /*MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatInputModule,
+    MatInputModule,*/
   ],
   providers: [
     provideAnimationsAsync(),
     DatePipe,
-    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
+    //{ provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
   ],
   bootstrap: [AppComponent]
 })
