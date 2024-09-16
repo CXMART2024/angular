@@ -245,6 +245,11 @@ export class RegisterFormComponent {
   formatDateForInput(dateString: string): string {
     return moment.utc(dateString).format('YYYY-MM-DD');
   }
+
+  onDateChange(event: any) {
+    const formattedDate = `${event.year}-${event.month}-${event.day}`;
+    console.log('Formatted Date:', formattedDate);
+  }
 }
 
 
