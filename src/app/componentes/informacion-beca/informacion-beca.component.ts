@@ -58,6 +58,9 @@ export class InformacionBecaComponent implements OnInit {
     this.solicitudService.getSolicitudData().subscribe(data => {
       this.solicitud = data;
       if (this.solicitud) {
+        if (this.solicitud.contratoBecario == '0') {
+          this.showModal();
+        }
 
         this.editMallaCurricular = (this.solicitud.MallaEstado == 'No Cargado' || this.solicitud.MallaEstado == 'Observado');
         this.nombre_completo = this.solicitud.nombre_completo;
@@ -75,9 +78,7 @@ export class InformacionBecaComponent implements OnInit {
         this.formUpdateLogin.patchValue({
           dni: this.solicitud.dni
         });
-        if (this.solicitud.contratoBecario == '0') {
-          this.showModal();
-        }
+        
 
         const savedFormData = localStorage.getItem('formularioDatos');
         if (savedFormData) {
@@ -308,15 +309,18 @@ export class InformacionBecaComponent implements OnInit {
       this.solicitud.contratoBecario = '1';
       this.solicitudService.updateSolicitud(this.solicitud).subscribe({
         next: (response: any) => {
-          setTimeout(() => {
-            this.solicitudService.setSolicitudData(response);
-            const modalElement = document.getElementById('contrato_becario');
+          const modalElement = document.getElementById('contrato_becario');
                 if (modalElement && (window as any).bootstrap) {
                     const modal = (window as any).bootstrap.Modal.getInstance(modalElement);
                     if (modal) {
                         modal.hide();
                     }
                 }
+          setTimeout(() => {
+            const backdropElements = document.querySelectorAll('.modal-backdrop');
+            backdropElements.forEach(backdrop => backdrop.remove());
+            this.solicitudService.setSolicitudData(response);
+            
           }, 200);
           
         }
@@ -364,6 +368,9 @@ export class InformacionBecaComponent implements OnInit {
       this.id_malla_curricular.has('file')
     )
   }
+
+
+
 
 }
 
