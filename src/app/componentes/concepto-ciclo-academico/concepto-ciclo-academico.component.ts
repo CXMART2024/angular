@@ -187,7 +187,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
       next: (response: any[]) => {
         if (this.selectedPago) {
           this.selectedPago.id_constancia_pago = response[0].url;
-          this.selectedPago.PagoEstado = 'En Trámite';
+          this.selectedPago.PagoEstado = 'Enviado';
           this.selectedPago.ContabilidadEstado = 'Por Revisar';
           this.selectedPago.fecha_solicitud = new Date(this.fechaConceptoPago);
           this.pagoService.updatePago(this.selectedPago).subscribe({
@@ -203,14 +203,15 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
     })
   }
 
-
   //Colores de fondo estado
   getColorByState(pagoEstado: string): string {
     switch (pagoEstado) {
       case 'Programado':
-        return 'rgba(255, 249, 196, 1)';
-      case 'En Trámite':
-        return 'rgba(255, 224, 130, 1)';
+        return 'rgba(255,249,196,1)';
+      case 'Pagado':
+        return 'rgba(167,198,235,1)';
+      case 'Enviado':
+        return 'rgba(255,224,130,1)';
       case 'Aprobado':
         return 'rgba(200, 230, 201, 1)';
       case 'Observado':

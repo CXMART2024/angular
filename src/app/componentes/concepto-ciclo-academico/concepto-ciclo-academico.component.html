@@ -186,7 +186,7 @@
                                             <td class="text-center"><span class="badge rounded-pill text-dark"
                                                     [ngStyle]="{'background-color': getColorByState(pago.PagoEstado)}">{{pago.PagoEstado}}</span>
                                             </td>
-                                            <td><button *ngIf="['Programado', 'Observado'].includes(pago.PagoEstado)"
+                                            <td><button *ngIf="['Pagado', 'Observado'].includes(pago.PagoEstado)"
                                                     (click)="setSelectedPago(pago)" class="btn" data-bs-toggle="modal"
                                                     data-bs-target="#editConcepto" type="button"><i
                                                         class="bi bi-pencil"></i></button></td>
