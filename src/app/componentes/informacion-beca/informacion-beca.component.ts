@@ -298,7 +298,17 @@ export class InformacionBecaComponent implements OnInit {
       this.solicitud.contratoBecario = '1';
       this.solicitudService.updateSolicitud(this.solicitud).subscribe({
         next: (response: any) => {
-          this.solicitudService.setSolicitudData(response);
+          setTimeout(() => {
+            this.solicitudService.setSolicitudData(response);
+            const modalElement = document.getElementById('contrato_becario');
+                if (modalElement && (window as any).bootstrap) {
+                    const modal = (window as any).bootstrap.Modal.getInstance(modalElement);
+                    if (modal) {
+                        modal.hide();
+                    }
+                }
+          }, 0);
+          
         }
       })
     }
