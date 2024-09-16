@@ -250,13 +250,18 @@ export class RegisterFormComponent {
 
   formatDate(inputDate: string | null | undefined): string {
     if (!inputDate) return '';
-
+  
     const date = new Date(inputDate);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
+    
+    const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+  
+    const day = String(localDate.getDate()).padStart(2, '0');
+    const month = String(localDate.getMonth() + 1).padStart(2, '0');
+    const year = localDate.getFullYear();
+    
     return `${day}/${month}/${year}`;
   }
+  
 
 }
 
