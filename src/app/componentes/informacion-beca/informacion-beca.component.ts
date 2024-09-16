@@ -317,7 +317,7 @@ export class InformacionBecaComponent implements OnInit {
                         modal.hide();
                     }
                 }
-          }, 0);
+          }, 200);
           
         }
       })
@@ -355,6 +355,14 @@ export class InformacionBecaComponent implements OnInit {
       fecha_fin_estimada: this.fecha_fin_estimada
     };
     localStorage.setItem('formularioDatos',JSON.stringify(formData));
+  }
+
+  isFileSelected(): boolean {
+    return (
+      this.url_foto_estudiante.has('file') &&
+      this.url_doc_contrato.has('file') &&
+      this.id_malla_curricular.has('file')
+    )
   }
 
 }
