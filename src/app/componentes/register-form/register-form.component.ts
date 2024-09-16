@@ -142,6 +142,12 @@ export class RegisterFormComponent {
   StudentArray: any[] = [];
   isResultLoaded = false;
   isUpdateFormActive = false;
+  bsValue: Date = new Date();
+  bsConfig = {
+    dateInputFormat: 'YYYY-MM-DD'  
+  };
+
+
 
   registrationForm = this.fb.group({
     nombre_completo: ["", [Validators.required, Validators.minLength(3)]],
@@ -205,13 +211,13 @@ export class RegisterFormComponent {
     };
     this.formDataService.setFormData(bodyData);
     this.router.navigate(['register-form-next']);
-    
+
   }
 
 
 
   onSubmit() {
-    
+
   }
 
   getDni() {
@@ -231,7 +237,7 @@ export class RegisterFormComponent {
           response.fecha_nacimiento = this.formatDateForInput(response.fecha_nacimiento);
         }
 
-        
+
         this.registrationForm.patchValue(response);
         this.toastr.success(`Se cargo sus datos exitosamente`);
       },
@@ -245,6 +251,12 @@ export class RegisterFormComponent {
   formatDateForInput(dateString: string): string {
     return moment.utc(dateString).format('YYYY-MM-DD');
   }
+
+  onDateChange(value: Date) {
+    const formattedDate = `${value.getFullYear()}-${(value.getMonth() + 1).toString().padStart(2, '0')}-${value.getDate().toString().padStart(2, '0')}`;
+    console.log('Formatted Date:', formattedDate);
+  }
+
 }
 
 
