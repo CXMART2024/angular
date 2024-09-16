@@ -175,12 +175,7 @@ export class RegisterFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.registrationForm.get('fecha_nacimiento')?.valueChanges.subscribe(value => {
-      if (value) {
-        const formattedDate = this.formatDate(value);
-        console.log('Formatted Date:', formattedDate);
-      }
-    });
+
   }
 
   openDialog() {
