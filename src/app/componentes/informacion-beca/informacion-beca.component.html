@@ -131,7 +131,7 @@
 
                             <div class="row mb-3">
                                 <div class="col">
-                                    
+
                                     <div class="row d-flex justify-content-center align-items-center">
                                         <div class="col"><label class="form-label" style="color: #636363;">Fecha
                                                 Inicio:</label></div>
@@ -147,7 +147,7 @@
                                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                         <mat-datepicker #picker></mat-datepicker>
                                       </mat-form-field>
-                                      --> 
+                                      -->
                                 </div>
                                 <div class="col">
                                     <div class="row d-flex justify-content-center align-items-center">
@@ -189,7 +189,8 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <label class="form-label" style="color: #636363;">* No se olvide de cargar los archivos correspondientes </label>
+                                <label class="form-label" style="color: #636363;">* No se olvide de cargar los archivos
+                                    correspondientes </label>
                             </div>
 
                         </div>
@@ -229,7 +230,8 @@
                             <div *ngIf="editMallaCurricular" class="col-5 d-flex justify-content-end"><button
                                     class="btn text-primary"
                                     style="background-color: #ECF2F9;border: #4180C2 solid 1px;" type="button"
-                                    routerLink="/addmodulo" (click)="clearData()">Nuevo Ciclo</button></div>
+                                    data-bs-toggle="modal" data-bs-target="#nuevaMalla" (click)="clearData()">Nuevo
+                                    Ciclo</button></div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -290,7 +292,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-primary" (click)="submitForm()" [disabled]="!isFileSelected()">Guardar
+                            <button class="btn btn-primary" (click)="submitForm()"
+                                [disabled]="!isFileSelected()">Guardar
                                 Información</button>
                         </div>
                     </div>
@@ -369,8 +372,8 @@
                         </div>
                     </div>
                     <div class="col-12 mb-2 d-grid">
-                        <button class="btn btn-primary" [disabled]="!isChecked" 
-                            (click)="aceptarContrato()">Empezar a usar
+                        <button class="btn btn-primary" [disabled]="!isChecked" (click)="aceptarContrato()">Empezar a
+                            usar
                             la Intranet</button>
                     </div>
                 </div>
@@ -430,6 +433,106 @@
                             data-bs-dismiss="modal">Guardar Cambios</button>
                     </div>
                 </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" data-bs-backdrop="static" id="nuevaMalla">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Contrato de Becario</h5>
+            </div>
+            <div class="modal-body">
+                <form #addMalla="ngForm">
+                    <div class="card-body">
+
+                        <p class="card-subtitle mb-2"><strong>Ciclo</strong></p>
+                        <div class="w-50">
+                            <input type="text" class="form-control rounded" name="nombre" required />
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-4 col-md-6 d-flex align-items-center">
+                                <span class="m-b mt-2"><strong>Cursos</strong></span>
+                            </div>
+                            <div class="col-8 col-md-6 d-flex justify-content-end">
+                                <button class="btn btn-outline-primary w-50" data-bs-toggle="modal"
+                                    data-bs-target="#nuevaMalla">Añadir Curso</button>
+                            </div>
+
+                        </div>
+
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <div class="container table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead class="bg-light">
+
+                                            <tr>
+                                                <th class="text-center">Curso</th>
+                                                <th class="text-center">Tipo</th>
+                                                <th class="text-center">Crédito</th>
+                                                <th></th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center"></td>
+                                                <td class="text-center">
+                                                    <div class="row">
+                                                        <div class="col-12 col-md-6 d-sm-flex justify-content-md-end">
+                                                            <button type="button" class="btn btn-outline-primary"
+                                                                data-bs-toggle="modal" data-bs-target="#addCurso"><i
+                                                                    class="bi bi-pencil text-info"></i></button>
+                                                        </div>
+                                                        <div class="col-12 col-md-6 d-sm-flex justify-content-md-start">
+                                                            <button type="button" class="btn btn-outline-danger"
+                                                                style="background-color: rgba(234, 76, 83, 0.1); border: solid red 1px;"><i
+                                                                    class="bi bi-trash"
+                                                                    style="color: red;"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary w-25" type="btn" [disabled]="addMalla.invalid">Guardar
+                                Ciclo</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer mx-auto">
+                <div class="row">
+                    <div class="col-12 mb-3 d-flex justify-content-center ">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="contrato" id="contrato"
+                                (change)="onCheckboxChange($event)">
+                            <label class="form-check-label" for="contrato"
+                                style="font-size: larger; margin-left: 5px;">Acepto todos los términos de la
+                                fundación y
+                                me comprometo a cumplir todo lo estipulado.</label>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-2 d-grid">
+                        <button class="btn btn-primary" [disabled]="!isChecked" (click)="aceptarContrato()">Empezar a
+                            usar
+                            la Intranet</button>
+                    </div>
+                </div>
             </div>
 
         </div>
