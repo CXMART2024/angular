@@ -516,8 +516,8 @@
                         </div>
 
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-primary w-25" data-bs-dismiss="modal" type="btn"
-                                [disabled]="addMalla.invalid" (click)="createAndSaveCiclo()">Guardar Ciclo</button>
+                            <button class="btn btn-primary w-25" [disabled]="addMalla.invalid"
+                                (click)="createAndSaveCiclo()" data-bs-dismiss="modal">Guardar Ciclo</button>
                         </div>
 
                     </div>
@@ -531,7 +531,7 @@
 
 <div class="modal fade" id="addCurso" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
     data-bs-backdrop="static">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="row w-100 g-0">

@@ -438,6 +438,8 @@ export class InformacionBecaComponent implements OnInit {
               .then(() => {
                 this.mallaCurricularService.clearCursoMallasTemporal();
                 this.nombre = '';
+                this.getCursoMallas();
+                this.getMallaCiclos();
                 this.cdr.detectChanges();
                 this.toastr.success(`Se actualizó correctamente.`);
               })
