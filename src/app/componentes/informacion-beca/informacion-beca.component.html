@@ -439,12 +439,18 @@
     </div>
 </div>
 
-
+<!--HTML Agregar Malla-->
 <div class="modal fade" data-bs-backdrop="static" id="nuevaMalla">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Contrato de Becario</h5>
+                <div class="row">
+                    <div class="col">
+                        <h6 class="mb-2 mt-2">Contrato de Becario</h6>
+                    </div>
+                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle mb-2 mt-2"
+                            style="color: black;" data-bs-dismiss="modal"></i></div>
+                </div>
             </div>
             <div class="modal-body">
                 <form #addMalla="ngForm">
@@ -452,7 +458,8 @@
 
                         <p class="card-subtitle mb-2"><strong>Ciclo</strong></p>
                         <div class="w-50">
-                            <input type="text" class="form-control rounded" name="nombre" required />
+                            <input type="text" class="form-control rounded" [(ngModel)]="nombre" name="nombre"
+                                required />
                         </div>
                         <div class="row mb-4">
                             <div class="col-4 col-md-6 d-flex align-items-center">
@@ -460,7 +467,7 @@
                             </div>
                             <div class="col-8 col-md-6 d-flex justify-content-end">
                                 <button class="btn btn-outline-primary w-50" data-bs-toggle="modal"
-                                    data-bs-target="#nuevaMalla">Añadir Curso</button>
+                                    data-bs-target="#addCurso">Añadir Curso</button>
                             </div>
 
                         </div>
@@ -480,21 +487,22 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="text-center"></td>
-                                                <td class="text-center"></td>
-                                                <td class="text-center"></td>
+                                            <tr *ngFor="let curso of getCursoMallas(); let i = index">
+                                                <td class="text-center">{{curso.Nombre}}</td>
+                                                <td class="text-center">{{curso.tipo}}</td>
+                                                <td class="text-center">{{curso.creditos}}</td>
                                                 <td class="text-center">
                                                     <div class="row">
                                                         <div class="col-12 col-md-6 d-sm-flex justify-content-md-end">
                                                             <button type="button" class="btn btn-outline-primary"
-                                                                data-bs-toggle="modal" data-bs-target="#addCurso"><i
+                                                                data-bs-toggle="modal" data-bs-target="#addCurso"
+                                                                (click)="editCursoMalla(i)"><i
                                                                     class="bi bi-pencil text-info"></i></button>
                                                         </div>
                                                         <div class="col-12 col-md-6 d-sm-flex justify-content-md-start">
                                                             <button type="button" class="btn btn-outline-danger"
-                                                                style="background-color: rgba(234, 76, 83, 0.1); border: solid red 1px;"><i
-                                                                    class="bi bi-trash"
+                                                                style="background-color: rgba(234, 76, 83, 0.1); border: solid red 1px;"
+                                                                (click)="deleteCursoMalla(i)"><i class="bi bi-trash"
                                                                     style="color: red;"></i></button>
                                                         </div>
                                                     </div>
@@ -508,31 +516,59 @@
                         </div>
 
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-primary w-25" type="btn" [disabled]="addMalla.invalid">Guardar
-                                Ciclo</button>
+                            <button class="btn btn-primary w-25"  data-bs-dismiss="modal" type="btn"
+                                [disabled]="addMalla.invalid" (click)="createAndSaveCiclo()">Guardar Ciclo</button>
                         </div>
 
                     </div>
                 </form>
             </div>
-            <div class="modal-footer mx-auto">
-                <div class="row">
-                    <div class="col-12 mb-3 d-flex justify-content-center ">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="contrato" id="contrato"
-                                (change)="onCheckboxChange($event)">
-                            <label class="form-check-label" for="contrato"
-                                style="font-size: larger; margin-left: 5px;">Acepto todos los términos de la
-                                fundación y
-                                me comprometo a cumplir todo lo estipulado.</label>
-                        </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="addCurso" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
+    data-bs-backdrop="static">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row w-100 g-0">
+                    <div class="col">
+                        <h6>{{ editingIndex !== null ? 'Editar Curso' : 'Añadir Curso' }}</h6>
                     </div>
-                    <div class="col-12 mb-2 d-grid">
-                        <button class="btn btn-primary" [disabled]="!isChecked" (click)="aceptarContrato()">Empezar a
-                            usar
-                            la Intranet</button>
-                    </div>
+                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
+                            data-bs-dismiss="modal"></i></div>
+
                 </div>
+            </div>
+            <div class="modal-body">
+                <form #formMallaCurso="ngForm">
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Curso: </label>
+                        <input type="text" class="form-control" [(ngModel)]="newCursoMalla.Nombre" name="Nombre"
+                            required #Nombre="ngModel">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Tipo: </label>
+                        <select class="form-select" name="tipo" [(ngModel)]="newCursoMalla.tipo" required>
+                            <option value="" selected disabled class="text-muted">Seleccione una opción</option>
+                            <option value="Obligatorio">Obligatorio</option>
+                            <option value="No Obligatorio">No Obligatorio</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label text-dark">Crédito: </label>
+                        <input type="number" class="form-control" [(ngModel)]="newCursoMalla.creditos" name="creditos"
+                            required>
+                    </div>
+                    <div class="d-grid mb-3">
+                        <button class="btn btn-primary" type="submit" (click)="saveCursoMalla()"
+                            [disabled]="formMallaCurso.invalid" data-bs-dismiss="modal">{{ editingIndex !== null ?
+                            'Guardar Cambios' : 'Añadir Curso' }}</button>
+                    </div>
+                </form>
             </div>
 
         </div>
