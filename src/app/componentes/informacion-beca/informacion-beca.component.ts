@@ -591,8 +591,10 @@ export class InformacionBecaComponent implements OnInit {
       this.mallaCurricularService.updateCicloMalla(updatedCiclo).subscribe({
         next: (response) => {
 
+          this.getCursoMallas();
+          this.getMallaCiclos();
           this.toastr.success(`Se actualizó correctamente.`);
-          this.getMalla(); // Refresh the data to reflect changes
+
         },
         error: (error) => {
           console.error('Error updating ciclo', error);
