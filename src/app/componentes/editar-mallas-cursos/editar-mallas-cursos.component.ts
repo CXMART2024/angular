@@ -32,7 +32,7 @@ export class EditarMallasCursosComponent implements OnInit {
       const id = params.get('id');
       if (id) {
         this.cicloId = +id;
-  
+
         this.getMalla();
 
       }
@@ -40,33 +40,16 @@ export class EditarMallasCursosComponent implements OnInit {
 
   }
 
-  /*
-  getMalla(): void {
-    const id = this.cicloId;
-    this.mallaService.getCicloMalla(id).subscribe({
-      next: (data: CicloMalla[]) => { 
-        console.log('API Response:', data); 
-        this.relacionMallaData = data; 
-
-      },
-      error: (error) => {
-        console.error('Error fetching data', error);
-      },
-      complete: () => {
-        console.log('Data completa');
-      }
-    });
-  }*/
   getMalla(): void {
     const id = this.cicloId;
     this.mallaService.getCicloMalla(id).subscribe({
       next: (data: CicloMalla[]) => {
-        
+
         this.relacionMallaData = data;
 
         if (this.relacionMallaData.length > 0) {
           this.nombre = this.relacionMallaData[0].nombre;
-         
+
           this.getMallaCursos();
         }
 
@@ -75,7 +58,7 @@ export class EditarMallasCursosComponent implements OnInit {
         console.error('Error fetching data', error);
       },
       complete: () => {
-        
+
       }
     });
   }
@@ -83,14 +66,14 @@ export class EditarMallasCursosComponent implements OnInit {
   getMallaCursos() {
     this.mallaService.getCursoMallaByCiclo(this.cicloId).subscribe({
       next: (data: CursoMalla[]) => {
-        
+
         this.cursos = data;
       },
       error: (error) => {
         console.error('Error fetching cursos data', error);
       },
       complete: () => {
-        
+
       }
     });
   }
@@ -110,26 +93,6 @@ export class EditarMallasCursosComponent implements OnInit {
     }
   }
 
-
-  /*
-  createCurso(): void {
-
-    this.newCursoMalla.id_ciclo = this.cicloId;
-    this.mallaService.createCursoMalla(this.newCursoMalla).subscribe({
-      next: (response) => {
-        console.log('Curso created successfully:', response);
-
-        this.newCursoMalla = new CursoMalla(0, '', 0, 0, '');
-        this.getMallaCursos();
-      },
-      error: (error) => {
-        console.error('Error creating curso', error);
-      },
-      complete: () => {
-        console.log('Curso creation complete');
-      }
-    });
-  }*/
   createCurso(): void {
     this.newCursoMalla.id_ciclo = this.cicloId;
 
@@ -137,7 +100,7 @@ export class EditarMallasCursosComponent implements OnInit {
       // Create new curso
       this.mallaService.createCursoMalla(this.newCursoMalla).subscribe({
         next: (response) => {
-          
+
           this.newCursoMalla = new CursoMalla(0, '', 0, 0, '');
           this.getMallaCursos();
         },
@@ -145,7 +108,7 @@ export class EditarMallasCursosComponent implements OnInit {
           console.error('Error creating curso', error);
         },
         complete: () => {
-          
+
         }
       });
     } else {
@@ -153,7 +116,7 @@ export class EditarMallasCursosComponent implements OnInit {
       this.newCursoMalla.id = this.cursos[this.editingIndex].id;
       this.mallaService.updateCursoMalla(this.newCursoMalla).subscribe({
         next: (response) => {
-          
+
           this.newCursoMalla = new CursoMalla(0, '', 0, 0, '');
           this.getMallaCursos();
         },
@@ -161,7 +124,7 @@ export class EditarMallasCursosComponent implements OnInit {
           console.error('Error updating curso', error);
         },
         complete: () => {
-          
+
         }
       });
     }
@@ -182,7 +145,7 @@ export class EditarMallasCursosComponent implements OnInit {
 
       this.mallaService.updateCicloMalla(updatedCiclo).subscribe({
         next: (response) => {
-          
+
           this.toastr.success(`Se actualizó correctamente.`);
           this.getMalla(); // Refresh the data to reflect changes
         },
@@ -191,7 +154,7 @@ export class EditarMallasCursosComponent implements OnInit {
           this.toastr.error(`Error actualizando el ciclo. Por favor, refresca la página y vuelve a intentarlo.`);
         },
         complete: () => {
-          
+
           this.toastr.success(`Se actualizó correctamente.`);
         }
       });

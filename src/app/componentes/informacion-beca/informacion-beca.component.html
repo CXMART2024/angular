@@ -131,7 +131,7 @@
 
                             <div class="row mb-3">
                                 <div class="col">
-                                    
+
                                     <div class="row d-flex justify-content-center align-items-center">
                                         <div class="col"><label class="form-label" style="color: #636363;">Fecha
                                                 Inicio:</label></div>
@@ -147,7 +147,7 @@
                                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                         <mat-datepicker #picker></mat-datepicker>
                                       </mat-form-field>
-                                      --> 
+                                      -->
                                 </div>
                                 <div class="col">
                                     <div class="row d-flex justify-content-center align-items-center">
@@ -189,7 +189,8 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <label class="form-label" style="color: #636363;">* No se olvide de cargar los archivos correspondientes </label>
+                                <label class="form-label" style="color: #636363;">* No se olvide de cargar los archivos
+                                    correspondientes </label>
                             </div>
 
                         </div>
@@ -229,7 +230,8 @@
                             <div *ngIf="editMallaCurricular" class="col-5 d-flex justify-content-end"><button
                                     class="btn text-primary"
                                     style="background-color: #ECF2F9;border: #4180C2 solid 1px;" type="button"
-                                    routerLink="/addmodulo" (click)="clearData()">Nuevo Ciclo</button></div>
+                                    data-bs-toggle="modal" data-bs-target="#nuevaMalla" (click)="clearData()">Nuevo
+                                    Ciclo</button></div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -245,7 +247,8 @@
                                                         <span class="me-5">{{ciclo.ciclo.nombre}}</span>
                                                         <button *ngIf="editMallaCurricular"
                                                             class="btn btn-outline-info btn-sm me-2"
-                                                            (click)="selectCiclo(ciclo.ciclo.id)"><i
+                                                            data-bs-target="#editarMalla" data-bs-toggle="modal"
+                                                            (click)="selectCicloModal(ciclo.ciclo.id)"><i
                                                                 class="bi bi-pencil-fill"></i></button>
                                                         <button *ngIf="editMallaCurricular"
                                                             class="btn btn-outline-danger btn-sm"
@@ -290,7 +293,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-primary" (click)="submitForm()" [disabled]="!isFileSelected()">Guardar
+                            <button class="btn btn-primary" (click)="submitForm()"
+                                [disabled]="!isFileSelected()">Guardar
                                 Información</button>
                         </div>
                     </div>
@@ -369,8 +373,8 @@
                         </div>
                     </div>
                     <div class="col-12 mb-2 d-grid">
-                        <button class="btn btn-primary" [disabled]="!isChecked" 
-                            (click)="aceptarContrato()">Empezar a usar
+                        <button class="btn btn-primary" [disabled]="!isChecked" (click)="aceptarContrato()">Empezar a
+                            usar
                             la Intranet</button>
                     </div>
                 </div>
@@ -435,3 +439,277 @@
         </div>
     </div>
 </div>
+
+<!--HTML Agregar Malla-->
+<div class="modal fade" data-bs-backdrop="static" id="nuevaMalla">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <h6 class="mb-2 mt-2">Contrato de Becario</h6>
+                    </div>
+                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle mb-2 mt-2"
+                            style="color: black;" data-bs-dismiss="modal"></i></div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form #addMalla="ngForm">
+                    <div class="card-body">
+
+                        <p class="card-subtitle mb-2"><strong>Ciclo</strong></p>
+                        <div class="w-50">
+                            <input type="text" class="form-control rounded" [(ngModel)]="nombre" name="nombre"
+                                required />
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-4 col-md-6 d-flex align-items-center">
+                                <span class="m-b mt-2"><strong>Cursos</strong></span>
+                            </div>
+                            <div class="col-8 col-md-6 d-flex justify-content-end">
+                                <button class="btn btn-outline-primary w-50" data-bs-toggle="modal"
+                                    data-bs-target="#addCurso">Añadir Curso</button>
+                            </div>
+
+                        </div>
+
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <div class="container table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead class="bg-light">
+
+                                            <tr>
+                                                <th class="text-center">Curso</th>
+                                                <th class="text-center">Tipo</th>
+                                                <th class="text-center">Crédito</th>
+                                                <th></th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let curso of getCursoMallas(); let i = index">
+                                                <td class="text-center">{{curso.Nombre}}</td>
+                                                <td class="text-center">{{curso.tipo}}</td>
+                                                <td class="text-center">{{curso.creditos}}</td>
+                                                <td class="text-center">
+                                                    <div class="row">
+                                                        <div class="col-12 col-md-6 d-sm-flex justify-content-md-end">
+                                                            <button type="button" class="btn btn-outline-primary"
+                                                                data-bs-toggle="modal" data-bs-target="#addCurso"
+                                                                (click)="editCursoMalla(i)"><i
+                                                                    class="bi bi-pencil text-info"></i></button>
+                                                        </div>
+                                                        <div class="col-12 col-md-6 d-sm-flex justify-content-md-start">
+                                                            <button type="button" class="btn btn-outline-danger"
+                                                                style="background-color: rgba(234, 76, 83, 0.1); border: solid red 1px;"
+                                                                (click)="deleteCursoMalla(i)"><i class="bi bi-trash"
+                                                                    style="color: red;"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary w-25" [disabled]="addMalla.invalid"
+                                (click)="createAndSaveCiclo()" data-bs-dismiss="modal">Guardar Ciclo</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="addCurso" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
+    data-bs-backdrop="static">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row w-100 g-0">
+                    <div class="col">
+                        <h6>{{ editingIndex !== null ? 'Editar Curso' : 'Añadir Curso' }}</h6>
+                    </div>
+                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
+                            data-bs-dismiss="modal"></i></div>
+
+                </div>
+            </div>
+            <div class="modal-body">
+                <form #formMallaCurso="ngForm">
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Curso: </label>
+                        <input type="text" class="form-control" [(ngModel)]="newCursoMalla.Nombre" name="Nombre"
+                            required #Nombre="ngModel">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Tipo: </label>
+                        <select class="form-select" name="tipo" [(ngModel)]="newCursoMalla.tipo" required>
+                            <option value="" selected disabled class="text-muted">Seleccione una opción</option>
+                            <option value="Obligatorio">Obligatorio</option>
+                            <option value="No Obligatorio">No Obligatorio</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label text-dark">Crédito: </label>
+                        <input type="number" class="form-control" [(ngModel)]="newCursoMalla.creditos" name="creditos"
+                            required>
+                    </div>
+                    <div class="d-grid mb-3">
+                        <button class="btn btn-primary" type="submit" (click)="saveCursoMalla()"
+                            [disabled]="formMallaCurso.invalid" data-bs-dismiss="modal">{{ editingIndex !== null ?
+                            'Guardar Cambios' : 'Añadir Curso' }}</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--HTML Editar Malla-->
+
+<div class="modal fade" data-bs-backdrop="static" id="editarMalla">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <h6 class="mb-2 mt-2">Contrato de Becario</h6>
+                    </div>
+                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle mb-2 mt-2"
+                            style="color: black;" data-bs-dismiss="modal"></i></div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form #formEditMalla="ngForm">
+                    <div class="card-body">
+
+                        <p class="card-subtitle mb-2"><strong>Ciclo</strong></p>
+                        <div class="w-50">
+                            <input type="text" class="form-control rounded" name="nombreEdit" [(ngModel)]="nombreEdit"
+                                required />
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-4 col-md-6 d-flex align-items-center">
+                                <span class="m-b mt-2"><strong>Cursos</strong></span>
+                            </div>
+                            <div class="col-8 col-md-6 d-flex justify-content-end">
+                                <button class="btn btn-outline-primary w-50" data-bs-toggle="modal"
+                                    data-bs-target="#editCurso">Añadir Curso</button>
+                            </div>
+
+                        </div>
+
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <div class="container table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead class="bg-light">
+
+                                            <tr>
+                                                <th class="text-center">Curso</th>
+                                                <th class="text-center">Tipo</th>
+                                                <th class="text-center">Crédito</th>
+                                                <th></th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let curso of cursos; let i = index">
+                                                <td class="text-center">{{curso.Nombre}}</td>
+                                                <td class="text-center">{{curso.tipo}}</td>
+                                                <td class="text-center">{{curso.creditos}}</td>
+                                                <td class="text-center">
+                                                    <div class="row">
+                                                        <div class="col-12 col-md-6 d-sm-flex justify-content-md-end">
+                                                            <button type="button" class="btn btn-outline-primary"
+                                                                (click)="editCurso(i)" data-bs-toggle="modal"
+                                                                data-bs-target="#editCurso"><i
+                                                                    class="bi bi-pencil text-info"></i></button>
+                                                        </div>
+                                                        <div class="col-12 col-md-6 d-sm-flex justify-content-md-start">
+                                                            <button type="button" class="btn btn-outline-danger"
+                                                                (click)="deleteCurso(curso.id)"
+                                                                style="background-color: rgba(234, 76, 83, 0.1); border: solid red 1px;"><i
+                                                                    class="bi bi-trash"
+                                                                    style="color: red;"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary w-25" (click)="updateCiclo()"
+                                [disabled]="formEditMalla.invalid">Guardar Ciclo</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editCurso" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row w-100 g-0">
+                    <div class="col">
+                        <h6>{{ editingIndexEdit === null ? 'Añadir Curso' : 'Editar Curso' }}</h6>
+                    </div>
+                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
+                            data-bs-dismiss="modal"></i></div>
+
+                </div>
+            </div>
+            <div class="modal-body">
+                <form #formMallaCurso="ngForm">
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Curso: </label>
+                        <input type="text" class="form-control" name="Nombre" [(ngModel)]="newCursoMallaEdit.Nombre"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Tipo: </label>
+                        <select class="form-select" name="tipo" required [(ngModel)]="newCursoMallaEdit.tipo">
+                            <option value="" selected disabled class="text-muted">Seleccione una opción</option>
+                            <option value="Obligatorio">Obligatorio</option>
+                            <option value="No Obligatorio">No Obligatorio</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label text-dark">Crédito: </label>
+                        <input type="number" class="form-control" name="creditos" required
+                            [(ngModel)]="newCursoMallaEdit.creditos">
+                    </div>
+                    <div class="d-grid mb-3">
+                        <button class="btn btn-primary" type="submit" [disabled]="formMallaCurso.invalid"
+                            data-bs-dismiss="modal" (click)="createCurso()">{{ editingIndexEdit === null ?
+                            'Añadir Curso' : 'Guardar Cambios' }}</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{{cicloId}}

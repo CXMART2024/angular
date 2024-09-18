@@ -121,8 +121,7 @@
 
                         <div class="col-md-4">
                             <label class="form-label" style="font-weight: bold;">Fecha Nacimiento *</label>
-                            <input type="date" class="form-control"
-                                formControlName="fecha_nacimiento">
+                            <input type="date" class="form-control" formControlName="fecha_nacimiento">
                             @if(registrationForm.get('fecha_nacimiento')?.errors?.['required'] &&
                             registrationForm.get('fecha_nacimiento')?.touched)
                             {<div class="mistake">
@@ -249,10 +248,11 @@
                                     <div class="modal-header">
                                         <div class="row w-100 g-0">
                                             <div class="col">
-                                                <h6>Subsanación</h6>
+                                                <h6 class="mb-2 mt-2">Subsanación</h6>
                                             </div>
-                                            <div class="col d-flex justify-content-end"><button class="btn-close"
-                                                    data-bs-dismiss="modal"></button></div>
+                                            <div class="col d-flex justify-content-end"><i
+                                                    class="bi bi-x-circle mb-2 mt-2" style="color: black;"
+                                                    data-bs-dismiss="modal"></i></div>
 
                                         </div>
                                     </div>

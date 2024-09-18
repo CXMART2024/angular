@@ -143,13 +143,13 @@ export class InformacionBecaViewComponent implements OnInit {
   getColorByMalla(malla: string): string {
     switch (malla) {
       case 'Aprobado':
-        return 'rgba(38, 229, 70, 1)';
+        return 'rgba(200, 230, 201, 1)';
       case 'No Cargado':
         return 'rgba(245, 242, 9, 1)';
       case 'Observado':
-        return 'rgba(229, 44, 38, 1)';
+        return 'rgba(248, 187, 208, 1)';
       default:
-        return 'rgba(9, 192, 245, 1)';
+        return 'rgba(235, 245, 130, 1)'; 
     }
   }
 
