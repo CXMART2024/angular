@@ -282,6 +282,7 @@ export class InformacionBecaComponent implements OnInit {
         next: () => {
           this.mallaCurricularService.deleteCicloMalla(ciclo).subscribe({
             next: (response) => {
+              this.getCursoMallas();
               this.getMallaCiclos();
               this.toastr.success(`Se actualizó correctamente.`);
               this.cdr.detectChanges();
