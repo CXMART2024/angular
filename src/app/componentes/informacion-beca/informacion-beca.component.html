@@ -596,7 +596,7 @@
 
                         <p class="card-subtitle mb-2"><strong>Ciclo</strong></p>
                         <div class="w-50">
-                            <input type="text" class="form-control rounded" name="nombre" [(ngModel)]="nombre"
+                            <input type="text" class="form-control rounded" name="nombreEdit" [(ngModel)]="nombreEdit"
                                 required />
                         </div>
                         <div class="row mb-4">
@@ -669,12 +669,12 @@
 
 <div class="modal fade" id="editCurso" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-md modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="row w-100 g-0">
                     <div class="col">
-                        <h6>{{ editingIndex === null ? 'Añadir Curso' : 'Editar Curso' }}</h6>
+                        <h6>{{ editingIndexEdit === null ? 'Añadir Curso' : 'Editar Curso' }}</h6>
                     </div>
                     <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
                             data-bs-dismiss="modal"></i></div>
@@ -685,12 +685,12 @@
                 <form #formMallaCurso="ngForm">
                     <div class="mb-3">
                         <label class="form-label text-dark">Curso: </label>
-                        <input type="text" class="form-control" name="Nombre" [(ngModel)]="newCursoMalla.Nombre"
+                        <input type="text" class="form-control" name="Nombre" [(ngModel)]="newCursoMallaEdit.Nombre"
                             required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-dark">Tipo: </label>
-                        <select class="form-select" name="tipo" required [(ngModel)]="newCursoMalla.tipo">
+                        <select class="form-select" name="tipo" required [(ngModel)]="newCursoMallaEdit.tipo">
                             <option value="" selected disabled class="text-muted">Seleccione una opción</option>
                             <option value="Obligatorio">Obligatorio</option>
                             <option value="No Obligatorio">No Obligatorio</option>
@@ -699,11 +699,11 @@
                     <div class="mb-4">
                         <label class="form-label text-dark">Crédito: </label>
                         <input type="number" class="form-control" name="creditos" required
-                            [(ngModel)]="newCursoMalla.creditos">
+                            [(ngModel)]="newCursoMallaEdit.creditos">
                     </div>
                     <div class="d-grid mb-3">
                         <button class="btn btn-primary" type="submit" [disabled]="formMallaCurso.invalid"
-                            data-bs-dismiss="modal" (click)="createCurso()">{{ editingIndex === null ?
+                            data-bs-dismiss="modal" (click)="createCurso()">{{ editingIndexEdit === null ?
                             'Añadir Curso' : 'Guardar Cambios' }}</button>
                     </div>
                 </form>
@@ -712,3 +712,4 @@
         </div>
     </div>
 </div>
+{{cicloId}}

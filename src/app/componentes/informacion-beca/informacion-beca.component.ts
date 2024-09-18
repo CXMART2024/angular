@@ -51,11 +51,11 @@ export class InformacionBecaComponent implements OnInit {
 
   //Variablas para editar Malla
   cicloId: number = 0;
-  //editingIndex: number | null = null;
+  editingIndexEdit: number | null = null;
   relacionMallaData: CicloMalla[] = [];
   cursos: CursoMalla[] = [];
-  //newCursoMalla: CursoMalla = new CursoMalla(0, '', 0, 0, '');
-  //nombre: string = '';
+  newCursoMallaEdit: CursoMalla = new CursoMalla(0, '', 0, 0, '');
+  nombreEdit: string = '';
 
 
   constructor(
@@ -482,7 +482,7 @@ export class InformacionBecaComponent implements OnInit {
         this.relacionMallaData = data;
 
         if (this.relacionMallaData.length > 0) {
-          this.nombre = this.relacionMallaData[0].nombre;
+          this.nombreEdit = this.relacionMallaData[0].nombre;
 
           this.getMallaCursos();
         }
@@ -528,14 +528,14 @@ export class InformacionBecaComponent implements OnInit {
   }
 
   createCurso(): void {
-    this.newCursoMalla.id_ciclo = this.cicloId;
+    this.newCursoMallaEdit.id_ciclo = this.cicloId;
 
-    if (this.editingIndex === null) {
+    if (this.editingIndexEdit === null) {
       // Create new curso
-      this.mallaCurricularService.createCursoMalla(this.newCursoMalla).subscribe({
+      this.mallaCurricularService.createCursoMalla(this.newCursoMallaEdit).subscribe({
         next: (response) => {
 
-          this.newCursoMalla = new CursoMalla(0, '', 0, 0, '');
+          this.newCursoMallaEdit = new CursoMalla(0, '', 0, 0, '');
           this.getMallaCursos();
         },
         error: (error) => {
@@ -547,11 +547,11 @@ export class InformacionBecaComponent implements OnInit {
       });
     } else {
       // Update existing curso
-      this.newCursoMalla.id = this.cursos[this.editingIndex].id;
-      this.mallaCurricularService.updateCursoMalla(this.newCursoMalla).subscribe({
+      this.newCursoMalla.id = this.cursos[this.editingIndexEdit].id;
+      this.mallaCurricularService.updateCursoMalla(this.newCursoMallaEdit).subscribe({
         next: (response) => {
 
-          this.newCursoMalla = new CursoMalla(0, '', 0, 0, '');
+          this.newCursoMallaEdit = new CursoMalla(0, '', 0, 0, '');
           this.getMallaCursos();
         },
         error: (error) => {
@@ -566,15 +566,15 @@ export class InformacionBecaComponent implements OnInit {
 
 
   editCurso(index: number): void {
-    this.newCursoMalla = { ...this.cursos[index] };
-    this.editingIndex = index;
+    this.newCursoMallaEdit = { ...this.cursos[index] };
+    this.editingIndexEdit = index;
   }
 
   updateCiclo(): void {
     if (this.relacionMallaData.length > 0) {
       const updatedCiclo: CicloMalla = {
         ...this.relacionMallaData[0], // Get the existing ciclo data
-        nombre: this.nombre // Update with the new nombre
+        nombre: this.nombreEdit // Update with the new nombre
       };
 
       this.mallaCurricularService.updateCicloMalla(updatedCiclo).subscribe({
