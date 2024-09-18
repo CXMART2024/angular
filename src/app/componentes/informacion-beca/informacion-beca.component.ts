@@ -25,7 +25,7 @@ export class InformacionBecaComponent implements OnInit {
   isChecked: boolean = false;
   ciclosMallaLista?: CicloMalla[];
   cursoMallaLista?: CursoMalla[];
-  cicloCursoRelacion?: RelacionMalla[];
+  cicloCursoRelacion: RelacionMalla[] =[];
   selectedCicloId?: number;
   url_foto_estudiante = new FormData();
   url_doc_contrato = new FormData();
@@ -286,8 +286,11 @@ export class InformacionBecaComponent implements OnInit {
           // Handle successful responses here
           this.getCursoMallas();
           this.getMallaCiclos();
-          this.ciclosMallaLista = this.ciclosMallaLista?.filter(item => item.id !== ciclo.id);
+
+          this.cicloCursoRelacion = this.cicloCursoRelacion.filter(item => item.ciclo.id !== ciclo.id);
+        
           console.log('Successfully deleted curso and ciclo:', cursoResponse, cicloResponse);
+          this.toastr.success(`Se eliminó correctamente.`);
           this.cdr.detectChanges(); // Update the view if necessary
         },
         error: (err) => {
