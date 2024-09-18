@@ -473,8 +473,18 @@ export class InformacionBecaComponent implements OnInit {
   }
 
   //Funciones para editar Malla
-
+  selectCicloModal(id: number): void {
+    if (id) {
+      this.cicloId = id;
+      this.newCursoMallaEdit = new CursoMalla(0, '', 0, 0, '');
+      this.editingIndexEdit = null;
+    } else {
+      console.error('Invalid ciclo ID');
+    }
+  }
+  
   getMalla(): void {
+    this.cdr.detectChanges();
     const id = this.cicloId;
     this.mallaCurricularService.getCicloMalla(id).subscribe({
       next: (data: CicloMalla[]) => {
@@ -595,15 +605,7 @@ export class InformacionBecaComponent implements OnInit {
     }
   }
 
-  selectCicloModal(id: number): void {
-    if (id) {
-      this.cicloId = id;
-      this.newCursoMallaEdit = new CursoMalla(0, '', 0, 0, '');
-      this.editingIndexEdit = null;
-    } else {
-      console.error('Invalid ciclo ID');
-    }
-  }
-  
+
+
 }
 

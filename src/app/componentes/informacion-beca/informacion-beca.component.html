@@ -682,7 +682,7 @@
                 </div>
             </div>
             <div class="modal-body">
-                <form #formMallaCurso="ngForm">
+                <form #formMallaCursoEdit="ngForm">
                     <div class="mb-3">
                         <label class="form-label text-dark">Curso: </label>
                         <input type="text" class="form-control" name="Nombre" [(ngModel)]="newCursoMallaEdit.Nombre"
@@ -702,7 +702,7 @@
                             [(ngModel)]="newCursoMallaEdit.creditos">
                     </div>
                     <div class="d-grid mb-3">
-                        <button class="btn btn-primary" type="submit" [disabled]="formMallaCurso.invalid"
+                        <button class="btn btn-primary" type="submit" [disabled]="formMallaCursoEdit.invalid"
                             data-bs-dismiss="modal" (click)="createCurso()">{{ editingIndexEdit === null ?
                             'Añadir Curso' : 'Guardar Cambios' }}</button>
                     </div>
@@ -712,4 +712,3 @@
         </div>
     </div>
 </div>
-{{cicloId}}
