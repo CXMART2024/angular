@@ -49,6 +49,14 @@ export class InformacionBecaComponent implements OnInit {
   editingIndex: number | null = null;
   nombre: string = '';
 
+  //Variablas para editar Malla
+  cicloId: number = 0;
+  //editingIndex: number | null = null;
+  relacionMallaData: CicloMalla[] = [];
+  cursos: CursoMalla[] = [];
+  //newCursoMalla: CursoMalla = new CursoMalla(0, '', 0, 0, '');
+  //nombre: string = '';
+
 
   constructor(
     private solicitudService: SolicitudService,
@@ -291,6 +299,7 @@ export class InformacionBecaComponent implements OnInit {
     }
   }
 
+  //Captura del ID para Editar
   selectCiclo(id: number): void {
     this.selectedCicloId = id;
 
@@ -436,10 +445,10 @@ export class InformacionBecaComponent implements OnInit {
             // Esperamos
             Promise.all(updatePromises)
               .then(() => {
-                this.mallaCurricularService.clearCursoMallasTemporal();
-                this.nombre = '';
                 this.getCursoMallas();
                 this.getMallaCiclos();
+                this.mallaCurricularService.clearCursoMallasTemporal();
+                this.nombre = '';
                 this.cdr.detectChanges();
                 this.toastr.success(`Se actualizó correctamente.`);
               })
@@ -463,6 +472,131 @@ export class InformacionBecaComponent implements OnInit {
     }
   }
 
+  //Funciones para editar Malla
 
+  getMalla(): void {
+    const id = this.cicloId;
+    this.mallaCurricularService.getCicloMalla(id).subscribe({
+      next: (data: CicloMalla[]) => {
+
+        this.relacionMallaData = data;
+
+        if (this.relacionMallaData.length > 0) {
+          this.nombre = this.relacionMallaData[0].nombre;
+
+          this.getMallaCursos();
+        }
+
+      },
+      error: (error) => {
+        console.error('Error fetching data', error);
+      },
+      complete: () => {
+
+      }
+    });
+  }
+
+  getMallaCursos() {
+    this.mallaCurricularService.getCursoMallaByCiclo(this.cicloId).subscribe({
+      next: (data: CursoMalla[]) => {
+
+        this.cursos = data;
+      },
+      error: (error) => {
+        console.error('Error fetching cursos data', error);
+      },
+      complete: () => {
+
+      }
+    });
+  }
+
+  deleteCurso(id: number) {
+    if (confirm('¿Estás seguro de que deseas eliminar el curso?')) {
+      this.mallaCurricularService.deleteCursoMalla(id).subscribe({
+        next: (response) => {
+          alert('Curso eliminado!');
+          this.getMallaCursos();
+        },
+        error: (error) => {
+          console.error('There was an error!', error);
+          alert('An error occurred while deleting the course.');
+        }
+      });
+    }
+  }
+
+  createCurso(): void {
+    this.newCursoMalla.id_ciclo = this.cicloId;
+
+    if (this.editingIndex === null) {
+      // Create new curso
+      this.mallaCurricularService.createCursoMalla(this.newCursoMalla).subscribe({
+        next: (response) => {
+
+          this.newCursoMalla = new CursoMalla(0, '', 0, 0, '');
+          this.getMallaCursos();
+        },
+        error: (error) => {
+          console.error('Error creating curso', error);
+        },
+        complete: () => {
+
+        }
+      });
+    } else {
+      // Update existing curso
+      this.newCursoMalla.id = this.cursos[this.editingIndex].id;
+      this.mallaCurricularService.updateCursoMalla(this.newCursoMalla).subscribe({
+        next: (response) => {
+
+          this.newCursoMalla = new CursoMalla(0, '', 0, 0, '');
+          this.getMallaCursos();
+        },
+        error: (error) => {
+          console.error('Error updating curso', error);
+        },
+        complete: () => {
+
+        }
+      });
+    }
+  }
+
+
+  editCurso(index: number): void {
+    this.newCursoMalla = { ...this.cursos[index] };
+    this.editingIndex = index;
+  }
+
+  updateCiclo(): void {
+    if (this.relacionMallaData.length > 0) {
+      const updatedCiclo: CicloMalla = {
+        ...this.relacionMallaData[0], // Get the existing ciclo data
+        nombre: this.nombre // Update with the new nombre
+      };
+
+      this.mallaCurricularService.updateCicloMalla(updatedCiclo).subscribe({
+        next: (response) => {
+
+          this.toastr.success(`Se actualizó correctamente.`);
+          this.getMalla(); // Refresh the data to reflect changes
+        },
+        error: (error) => {
+          console.error('Error updating ciclo', error);
+          this.toastr.error(`Error actualizando el ciclo. Por favor, refresca la página y vuelve a intentarlo.`);
+        },
+        complete: () => {
+
+          this.toastr.success(`Se actualizó correctamente.`);
+        }
+      });
+    }
+  }
+
+  selectCicloModal(id: number): void {
+    this.cicloId = id;
+  }
 }
 
