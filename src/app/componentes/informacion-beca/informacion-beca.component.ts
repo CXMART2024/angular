@@ -596,7 +596,14 @@ export class InformacionBecaComponent implements OnInit {
   }
 
   selectCicloModal(id: number): void {
-    this.cicloId = id;
+    if (id) {
+      this.cicloId = id;
+      this.newCursoMallaEdit = new CursoMalla(0, '', 0, 0, '');
+      this.editingIndexEdit = null;
+    } else {
+      console.error('Invalid ciclo ID');
+    }
   }
+  
 }
 
