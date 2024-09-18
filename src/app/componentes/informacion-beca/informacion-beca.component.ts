@@ -278,24 +278,20 @@ export class InformacionBecaComponent implements OnInit {
 
   deleteCicloAll(ciclo: CicloMalla): void {
     if (confirm(`¿Estás seguro de que deseas eliminar el ciclo ${ciclo.nombre}?`)) {
-      this.mallaCurricularService.deleteCursoMallaByCiclo(ciclo.id).subscribe({
-        next: () => {
-          this.mallaCurricularService.deleteCicloMalla(ciclo).subscribe({
-            next: (response) => {
-              this.getCursoMallas();
-              this.getMallaCiclos();
-              this.toastr.success(`Se actualizó correctamente.`);
-              this.cdr.detectChanges();
-            },
-            error: (err) => {
-              console.error('Error deleting CicloMalla:', err);
-              this.toastr.error(`Error al eliminar Ciclo.`);
-            }
-          });
+      const deleteCursoMalla$ = this.mallaCurricularService.deleteCursoMallaByCiclo(ciclo.id);
+      const deleteCicloMalla$ = this.mallaCurricularService.deleteCicloMalla(ciclo);
+
+      forkJoin([deleteCursoMalla$, deleteCicloMalla$]).subscribe({
+        next: ([cursoResponse, cicloResponse]) => {
+          // Handle successful responses here
+          this.getCursoMallas();
+          this.getMallaCiclos();
+          console.log('Successfully deleted curso and ciclo:', cursoResponse, cicloResponse);
+          this.cdr.detectChanges(); // Update the view if necessary
         },
         error: (err) => {
-          console.error('Error deleting CursoMalla by ciclo:', err);
-          this.toastr.error(`Error al eliminar el curso del ciclo`);
+          console.error('Error during deletion process:', err);
+          alert('Error al eliminar el ciclo o sus cursos.');
         }
       });
     }
