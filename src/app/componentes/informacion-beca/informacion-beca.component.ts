@@ -282,8 +282,8 @@ export class InformacionBecaComponent implements OnInit {
         next: () => {
           this.mallaCurricularService.deleteCicloMalla(ciclo).subscribe({
             next: (response) => {
-
-              this.getMallaCiclos();
+              this.solicitudService.setSolicitudData(response);
+              this.cdr.detectChanges();
             },
             error: (err) => {
               console.error('Error deleting CicloMalla:', err);
@@ -545,7 +545,7 @@ export class InformacionBecaComponent implements OnInit {
       // Create new curso
       this.mallaCurricularService.createCursoMalla(this.newCursoMallaEdit).subscribe({
         next: (response) => {
-
+          this.solicitudService.setSolicitudData(response);
           this.newCursoMallaEdit = new CursoMalla(0, '', 0, 0, '');
           this.getMallaCursos();
         },
