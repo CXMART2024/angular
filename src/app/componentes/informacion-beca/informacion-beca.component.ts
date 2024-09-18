@@ -284,8 +284,7 @@ export class InformacionBecaComponent implements OnInit {
       forkJoin([deleteCursoMalla$, deleteCicloMalla$]).subscribe({
         next: ([cursoResponse, cicloResponse]) => {
           // Handle successful responses here
-          this.getCursoMallas();
-          this.getMallaCiclos();
+          this.ciclosMallaLista = this.ciclosMallaLista?.filter(item => item.id !== ciclo.id);
           console.log('Successfully deleted curso and ciclo:', cursoResponse, cicloResponse);
           this.cdr.detectChanges(); // Update the view if necessary
         },
