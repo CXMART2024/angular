@@ -282,18 +282,19 @@ export class InformacionBecaComponent implements OnInit {
         next: () => {
           this.mallaCurricularService.deleteCicloMalla(ciclo).subscribe({
             next: (response) => {
-           
+              this.getMallaCiclos();
+              this.toastr.success(`Se actualizó correctamente.`);
               this.cdr.detectChanges();
             },
             error: (err) => {
               console.error('Error deleting CicloMalla:', err);
-              alert('Error al eliminar Ciclo');
+              this.toastr.error(`Error al eliminar Ciclo.`);
             }
           });
         },
         error: (err) => {
           console.error('Error deleting CursoMalla by ciclo:', err);
-          alert('Error al eliminar el curso del ciclo');
+          this.toastr.error(`Error al eliminar el curso del ciclo`);
         }
       });
     }
@@ -527,6 +528,7 @@ export class InformacionBecaComponent implements OnInit {
     if (confirm('¿Estás seguro de que deseas eliminar el curso?')) {
       this.mallaCurricularService.deleteCursoMalla(id).subscribe({
         next: (response) => {
+
           alert('Curso eliminado!');
           this.getMallaCursos();
         },
@@ -545,9 +547,10 @@ export class InformacionBecaComponent implements OnInit {
       // Create new curso
       this.mallaCurricularService.createCursoMalla(this.newCursoMallaEdit).subscribe({
         next: (response) => {
- 
+
           this.newCursoMallaEdit = new CursoMalla(0, '', 0, 0, '');
           this.getMallaCursos();
+          this.cdr.detectChanges();
         },
         error: (error) => {
           console.error('Error creating curso', error);
