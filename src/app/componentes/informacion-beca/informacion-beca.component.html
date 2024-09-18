@@ -562,7 +562,7 @@
                     <div class="mb-4">
                         <label class="form-label text-dark">Crédito: </label>
                         <input type="number" class="form-control" [(ngModel)]="newCursoMalla.creditos" name="creditos"
-                            required>
+                            required min="0">
                     </div>
                     <div class="d-grid mb-3">
                         <button class="btn btn-primary" type="submit" (click)="saveCursoMalla()"
@@ -698,7 +698,7 @@
                     </div>
                     <div class="mb-4">
                         <label class="form-label text-dark">Crédito: </label>
-                        <input type="number" class="form-control" name="creditos" required
+                        <input type="number" class="form-control" name="creditos" required  min="0"
                             [(ngModel)]="newCursoMallaEdit.creditos">
                     </div>
                     <div class="d-grid mb-3">

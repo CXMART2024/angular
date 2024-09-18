@@ -283,7 +283,7 @@ export class InformacionBecaComponent implements OnInit {
 
       forkJoin([deleteCursoMalla$, deleteCicloMalla$]).subscribe({
         next: ([cursoResponse, cicloResponse]) => {
-          // Handle successful responses here
+         
           this.getCursoMallas();
           this.getMallaCiclos();
 
@@ -291,7 +291,7 @@ export class InformacionBecaComponent implements OnInit {
         
           console.log('Successfully deleted curso and ciclo:', cursoResponse, cicloResponse);
           this.toastr.success(`Se eliminó correctamente.`);
-          this.cdr.detectChanges(); // Update the view if necessary
+          this.cdr.detectChanges(); 
         },
         error: (err) => {
           console.error('Error during deletion process:', err);
