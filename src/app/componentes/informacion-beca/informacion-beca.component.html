@@ -716,7 +716,9 @@
                         </select>
                     </div>
                     <div class="mb-4">
-                        <label class="form-label text-dark">Crédito: * </label>
+                        <label class="form-label text-dark">Crédito: * <i
+                                class="bi bi-question-circle-fill text-warning" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="Si es un estudiante de grado, introduzca 0."></i></label>
                         <input type="number" class="form-control" name="creditos" required min="0"
                             [(ngModel)]="newCursoMallaEdit.creditos">
                     </div>
