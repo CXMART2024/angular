@@ -88,12 +88,12 @@
                 <div class="card mt-4 mb-5">
                     <div class="card-header">
 
-                        <ul class="list-inline">
+                        <ul class="list-inline my-auto">
                             <li class="list-inline-item"> <strong>Información de Periodo de Beca</strong></li>
-                            <li class="list-inline-item">Fecha
-                                Inicio de Beca:{{fecha_inicio}}</li>
-                            <li class="list-inline-item">Fecha Fin de
-                                Beca:{{fecha_fin_estimada}}</li>
+                            <li class="list-inline-item"><small>Fecha
+                                    Inicio de Beca: {{fecha_inicio | date:'dd/MM/yyyy'}}</small></li>
+                            <li class="list-inline-item"><small>Fecha Fin de
+                                    Beca: {{fecha_fin_estimada | date:'dd/MM/yyyy'}}</small></li>
                         </ul>
 
                     </div>
