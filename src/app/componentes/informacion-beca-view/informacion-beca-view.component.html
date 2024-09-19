@@ -200,7 +200,7 @@
                                     <div class="row g-0">
                                         <div class="col-3">
                                             <input type="text" class="form-control-plaintext text-muted" disabled
-                                                readonly value="{{mallaCurricular.length}} Ciclos" />
+                                                readonly value="{{mallaCurricular.length}} Ciclos/Grados" />
                                         </div>
                                         <div class="col-9 d-flex justify-content-start"><button
                                                 class="btn btn-outline-primary" type="button" data-bs-toggle="modal"
@@ -228,11 +228,11 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-7 d-flex align-items-center">
-                            <h6 class="my-auto"><strong>Ciclos Académicos</strong></h6>
+                            <h6 class="my-auto"><strong>Ciclos/Grados Académicos</strong></h6>
                         </div>
                         <div *ngIf="registrarCicloBool" class="col-5 d-flex justify-content-end"><button
                                 class="btn btn-primary" type="button" routerLink="/add-modulo-academico">Registrar Nuevo
-                                Ciclo</button></div>
+                                Ciclo/Grado</button></div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -242,7 +242,7 @@
                                 <table class="table table-hover">
                                     <thead style="background-color: rgba(244, 243, 248, 1);">
                                         <tr>
-                                            <th class="text-center">Ciclo</th>
+                                            <th class="text-center">Ciclo/Grado</th>
                                             <th class="text-center">Fecha Inicio</th>
                                             <th class="text-center">Fecha Fin</th>
                                             <th class="text-center">Créditos</th>
