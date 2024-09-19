@@ -318,19 +318,25 @@
             <div class="modal-body">
                 <form [formGroup]="conceptoPagoForm" (ngSubmit)="onAgregarConceptoPago()">
                     <div class="mb-3">
-                        <label class="form-label text-dark">Concepto: </label>
-                        <input type="text" class="form-control" formControlName="concepto">
+                        <label class="form-label text-dark">Concepto: * </label>
+                        <!--<input type="text" class="form-control" formControlName="concepto">-->
+                        <select class="form-select" name="concepto" required formControlName="concepto">
+                            <option value="" selected disabled class="text-muted">Seleccione una opción</option>
+                            <option value="Matricula">Matricula</option>
+                            <option value="Pensión">Pensión</option>
+                            <option value="Otros">Otros</option>
+                        </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label text-dark">Descripción: </label>
+                        <label class="form-label text-dark">Descripción: * </label>
                         <textarea class="form-control" formControlName="descripcion" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label text-dark">Monto: </label>
+                        <label class="form-label text-dark">Monto: * </label>
                         <input type="number" class="form-control" formControlName="monto">
                     </div>
                     <div class="mb-4">
-                        <label class="form-label text-dark">Fecha Solicitud Programada: </label>
+                        <label class="form-label text-dark">Fecha Solicitud Programada: * </label>
                         <input type="date" class="form-control" formControlName="fechaSolicitud">
                     </div>
                     <div class="d-grid mb-2">
@@ -363,22 +369,22 @@
                     <div class="mb-3">
                         <label class="form-label text-dark">Concepto: * </label>
                         <input [(ngModel)]="selectedPago.concepto" name="concepto" type="text"
-                            class="form-control disabled">
+                            class="form-control" [disabled]="true">
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-dark">Descripción: * </label>
                         <textarea [(ngModel)]="selectedPago.descripcion" name="conceptoDescripcion" class="form-control"
-                            rows="3"></textarea>
+                            rows="3" [disabled]="true"></textarea>
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-dark">Monto: * </label>
                         <input [(ngModel)]="selectedPago.monto" name="conceptoMonto" type="number"
-                            class="form-control disabled">
+                            class="form-control disabled" [disabled]="true">
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-dark">Fecha Solicitud Programada: * </label>
                         <input [(ngModel)]="fechaConceptoPago" name="conceptoFechaSolicitud" type="date"
-                            class="form-control disabled">
+                            class="form-control disabled" [disabled]="true">
                     </div>
                     <div class="mb-4">
                         <label for="constanciaFile" class="form-label text-dark">Constancia de Pago: * </label>
