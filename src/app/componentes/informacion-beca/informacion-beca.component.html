@@ -89,7 +89,7 @@
                     <div class="card-header">
 
                         <ul class="list-inline my-auto">
-                            <li class="list-inline-item"> <strong>Información de Periodo de Beca</strong></li>
+                            <li class="list-inline-item me-5"> <strong>Información de Periodo de Beca</strong></li>
                             <li class="list-inline-item"><small>Fecha
                                     Inicio de Beca: {{fecha_inicio | date:'dd/MM/yyyy'}}</small></li>
                             <li class="list-inline-item"><small>Fecha Fin de
@@ -140,7 +140,7 @@
 
                                     <div class="row d-flex justify-content-center align-items-center">
                                         <div class="col"><label class="form-label" style="color: #636363;">Fecha
-                                                Inicio de Beca:</label></div>
+                                                Inicio de Beca *:</label></div>
                                         <div class="col"><input type="date" class="form-control"
                                                 [(ngModel)]="fecha_inicio" name="fecha_inicio" id="fecha_inicio"
                                                 required>
@@ -158,7 +158,7 @@
                                 <div class="col">
                                     <div class="row d-flex justify-content-center align-items-center">
                                         <div class="col"><label class="form-label" style="color: #636363;">Fecha Fin de
-                                                Beca:</label></div>
+                                                Beca *:</label></div>
                                         <div class="col"><input type="date" class="form-control"
                                                 [(ngModel)]="fecha_fin_estimada" name="fecha_fin_estimada"
                                                 id="fecha_fin_estimada" required></div>
@@ -170,7 +170,7 @@
 
                             <div class="row custom-file-button mb-3">
                                 <div class="col-3">
-                                    <label class="form-label" style="color: #636363;">Contrato: </label>
+                                    <label class="form-label" style="color: #636363;">Contrato *: </label>
                                 </div>
                                 <div class="col-9">
                                     <div class="input-group">
@@ -183,7 +183,7 @@
                             </div>
                             <div class="row custom-file-button mb-2">
                                 <div class="col-3">
-                                    <label class="form-label" style="color: #636363;">Malla Curricular: </label>
+                                    <label class="form-label" style="color: #636363;">Malla Curricular *: </label>
                                 </div>
                                 <div class="col-9">
                                     <div class="input-group">
@@ -212,7 +212,7 @@
                             <div class="w-75" style="margin: auto;">
                                 <div class="d-flex justify-content-center">
                                     <label class="form-label text-center" style="color: #636363;">Foto
-                                        Estudiante</label>
+                                        Estudiante *</label>
                                 </div>
                                 <div class="input-group">
                                     <input type="file" class="form-control"
@@ -237,7 +237,7 @@
                                     class="btn text-primary"
                                     style="background-color: #ECF2F9;border: #4180C2 solid 1px;" type="button"
                                     data-bs-toggle="modal" data-bs-target="#nuevaMalla" (click)="clearData()">Nuevo
-                                    Ciclo</button></div>
+                                    Ciclo/Grado</button></div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -463,7 +463,7 @@
                 <form #addMalla="ngForm">
                     <div class="card-body">
 
-                        <p class="card-subtitle mb-2"><strong>Ciclo</strong></p>
+                        <p class="card-subtitle mb-2"><strong>Ciclo/Grado</strong></p>
                         <div class="w-50">
                             <input type="text" class="form-control rounded" [(ngModel)]="nombre" name="nombre"
                                 required />
@@ -524,7 +524,7 @@
 
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-primary w-25" [disabled]="addMalla.invalid"
-                                (click)="createAndSaveCiclo()" data-bs-dismiss="modal">Guardar Ciclo</button>
+                                (click)="createAndSaveCiclo()" data-bs-dismiss="modal">Guardar Ciclo/Grado</button>
                         </div>
 
                     </div>
@@ -600,7 +600,7 @@
                 <form #formEditMalla="ngForm">
                     <div class="card-body">
 
-                        <p class="card-subtitle mb-2"><strong>Ciclo</strong></p>
+                        <p class="card-subtitle mb-2"><strong>Ciclo/Grado</strong></p>
                         <div class="w-50">
                             <input type="text" class="form-control rounded" name="nombre" [(ngModel)]="nombre"
                                 required />
@@ -662,7 +662,7 @@
 
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-primary w-25" (click)="updateCiclo()"
-                                [disabled]="formEditMalla.invalid" data-bs-dismiss="modal">Guardar Ciclo</button>
+                                [disabled]="formEditMalla.invalid" data-bs-dismiss="modal">Guardar Ciclo/Grado</button>
                         </div>
 
                     </div>
