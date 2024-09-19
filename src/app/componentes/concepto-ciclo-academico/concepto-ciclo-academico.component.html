@@ -383,8 +383,8 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-dark">Fecha Solicitud Programada: * </label>
-                        <input name="conceptoFechaSolicitud" type="date" [value]="fechaConceptoPago | date:'dd/MM/yyyy'"
-                            class="form-control disabled" [disabled]="true">
+                        <input name="fechaConceptoPago" type="date" class="form-control disabled" [disabled]="true"
+                            [(ngModel)]="fechaConceptoPago">
                     </div>
                     <div class="mb-4">
                         <label for="constanciaFile" class="form-label text-dark">Constancia de Pago: * </label>
