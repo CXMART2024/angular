@@ -262,11 +262,11 @@
                                                         <button *ngIf="editMallaCurricular"
                                                             class="btn btn-outline-info btn-sm me-2"
                                                             data-bs-target="#editarMalla" data-bs-toggle="modal"
-                                                            (click)="selectCicloModal(ciclo.ciclo.id)"><i
+                                                            (click)="selectCicloModal(ciclo.ciclo.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i
                                                                 class="bi bi-pencil-fill"></i></button>
                                                         <button *ngIf="editMallaCurricular"
                                                             class="btn btn-outline-danger btn-sm"
-                                                            (click)="deleteCicloAll(ciclo.ciclo)"><i
+                                                            (click)="deleteCicloAll(ciclo.ciclo)" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"><i
                                                                 class="bi bi-trash3"></i></button>
 
                                                     </div>
@@ -308,7 +308,7 @@
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-primary" (click)="submitForm()"
-                                [disabled]="!isFileSelected()">Guardar
+                                [disabled]="!isFileSelected()" *ngIf="cicloCursoRelacion.length > 0">Guardar
                                 Información</button>
                         </div>
                     </div>
