@@ -513,9 +513,9 @@
                                                         <div class="col-12 col-md-6 d-sm-flex justify-content-md-end">
                                                             <button type="button" class="btn btn-outline-primary"
                                                                 data-bs-toggle="modal" data-bs-target="#addCurso"
-                                                                (click)="editCursoMalla(i)" data-bs-toggle="tooltip"
-                                                                data-bs-placement="top" title="Editar"><i
-                                                                    class="bi bi-pencil text-info"></i></button>
+                                                                (click)="editCursoMalla(i)"><i
+                                                                    class="bi bi-pencil text-info" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="Editar"></i></button>
                                                         </div>
                                                         <div class="col-12 col-md-6 d-sm-flex justify-content-md-start">
                                                             <button type="button" class="btn btn-outline-danger"
@@ -656,14 +656,16 @@
                                                             <button type="button" class="btn btn-outline-primary"
                                                                 (click)="editCurso(i)" data-bs-toggle="modal"
                                                                 data-bs-target="#editCurso"><i
-                                                                    class="bi bi-pencil text-info"></i></button>
+                                                                    class="bi bi-pencil text-info" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="Editar"></i></button>
                                                         </div>
                                                         <div class="col-12 col-md-6 d-sm-flex justify-content-md-start">
                                                             <button type="button" class="btn btn-outline-danger"
                                                                 (click)="deleteCurso(curso.id)"
                                                                 style="background-color: rgba(234, 76, 83, 0.1); border: solid red 1px;"><i
                                                                     class="bi bi-trash"
-                                                                    style="color: red;"></i></button>
+                                                                    style="color: red;" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="Eliminar"></i></button>
                                                         </div>
                                                     </div>
                                                 </td>
