@@ -317,7 +317,8 @@ export class InformacionBecaComponent implements OnInit {
   }
 
   clearData() {
-    this.guardarDatosForm()
+    this.guardarDatosForm();
+    this.nombre = ''; //validar
     return this.mallaCurricularService.clearCursoMallasTemporal();
   }
 
