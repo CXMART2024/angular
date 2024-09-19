@@ -511,13 +511,16 @@
                                                         <div class="col-12 col-md-6 d-sm-flex justify-content-md-end">
                                                             <button type="button" class="btn btn-outline-primary"
                                                                 data-bs-toggle="modal" data-bs-target="#addCurso"
-                                                                (click)="editCursoMalla(i)"><i
+                                                                (click)="editCursoMalla(i)" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title="Editar"><i
                                                                     class="bi bi-pencil text-info"></i></button>
                                                         </div>
                                                         <div class="col-12 col-md-6 d-sm-flex justify-content-md-start">
                                                             <button type="button" class="btn btn-outline-danger"
                                                                 style="background-color: rgba(234, 76, 83, 0.1); border: solid red 1px;"
-                                                                (click)="deleteCursoMalla(i)" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"><i class="bi bi-trash"
+                                                                (click)="deleteCursoMalla(i)" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title="Eliminar"><i
+                                                                    class="bi bi-trash"
                                                                     style="color: red;"></i></button>
                                                         </div>
                                                     </div>
@@ -574,7 +577,9 @@
                         </select>
                     </div>
                     <div class="mb-4">
-                        <label class="form-label text-dark">Crédito: * </label>
+                        <label class="form-label text-dark">Crédito: * <button class="btn btn-outline-warning"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Si es un estudiante de grado, introduzca 0."><i
+                                    class="bi bi-question-circle-fill"></i></button></label>
                         <input type="number" class="form-control" [(ngModel)]="newCursoMalla.creditos" name="creditos"
                             required min="0">
                     </div>
