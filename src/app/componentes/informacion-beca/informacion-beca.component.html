@@ -89,7 +89,10 @@
                     <div class="card-header">
 
                         <strong>Información de Periodo de Beca</strong>
-
+                        <span>Fecha
+                            Inicio de Beca:{{fecha_inicio}}</span>
+                        <span>Fecha Fin de
+                            Beca:{{fecha_fin_estimada}}</span>
                     </div>
                     <div class="row card-body g-0">
 
@@ -134,7 +137,7 @@
 
                                     <div class="row d-flex justify-content-center align-items-center">
                                         <div class="col"><label class="form-label" style="color: #636363;">Fecha
-                                                Inicio:</label></div>
+                                                Inicio de Beca:</label></div>
                                         <div class="col"><input type="date" class="form-control"
                                                 [(ngModel)]="fecha_inicio" name="fecha_inicio" id="fecha_inicio"
                                                 required>
@@ -151,8 +154,8 @@
                                 </div>
                                 <div class="col">
                                     <div class="row d-flex justify-content-center align-items-center">
-                                        <div class="col"><label class="form-label" style="color: #636363;">Fecha Fin
-                                                Estimada:</label></div>
+                                        <div class="col"><label class="form-label" style="color: #636363;">Fecha Fin de
+                                                Beca:</label></div>
                                         <div class="col"><input type="date" class="form-control"
                                                 [(ngModel)]="fecha_fin_estimada" name="fecha_fin_estimada"
                                                 id="fecha_fin_estimada" required></div>
@@ -698,7 +701,7 @@
                     </div>
                     <div class="mb-4">
                         <label class="form-label text-dark">Crédito: </label>
-                        <input type="number" class="form-control" name="creditos" required  min="0"
+                        <input type="number" class="form-control" name="creditos" required min="0"
                             [(ngModel)]="newCursoMallaEdit.creditos">
                     </div>
                     <div class="d-grid mb-3">
