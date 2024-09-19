@@ -88,13 +88,15 @@
                 <div class="card mt-4 mb-5">
                     <div class="card-header">
 
-                        <ul class="list-inline my-auto">
-                            <li class="list-inline-item"> <strong>Información de Periodo de Beca</strong></li>
-                            <div class="d-flex justify-content-end">
-                                <li class="list-inline-item"><small>Fecha
-                                        Inicio de Beca: {{fecha_inicio | date:'dd/MM/yyyy'}}</small></li>
-                                <li class="list-inline-item"><small>Fecha Fin de
-                                        Beca: {{fecha_fin_estimada | date:'dd/MM/yyyy'}}</small></li>
+                        <ul class="row my-auto">
+                            <div class="col">
+                                <h5> <strong>Información de Periodo de Beca</strong></h5>
+                            </div>
+                            <div class="col d-flex justify-content-end align-items-center">
+                                <small>Fecha
+                                    Inicio de Beca: {{fecha_inicio | date:'dd/MM/yyyy'}}</small>
+                                <small>Fecha Fin de
+                                    Beca: {{fecha_fin_estimada | date:'dd/MM/yyyy'}}</small>
                             </div>
                         </ul>
 
@@ -141,8 +143,8 @@
                                 <div class="col">
 
                                     <div class="row d-flex justify-content-center align-items-center">
-                                        <div class="col"><label class="form-label" style="color: #636363;">Fecha
-                                                Inicio de Beca*:</label></div>
+                                        <div class="col"><label class="form-label" style="color: #636363;">Fecha de
+                                                Inicio *:</label></div>
                                         <div class="col"><input type="date" class="form-control"
                                                 [(ngModel)]="fecha_inicio" name="fecha_inicio" id="fecha_inicio"
                                                 required>
@@ -159,8 +161,8 @@
                                 </div>
                                 <div class="col">
                                     <div class="row d-flex justify-content-center align-items-center">
-                                        <div class="col"><label class="form-label" style="color: #636363;">Fecha Fin de
-                                                Beca*:</label></div>
+                                        <div class="col"><label class="form-label" style="color: #636363;">Fecha Fin
+                                                Estimada *:</label></div>
                                         <div class="col"><input type="date" class="form-control"
                                                 [(ngModel)]="fecha_fin_estimada" name="fecha_fin_estimada"
                                                 id="fecha_fin_estimada" required></div>
@@ -465,14 +467,14 @@
                 <form #addMalla="ngForm">
                     <div class="card-body">
 
-                        <p class="card-subtitle mb-2"><strong>Ciclo/Grado</strong></p>
+                        <p class="card-subtitle mb-2"><strong>Ciclo/Grado *</strong></p>
                         <div class="w-50">
                             <input type="text" class="form-control rounded" [(ngModel)]="nombre" name="nombre"
                                 required />
                         </div>
                         <div class="row mb-4">
                             <div class="col-4 col-md-6 d-flex align-items-center">
-                                <span class="m-b mt-2"><strong>Cursos</strong></span>
+                                <span class="m-b mt-2"><strong>Cursos *</strong></span>
                             </div>
                             <div class="col-8 col-md-6 d-flex justify-content-end">
                                 <button class="btn btn-outline-primary w-50" data-bs-toggle="modal"
@@ -526,7 +528,7 @@
 
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-primary w-25" [disabled]="addMalla.invalid"
-                                (click)="createAndSaveCiclo()" data-bs-dismiss="modal">Guardar Ciclo/Grado</button>
+                                (click)="createAndSaveCiclo()" data-bs-dismiss="modal">Guardar Cambios</button>
                         </div>
 
                     </div>
@@ -555,12 +557,12 @@
             <div class="modal-body">
                 <form #formMallaCurso="ngForm">
                     <div class="mb-3">
-                        <label class="form-label text-dark">Curso: </label>
+                        <label class="form-label text-dark">Curso *: </label>
                         <input type="text" class="form-control" [(ngModel)]="newCursoMalla.Nombre" name="Nombre"
                             required #Nombre="ngModel">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label text-dark">Tipo: </label>
+                        <label class="form-label text-dark">Tipo *: </label>
                         <select class="form-select" name="tipo" [(ngModel)]="newCursoMalla.tipo" required>
                             <option value="" selected disabled class="text-muted">Seleccione una opción</option>
                             <option value="Obligatorio">Obligatorio</option>
@@ -568,7 +570,7 @@
                         </select>
                     </div>
                     <div class="mb-4">
-                        <label class="form-label text-dark">Crédito: </label>
+                        <label class="form-label text-dark">Crédito *: </label>
                         <input type="number" class="form-control" [(ngModel)]="newCursoMalla.creditos" name="creditos"
                             required min="0">
                     </div>
@@ -602,14 +604,14 @@
                 <form #formEditMalla="ngForm">
                     <div class="card-body">
 
-                        <p class="card-subtitle mb-2"><strong>Ciclo/Grado</strong></p>
+                        <p class="card-subtitle mb-2"><strong>Ciclo/Grado *</strong></p>
                         <div class="w-50">
                             <input type="text" class="form-control rounded" name="nombre" [(ngModel)]="nombre"
                                 required />
                         </div>
                         <div class="row mb-4">
                             <div class="col-4 col-md-6 d-flex align-items-center">
-                                <span class="m-b mt-2"><strong>Cursos</strong></span>
+                                <span class="m-b mt-2"><strong>Cursos *</strong></span>
                             </div>
                             <div class="col-8 col-md-6 d-flex justify-content-end">
                                 <button class="btn btn-outline-primary w-50" data-bs-toggle="modal"
@@ -664,7 +666,7 @@
 
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-primary w-25" (click)="updateCiclo()"
-                                [disabled]="formEditMalla.invalid" data-bs-dismiss="modal">Guardar Ciclo/Grado</button>
+                                [disabled]="formEditMalla.invalid" data-bs-dismiss="modal">Guardar Cambios</button>
                         </div>
 
                     </div>
@@ -692,12 +694,12 @@
             <div class="modal-body">
                 <form #formMallaCursoEdit="ngForm">
                     <div class="mb-3">
-                        <label class="form-label text-dark">Curso: </label>
+                        <label class="form-label text-dark">Curso *: </label>
                         <input type="text" class="form-control" name="Nombre" [(ngModel)]="newCursoMallaEdit.Nombre"
                             required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label text-dark">Tipo: </label>
+                        <label class="form-label text-dark">Tipo *: </label>
                         <select class="form-select" name="tipo" required [(ngModel)]="newCursoMallaEdit.tipo">
                             <option value="" selected disabled class="text-muted">Seleccione una opción</option>
                             <option value="Obligatorio">Obligatorio</option>
@@ -705,7 +707,7 @@
                         </select>
                     </div>
                     <div class="mb-4">
-                        <label class="form-label text-dark">Crédito: </label>
+                        <label class="form-label text-dark">Crédito *: </label>
                         <input type="number" class="form-control" name="creditos" required min="0"
                             [(ngModel)]="newCursoMallaEdit.creditos">
                     </div>
