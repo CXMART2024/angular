@@ -89,11 +89,13 @@
                     <div class="card-header">
 
                         <ul class="list-inline my-auto">
-                            <li class="list-inline-item me-5"> <strong>Información de Periodo de Beca</strong></li>
-                            <li class="list-inline-item"><small>Fecha
-                                    Inicio de Beca: {{fecha_inicio | date:'dd/MM/yyyy'}}</small></li>
-                            <li class="list-inline-item"><small>Fecha Fin de
-                                    Beca: {{fecha_fin_estimada | date:'dd/MM/yyyy'}}</small></li>
+                            <li class="list-inline-item"> <strong>Información de Periodo de Beca</strong></li>
+                            <div class="d-flex justify-content-end">
+                                <li class="list-inline-item"><small>Fecha
+                                        Inicio de Beca: {{fecha_inicio | date:'dd/MM/yyyy'}}</small></li>
+                                <li class="list-inline-item"><small>Fecha Fin de
+                                        Beca: {{fecha_fin_estimada | date:'dd/MM/yyyy'}}</small></li>
+                            </div>
                         </ul>
 
                     </div>
@@ -140,7 +142,7 @@
 
                                     <div class="row d-flex justify-content-center align-items-center">
                                         <div class="col"><label class="form-label" style="color: #636363;">Fecha
-                                                Inicio de Beca *:</label></div>
+                                                Inicio de Beca*:</label></div>
                                         <div class="col"><input type="date" class="form-control"
                                                 [(ngModel)]="fecha_inicio" name="fecha_inicio" id="fecha_inicio"
                                                 required>
@@ -158,7 +160,7 @@
                                 <div class="col">
                                     <div class="row d-flex justify-content-center align-items-center">
                                         <div class="col"><label class="form-label" style="color: #636363;">Fecha Fin de
-                                                Beca *:</label></div>
+                                                Beca*:</label></div>
                                         <div class="col"><input type="date" class="form-control"
                                                 [(ngModel)]="fecha_fin_estimada" name="fecha_fin_estimada"
                                                 id="fecha_fin_estimada" required></div>
