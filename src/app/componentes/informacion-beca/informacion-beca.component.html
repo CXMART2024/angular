@@ -88,12 +88,12 @@
                 <div class="card mt-4 mb-5">
                     <div class="card-header">
 
-                        <ul class="row my-auto">
-                            <div class="col">
-                                <h5> <strong>Información de Periodo de Beca</strong></h5>
+                        <ul class="row">
+                            <div class="col d-flex justify-content-start align-items-center">
+                               <strong>Información de Periodo de Beca</strong>s
                             </div>
                             <div class="col d-flex justify-content-end align-items-center">
-                                <small>Fecha
+                                <small class="me-2">Fecha
                                     Inicio de Beca: {{fecha_inicio | date:'dd/MM/yyyy'}}</small>
                                 <small>Fecha Fin de
                                     Beca: {{fecha_fin_estimada | date:'dd/MM/yyyy'}}</small>
@@ -161,8 +161,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="row d-flex justify-content-center align-items-center">
-                                        <div class="col"><label class="form-label" style="color: #636363;">Fecha Fin
-                                                Estimada *:</label></div>
+                                        <div class="col"><label class="form-label" style="color: #636363;">Fecha Fin *:</label></div>
                                         <div class="col"><input type="date" class="form-control"
                                                 [(ngModel)]="fecha_fin_estimada" name="fecha_fin_estimada"
                                                 id="fecha_fin_estimada" required></div>
