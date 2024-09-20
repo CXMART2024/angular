@@ -25,7 +25,7 @@ export class InformacionBecaComponent implements OnInit {
   isChecked: boolean = false;
   ciclosMallaLista?: CicloMalla[];
   cursoMallaLista?: CursoMalla[];
-  cicloCursoRelacion?: RelacionMalla[];
+  cicloCursoRelacion: RelacionMalla[] =[];
   selectedCicloId?: number;
   url_foto_estudiante = new FormData();
   url_doc_contrato = new FormData();
@@ -55,7 +55,7 @@ export class InformacionBecaComponent implements OnInit {
   relacionMallaData: CicloMalla[] = [];
   cursos: CursoMalla[] = [];
   newCursoMallaEdit: CursoMalla = new CursoMalla(0, '', 0, 0, '');
-  nombreEdit: string = '';
+  //nombreEdit: string = '';
 
 
   constructor(
@@ -279,22 +279,24 @@ export class InformacionBecaComponent implements OnInit {
 
   deleteCicloAll(ciclo: CicloMalla): void {
     if (confirm(`¿Estás seguro de que deseas eliminar el ciclo ${ciclo.nombre}?`)) {
-      this.mallaCurricularService.deleteCursoMallaByCiclo(ciclo.id).subscribe({
-        next: () => {
-          this.mallaCurricularService.deleteCicloMalla(ciclo).subscribe({
-            next: (response) => {
+      const deleteCursoMalla$ = this.mallaCurricularService.deleteCursoMallaByCiclo(ciclo.id);
+      const deleteCicloMalla$ = this.mallaCurricularService.deleteCicloMalla(ciclo);
 
-              this.getMallaCiclos();
-            },
-            error: (err) => {
-              console.error('Error deleting CicloMalla:', err);
-              alert('Error al eliminar Ciclo');
-            }
-          });
+      forkJoin([deleteCursoMalla$, deleteCicloMalla$]).subscribe({
+        next: ([cursoResponse, cicloResponse]) => {
+         
+          this.getCursoMallas();
+          this.getMallaCiclos();
+
+          this.cicloCursoRelacion = this.cicloCursoRelacion.filter(item => item.ciclo.id !== ciclo.id);
+        
+          console.log('Successfully deleted curso and ciclo:', cursoResponse, cicloResponse);
+          this.toastr.success(`Se eliminó correctamente.`);
+          this.cdr.detectChanges(); 
         },
         error: (err) => {
-          console.error('Error deleting CursoMalla by ciclo:', err);
-          alert('Error al eliminar el curso del ciclo');
+          console.error('Error during deletion process:', err);
+          alert('Error al eliminar el ciclo o sus cursos.');
         }
       });
     }
@@ -316,7 +318,8 @@ export class InformacionBecaComponent implements OnInit {
   }
 
   clearData() {
-    this.guardarDatosForm()
+    this.guardarDatosForm();
+    this.nombre = ''; //validar
     return this.mallaCurricularService.clearCursoMallasTemporal();
   }
 
@@ -474,8 +477,19 @@ export class InformacionBecaComponent implements OnInit {
   }
 
   //Funciones para editar Malla
+  selectCicloModal(id: number): void {
+    if (id) {
+      this.cicloId = id;
+      this.newCursoMallaEdit = new CursoMalla(0, '', 0, 0, '');
+      this.editingIndexEdit = null;
+      this.getMalla();
+    } else {
+      console.error('Invalid ciclo ID');
+    }
+  }
 
   getMalla(): void {
+    this.cdr.detectChanges();
     const id = this.cicloId;
     this.mallaCurricularService.getCicloMalla(id).subscribe({
       next: (data: CicloMalla[]) => {
@@ -483,7 +497,7 @@ export class InformacionBecaComponent implements OnInit {
         this.relacionMallaData = data;
 
         if (this.relacionMallaData.length > 0) {
-          this.nombreEdit = this.relacionMallaData[0].nombre;
+          this.nombre = this.relacionMallaData[0].nombre;
 
           this.getMallaCursos();
         }
@@ -517,6 +531,7 @@ export class InformacionBecaComponent implements OnInit {
     if (confirm('¿Estás seguro de que deseas eliminar el curso?')) {
       this.mallaCurricularService.deleteCursoMalla(id).subscribe({
         next: (response) => {
+
           alert('Curso eliminado!');
           this.getMallaCursos();
         },
@@ -538,6 +553,7 @@ export class InformacionBecaComponent implements OnInit {
 
           this.newCursoMallaEdit = new CursoMalla(0, '', 0, 0, '');
           this.getMallaCursos();
+          this.cdr.detectChanges();
         },
         error: (error) => {
           console.error('Error creating curso', error);
@@ -575,14 +591,16 @@ export class InformacionBecaComponent implements OnInit {
     if (this.relacionMallaData.length > 0) {
       const updatedCiclo: CicloMalla = {
         ...this.relacionMallaData[0], // Get the existing ciclo data
-        nombre: this.nombreEdit // Update with the new nombre
+        nombre: this.nombre // Update with the new nombre
       };
 
       this.mallaCurricularService.updateCicloMalla(updatedCiclo).subscribe({
         next: (response) => {
 
+          this.getCursoMallas();
+          this.getMallaCiclos();
           this.toastr.success(`Se actualizó correctamente.`);
-          this.getMalla(); // Refresh the data to reflect changes
+
         },
         error: (error) => {
           console.error('Error updating ciclo', error);
@@ -596,9 +614,8 @@ export class InformacionBecaComponent implements OnInit {
     }
   }
 
-  selectCicloModal(id: number): void {
-    this.cicloId = id;
-  }
+
+
 
 
   notificarEnvioMalla(solicitud: any) {
@@ -616,5 +633,6 @@ export class InformacionBecaComponent implements OnInit {
       }).subscribe();
   }
   
+
 }
 
