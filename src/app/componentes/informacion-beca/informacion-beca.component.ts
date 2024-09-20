@@ -227,6 +227,7 @@ export class InformacionBecaComponent implements OnInit {
   submitForm() {
     if (this.fecha_inicio && this.fecha_fin_estimada) {
       this.updateInformacionBecario();
+      this.notificarEnvioMalla(this.solicitud);
       this.router.navigate(['/informacion-view']);
       localStorage.removeItem('formularioDatos');
     } else {
@@ -598,5 +599,22 @@ export class InformacionBecaComponent implements OnInit {
   selectCicloModal(id: number): void {
     this.cicloId = id;
   }
+
+
+  notificarEnvioMalla(solicitud: any) {
+    const fecha = new Date();
+    const dia = fecha.getDate().toString().padStart(2,'0');
+    const mes = (fecha.getMonth()+1).toString().padStart(2,'0');
+    const anio = fecha.getFullYear();
+
+    const fechaFormateada = `${dia}/${mes}/${anio}`
+    this.http.post('https://prod-09.brazilsouth.logic.azure.com:443/workflows/3179fa572cea428a8782d3c8d4de64a6/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=_hPm3Hjsv-wWzDciN6sPKz8BUq8opHUURXEWSXIJ4oA',
+      {
+        "Estudiante": solicitud.nombre_completo,
+        "CorreoEstudiante": solicitud.correo,
+        "FechaSolicitud": fechaFormateada,
+      }).subscribe();
+  }
+  
 }
 

@@ -93,7 +93,7 @@ export class RegisterFormFinalComponent implements OnInit {
               this.router.navigate(['/register-form']);
               this.formDataService.clearFormData();
             } else {
-              
+              this.notificarEnvioSolicitud(this.formData);
               this.toastr.success(`Solicitud enviada correctamente.`);
               this.router.navigate(['/register-form']);
               this.formDataService.clearFormData();
@@ -120,6 +120,24 @@ export class RegisterFormFinalComponent implements OnInit {
   backtStepFinal() {
     this.router.navigate(['register-form-next']);
     this.formDataService.clearFormData();
+  }
+
+  notificarEnvioSolicitud(solicitud: any) {
+    const fecha = new Date();
+    const dia = fecha.getDate().toString().padStart(2,'0');
+    const mes = (fecha.getMonth()+1).toString().padStart(2,'0');
+    const anio = fecha.getFullYear();
+
+    const fechaFormateada = `${dia}/${mes}/${anio}`
+    this.http.post('https://prod-09.brazilsouth.logic.azure.com:443/workflows/c892f3fc19c0414891f907ba67d85ad7/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=7Pfw0bnXxG_LLWwaQRb_e6aI8crlNyeO1-LT5hAzLLU',
+      {
+        "Estudiante": solicitud.nombre_completo,
+        "CorreoEstudiante": solicitud.correo,
+        "FechaSolicitud": fechaFormateada,
+        "Institucion": solicitud.institucion_nombre,
+        "IngresoFamiliar": solicitud.ingreso_familiar_mensual,
+        "Motivo":solicitud.motivo_solicitud
+      }).subscribe();
   }
 
 }
