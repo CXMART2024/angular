@@ -55,7 +55,7 @@ export class InformacionBecaComponent implements OnInit {
   relacionMallaData: CicloMalla[] = [];
   cursos: CursoMalla[] = [];
   newCursoMallaEdit: CursoMalla = new CursoMalla(0, '', 0, 0, '');
-  //nombreEdit: string = '';
+
 
 
   constructor(
