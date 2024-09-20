@@ -145,7 +145,7 @@ export class RegisterFormNextComponent implements OnInit {
     institucion_direccion: ["", [Validators.required]],
     tipo_educacion: ["", [Validators.required]],
     grado_academico: ["", [Validators.required]],
-    promedio_academico: ['', [Validators.required]],
+    promedio_academico: ["", [Validators.required]],
     motivo_solicitud: ["", [Validators.required, Validators.minLength(1)]],
     bydni: ''
   });
@@ -168,8 +168,8 @@ export class RegisterFormNextComponent implements OnInit {
       "institucion_direccion": this.registrationForm.value.institucion_direccion,
       "tipo_educacion": this.registrationForm.value.tipo_educacion,
       "promedio_academico": this.registrationForm.value.promedio_academico,
-      "grado_academico": this.registrationForm.value.grado_academico,
-      "motivo_solicitud": this.registrationForm.value.motivo_solicitud
+      "motivo_solicitud": this.registrationForm.value.motivo_solicitud,
+      "grado_academico": this.registrationForm.value.grado_academico
     };
     this.formDataService.setFormData(bodyData);
     this.router.navigate(['register-form-final'])
