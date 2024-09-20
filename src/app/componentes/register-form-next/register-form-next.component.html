@@ -140,7 +140,7 @@
                             </div>}
                         </div>
 
-                        <div class="col-md-8">
+                        <div class="col-md-4">
                             <label class="form-label" style="font-weight: bold;">Tipo de Educación *</label>
                             <select class="form-select" formControlName="tipo_educacion" style="font-size: small;">
                                 <option value="" selected disabled>Seleccione una opción</option>
@@ -153,7 +153,20 @@
                                 Por favor seleccione su tipo de educación.
                             </div>}
                         </div>
-
+                        <div class="col-md-4">
+                            <label class="form-label" style="font-weight: bold;">Grado Académico *</label>
+                            <select class="form-select" formControlName="grado_academico" style="font-size: small;">
+                                <option value="" selected disabled>Seleccione una opción</option>
+                                <option>Primaria</option>
+                                <option>Secundaria</option>
+                                <option>Superior</option>
+                            </select>
+                            @if(registrationForm.get('grado_academico')?.errors?.['required'] &&
+                            registrationForm.get('grado_academico')?.touched)
+                            {<div class="mistake">
+                                Por favor seleccione su grado académico.
+                            </div>}
+                        </div>
                         <div class="col-md-4">
                             <label class="form-label" style="font-weight: bold;">Promedio Académico *</label>
                             <input type="number" class="form-control" formControlName="promedio_academico"

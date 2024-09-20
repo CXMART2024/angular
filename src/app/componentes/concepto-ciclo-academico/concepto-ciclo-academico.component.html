@@ -84,7 +84,7 @@
 
             <nav aria-label="breadcrumb" class="mt-2">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#" routerLink="/informacion-view">Información de Beca</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/informacion-view">Información de Beca</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{selectedCiclo?.nombre_ciclo}}</li>
                 </ol>
             </nav>
@@ -103,7 +103,7 @@
                     <!--aqui-->
                     <div class="row">
                         <div class="col-4">
-                            <label class="form-label my-auto"><strong>Ciclo:</strong></label>
+                            <label class="form-label my-auto"><strong>Ciclo/Grado:</strong></label>
                             <input type="text" class="form-control-plaintext text-muted disabled" readonly
                                 value="{{selectedCiclo?.nombre_ciclo}}" [disabled]="true">
                         </div>
@@ -318,19 +318,25 @@
             <div class="modal-body">
                 <form [formGroup]="conceptoPagoForm" (ngSubmit)="onAgregarConceptoPago()">
                     <div class="mb-3">
-                        <label class="form-label text-dark">Concepto: </label>
-                        <input type="text" class="form-control" formControlName="concepto">
+                        <label class="form-label text-dark">Concepto: * </label>
+                        <!--<input type="text" class="form-control" formControlName="concepto">-->
+                        <select class="form-select" name="concepto" required formControlName="concepto">
+                            <option value="" selected disabled class="text-muted">Seleccione una opción</option>
+                            <option value="Matricula">Matricula</option>
+                            <option value="Pensión">Pensión</option>
+                            <option value="Otros">Otros</option>
+                        </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label text-dark">Descripción: </label>
+                        <label class="form-label text-dark">Descripción: * </label>
                         <textarea class="form-control" formControlName="descripcion" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label text-dark">Monto: </label>
+                        <label class="form-label text-dark">Monto: * </label>
                         <input type="number" class="form-control" formControlName="monto">
                     </div>
                     <div class="mb-4">
-                        <label class="form-label text-dark">Fecha Solicitud Programada: </label>
+                        <label class="form-label text-dark">Fecha Solicitud Programada: * </label>
                         <input type="date" class="form-control" formControlName="fechaSolicitud">
                     </div>
                     <div class="d-grid mb-2">
@@ -361,27 +367,28 @@
             <div *ngIf="selectedPago" class="modal-body">
                 <form action="">
                     <div class="mb-3">
-                        <label class="form-label text-dark">Concepto: </label>
-                        <input [(ngModel)]="selectedPago.concepto" name="concepto" type="text"
-                            class="form-control disabled">
+                        <label class="form-label text-dark">Concepto: * </label>
+                        <input [(ngModel)]="selectedPago.concepto" name="concepto" type="text" class="form-control"
+                            [disabled]="true">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label text-dark">Descripción: </label>
+                        <label class="form-label text-dark">Descripción: * </label>
                         <textarea [(ngModel)]="selectedPago.descripcion" name="conceptoDescripcion" class="form-control"
-                            rows="3"></textarea>
+                            rows="3" [disabled]="true"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label text-dark">Monto: </label>
+                        <label class="form-label text-dark">Monto: * </label>
                         <input [(ngModel)]="selectedPago.monto" name="conceptoMonto" type="number"
-                            class="form-control disabled">
+                            class="form-control disabled" [disabled]="true">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label text-dark">Fecha Solicitud Programada: </label>
-                        <input [(ngModel)]="fechaConceptoPago" name="conceptoFechaSolicitud" type="date"
-                            class="form-control disabled">
+                        <label class="form-label text-dark">Fecha Solicitud Programada: * </label>
+                        <input name="fechaConceptoPago" type="text" class="form-control disabled" [disabled]="true"
+                            value="{{fechaConceptoPago | date:'dd/MM/yyyy'}}">
+
                     </div>
                     <div class="mb-4">
-                        <label for="constanciaFile" class="form-label text-dark">Constancia de Pago: </label>
+                        <label for="constanciaFile" class="form-label text-dark">Constancia de Pago: * </label>
                         <input (change)="onFileChange($event)" id="constanciaFile" type="file" class="form-control"
                             #constanciaFile>
                     </div>
