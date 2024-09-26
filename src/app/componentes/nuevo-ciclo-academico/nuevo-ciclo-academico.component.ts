@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import moment from 'moment';
 
 @Component({
   selector: 'app-nuevo-ciclo-academico',
@@ -139,6 +140,9 @@ export class NuevoCicloAcademicoComponent implements OnInit {
 
     forkJoin(cargaArchivos).subscribe({
       next: (response: any[]) => {
+        this.ciclo.fecha_inicio = moment(this.ciclo.fecha_inicio).startOf('day').toDate();
+        this.ciclo.fecha_fin = moment(this.ciclo.fecha_fin).startOf('day').toDate();
+
         this.ciclo.id_ciclo = this.selectedCicloMallaId ;
         this.ciclo.id_solicitud = this.solicitud.id;
         this.ciclo.id_doc_matricula = response[0].url;

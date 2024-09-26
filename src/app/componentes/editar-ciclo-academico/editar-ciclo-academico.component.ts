@@ -50,7 +50,7 @@ export class EditarCicloAcademicoComponent implements OnInit {
         if (this.selectedCiclo) {
           //Asignar fecha en variables temporales tipo string para mostrarlas por default en el form
           this.fechaInicioStr = this.cicloService.formatDate(
-            this.selectedCiclo.fecha_fin
+            this.selectedCiclo.fecha_inicio
           );
           this.fechaFinStr = this.cicloService.formatDate(
             this.selectedCiclo.fecha_fin
