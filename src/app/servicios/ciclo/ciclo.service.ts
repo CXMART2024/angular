@@ -80,7 +80,9 @@ export class CicloService {
   }
 
   //Formatear fecha
+ 
   formatDate(date: Date): string {
-    return this.datePipe.transform(date, 'yyyy-MM-dd') ?? '';
+    const utcDate = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+    return this.datePipe.transform(utcDate, 'yyyy-MM-dd') ?? '';
   }
 }

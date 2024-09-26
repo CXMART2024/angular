@@ -49,15 +49,12 @@ export class EditarCicloAcademicoComponent implements OnInit {
         this.selectedCiclo = this.cicloService.getSelectedCiclo();
         if (this.selectedCiclo) {
           //Asignar fecha en variables temporales tipo string para mostrarlas por default en el form
-          /*this.fechaInicioStr = this.cicloService.formatDate(
+          this.fechaInicioStr = this.cicloService.formatDate(
             this.selectedCiclo.fecha_inicio
           );
           this.fechaFinStr = this.cicloService.formatDate(
             this.selectedCiclo.fecha_fin
-          );*/
-
-          this.fechaInicioStr = this.convertToLocalDateString(new Date(this.selectedCiclo.fecha_inicio));
-          this.fechaFinStr = this.convertToLocalDateString(new Date(this.selectedCiclo.fecha_fin));
+          );
 
 
           //Obtener cursos del ciclo
@@ -233,10 +230,6 @@ export class EditarCicloAcademicoComponent implements OnInit {
   }
 
 
-  convertToLocalDateString(date: Date): string {
-    const utcDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
-    return utcDate.toISOString().split('T')[0];
-  }
 
 }
 
