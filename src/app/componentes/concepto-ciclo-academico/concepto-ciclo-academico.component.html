@@ -120,12 +120,12 @@
                         <div class="col-4">
                             <label class="form-label my-auto"><strong>Fecha Inicio:</strong></label>
                             <input type="text" class="form-control-plaintext text-muted disabled" readonly
-                                value="{{selectedCiclo?.fecha_inicio | date:'dd/MM/yyyy'}}" [disabled]="true">
+                                value="{{selectedCiclo?.fecha_inicio | date:'dd/MM/yyyy':'UTC'}}" [disabled]="true">
                         </div>
                         <div class="col-4">
                             <label class="form-label my-auto"><strong>Fecha Fin:</strong></label>
                             <input type="text" class="form-control-plaintext text-muted disabled" readonly
-                                value="{{selectedCiclo?.fecha_fin | date:'dd/MM/yyyy'}}" [disabled]="true">
+                                value="{{selectedCiclo?.fecha_fin | date:'dd/MM/yyyy':'UTC'}}" [disabled]="true">
                         </div>
                         <div class="col-4">
                             <label class="form-label my-auto"><strong>Matrícula:</strong>
@@ -171,7 +171,7 @@
                                             <td class="text-center">{{pago.concepto}}</td>
                                             <td class="text-center">{{pago.descripcion}}</td>
                                             <td class="text-center">S/ {{pago.monto}}</td>
-                                            <td class="text-center">{{pago.fecha_solicitud | date:'dd/MM/yyyy'}}</td>
+                                            <td class="text-center">{{pago.fecha_solicitud | date:'dd/MM/yyyy':'UTC'}}</td>
                                             <td class="text-center text-primary">
                                                 <ng-container *ngIf="pago.id_constancia_pago; else empty">
                                                     <a class="form-control-plaintext text-primary"
