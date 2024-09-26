@@ -25,6 +25,7 @@ export class NuevoCicloAcademicoComponent implements OnInit {
   listCurso: Array<CursoMalla> = [];
   listCursoPopUp: Array<CursoMalla> = [];
   cursoSeleccionadoPopUp: CursoMalla = new CursoMalla(0, '', 0, 0, '');
+  fechaFinInvalid: boolean = false;
   ciclo: Ciclo = new Ciclo(
     0,
     new Date(),
@@ -180,6 +181,10 @@ export class NuevoCicloAcademicoComponent implements OnInit {
   isFileSelected(): boolean {
     return this.url.has('file');
   }
-
+  validateDates(): void {
+    const fechaInicio = new Date(this.ciclo.fecha_inicio);
+    const fechaFin = new Date(this.ciclo.fecha_fin);
+    this.fechaFinInvalid = fechaFin < fechaInicio; 
+  }
 }
 
