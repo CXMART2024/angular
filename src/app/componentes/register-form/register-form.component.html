@@ -203,7 +203,7 @@
 
                         <div class="col-md-4">
                             <label class="form-label" style="font-weight: bold;">Ingreso Familiar Mensual *</label>
-                            <input type="number" class="form-control" formControlName="ingreso_familiar_mensual">
+                            <input type="number" class="form-control" formControlName="ingreso_familiar_mensual" min="0">
                             @if(registrationForm.get('ingreso_familiar_mensual')?.errors?.['required'] &&
                             registrationForm.get('ingreso_familiar_mensual')?.touched)
                             {<div class="mistake">

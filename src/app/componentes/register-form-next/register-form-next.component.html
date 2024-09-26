@@ -170,7 +170,7 @@
                         <div class="col-md-4">
                             <label class="form-label" style="font-weight: bold;">Promedio Académico *</label>
                             <input type="number" class="form-control" formControlName="promedio_academico"
-                                id="promedio_academico">
+                                id="promedio_academico" min="0">
                             @if(registrationForm.get('promedio_academico')?.errors?.['required'] &&
                             registrationForm.get('promedio_academico')?.touched)
                             {<div class="mistake">
