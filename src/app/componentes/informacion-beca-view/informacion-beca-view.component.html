@@ -254,8 +254,9 @@
                                     <tbody>
                                         <tr *ngFor="let ciclo of listCiclos">
                                             <td class="text-center">{{ciclo.nombre_ciclo}}</td>
-                                            <td class="text-center">{{ciclo.fecha_inicio | date:'dd/MM/yyyy'}}</td>
-                                            <td class="text-center">{{ciclo.fecha_fin | date:'dd/MM/yyyy'}}</td>
+                                            <td class="text-center">{{ciclo.fecha_inicio | date:'dd/MM/yyyy':'UTC'}}
+                                            </td>
+                                            <td class="text-center">{{ciclo.fecha_fin | date:'dd/MM/yyyy':'UTC'}}</td>
                                             <td class="text-center">{{ciclo.creditos}}</td>
                                             <td class="text-center">{{numCursosMap.get(ciclo.id)}}</td>
                                             <td class="text-center"><span class="badge rounded-pill text-dark"
