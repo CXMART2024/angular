@@ -49,12 +49,16 @@ export class EditarCicloAcademicoComponent implements OnInit {
         this.selectedCiclo = this.cicloService.getSelectedCiclo();
         if (this.selectedCiclo) {
           //Asignar fecha en variables temporales tipo string para mostrarlas por default en el form
-          this.fechaInicioStr = this.cicloService.formatDate(
+          /*this.fechaInicioStr = this.cicloService.formatDate(
             this.selectedCiclo.fecha_inicio
           );
           this.fechaFinStr = this.cicloService.formatDate(
             this.selectedCiclo.fecha_fin
-          );
+          );*/
+
+          this.fechaInicioStr = this.formatDateForInput(new Date(this.selectedCiclo.fecha_inicio));
+          this.fechaFinStr = this.formatDateForInput(new Date(this.selectedCiclo.fecha_fin));
+
           //Obtener cursos del ciclo
 
           this.cursoService.getCursoByCiclo(this.selectedCiclo.id).subscribe({
@@ -224,7 +228,12 @@ export class EditarCicloAcademicoComponent implements OnInit {
   validateDates(): void {
     const fechaInicio = new Date(this.fechaInicioStr);
     const fechaFin = new Date(this.fechaFinStr);
-    this.fechaFinInvalid = fechaFin < fechaInicio; 
+    this.fechaFinInvalid = fechaFin < fechaInicio;
+  }
+
+
+  formatDateForInput(date: Date): string {
+    return moment(date).local().format('YYYY-MM-DD');
   }
 
 }
