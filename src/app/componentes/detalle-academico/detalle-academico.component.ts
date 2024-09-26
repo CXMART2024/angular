@@ -193,7 +193,7 @@ export class DetalleAcademicoComponent implements OnInit {
     this.getDataCiclo();
   }
 
-  updateInformacionBecario() {
+  updateInformacionBecario(id_documento_evidencia: HTMLInputElement) {
     const cargaArchivos: Observable<any>[] = [];
     const cursoUpdateRequests: Observable<any>[] = [];
 
@@ -232,7 +232,7 @@ export class DetalleAcademicoComponent implements OnInit {
               this.selectedCicloId = 0;
               this.getDataCiclo();
               this.cdr.detectChanges();
-
+              id_documento_evidencia.value = '';
             },
             error: (error: any) => {
               console.error('Error al actualizar ciclo', error);

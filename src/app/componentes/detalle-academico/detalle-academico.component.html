@@ -134,7 +134,7 @@
                     <strong class="my-auto">Calificaciones</strong>
                     <button *ngIf="cicloData?.estado != 'Finalizado'" class="btn btn-primary"
                         [disabled]="!id_documento_evidencia.files?.length"
-                        (click)="updateInformacionBecario()">Registrar Calificaciones</button>
+                        (click)="updateInformacionBecario(id_documento_evidencia)">Registrar Calificaciones</button>
                 </div>
                 <div class="card-body">
                     <div class="container table-responsive">
