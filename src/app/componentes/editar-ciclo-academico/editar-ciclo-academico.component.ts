@@ -56,8 +56,9 @@ export class EditarCicloAcademicoComponent implements OnInit {
             this.selectedCiclo.fecha_fin
           );*/
 
-          this.fechaInicioStr = this.formatDateForInput(new Date(this.selectedCiclo.fecha_inicio));
-          this.fechaFinStr = this.formatDateForInput(new Date(this.selectedCiclo.fecha_fin));
+          this.fechaInicioStr = this.convertToLocalDateString(new Date(this.selectedCiclo.fecha_inicio));
+          this.fechaFinStr = this.convertToLocalDateString(new Date(this.selectedCiclo.fecha_fin));
+
 
           //Obtener cursos del ciclo
 
@@ -232,8 +233,9 @@ export class EditarCicloAcademicoComponent implements OnInit {
   }
 
 
-  formatDateForInput(date: Date): string {
-    return moment(date).local().format('YYYY-MM-DD');
+  convertToLocalDateString(date: Date): string {
+    const utcDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+    return utcDate.toISOString().split('T')[0];
   }
 
 }
