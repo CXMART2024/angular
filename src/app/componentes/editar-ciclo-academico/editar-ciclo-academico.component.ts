@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import moment from 'moment';
 
 @Component({
   selector: 'app-editar-ciclo-academico',
@@ -28,6 +29,7 @@ export class EditarCicloAcademicoComponent implements OnInit {
   fechaInicioStr: string = '';
   fechaFinStr: string = '';
   url = new FormData();
+  fechaFinInvalid: boolean = false;
 
   constructor(
     private solicitudService: SolicitudService,
@@ -38,7 +40,7 @@ export class EditarCicloAcademicoComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private toastr: ToastrService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.solicitudService.getSolicitudData().subscribe((data) => {
@@ -132,7 +134,7 @@ export class EditarCicloAcademicoComponent implements OnInit {
     );
     if (curso) {
       this.cursoSeleccionadoPopUp = curso;
-      
+
     }
   }
 
@@ -179,7 +181,7 @@ export class EditarCicloAcademicoComponent implements OnInit {
             next: (ciclo: Ciclo) => {
               this.actualizarCursos(ciclo.id, this.listCursos);
               this.cicloService.setSelectedCiclo(ciclo);
-              this.toastr.success(`Ciclo ${ciclo.nombre_ciclo} actualizado correctamente`)
+              this.toastr.success(`${ciclo.nombre_ciclo} actualizado correctamente`)
               this.router.navigate(['/concepto-modulo-academico']);
             },
             error: (error) => {
@@ -191,12 +193,12 @@ export class EditarCicloAcademicoComponent implements OnInit {
     });
   }
 
-  
+
 
   actualizarCursos(id_registro_ciclo: number, listCursos: Array<Curso>): void {
     this.cursoService.deleteCursoByCiclo(id_registro_ciclo).subscribe({
       next: () => {
-        listCursos.forEach(curso=>{
+        listCursos.forEach(curso => {
           curso.id_registro_ciclo = id_registro_ciclo;
           this.guardarCurso(curso);
         })
@@ -219,7 +221,11 @@ export class EditarCicloAcademicoComponent implements OnInit {
   }
 
 
-
+  validateDates(): void {
+    const fechaInicio = new Date(this.fechaInicioStr);
+    const fechaFin = new Date(this.fechaFinStr);
+    this.fechaFinInvalid = fechaFin < fechaInicio; 
+  }
 
 }
 

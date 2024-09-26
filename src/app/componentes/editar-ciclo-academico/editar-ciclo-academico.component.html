@@ -28,10 +28,13 @@
                 <div class="col-12 col-md-6 mb-3">
                     <div class="row">
                         <div class="col"><label class="form-label"><strong>Fecha Inicio *</strong></label>
-                            <input [(ngModel)]="fechaInicioStr" type="date" class="form-control" />
+                            <input [(ngModel)]="fechaInicioStr"  name="fechaInicioStr" type="date" class="form-control" (change)="validateDates()"/>
                         </div>
                         <div class="col"><label class="form-label"><strong>Fecha Fin *</strong></label>
-                            <input [(ngModel)]="fechaFinStr" type="date" class="form-control" />
+                            <input [(ngModel)]="fechaFinStr"  name="fechaFinStr" type="date" class="form-control" (change)="validateDates()"/>
+                            <div *ngIf="fechaFinInvalid" class="text-danger">
+                                La fecha de fin no puede ser anterior a la fecha de inicio.
+                            </div>
                         </div>
                     </div>
                 </div>
