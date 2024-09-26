@@ -55,6 +55,7 @@ export class InformacionBecaComponent implements OnInit {
   relacionMallaData: CicloMalla[] = [];
   cursos: CursoMalla[] = [];
   newCursoMallaEdit: CursoMalla = new CursoMalla(0, '', 0, 0, '');
+  fechaFinInvalid: boolean = false;
 
   constructor(
     private solicitudService: SolicitudService,
@@ -629,6 +630,10 @@ export class InformacionBecaComponent implements OnInit {
       }).subscribe();
   }
   
-
+  validateDates(): void {
+    const fechaInicio = new Date(this.solicitud.fecha_inicio);
+    const fechaFin = new Date(this.solicitud.fecha_fin_estimada);
+    this.fechaFinInvalid = fechaFin < fechaInicio; 
+  }
 }
 

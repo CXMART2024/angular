@@ -149,7 +149,7 @@
                                                     Inicio de Beca: *</small></label></div>
                                         <div class="col"><input type="date" class="form-control"
                                                 [(ngModel)]="fecha_inicio" name="fecha_inicio" id="fecha_inicio"
-                                                required>
+                                                required (change)="validateDates()">
                                         </div>
                                     </div>
                                     <!-- 
@@ -163,11 +163,18 @@
                                 </div>
                                 <div class="col">
                                     <div class="row d-flex justify-content-center align-items-center">
-                                        <div class="col"><label class="form-label" style="color: #636363;"><small>Fecha
-                                                    Fin de Beca: *</small></label></div>
-                                        <div class="col"><input type="date" class="form-control"
-                                                [(ngModel)]="fecha_fin_estimada" name="fecha_fin_estimada"
-                                                id="fecha_fin_estimada" required></div>
+                                        <div class="col">
+                                            <label class="form-label" style="color: #636363;"><small>Fecha
+                                                    Fin de Beca: *</small></label>
+                                        </div>
+                                        <div class="col">
+                                            <input type="date" class="form-control" [(ngModel)]="fecha_fin_estimada"
+                                                name="fecha_fin_estimada" id="fecha_fin_estimada" required
+                                                (change)="validateDates()">
+                                        </div>
+                                        <div *ngIf="fechaFinInvalid" class="text-danger">
+                                            La fecha de fin no puede ser anterior a la fecha de inicio.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -309,7 +316,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-primary" (click)="submitForm()" [disabled]="!isFileSelected()"
+                            <button class="btn btn-primary" (click)="submitForm()" [disabled]="!isFileSelected() || fechaFinInvalid"
                                 *ngIf="cicloCursoRelacion.length > 0">Guardar
                                 Información</button>
                         </div>
@@ -514,8 +521,9 @@
                                                             <button type="button" class="btn btn-outline-primary"
                                                                 data-bs-toggle="modal" data-bs-target="#addCurso"
                                                                 (click)="editCursoMalla(i)"><i
-                                                                    class="bi bi-pencil text-info" data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top" title="Editar"></i></button>
+                                                                    class="bi bi-pencil text-info"
+                                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                    title="Editar"></i></button>
                                                         </div>
                                                         <div class="col-12 col-md-6 d-sm-flex justify-content-md-start">
                                                             <button type="button" class="btn btn-outline-danger"
@@ -656,16 +664,17 @@
                                                             <button type="button" class="btn btn-outline-primary"
                                                                 (click)="editCurso(i)" data-bs-toggle="modal"
                                                                 data-bs-target="#editCurso"><i
-                                                                    class="bi bi-pencil text-info" data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top" title="Editar"></i></button>
+                                                                    class="bi bi-pencil text-info"
+                                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                    title="Editar"></i></button>
                                                         </div>
                                                         <div class="col-12 col-md-6 d-sm-flex justify-content-md-start">
                                                             <button type="button" class="btn btn-outline-danger"
                                                                 (click)="deleteCurso(curso.id)"
                                                                 style="background-color: rgba(234, 76, 83, 0.1); border: solid red 1px;"><i
-                                                                    class="bi bi-trash"
-                                                                    style="color: red;" data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top" title="Eliminar"></i></button>
+                                                                    class="bi bi-trash" style="color: red;"
+                                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                    title="Eliminar"></i></button>
                                                         </div>
                                                     </div>
                                                 </td>

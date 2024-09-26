@@ -189,8 +189,6 @@ export class InformacionBecaViewComponent implements OnInit {
   formatDateForInput(dateString: string): string {
     return moment.utc(dateString).format('YYYY-MM-DD');
   }
-  formatDateForInputs(date: Date): string {
-    return moment(date).format('YYYY-MM-DD');
-  }
+ 
 
 }
