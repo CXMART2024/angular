@@ -140,8 +140,8 @@ export class NuevoCicloAcademicoComponent implements OnInit {
 
     forkJoin(cargaArchivos).subscribe({
       next: (response: any[]) => {
-        this.ciclo.fecha_inicio = moment(this.ciclo.fecha_inicio).startOf('day').toDate();
-        this.ciclo.fecha_fin = moment(this.ciclo.fecha_fin).startOf('day').toDate();
+        //this.ciclo.fecha_inicio = moment(this.ciclo.fecha_inicio).startOf('day').toDate();
+        //this.ciclo.fecha_fin = moment(this.ciclo.fecha_fin).startOf('day').toDate();
 
         this.ciclo.id_ciclo = this.selectedCicloMallaId ;
         this.ciclo.id_solicitud = this.solicitud.id;

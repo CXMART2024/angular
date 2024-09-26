@@ -13,6 +13,7 @@ import { forkJoin } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../servicios/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import moment from 'moment';
 
 @Component({
   selector: 'app-informacion-beca-view',
@@ -51,7 +52,9 @@ export class InformacionBecaViewComponent implements OnInit {
       if (this.solicitud) {
         this.getCiclos();
         this.getMallaCurricular();
-
+        this.formatDateForInput(this.solicitud.fecha_inicio);
+        this.formatDateForInput(this.solicitud.fecha_fin_estimada);
+        
         this.formUpdateLogin.patchValue({
           dni: this.solicitud.dni
         });
@@ -95,7 +98,7 @@ export class InformacionBecaViewComponent implements OnInit {
   getCiclos(): void {
     this.cicloService.getCiclosBySolicitud(this.solicitud.id).subscribe({
       next: (listCiclo: Array<Ciclo>) => {
-        this.listCiclos = listCiclo;
+        this.listCiclos = listCiclo;    
         this.viewRegistrarCiclo();
         this.listCiclos.forEach((ciclo) => {
           try {
@@ -176,5 +179,17 @@ export class InformacionBecaViewComponent implements OnInit {
         this.toastr.error(`Error actualizando clave. Por favor, refresca la página y vuelve a intentarlo.`);
       }
     });
+  }
+
+  formatDateForInput(dateString: string): string {
+    return moment.utc(dateString).format('YYYY-MM-DD');
+  }
+
+  getFormattedFechaInicio(ciclo: Ciclo): string {
+    return moment.utc(ciclo.fecha_inicio).local().format('DD/MM/YYYY');
+  }
+
+  getFormattedFechaFin(ciclo: Ciclo): string {
+    return moment.utc(ciclo.fecha_fin).local().format('DD/MM/YYYY');
   }
 }
