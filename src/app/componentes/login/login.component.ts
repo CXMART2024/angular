@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router, private formLogin: FormBuilder, private solicitudService: SolicitudService, private toastr: ToastrService) {
 
-    this.siteKey = '6LcOtz0qAAAAALBGjDY2HBGy9CtpBPAxPR9CsYA3';
+    this.siteKey = '6Lcct10qAAAAAEyEvZqCpiKCqgp3N2dGMhseskRB';
   }
 
   ngOnInit() {
