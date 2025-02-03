@@ -91,9 +91,10 @@
                     <h6 class="my-auto">Reporte Rendimiento</h6>
                 </div>
                 <div class="col-9 col-md-6  d-flex justify-content-end">
-                    <select class="form-select form-select-sm w-50" name="" id="">
-                        <option value="" selected disabled>Seleccionar una opción</option>
-                        <option value="">Ciclo II</option>
+                    <select class="form-select form-select-sm" (change)="obtenerCursosDeCiclo($event)" #selectCiclo>
+                        <option selected disabled>Seleccionar una opción</option>
+                        <option *ngFor="let ciclo of listCiclo" [value]="ciclo.id">{{ciclo.nombre_ciclo}}
+                        </option>
                     </select>
                 </div>
             </div>
@@ -102,8 +103,11 @@
                     <div class="row ">
                         <div class="col-12 col-md-6 ">
 
-                            <h6 class="card-subtitle text-center mt-2">Promedio Nota</h6>
-                            <h1 class="text-primary text-center p-5">16/20</h1>
+                            <div class="card-body" *ngIf="promedio !== null && promedio !== undefined">
+                                <h5 class="card-title text-center text-primary"
+                                    style="color: rgba(65, 128, 194, 1); font-size:x-large;">{{promedio}}/20</h5>
+                                <h6 class="card-subtitle text-center text-muted">Promedio de Notas</h6>
+                            </div>
 
                         </div>
                         <div class="col-12 col-md-6">
