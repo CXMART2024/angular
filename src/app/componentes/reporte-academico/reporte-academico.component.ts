@@ -40,6 +40,20 @@ export class ReporteAcademicoComponent implements OnInit {
         this.formUpdateLogin.patchValue({
           dni: this.solicitud.dni
         });
+
+
+        this.cicloAcademico.getCiclosBySolicitud(this.solicitud.id)
+          .subscribe({
+            next: (listCiclo: Array<Ciclo>) => {
+              this.listCiclo = listCiclo;
+              this.cdr.detectChanges();
+            },
+            error: (error) => {
+              console.error('Error obteniendo ciclos:', error);
+            },
+          });
+
+
       }
     });
   }
