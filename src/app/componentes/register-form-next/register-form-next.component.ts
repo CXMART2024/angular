@@ -193,7 +193,7 @@ export class RegisterFormNextComponent implements OnInit {
 
   backtStep() {
     this.router.navigate(['register-form']);
-    this.formDataService.clearFormData();
+    //this.formDataService.clearFormData();
   }
 
   onSubmit() {

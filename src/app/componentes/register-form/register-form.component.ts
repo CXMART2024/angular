@@ -144,6 +144,7 @@ export class RegisterFormComponent implements OnInit {
 
 
 
+  formData: any = {};
 
   registrationForm = this.fb.group({
     nombre_completo: ["", [Validators.required, Validators.minLength(3)]],
@@ -174,7 +175,11 @@ export class RegisterFormComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.formData = this.formDataService.getFormData();
 
+    if (this.formData) {
+      this.registrationForm.patchValue(this.formData);
+    }
 
   }
 

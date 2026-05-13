@@ -119,7 +119,7 @@ export class RegisterFormFinalComponent implements OnInit {
 
   backtStepFinal() {
     this.router.navigate(['register-form-next']);
-    this.formDataService.clearFormData();
+    //this.formDataService.clearFormData();
   }
 
   notificarEnvioSolicitud(solicitud: any) {
