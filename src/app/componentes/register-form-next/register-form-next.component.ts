@@ -207,9 +207,27 @@ export class RegisterFormNextComponent implements OnInit {
       })*/
   }
 
-  backtStep() {
+  backtStep(event: Event) {
+
+    event.preventDefault();
+
+    let bodyData = {
+      institucion_nombre: this.registrationForm.value.institucion_nombre,
+      institucion_departamento: this.registrationForm.value.institucion_departamento,
+      institucion_provincia: this.registrationForm.value.institucion_provincia,
+      institucion_distrito: this.registrationForm.value.institucion_distrito,
+      institucion_direccion: this.registrationForm.value.institucion_direccion,
+      tipo_educacion: this.registrationForm.value.tipo_educacion,
+      grado_academico: this.registrationForm.value.grado_academico,
+      promedio_academico: this.registrationForm.value.promedio_academico,
+      motivo_solicitud: this.registrationForm.value.motivo_solicitud
+    };
+
+    this.formDataService.setFormData(bodyData);
+
+    console.log('BACK SAVE STEP 2:', this.formDataService.getFormData());
+
     this.router.navigate(['register-form']);
-    //this.formDataService.clearFormData();
   }
 
   onSubmit() {
