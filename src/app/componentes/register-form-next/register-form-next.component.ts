@@ -161,9 +161,9 @@ export class RegisterFormNextComponent implements OnInit {
       this.registrationForm.patchValue(this.formData);
     }
 
-    this.registrationForm.valueChanges.subscribe(value => {
+    /*this.registrationForm.valueChanges.subscribe(value => {
       console.log('STEP 2 CHANGED:', value);
-    });
+    });*/
 
 
   }
@@ -225,7 +225,7 @@ export class RegisterFormNextComponent implements OnInit {
 
     this.formDataService.setFormData(bodyData);
 
-    console.log('BACK SAVE STEP 2:', this.formDataService.getFormData());
+    //console.log('BACK SAVE STEP 2:', this.formDataService.getFormData());
 
     this.router.navigate(['register-form']);
   }
