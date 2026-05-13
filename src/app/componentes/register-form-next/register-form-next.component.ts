@@ -150,10 +150,22 @@ export class RegisterFormNextComponent implements OnInit {
     bydni: ''
   });
 
-  constructor(private http: HttpClient, private router: Router, private formDataService: FormularioBecasService, private fb: FormBuilder,private toastr: ToastrService) { }
+  constructor(private http: HttpClient, private router: Router, private formDataService: FormularioBecasService, private fb: FormBuilder, private toastr: ToastrService) { }
 
   ngOnInit() {
+
     this.formData = this.formDataService.getFormData();
+
+
+    if (this.formData) {
+      this.registrationForm.patchValue(this.formData);
+    }
+
+    this.registrationForm.valueChanges.subscribe(value => {
+      console.log('STEP 2 CHANGED:', value);
+    });
+
+
   }
 
 
@@ -171,7 +183,11 @@ export class RegisterFormNextComponent implements OnInit {
       "motivo_solicitud": this.registrationForm.value.motivo_solicitud,
       "grado_academico": this.registrationForm.value.grado_academico
     };
+
+
     this.formDataService.setFormData(bodyData);
+
+
     this.router.navigate(['register-form-final'])
   }
 
@@ -197,7 +213,7 @@ export class RegisterFormNextComponent implements OnInit {
   }
 
   onSubmit() {
-    
+
   }
 
 
@@ -212,7 +228,7 @@ export class RegisterFormNextComponent implements OnInit {
 
     this.http.get(`https://backendbecas.azurewebsites.net/solicitudes/dni/${bydni}`).subscribe({
       next: (response: any) => {
-        
+
         this.registrationForm.patchValue(response);
         this.toastr.success(`Se cargo sus datos exitosamente`);
       },

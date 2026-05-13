@@ -7,7 +7,8 @@ import { Becas_Solicitudes } from '../modelos/Becas_Solicitudes';
 })
 export class FormularioBecasService {
 
-  formData: any = {};
+  //formData: any = {};
+  private formData: any = {};
 
   constructor() { }
 

@@ -181,6 +181,10 @@ export class RegisterFormComponent implements OnInit {
       this.registrationForm.patchValue(this.formData);
     }
 
+    this.registrationForm.valueChanges.subscribe(value => {
+      console.log('STEP 1 CHANGED:', value);
+    });
+    
   }
 
   openDialog() {
@@ -217,6 +221,7 @@ export class RegisterFormComponent implements OnInit {
       "apoderado_correo": this.registrationForm.value.apoderado_correo
     };
     this.formDataService.setFormData(bodyData);
+
     this.router.navigate(['register-form-next']);
 
   }

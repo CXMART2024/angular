@@ -29,6 +29,7 @@ export class RegisterFormFinalComponent implements OnInit {
 
   ngOnInit() {
     this.formData = this.formDataService.getFormData();
+
   }
 
 
@@ -124,8 +125,8 @@ export class RegisterFormFinalComponent implements OnInit {
 
   notificarEnvioSolicitud(solicitud: any) {
     const fecha = new Date();
-    const dia = fecha.getDate().toString().padStart(2,'0');
-    const mes = (fecha.getMonth()+1).toString().padStart(2,'0');
+    const dia = fecha.getDate().toString().padStart(2, '0');
+    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
     const anio = fecha.getFullYear();
 
     const fechaFormateada = `${dia}/${mes}/${anio}`
@@ -136,7 +137,7 @@ export class RegisterFormFinalComponent implements OnInit {
         "FechaSolicitud": fechaFormateada,
         "Institucion": solicitud.institucion_nombre,
         "IngresoFamiliar": solicitud.ingreso_familiar_mensual,
-        "Motivo":solicitud.motivo_solicitud
+        "Motivo": solicitud.motivo_solicitud
       }).subscribe();
   }
 
