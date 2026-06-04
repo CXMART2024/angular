@@ -10,7 +10,8 @@ import { SolicitudService } from '../solicitud/solicitud.service';
 export class AuthService {
 
   private apiUrl = 'https://backendbecas.azurewebsites.net';
-
+//http://localhost:3000
+//https://backendbecas.azurewebsites.net
   constructor(
     private http: HttpClient,
     private router: Router,

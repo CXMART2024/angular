@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-    <div class="row vh-100">
+    <!--<div class="row vh-100">
 
         <div class="col-12 col-md-2" style="background-color: #4180C2;">
 
@@ -59,7 +59,7 @@
                             style="background-color: rgba(255, 255, 255, 0.1);" data-bs-toggle="tooltip"
                             data-bs-placement="top" title="Manual de usuario" target="_blank">
                             <i class="bi bi-question-circle"></i>
-                            <!--data-bs-target="#showNot" data-bs-toggle="modal"-->
+                           
                         </a>
                     </div>
                 </li>
@@ -84,47 +84,47 @@
 
         </div>
 
-        <div class="col-12 col-md-10" style="background-color: #F3F3F3;">
+        <div class="col-12 col-md-10" style="background-color: #F3F3F3;">-->
 
-            <div class="my-4 row">
-                <div class="col-3 col-md-6 d-flex align-items-center">
-                    <h6 class="my-auto">Reporte Rendimiento</h6>
+    <div class="my-4 row">
+        <div class="col-3 col-md-6 d-flex align-items-center">
+            <h6 class="my-auto">Reporte Rendimiento</h6>
+        </div>
+        <div class="col-9 col-md-6  d-flex justify-content-end">
+            <select class="form-select form-select-sm" (change)="obtenerCursosDeCiclo($event)" #selectCiclo>
+                <option selected disabled>Seleccionar una opción</option>
+                <option *ngFor="let ciclo of listCiclo" [value]="ciclo.id">{{ciclo.nombre_ciclo}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body m-2">
+            <div class="row ">
+                <div class="col-12 col-md-6 ">
+
+                    <div class="card-body" *ngIf="promedio !== null && promedio !== undefined">
+                        <h6 class="card-subtitle text-center text-muted">Promedio de Notas</h6>
+                        <h5 class="card-title text-center text-primary"
+                            style="color: rgba(65, 128, 194, 1); font-size:x-large;">{{promedio}}/20</h5>
+
+                    </div>
+
                 </div>
-                <div class="col-9 col-md-6  d-flex justify-content-end">
-                    <select class="form-select form-select-sm" (change)="obtenerCursosDeCiclo($event)" #selectCiclo>
-                        <option selected disabled>Seleccionar una opción</option>
-                        <option *ngFor="let ciclo of listCiclo" [value]="ciclo.id">{{ciclo.nombre_ciclo}}
-                        </option>
-                    </select>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body m-2">
-                    <div class="row ">
-                        <div class="col-12 col-md-6 ">
-
-                            <div class="card-body" *ngIf="promedio !== null && promedio !== undefined">
-                                <h6 class="card-subtitle text-center text-muted">Promedio de Notas</h6>
-                                <h5 class="card-title text-center text-primary"
-                                    style="color: rgba(65, 128, 194, 1); font-size:x-large;">{{promedio}}/20</h5>
-
-                            </div>
-
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="">
-                                <h6 class="card-subtitle text-center mt-2">Promedio por Ciclo</h6>
-                                <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Frame 112.png"
-                                    class="img-fluid p-4" alt="">
-                            </div>
-                        </div>
+                <div class="col-12 col-md-6">
+                    <div class="">
+                        <h6 class="card-subtitle text-center mt-2">Promedio por Ciclo</h6>
+                        <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Frame 112.png"
+                            class="img-fluid p-4" alt="">
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
+
+    <!--  </div>
+
+    </div>-->
 
 </div>
 

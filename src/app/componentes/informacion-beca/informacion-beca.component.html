@@ -1,7 +1,8 @@
 <div class="container-fluid overflow-auto">
 
-    <div class="row">
-
+   <!-- <div class="row">-->
+        
+        <!--
         <div class="col-12 col-md-2" style="background-color: #4180C2;">
 
             <ul class="nav flex-column nav-fill nav-pills">
@@ -56,10 +57,12 @@
 
                 <li class="nav-item m-4">
                     <div class="d-flex justify-content-center">
-                        <a type="button" class="btn text-white rounded-circle" href="https://croslandperu.sharepoint.com/sites/Dev-gestiondocumental/ManualUsuarioBecas?web=1"
-                            style="background-color: rgba(255, 255, 255, 0.1);" data-bs-toggle="tooltip" data-bs-placement="top" title="Manual de usuario" target="_blank">
+                        <a type="button" class="btn text-white rounded-circle"
+                            href="https://croslandperu.sharepoint.com/sites/Dev-gestiondocumental/ManualUsuarioBecas?web=1"
+                            style="background-color: rgba(255, 255, 255, 0.1);" data-bs-toggle="tooltip"
+                            data-bs-placement="top" title="Manual de usuario" target="_blank">
                             <i class="bi bi-question-circle"></i>
-                            <!--data-bs-target="#showNot" data-bs-toggle="modal"-->
+                            
                         </a>
                     </div>
                 </li>
@@ -82,9 +85,9 @@
                 </li>
             </ul>
 
-        </div>
+        </div>-->
 
-        <div class="col-12 col-md-10" style="background-color: #F3F3F3;">
+      <!--  <div class="col-12 col-md-10" style="background-color: #F3F3F3;">-->
             <form #myForm="ngForm">
                 <div class="card mt-4 mb-5">
                     <div class="card-header">
@@ -317,7 +320,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-primary" (click)="submitForm()" [disabled]="!isFileSelected() || fechaFinInvalid"
+                            <button class="btn btn-primary" (click)="submitForm()"
+                                [disabled]="!isFileSelected() || fechaFinInvalid"
                                 *ngIf="cicloCursoRelacion.length > 0">Guardar
                                 Información</button>
                         </div>
@@ -325,11 +329,11 @@
                 </div>
 
             </form>
-        </div>
+      <!--  </div>-->
 
 
 
-    </div>
+   <!-- </div>-->
 
 </div>
 

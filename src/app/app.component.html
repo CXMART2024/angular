@@ -1,1 +1,11 @@
-<router-outlet></router-outlet>
+<div class="d-flex min-vh-100">
+
+    <div class="p-0 flex-shrink-0" *ngIf="showSidebar()">
+        <app-sidebar></app-sidebar>
+    </div>
+
+    <div class="flex-grow-1 overflow-auto">
+        <router-outlet></router-outlet>
+    </div>
+
+</div>

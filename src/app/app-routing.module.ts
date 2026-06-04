@@ -15,22 +15,23 @@ import { RegisterFormFinalComponent } from './componentes/register-form-final/re
 
 import { authGuard } from './servicios/guard/auth.guard';
 import { EditarMallasCursosComponent } from './componentes/editar-mallas-cursos/editar-mallas-cursos.component';
+import { ContabilidadComponent } from './componentes/contabilidad/contabilidad.component';
 
 const routes: Routes = [
-{path: '', component:LoginComponent},
-{path: 'informacion', component: InformacionBecaComponent, canActivate: [authGuard]},
-{path: 'informacion-view',component:InformacionBecaViewComponent, canActivate: [authGuard]},
-{path: 'detalle', component: DetalleAcademicoComponent, canActivate: [authGuard]},
-{path: 'addmodulo', component: NuevoCicloComponent, canActivate: [authGuard]},
-{path: 'add-modulo-academico', component: NuevoCicloAcademicoComponent, canActivate: [authGuard]},
-{path: 'edit-modulo-academico', component: EditarCicloAcademicoComponent, canActivate: [authGuard]},
-{path: 'concepto-modulo-academico',component: ConceptoCicloAcademicoComponent, canActivate: [authGuard]},
-{path: 'reporte-academico', component: ReporteAcademicoComponent, canActivate: [authGuard]},
-{path: 'register-form', component: RegisterFormComponent},
-{path: 'register-form-next', component: RegisterFormNextComponent},
-{path: 'register-form-final', component: RegisterFormFinalComponent},
-{path: 'informacion/:id', component: EditarMallasCursosComponent}
-
+  { path: '', component: LoginComponent },
+  { path: 'informacion', component: InformacionBecaComponent, canActivate: [authGuard] },
+  { path: 'informacion-view', component: InformacionBecaViewComponent, canActivate: [authGuard] },
+  { path: 'detalle', component: DetalleAcademicoComponent, canActivate: [authGuard] },
+  { path: 'addmodulo', component: NuevoCicloComponent, canActivate: [authGuard] },
+  { path: 'add-modulo-academico', component: NuevoCicloAcademicoComponent, canActivate: [authGuard] },
+  { path: 'edit-modulo-academico', component: EditarCicloAcademicoComponent, canActivate: [authGuard] },
+  { path: 'concepto-modulo-academico', component: ConceptoCicloAcademicoComponent, canActivate: [authGuard] },
+  { path: 'reporte-academico', component: ReporteAcademicoComponent, canActivate: [authGuard] },
+  { path: 'register-form', component: RegisterFormComponent },
+  { path: 'register-form-next', component: RegisterFormNextComponent },
+  { path: 'register-form-final', component: RegisterFormFinalComponent },
+  { path: 'informacion/:id', component: EditarMallasCursosComponent },
+  { path: 'contabilidad', component: ContabilidadComponent, canActivate: [authGuard] }
 ];
 
 @NgModule({

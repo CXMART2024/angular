@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-    <div class="row">
+    <!-- <div class="row">
 
         <div class="col-12 col-md-2" style="background-color: #4180C2;">
 
@@ -56,7 +56,7 @@
                         <a type="button" class="btn text-white rounded-circle" href="https://croslandperu.sharepoint.com/sites/Dev-gestiondocumental/ManualUsuarioBecas?web=1"
                             style="background-color: rgba(255, 255, 255, 0.1);" data-bs-toggle="tooltip" data-bs-placement="top" title="Manual de usuario" target="_blank">
                             <i class="bi bi-question-circle"></i>
-                            <!--data-bs-target="#showNot" data-bs-toggle="modal"-->
+                       
                         </a>
                     </div>
                 </li>
@@ -80,120 +80,119 @@
 
         </div>
 
-        <div class="col-12 col-md-10" style="background-color: #F3F3F3;">
+        <div class="col-12 col-md-10" style="background-color: #F3F3F3;">-->
 
-            <div class="card mt-4 mb-5">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-8">
-                            <strong>Información del Estudiante</strong>
-                        </div>
-                        <div class="col-4">
-                            <select class="form-select form-select-sm" (change)="obtenerCursosDeCiclo($event)"
-                                #selectCiclo>
-                                <option selected disabled>Seleccionar una opción</option>
-                                <option *ngFor="let ciclo of listCiclo" [value]="ciclo.id">{{ciclo.nombre_ciclo}}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
+    <div class="card mt-4 mb-5">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-8">
+                    <strong>Información del Estudiante</strong>
                 </div>
-                <div class="row g-0">
-                    <div class="col-9 col-md-8">
-                        <div class="card-body">
-                            <div class="row g-0">
-                                <div class="col-4 col-md-2">
-                                    <p class="card-text"><strong>Nombre:</strong></p>
-                                    <p class="card-text"><strong>Correo:</strong></p>
-                                    <p class="card-text"><strong>Institución:</strong></p>
-                                    <p class="card-text"><strong>Cursos:</strong></p>
-                                    <p class="card-text"><strong>Créditos:</strong></p>
-                                </div>
-                                <div class="col-8 col-md-10">
-                                    <p class="card-text text-muted">{{solicitud.nombre_completo}}</p>
-                                    <p class="card-text text-muted">{{solicitud.correo}}</p>
-                                    <p class="card-text text-muted">{{solicitud.institucion_nombre}}</p>
-                                    <p class="card-text text-muted">{{contarCursos()}}</p>
-                                    <p class="card-text text-muted">{{sumarCredito()}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 col-md-4 d-flex align-items-center justify-content-center">
-                        <div class="card-body" *ngIf="promedio !== null && promedio !== undefined">
-                            <h5 class="card-title text-center text-primary"
-                                style="color: rgba(65, 128, 194, 1); font-size:x-large;">{{promedio}}/20</h5>
-                            <h6 class="card-subtitle text-center text-muted">Promedio de Notas</h6>
-                        </div>
-                    </div>
+                <div class="col-4">
+                    <select class="form-select form-select-sm" (change)="obtenerCursosDeCiclo($event)" #selectCiclo>
+                        <option selected disabled>Seleccionar una opción</option>
+                        <option *ngFor="let ciclo of listCiclo" [value]="ciclo.id">{{ciclo.nombre_ciclo}}
+                        </option>
+                    </select>
                 </div>
             </div>
-
-            <div class="card mb-3">
-                <div class="card-header d-flex justify-content-between">
-                    <strong class="my-auto">Calificaciones</strong>
-                    <button *ngIf="cicloData?.estado != 'Finalizado'" class="btn btn-primary"
-                        [disabled]="!id_documento_evidencia.files?.length"
-                        (click)="updateInformacionBecario(id_documento_evidencia)">Registrar Calificaciones</button>
-                </div>
-                <div class="card-body">
-                    <div class="container table-responsive">
-                        <ng-container *ngIf="cicloData && listCurso.length > 0; else noData">
-                            <div class="d-flex justify-content-left align-items-center mb-2" style="font-weight: bold;"
-                                *ngIf="cicloData">
-                                <span class="me-2">{{cicloData.nombre_ciclo}}
-                                    ({{formatDate(cicloData.fecha_inicio)}} -
-                                    {{formatDate(cicloData.fecha_fin)}})</span>
-                            </div>
-
-                            <table class="table table-bordered table-light table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Curso</th>
-                                        <th class="text-center">Créditos</th>
-                                        <th class="text-center">Nota *</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let curso of listCurso">
-                                        <td class="text-center" style="width: 35%;">
-                                            {{curso.nombre}}
-                                        </td>
-                                        <td class="text-center" style="width: 35%;">
-                                            {{curso.creditos}}
-                                        </td>
-                                        <td class="text-center" style="width: 30%;">
-                                            <input type="text" class="form-control form-control-sm text"
-                                                [(ngModel)]="curso.nota" name="curso.nota"
-                                                [disabled]="cicloData && cicloData.estado == 'Finalizado'">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </ng-container>
-                        <ng-template #noData>
-                            <div class="alert alert-warning">
-                                Seleccione un ciclo académico.
-                            </div>
-                        </ng-template>
-                    </div>
-
-                    <div class="container table-responsive">
-                        <h6>Evidencia de notas *</h6>
-                        <div class="input-group mb-3">
-                            <input type="file" class="form-control" id="cargarArchivo" #id_documento_evidencia
-                                (change)="onFileChange_id_documento_evidencia($event)" required>
-                            <label class="input-group-text" for=""><i class="bi bi-cloud-arrow-down-fill"
-                                    style="color: #4180C2;"></i></label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
-
+        <div class="row g-0">
+            <div class="col-9 col-md-8">
+                <div class="card-body">
+                    <div class="row g-0">
+                        <div class="col-4 col-md-2">
+                            <p class="card-text"><strong>Nombre:</strong></p>
+                            <p class="card-text"><strong>Correo:</strong></p>
+                            <p class="card-text"><strong>Institución:</strong></p>
+                            <p class="card-text"><strong>Cursos:</strong></p>
+                            <p class="card-text"><strong>Créditos:</strong></p>
+                        </div>
+                        <div class="col-8 col-md-10">
+                            <p class="card-text text-muted">{{solicitud.nombre_completo}}</p>
+                            <p class="card-text text-muted">{{solicitud.correo}}</p>
+                            <p class="card-text text-muted">{{solicitud.institucion_nombre}}</p>
+                            <p class="card-text text-muted">{{contarCursos()}}</p>
+                            <p class="card-text text-muted">{{sumarCredito()}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 col-md-4 d-flex align-items-center justify-content-center">
+                <div class="card-body" *ngIf="promedio !== null && promedio !== undefined">
+                    <h5 class="card-title text-center text-primary"
+                        style="color: rgba(65, 128, 194, 1); font-size:x-large;">{{promedio}}/20</h5>
+                    <h6 class="card-subtitle text-center text-muted">Promedio de Notas</h6>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="card mb-3">
+        <div class="card-header d-flex justify-content-between">
+            <strong class="my-auto">Calificaciones</strong>
+            <button *ngIf="cicloData?.estado != 'Finalizado'" class="btn btn-primary"
+                [disabled]="!id_documento_evidencia.files?.length"
+                (click)="updateInformacionBecario(id_documento_evidencia)">Registrar Calificaciones</button>
+        </div>
+        <div class="card-body">
+            <div class="container table-responsive">
+                <ng-container *ngIf="cicloData && listCurso.length > 0; else noData">
+                    <div class="d-flex justify-content-left align-items-center mb-2" style="font-weight: bold;"
+                        *ngIf="cicloData">
+                        <span class="me-2">{{cicloData.nombre_ciclo}}
+                            ({{formatDate(cicloData.fecha_inicio)}} -
+                            {{formatDate(cicloData.fecha_fin)}})</span>
+                    </div>
+
+                    <table class="table table-bordered table-light table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Curso</th>
+                                <th class="text-center">Créditos</th>
+                                <th class="text-center">Nota *</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let curso of listCurso">
+                                <td class="text-center" style="width: 35%;">
+                                    {{curso.nombre}}
+                                </td>
+                                <td class="text-center" style="width: 35%;">
+                                    {{curso.creditos}}
+                                </td>
+                                <td class="text-center" style="width: 30%;">
+                                    <input type="text" class="form-control form-control-sm text"
+                                        [(ngModel)]="curso.nota" name="curso.nota"
+                                        [disabled]="cicloData && cicloData.estado == 'Finalizado'">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+                <ng-template #noData>
+                    <div class="alert alert-warning">
+                        Seleccione un ciclo académico.
+                    </div>
+                </ng-template>
+            </div>
+
+            <div class="container table-responsive">
+                <h6>Evidencia de notas *</h6>
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="cargarArchivo" #id_documento_evidencia
+                        (change)="onFileChange_id_documento_evidencia($event)" required>
+                    <label class="input-group-text" for=""><i class="bi bi-cloud-arrow-down-fill"
+                            style="color: #4180C2;"></i></label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- </div>
+
+    </div>-->
 
 </div>
 

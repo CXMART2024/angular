@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-    <div class="row">
+    <!--<div class="row">
 
         <div class="col-12 col-md-2" style="background-color: #4180C2;">
 
@@ -56,7 +56,7 @@
                         <a type="button" class="btn text-white rounded-circle" href="https://croslandperu.sharepoint.com/sites/Dev-gestiondocumental/ManualUsuarioBecas?web=1"
                             style="background-color: rgba(255, 255, 255, 0.1);" data-bs-toggle="tooltip" data-bs-placement="top" title="Manual de usuario" target="_blank">
                             <i class="bi bi-question-circle"></i>
-                            <!--data-bs-target="#showNot" data-bs-toggle="modal"-->
+                     
                         </a>
                     </div>
                 </li>
@@ -81,131 +81,131 @@
 
         </div>
 
-        <div class="col-12 col-md-10" style="background-color: #F3F3F3;">
+        <div class="col-12 col-md-10" style="background-color: #F3F3F3;">-->
 
-            <nav aria-label="breadcrumb" class="mt-2">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a routerLink="/informacion-view">Información de Beca</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{selectedCiclo?.nombre_ciclo}}</li>
-                </ol>
-            </nav>
-            <div class="card mt-1 mb-3">
+    <nav aria-label="breadcrumb" class="mt-2">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/informacion-view">Información de Beca</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{selectedCiclo?.nombre_ciclo}}</li>
+        </ol>
+    </nav>
+    <div class="card mt-1 mb-3">
 
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col d-flex align-items-center"><span class="text-success my-auto"><strong
-                                    class="text-dark">{{selectedCiclo?.nombre_ciclo}}</strong>
-                            </span></div>
-                        <div class="col d-flex justify-content-end"><button class="btn btn-outline-primary w-50"
-                                routerLink="/edit-modulo-academico">Editar Datos</button></div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <!--aqui-->
-                    <div class="row">
-                        <div class="col-4">
-                            <label class="form-label my-auto"><strong>Ciclo/Grado:</strong></label>
-                            <input type="text" class="form-control-plaintext text-muted disabled" readonly
-                                value="{{selectedCiclo?.nombre_ciclo}}" [disabled]="true">
-                        </div>
-                        <div class="col-4">
-                            <label class="form-label my-auto"><strong>N° Cursos:</strong></label>
-                            <input type="text" class="form-control-plaintext text-muted disabled" readonly
-                                value="{{getNumCursos()}}" [disabled]="true">
-                        </div>
-                        <div class="col-4">
-                            <label class="form-label my-auto"><strong>N° Créditos:</strong></label>
-                            <input type="text" class="form-control-plaintext text-muted disabled" readonly
-                                value="{{getTotaCreditos()}}" [disabled]="true">
-                        </div>
-                        <div class="col-4">
-                            <label class="form-label my-auto"><strong>Fecha Inicio:</strong></label>
-                            <input type="text" class="form-control-plaintext text-muted disabled" readonly
-                                value="{{selectedCiclo?.fecha_inicio | date:'dd/MM/yyyy':'UTC'}}" [disabled]="true">
-                        </div>
-                        <div class="col-4">
-                            <label class="form-label my-auto"><strong>Fecha Fin:</strong></label>
-                            <input type="text" class="form-control-plaintext text-muted disabled" readonly
-                                value="{{selectedCiclo?.fecha_fin | date:'dd/MM/yyyy':'UTC'}}" [disabled]="true">
-                        </div>
-                        <div class="col-4">
-                            <label class="form-label my-auto"><strong>Matrícula:</strong>
-                            </label>
-                            <a type="url" class="form-control-plaintext text-primary disabled"
-                                href="{{selectedCiclo?.id_doc_matricula}}" target="_blank">
-                                matrícual{{selectedCiclo?.nombre_ciclo}}.pdf
-                            </a>
-                        </div>
-                    </div> <!--aqui-->
-                </div>
-
+        <div class="card-header">
+            <div class="row">
+                <div class="col d-flex align-items-center"><span class="text-success my-auto"><strong
+                            class="text-dark">{{selectedCiclo?.nombre_ciclo}}</strong>
+                    </span></div>
+                <div class="col d-flex justify-content-end"><button class="btn btn-outline-primary w-50"
+                        routerLink="/edit-modulo-academico">Editar Datos</button></div>
             </div>
-            <div class="card mb-3">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-7 d-flex align-items-center">
-                            <h6 class="my-auto"><strong>Cronograma de Pagos</strong></h6>
-                        </div>
-                        <div *ngIf="selectedCiclo && selectedCiclo.estado !='Finalizado'"
-                            class="col-5 d-flex justify-content-end"><button class="btn btn-primary" type="button"
-                                data-bs-toggle="modal" data-bs-target="#addConcepto">Agregar Concepto</button></div>
-                    </div>
+        </div>
+        <div class="card-body">
+            <!--aqui-->
+            <div class="row">
+                <div class="col-4">
+                    <label class="form-label my-auto"><strong>Ciclo/Grado:</strong></label>
+                    <input type="text" class="form-control-plaintext text-muted disabled" readonly
+                        value="{{selectedCiclo?.nombre_ciclo}}" [disabled]="true">
                 </div>
-                <div class="card-body">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead style="background-color: rgba(244, 243, 248, 1);">
-                                        <tr>
-                                            <th class="text-center">Concepto</th>
-                                            <th class="text-center">Descripción</th>
-                                            <th class="text-center">Monto</th>
-                                            <th class="text-center">F. Solicitud Programada</th>
-                                            <th class="text-center">Constancia Pago</th>
-                                            <th class="text-center">Estado</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let pago of listPagos">
-                                            <td class="text-center">{{pago.concepto}}</td>
-                                            <td class="text-center">{{pago.descripcion}}</td>
-                                            <td class="text-center">S/ {{pago.monto}}</td>
-                                            <td class="text-center">{{pago.fecha_solicitud | date:'dd/MM/yyyy':'UTC'}}</td>
-                                            <td class="text-center text-primary">
-                                                <ng-container *ngIf="pago.id_constancia_pago; else empty">
-                                                    <a class="form-control-plaintext text-primary"
-                                                        href="{{pago.id_constancia_pago}}" target="_blank">
-                                                        Constancia Pago
-                                                    </a>
-                                                </ng-container>
-                                                <ng-template #empty>
-                                                    <span>-</span>
-                                                </ng-template>
-                                            </td>
-                                            <td class="text-center"><span class="badge rounded-pill text-dark"
-                                                    [ngStyle]="{'background-color': getColorByState(pago.PagoEstado)}">{{pago.PagoEstado}}</span>
-                                            </td>
-                                            <td><button *ngIf="['Pagado', 'Observado'].includes(pago.PagoEstado)"
-                                                    (click)="setSelectedPago(pago)" class="btn" data-bs-toggle="modal"
-                                                    data-bs-target="#editConcepto" type="button"><i
-                                                        class="bi bi-pencil"></i></button></td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="col-4">
+                    <label class="form-label my-auto"><strong>N° Cursos:</strong></label>
+                    <input type="text" class="form-control-plaintext text-muted disabled" readonly
+                        value="{{getNumCursos()}}" [disabled]="true">
                 </div>
-
-            </div>
+                <div class="col-4">
+                    <label class="form-label my-auto"><strong>N° Créditos:</strong></label>
+                    <input type="text" class="form-control-plaintext text-muted disabled" readonly
+                        value="{{getTotaCreditos()}}" [disabled]="true">
+                </div>
+                <div class="col-4">
+                    <label class="form-label my-auto"><strong>Fecha Inicio:</strong></label>
+                    <input type="text" class="form-control-plaintext text-muted disabled" readonly
+                        value="{{selectedCiclo?.fecha_inicio | date:'dd/MM/yyyy':'UTC'}}" [disabled]="true">
+                </div>
+                <div class="col-4">
+                    <label class="form-label my-auto"><strong>Fecha Fin:</strong></label>
+                    <input type="text" class="form-control-plaintext text-muted disabled" readonly
+                        value="{{selectedCiclo?.fecha_fin | date:'dd/MM/yyyy':'UTC'}}" [disabled]="true">
+                </div>
+                <div class="col-4">
+                    <label class="form-label my-auto"><strong>Matrícula:</strong>
+                    </label>
+                    <a type="url" class="form-control-plaintext text-primary disabled"
+                        href="{{selectedCiclo?.id_doc_matricula}}" target="_blank">
+                        matrícual{{selectedCiclo?.nombre_ciclo}}.pdf
+                    </a>
+                </div>
+            </div> <!--aqui-->
         </div>
 
     </div>
+    <div class="card mb-3">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-7 d-flex align-items-center">
+                    <h6 class="my-auto"><strong>Cronograma de Pagos</strong></h6>
+                </div>
+                <div *ngIf="selectedCiclo && selectedCiclo.estado !='Finalizado'"
+                    class="col-5 d-flex justify-content-end"><button class="btn btn-primary" type="button"
+                        data-bs-toggle="modal" data-bs-target="#addConcepto">Agregar Concepto</button></div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead style="background-color: rgba(244, 243, 248, 1);">
+                                <tr>
+                                    <th class="text-center">Concepto</th>
+                                    <th class="text-center">Descripción</th>
+                                    <th class="text-center">Monto</th>
+                                    <th class="text-center">F. Solicitud Programada</th>
+                                    <th class="text-center">Constancia Pago</th>
+                                    <th class="text-center">Estado</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let pago of listPagos">
+                                    <td class="text-center">{{pago.concepto}}</td>
+                                    <td class="text-center">{{pago.descripcion}}</td>
+                                    <td class="text-center">S/ {{pago.monto}}</td>
+                                    <td class="text-center">{{pago.fecha_solicitud | date:'dd/MM/yyyy':'UTC'}}</td>
+                                    <td class="text-center text-primary">
+                                        <ng-container *ngIf="pago.id_constancia_pago; else empty">
+                                            <a class="form-control-plaintext text-primary"
+                                                href="{{pago.id_constancia_pago}}" target="_blank">
+                                                Constancia Pago
+                                            </a>
+                                        </ng-container>
+                                        <ng-template #empty>
+                                            <span>-</span>
+                                        </ng-template>
+                                    </td>
+                                    <td class="text-center"><span class="badge rounded-pill text-dark"
+                                            [ngStyle]="{'background-color': getColorByState(pago.PagoEstado)}">{{pago.PagoEstado}}</span>
+                                    </td>
+                                    <td><button *ngIf="['Pagado', 'Observado'].includes(pago.PagoEstado)"
+                                            (click)="setSelectedPago(pago)" class="btn" data-bs-toggle="modal"
+                                            data-bs-target="#editConcepto" type="button"><i
+                                                class="bi bi-pencil"></i></button></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!--</div>
+
+    </div>-->
 
 </div>
 

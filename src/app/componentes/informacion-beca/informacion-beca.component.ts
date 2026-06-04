@@ -25,7 +25,7 @@ export class InformacionBecaComponent implements OnInit {
   isChecked: boolean = false;
   ciclosMallaLista?: CicloMalla[];
   cursoMallaLista?: CursoMalla[];
-  cicloCursoRelacion: RelacionMalla[] =[];
+  cicloCursoRelacion: RelacionMalla[] = [];
   selectedCicloId?: number;
   url_foto_estudiante = new FormData();
   url_doc_contrato = new FormData();
@@ -71,6 +71,9 @@ export class InformacionBecaComponent implements OnInit {
   ngOnInit(): void {
     this.solicitudService.getSolicitudData().subscribe(data => {
       this.solicitud = data;
+
+      console.log('👤 Usuario logueado:', this.solicitud);
+
       if (this.solicitud) {
         if (this.solicitud.contratoBecario == '0') {
           this.showModal();
@@ -283,15 +286,15 @@ export class InformacionBecaComponent implements OnInit {
 
       forkJoin([deleteCursoMalla$, deleteCicloMalla$]).subscribe({
         next: ([cursoResponse, cicloResponse]) => {
-         
+
           this.getCursoMallas();
           this.getMallaCiclos();
 
           this.cicloCursoRelacion = this.cicloCursoRelacion.filter(item => item.ciclo.id !== ciclo.id);
-        
+
           console.log('Successfully deleted curso and ciclo:', cursoResponse, cicloResponse);
           this.toastr.success(`Se eliminó correctamente.`);
-          this.cdr.detectChanges(); 
+          this.cdr.detectChanges();
         },
         error: (err) => {
           console.error('Error during deletion process:', err);
@@ -617,8 +620,8 @@ export class InformacionBecaComponent implements OnInit {
 
   notificarEnvioMalla(solicitud: any) {
     const fecha = new Date();
-    const dia = fecha.getDate().toString().padStart(2,'0');
-    const mes = (fecha.getMonth()+1).toString().padStart(2,'0');
+    const dia = fecha.getDate().toString().padStart(2, '0');
+    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
     const anio = fecha.getFullYear();
 
     const fechaFormateada = `${dia}/${mes}/${anio}`
@@ -629,11 +632,11 @@ export class InformacionBecaComponent implements OnInit {
         "FechaSolicitud": fechaFormateada,
       }).subscribe();
   }
-  
+
   validateDates(): void {
     const fechaInicio = new Date(this.solicitud.fecha_inicio);
     const fechaFin = new Date(this.solicitud.fecha_fin_estimada);
-    this.fechaFinInvalid = fechaFin < fechaInicio; 
+    this.fechaFinInvalid = fechaFin < fechaInicio;
   }
 }
 

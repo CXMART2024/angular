@@ -11,6 +11,8 @@ export class SolicitudService {
   private apiUrl = 'https://backendbecas.azurewebsites.net/solicitudes';
   private solicitudDataSubject: BehaviorSubject<any>;
 
+  //https://backendbecas.azurewebsites.net/solicitudes
+
   constructor(private http: HttpClient) {
     const storedSolicitudData = localStorage.getItem('solicitudData');
     this.solicitudDataSubject = new BehaviorSubject<any>(storedSolicitudData ? JSON.parse(storedSolicitudData) : null);

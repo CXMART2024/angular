@@ -22,6 +22,9 @@ import { EditarMallasCursosComponent } from './componentes/editar-mallas-cursos/
 import { DatePipe } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ContabilidadComponent } from './componentes/contabilidad/contabilidad.component';
+import { SidebarComponent } from './componentes/sidebar/sidebar.component';
+
 /*import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -54,7 +57,10 @@ export const MY_DATE_FORMATS = {
     RegisterFormComponent,
     RegisterFormNextComponent,
     RegisterFormFinalComponent,
-    EditarMallasCursosComponent
+    EditarMallasCursosComponent,
+    ContabilidadComponent,
+    SidebarComponent,
+
   ],
   imports: [
     BrowserModule,

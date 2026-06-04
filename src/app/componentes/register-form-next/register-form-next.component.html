@@ -69,7 +69,7 @@
                 <div class="card-body">
                     <form class="row g-3" [formGroup]="registrationForm" (submit)="onSubmit()">
 
-                        <div class="mb-3">
+                        <div class="col-md-6">
                             <label class="form-label" style="font-weight: bold;">Nombre de la Institución *</label>
                             <input type="text" class="form-control" formControlName="institucion_nombre">
                             @if(registrationForm.get('institucion_nombre')?.errors?.['required'] &&
@@ -77,6 +77,12 @@
                             {<div class="mistake">
                                 Por favor ingresa el nombre de la institución.
                             </div>}
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <label class="form-label" style="font-weight: bold;">RUC Institución *</label>
+                            <input type="text" class="form-control">
                         </div>
 
                         <div class="col-md-4">
@@ -220,7 +226,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <button class="custom-button"  (click)="backtStep($event)" style="width: 100%;">Atras</button>
+                            <button class="custom-button" (click)="backtStep($event)"
+                                style="width: 100%;">Atras</button>
                         </div>
                         <div class="col-md-6">
                             <button class="custom-button" style="width: 100%;" (click)="saveNextFields($event)"

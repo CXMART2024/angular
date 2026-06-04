@@ -70,7 +70,7 @@
                 <div class="card-body">
                     <form [formGroup]="registrationForm" class="row g-3" (submit)="onSubmit()">
 
-                        <div class="mb-3">
+                        <div class="col-md-6">
                             <label class="form-label" style="font-weight: bold;">Nombres y Apellidos *</label>
                             <input type="text" class="form-control" id="nombre_completo"
                                 formControlName="nombre_completo">
@@ -80,6 +80,11 @@
                                 Por favor ingrese su nombre y apellidos.
                             </div>
                             }
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label" style="font-weight: bold;">Código Estudiante *</label>
+                            <input type="text" class="form-control" id="codigo_estudiante">
                         </div>
 
                         <div class="col-md-4">
@@ -203,7 +208,8 @@
 
                         <div class="col-md-4">
                             <label class="form-label" style="font-weight: bold;">Ingreso Familiar Mensual *</label>
-                            <input type="number" class="form-control" formControlName="ingreso_familiar_mensual" min="0">
+                            <input type="number" class="form-control" formControlName="ingreso_familiar_mensual"
+                                min="0">
                             @if(registrationForm.get('ingreso_familiar_mensual')?.errors?.['required'] &&
                             registrationForm.get('ingreso_familiar_mensual')?.touched)
                             {<div class="mistake">
