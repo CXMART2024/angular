@@ -104,7 +104,7 @@ export class RegisterFormNextComponent implements OnInit {
 
     // Ucayali
     'Atalaya', 'Coronel Portillo', 'Padre Abad'
-  ];
+  ].sort((a, b) => a.localeCompare(b, 'es'));
 
   departamentoList = [
     'Amazonas',
@@ -234,6 +234,13 @@ export class RegisterFormNextComponent implements OnInit {
 
   }
 
+
+  goToLanding() {
+    if (confirm('¿Está seguro que desea salir? Perderá todo lo ingresado en el formulario.')) {
+      this.formDataService.clearFormData();
+      window.location.href = 'https://fundacioncharlescrosland.org/';
+    }
+  }
 
   getDni() {
 

@@ -108,7 +108,7 @@ export class RegisterFormComponent implements OnInit {
 
     // Ucayali
     'Atalaya', 'Coronel Portillo', 'Padre Abad'
-  ];
+  ].sort((a, b) => a.localeCompare(b, 'es'));
 
   departamentoList = [
     'Amazonas',
@@ -262,6 +262,13 @@ export class RegisterFormComponent implements OnInit {
 
   formatDateForInput(dateString: string): string {
     return moment.utc(dateString).format('YYYY-MM-DD');
+  }
+
+  goToLanding() {
+    if (confirm('¿Está seguro que desea salir? Perderá todo lo ingresado en el formulario.')) {
+      this.formDataService.clearFormData();
+      window.location.href = 'https://fundacioncharlescrosland.org/';
+    }
   }
 
   formatDate(inputDate: string | null | undefined): string {

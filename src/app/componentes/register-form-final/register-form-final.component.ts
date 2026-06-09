@@ -1,13 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormularioBecasService } from '../../servicios/formulario-becas.service';
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs';
-import { of } from 'rxjs';
 import { forkJoin } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-
-
 
 @Component({
   selector: 'app-register-form-final',
@@ -16,12 +12,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegisterFormFinalComponent implements OnInit {
 
-
-  url_evidencia = new FormData();
-  url_dni = new FormData();
-  url_certificado = new FormData();
-  url_comprobante = new FormData();
-
+  fileEvidencia?: File;
+  fileDni?: File;
+  fileCertificado?: File;
+  fileComprobante?: File;
 
   formData: any = {};
 
@@ -29,52 +23,71 @@ export class RegisterFormFinalComponent implements OnInit {
 
   ngOnInit() {
     this.formData = this.formDataService.getFormData();
-
+    const stored = this.formDataService.getUploadedFiles();
+    this.fileEvidencia = stored.evidencia;
+    this.fileDni = stored.dni;
+    this.fileCertificado = stored.certificado;
+    this.fileComprobante = stored.comprobante;
   }
-
-
 
   onFileChange_evidencia_academica(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
-      const file = input.files[0];
-      this.url_evidencia.append('file', file, file.name)
-
+      this.fileEvidencia = input.files[0];
+      this.formDataService.setUploadedFile('evidencia', this.fileEvidencia);
     }
   }
 
   onFileChange_dni(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
-      const file = input.files[0];
-      this.url_dni.append('file', file, file.name)
+      this.fileDni = input.files[0];
+      this.formDataService.setUploadedFile('dni', this.fileDni);
     }
   }
+
   onFileChange_certifcado(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
-      const file = input.files[0];
-      this.url_certificado.append('file', file, file.name)
+      this.fileCertificado = input.files[0];
+      this.formDataService.setUploadedFile('certificado', this.fileCertificado);
     }
   }
+
   onFileChange_comprobante(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
-      const file = input.files[0];
-      this.url_comprobante.append('file', file, file.name)
+      this.fileComprobante = input.files[0];
+      this.formDataService.setUploadedFile('comprobante', this.fileComprobante);
     }
   }
 
   onSubmit(event: Event) {
     event.preventDefault();
 
-    //Lista de solicitudes HTTP para subir archivos
+    if (!this.fileEvidencia || !this.fileDni || !this.fileCertificado || !this.fileComprobante) {
+      this.toastr.warning('Por favor, suba todos los documentos requeridos.');
+      return;
+    }
+
+    const formEvidencia = new FormData();
+    formEvidencia.append('file', this.fileEvidencia, this.fileEvidencia.name);
+
+    const formDni = new FormData();
+    formDni.append('file', this.fileDni, this.fileDni.name);
+
+    const formCertificado = new FormData();
+    formCertificado.append('file', this.fileCertificado, this.fileCertificado.name);
+
+    const formComprobante = new FormData();
+    formComprobante.append('file', this.fileComprobante, this.fileComprobante.name);
+
     const cargaArchivos = [
-      this.http.post('https://backendbecas.azurewebsites.net/upload', this.url_evidencia),
-      this.http.post('https://backendbecas.azurewebsites.net/upload', this.url_dni),
-      this.http.post('https://backendbecas.azurewebsites.net/upload', this.url_certificado),
-      this.http.post('https://backendbecas.azurewebsites.net/upload', this.url_comprobante)
-    ]
+      this.http.post('https://backendbecas.azurewebsites.net/upload', formEvidencia),
+      this.http.post('https://backendbecas.azurewebsites.net/upload', formDni),
+      this.http.post('https://backendbecas.azurewebsites.net/upload', formCertificado),
+      this.http.post('https://backendbecas.azurewebsites.net/upload', formComprobante)
+    ];
 
     forkJoin(cargaArchivos).subscribe({
       next: (responses: any[]) => {
@@ -85,7 +98,6 @@ export class RegisterFormFinalComponent implements OnInit {
         this.formData.EvaluacionEstado = 'Por Evaluar';
         this.formData.contratoBecario = '0';
         this.formData.fecha_solicitud = new Date();
-
 
         this.http.post('https://backendbecas.azurewebsites.net/solicitudes/upsert', this.formData).subscribe({
           next: (response: any) => {
@@ -105,22 +117,23 @@ export class RegisterFormFinalComponent implements OnInit {
             this.toastr.error(`Error al enviar solicitud. Por favor, refresca la página y vuelve a intentarlo.`);
           }
         });
-
       },
       error: (error) => {
         console.error('Error subiendo archivos', error);
         this.toastr.error(`Error subiendo archivos. Por favor, refresca la página y vuelve a intentarlo.`);
       }
-    })
-
-
-
-
+    });
   }
 
   backtStepFinal() {
     this.router.navigate(['register-form-next']);
-    //this.formDataService.clearFormData();
+  }
+
+  goToLanding() {
+    if (confirm('¿Está seguro que desea salir? Perderá todo lo ingresado en el formulario.')) {
+      this.formDataService.clearFormData();
+      window.location.href = 'https://fundacioncharlescrosland.org/';
+    }
   }
 
   notificarEnvioSolicitud(solicitud: any) {
