@@ -50,7 +50,7 @@
             </table>
 
             <div class="d-flex align-items-center flex-column" style="height: 410px;">
-                <button class="btn btn-outline-danger col-md-10 mt-auto btn-sm mb-2" (click)="goToLanding()">Volver al inicio</button>
+                <button class="btn btn-outline-danger col-md-10 mt-auto btn-sm mb-2" (click)="goToLanding()" [disabled]="isRedirecting">{{ isRedirecting ? 'Redirigiendo...' : 'Volver al inicio' }}</button>
                 <button class="btn btn-outline-primary col-md-10 btn-sm" data-bs-toggle="modal"
                     data-bs-target="#searchByDni">Subsanación</button>
             </div>

@@ -18,6 +18,7 @@ export class RegisterFormFinalComponent implements OnInit {
   fileComprobante?: File;
 
   formData: any = {};
+  isRedirecting = false;
 
   constructor(private http: HttpClient, private formDataService: FormularioBecasService, private router: Router, private toastr: ToastrService) { }
 
@@ -131,6 +132,7 @@ export class RegisterFormFinalComponent implements OnInit {
 
   goToLanding() {
     if (confirm('¿Está seguro que desea salir? Perderá todo lo ingresado en el formulario.')) {
+      this.isRedirecting = true;
       this.formDataService.clearFormData();
       window.location.href = 'https://fundacioncharlescrosland.org/';
     }

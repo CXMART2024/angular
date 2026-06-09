@@ -50,7 +50,7 @@
             </table>
 
             <div class="d-flex align-items-center flex-column" style="height: 410px;">
-                <button class="btn btn-outline-danger col-md-10 mt-auto btn-sm" (click)="goToLanding()">Volver al inicio</button>
+                <button class="btn btn-outline-danger col-md-10 mt-auto btn-sm" (click)="goToLanding()" [disabled]="isRedirecting">{{ isRedirecting ? 'Redirigiendo...' : 'Volver al inicio' }}</button>
             </div>
 
 

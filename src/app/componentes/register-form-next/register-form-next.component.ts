@@ -136,6 +136,7 @@ export class RegisterFormNextComponent implements OnInit {
 
   formData: any = {};
   currentStudentID = "";
+  isRedirecting = false;
 
   registrationForm = this.fb.group({
     institucion_nombre: ["", [Validators.required, Validators.minLength(1)]],
@@ -217,6 +218,7 @@ export class RegisterFormNextComponent implements OnInit {
 
   goToLanding() {
     if (confirm('¿Está seguro que desea salir? Perderá todo lo ingresado en el formulario.')) {
+      this.isRedirecting = true;
       this.formDataService.clearFormData();
       window.location.href = 'https://fundacioncharlescrosland.org/';
     }

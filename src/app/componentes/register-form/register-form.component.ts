@@ -141,6 +141,7 @@ export class RegisterFormComponent implements OnInit {
   StudentArray: any[] = [];
   isResultLoaded = false;
   isUpdateFormActive = false;
+  isRedirecting = false;
 
 
 
@@ -258,6 +259,7 @@ export class RegisterFormComponent implements OnInit {
 
   goToLanding() {
     if (confirm('¿Está seguro que desea salir? Perderá todo lo ingresado en el formulario.')) {
+      this.isRedirecting = true;
       this.formDataService.clearFormData();
       window.location.href = 'https://fundacioncharlescrosland.org/';
     }
