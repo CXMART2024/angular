@@ -51,7 +51,8 @@
 
 
             <div class="d-flex align-items-center flex-column" style="height: 410px;">
-                <button class="btn btn-outline-primary col-md-10 mt-auto btn-sm" data-bs-toggle="modal"
+                <button class="btn btn-outline-danger col-md-10 mt-auto btn-sm mb-2" (click)="goToLanding()">Volver al inicio</button>
+                <button class="btn btn-outline-primary col-md-10 btn-sm" data-bs-toggle="modal"
                     data-bs-target="#searchByDni">Subsanación</button>
             </div>
 
@@ -64,7 +65,7 @@
         <div class="col-md-8 p-5" style="background-color: #F7F7F7; ">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="text-left" style="color: #4180C2;font-weight: bold">Información Personal</h3>
+                    <h3 class="text-left" style="color: #4180C2;font-weight: bold">Información Académica</h3>
                 </div>
                 <div class="card-body">
                     <form class="row g-3" [formGroup]="registrationForm" (submit)="onSubmit()">
@@ -91,7 +92,7 @@
                                 style="font-size: small;">
                                 <option value="" selected disabled>Seleccione una opción</option>
                                 <ng-container *ngFor="let departamento of departamentoList">
-                                    <option>{{ departamento}}</option>
+                                    <option [value]="departamento">{{ departamento }}</option>
                                 </ng-container>
                             </select>
                             @if(registrationForm.get('institucion_departamento')?.errors?.['required'] &&
@@ -109,7 +110,7 @@
                                 style="font-size: small;">
                                 <option value="" selected disabled>Seleccione una opción</option>
                                 <ng-container *ngFor="let provincia of peruProvinces">
-                                    <option>{{ provincia}}</option>
+                                    <option [value]="provincia">{{ provincia }}</option>
                                 </ng-container>
                             </select>
                             @if(registrationForm.get('institucion_provincia')?.errors?.['required'] &&
@@ -125,7 +126,7 @@
                                 style="font-size: small;">
                                 <option value="" selected disabled>Seleccione una opción</option>
                                 <ng-container *ngFor="let distrito of limaDistricts">
-                                    <option>{{distrito}}</option>
+                                    <option [value]="distrito">{{ distrito }}</option>
                                 </ng-container>
                             </select>
                             @if(registrationForm.get('institucion_distrito')?.errors?.['required'] &&

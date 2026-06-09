@@ -104,7 +104,7 @@ export class RegisterFormNextComponent implements OnInit {
 
     // Ucayali
     'Atalaya', 'Coronel Portillo', 'Padre Abad'
-  ];
+  ].sort((a, b) => a.localeCompare(b, 'es'));
 
   departamentoList = [
     'Amazonas',
@@ -161,11 +161,6 @@ export class RegisterFormNextComponent implements OnInit {
       this.registrationForm.patchValue(this.formData);
     }
 
-    /*this.registrationForm.valueChanges.subscribe(value => {
-      console.log('STEP 2 CHANGED:', value);
-    });*/
-
-
   }
 
 
@@ -191,20 +186,7 @@ export class RegisterFormNextComponent implements OnInit {
     this.router.navigate(['register-form-final'])
   }
 
-  /*
-  setUpdate(data: any) {
-    this.PASATIEMPO = data.PASATIEMPO,
-    this.BUDGET= data.BUDGET
-    this.currentStudentID = data.ID;
-    this.formDataService.setFormData(data); // Save the data to the service
-    
-    }*/
-
-
   openDialog() {
-    /*this.dialogRef.open(SubsanacionPopupComponent,{
-    width: '400px', height: '295px' // Prevent closing when clicking outside - disableClose: true
-      })*/
   }
 
   backtStep(event: Event) {
@@ -225,8 +207,6 @@ export class RegisterFormNextComponent implements OnInit {
 
     this.formDataService.setFormData(bodyData);
 
-    //console.log('BACK SAVE STEP 2:', this.formDataService.getFormData());
-
     this.router.navigate(['register-form']);
   }
 
@@ -234,6 +214,13 @@ export class RegisterFormNextComponent implements OnInit {
 
   }
 
+
+  goToLanding() {
+    if (confirm('¿Está seguro que desea salir? Perderá todo lo ingresado en el formulario.')) {
+      this.formDataService.clearFormData();
+      window.location.href = 'https://fundacioncharlescrosland.org/';
+    }
+  }
 
   getDni() {
 

@@ -49,11 +49,9 @@
                 </tr>
             </table>
 
-            <!--
             <div class="d-flex align-items-center flex-column" style="height: 410px;">
-              <button  class="btn btn-outline-primary col-md-10 mt-auto btn-sm">Subsanación</button>
+                <button class="btn btn-outline-danger col-md-10 mt-auto btn-sm" (click)="goToLanding()">Volver al inicio</button>
             </div>
-          -->
 
 
         </div>
@@ -71,50 +69,45 @@
                         <div class="mb-3">
                             <span style="font-weight: bold;">Evidencia Académica *</span>
                             <div class="input-group">
-                                <input type="file" (change)="onFileChange_evidencia_academica($event)"
-                                    class="form-control" #url_evidencia />
-                                <label class="input-group-text"><i class="bi bi-cloud-arrow-up-fill"
-                                        style="color: #4180C2;width: 100%;"></i></label>
+                                <input type="file" (change)="onFileChange_evidencia_academica($event)" class="form-control" />
+                                <label class="input-group-text"><i class="bi bi-cloud-arrow-up-fill" style="color: #4180C2;width: 100%;"></i></label>
                             </div>
+                            <small *ngIf="fileEvidencia" class="text-success"><i class="bi bi-check-circle"></i> {{ fileEvidencia.name }}</small>
                         </div>
 
                         <div class="mb-3">
                             <span style="font-weight: bold;">DNI (Anverso y Reverso) *</span>
                             <div class="input-group">
-                                <input type="file" (change)="onFileChange_dni($event)" class="form-control" #url_dni />
-                                <label class="input-group-text"><i class="bi bi-cloud-arrow-up-fill"
-                                        style="color: #4180C2;width: 100%;"></i></label>
+                                <input type="file" (change)="onFileChange_dni($event)" class="form-control" />
+                                <label class="input-group-text"><i class="bi bi-cloud-arrow-up-fill" style="color: #4180C2;width: 100%;"></i></label>
                             </div>
+                            <small *ngIf="fileDni" class="text-success"><i class="bi bi-check-circle"></i> {{ fileDni.name }}</small>
                         </div>
 
                         <div class="mb-3">
                             <span style="font-weight: bold;">Certificado *</span>
                             <div class="input-group">
-                                <input type="file" (change)="onFileChange_certifcado($event)" class="form-control"
-                                    #url_certificado />
-                                <label class="input-group-text"><i class="bi bi-cloud-arrow-up-fill"
-                                        style="color: #4180C2;width: 100%;"></i></label>
+                                <input type="file" (change)="onFileChange_certifcado($event)" class="form-control" />
+                                <label class="input-group-text"><i class="bi bi-cloud-arrow-up-fill" style="color: #4180C2;width: 100%;"></i></label>
                             </div>
+                            <small *ngIf="fileCertificado" class="text-success"><i class="bi bi-check-circle"></i> {{ fileCertificado.name }}</small>
                         </div>
 
                         <div class="mb-3 custom-file-button">
                             <span style="font-weight: bold;">Comprobante Domicilio *</span>
                             <div class="input-group">
-                                <input type="file" (change)="onFileChange_comprobante($event)" class="form-control"
-                                    #url_comprobante />
-                                <label class="input-group-text"><i class="bi bi-cloud-arrow-up-fill"
-                                        style="color: #4180C2;width: 100%;"></i></label>
+                                <input type="file" (change)="onFileChange_comprobante($event)" class="form-control" />
+                                <label class="input-group-text"><i class="bi bi-cloud-arrow-up-fill" style="color: #4180C2;width: 100%;"></i></label>
                             </div>
+                            <small *ngIf="fileComprobante" class="text-success"><i class="bi bi-check-circle"></i> {{ fileComprobante.name }}</small>
                         </div>
-
 
                         <div class="col-md-6">
                             <button class="custom-button" style="width: 100%;" (click)="backtStepFinal()">Atras</button>
                         </div>
                         <div class="col-md-6">
                             <button class="custom-button" style="width: 100%;" (click)="onSubmit($event)" type="submit"
-                                [disabled]="!url_evidencia.files?.length || !url_dni.files?.length || !url_certificado.files?.length || !url_comprobante.files?.length ">Solicitar
-                                Becas</button>
+                                [disabled]="!fileEvidencia || !fileDni || !fileCertificado || !fileComprobante">Solicitar Becas</button>
                         </div>
                     </form>
 

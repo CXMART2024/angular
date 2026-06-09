@@ -1,17 +1,19 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Becas_Solicitudes } from '../modelos/Becas_Solicitudes';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormularioBecasService {
 
-  //formData: any = {};
   private formData: any = {};
+  private uploadedFiles: {
+    evidencia?: File;
+    dni?: File;
+    certificado?: File;
+    comprobante?: File;
+  } = {};
 
   constructor() { }
-
 
   setFormData(data: any) {
     this.formData = { ...this.formData, ...data };
@@ -23,6 +25,15 @@ export class FormularioBecasService {
 
   clearFormData() {
     this.formData = {};
+    this.uploadedFiles = {};
+  }
+
+  setUploadedFile(key: 'evidencia' | 'dni' | 'certificado' | 'comprobante', file: File) {
+    this.uploadedFiles[key] = file;
+  }
+
+  getUploadedFiles() {
+    return this.uploadedFiles;
   }
 
 }
