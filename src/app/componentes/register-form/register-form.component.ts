@@ -181,17 +181,9 @@ export class RegisterFormComponent implements OnInit {
       this.registrationForm.patchValue(this.formData);
     }
 
-    /*this.registrationForm.valueChanges.subscribe(value => {
-      console.log('STEP 1 CHANGED:', value);
-    });*/
-
   }
 
   openDialog() {
-    /*this.dialogRef.open(SubsanacionPopupComponent, {
-      width: '400px', height: '295px'
-
-    })*/
   }
 
   openNextStep() {
