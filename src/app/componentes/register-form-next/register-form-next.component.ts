@@ -8,102 +8,296 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-register-form-next',
   templateUrl: './register-form-next.component.html',
-  styleUrl: './register-form-next.component.css'
+  styleUrl: './register-form-next.component.css',
 })
 export class RegisterFormNextComponent implements OnInit {
   limaDistricts = [
-    'Lima', 'Ancón', 'Ate', 'Barranco', 'Breña', 'Carabayllo', 'Chaclacayo', 'Chorrillos', 'Cieneguilla',
-    'Comas', 'El Agustino', 'Independencia', 'Jesús María', 'La Molina', 'La Victoria', 'Lince', 'Los Olivos',
-    'Lurigancho-Chosica', 'Lurín', 'Magdalena del Mar', 'Miraflores', 'Pachacamac', 'Pucusana', 'Pueblo Libre',
-    'Puente Piedra', 'Punta Hermosa', 'Punta Negra', 'Rímac', 'San Bartolo', 'San Borja', 'San Isidro', 'San Juan de Lurigancho',
-    'San Juan de Miraflores', 'San Luis', 'San Martín de Porres', 'San Miguel', 'Santa Anita', 'Santa María del Mar',
-    'Santa Rosa', 'Santiago de Surco', 'Surquillo', 'Villa El Salvador', 'Villa María del Triunfo'
+    'Lima',
+    'Ancón',
+    'Ate',
+    'Barranco',
+    'Breña',
+    'Carabayllo',
+    'Chaclacayo',
+    'Chorrillos',
+    'Cieneguilla',
+    'Comas',
+    'El Agustino',
+    'Independencia',
+    'Jesús María',
+    'La Molina',
+    'La Victoria',
+    'Lince',
+    'Los Olivos',
+    'Lurigancho-Chosica',
+    'Lurín',
+    'Magdalena del Mar',
+    'Miraflores',
+    'Pachacamac',
+    'Pucusana',
+    'Pueblo Libre',
+    'Puente Piedra',
+    'Punta Hermosa',
+    'Punta Negra',
+    'Rímac',
+    'San Bartolo',
+    'San Borja',
+    'San Isidro',
+    'San Juan de Lurigancho',
+    'San Juan de Miraflores',
+    'San Luis',
+    'San Martín de Porres',
+    'San Miguel',
+    'Santa Anita',
+    'Santa María del Mar',
+    'Santa Rosa',
+    'Santiago de Surco',
+    'Surquillo',
+    'Villa El Salvador',
+    'Villa María del Triunfo',
   ];
 
   peruProvinces = [
     // Amazonas
-    'Bagua', 'Bongará', 'Chachapoyas', 'Condorcanqui', 'Luya', 'Rodríguez de Mendoza', 'Utcubamba',
+    'Bagua',
+    'Bongará',
+    'Chachapoyas',
+    'Condorcanqui',
+    'Luya',
+    'Rodríguez de Mendoza',
+    'Utcubamba',
 
     // Áncash
-    'Aija', 'Antonio Raymondi', 'Asunción', 'Bolognesi', 'Carhuaz', 'Carlos Fermín Fitzcarrald', 'Casma',
-    'Corongo', 'Huari', 'Huarmey', 'Huaylas', 'Mariscal Luzuriaga', 'Ocros', 'Pallasca', 'Pomabamba',
-    'Recuay', 'Santa', 'Sihuas', 'Yungay',
+    'Aija',
+    'Antonio Raymondi',
+    'Asunción',
+    'Bolognesi',
+    'Carhuaz',
+    'Carlos Fermín Fitzcarrald',
+    'Casma',
+    'Corongo',
+    'Huari',
+    'Huarmey',
+    'Huaylas',
+    'Mariscal Luzuriaga',
+    'Ocros',
+    'Pallasca',
+    'Pomabamba',
+    'Recuay',
+    'Santa',
+    'Sihuas',
+    'Yungay',
 
     // Apurímac
-    'Abancay', 'Andahuaylas', 'Antabamba', 'Aymaraes', 'Chincheros', 'Cotabambas', 'Grau',
+    'Abancay',
+    'Andahuaylas',
+    'Antabamba',
+    'Aymaraes',
+    'Chincheros',
+    'Cotabambas',
+    'Grau',
 
     // Arequipa
-    'Arequipa', 'Camaná', 'Caravelí', 'Castilla', 'Caylloma', 'Condesuyos', 'Islay', 'La Unión',
+    'Arequipa',
+    'Camaná',
+    'Caravelí',
+    'Castilla',
+    'Caylloma',
+    'Condesuyos',
+    'Islay',
+    'La Unión',
 
     // Ayacucho
-    'Cangallo', 'Huanca Sancos', 'Huanta', 'La Mar', 'Lucanas', 'Parinacochas', 'Páucar del Sara Sara',
-    'Sucre', 'Víctor Fajardo', 'Vilcas Huamán',
+    'Cangallo',
+    'Huanca Sancos',
+    'Huanta',
+    'La Mar',
+    'Lucanas',
+    'Parinacochas',
+    'Páucar del Sara Sara',
+    'Sucre',
+    'Víctor Fajardo',
+    'Vilcas Huamán',
 
     // Cajamarca
-    'Cajabamba', 'Cajamarca', 'Celendín', 'Chota', 'Contumazá', 'Cutervo', 'Hualgayoc', 'Jaén',
-    'San Ignacio', 'San Marcos', 'San Miguel', 'San Pablo', 'Santa Cruz',
+    'Cajabamba',
+    'Cajamarca',
+    'Celendín',
+    'Chota',
+    'Contumazá',
+    'Cutervo',
+    'Hualgayoc',
+    'Jaén',
+    'San Ignacio',
+    'San Marcos',
+    'San Miguel',
+    'San Pablo',
+    'Santa Cruz',
 
     // Callao
     'Callao',
 
     // Cusco
-    'Acomayo', 'Anta', 'Calca', 'Canas', 'Canchis', 'Chumbivilcas', 'Cusco', 'Espinar', 'La Convención',
-    'Paruro', 'Paucartambo', 'Quispicanchi', 'Urubamba',
+    'Acomayo',
+    'Anta',
+    'Calca',
+    'Canas',
+    'Canchis',
+    'Chumbivilcas',
+    'Cusco',
+    'Espinar',
+    'La Convención',
+    'Paruro',
+    'Paucartambo',
+    'Quispicanchi',
+    'Urubamba',
 
     // Huancavelica
-    'Acobamba', 'Angaraes', 'Castrovirreyna', 'Churcampa', 'Huancavelica', 'Huaytará',
+    'Acobamba',
+    'Angaraes',
+    'Castrovirreyna',
+    'Churcampa',
+    'Huancavelica',
+    'Huaytará',
 
     // Huánuco
-    'Ambo', 'Dos de Mayo', 'Huacaybamba', 'Huamalíes', 'Huanuco', 'Lauricocha', 'Leoncio Prado',
-    'Marañón', 'Pachitea', 'Puerto Inca', 'Yarowilca',
+    'Ambo',
+    'Dos de Mayo',
+    'Huacaybamba',
+    'Huamalíes',
+    'Huanuco',
+    'Lauricocha',
+    'Leoncio Prado',
+    'Marañón',
+    'Pachitea',
+    'Puerto Inca',
+    'Yarowilca',
 
     // Ica
-    'Chincha', 'Ica', 'Nazca', 'Palpa', 'Pisco',
+    'Chincha',
+    'Ica',
+    'Nazca',
+    'Palpa',
+    'Pisco',
 
     // Junín
-    'Chanchamayo', 'Chupaca', 'Concepción', 'Huancayo', 'Jauja', 'Junín', 'Satipo', 'Tarma', 'Yauli',
+    'Chanchamayo',
+    'Chupaca',
+    'Concepción',
+    'Huancayo',
+    'Jauja',
+    'Junín',
+    'Satipo',
+    'Tarma',
+    'Yauli',
 
     // La Libertad
-    'Ascope', 'Bolívar', 'Chepén', 'Gran Chimú', 'Julcán', 'Otuzco', 'Pacasmayo', 'Pataz',
-    'Sánchez Carrión', 'Santiago de Chuco', 'Trujillo', 'Virú',
+    'Ascope',
+    'Bolívar',
+    'Chepén',
+    'Gran Chimú',
+    'Julcán',
+    'Otuzco',
+    'Pacasmayo',
+    'Pataz',
+    'Sánchez Carrión',
+    'Santiago de Chuco',
+    'Trujillo',
+    'Virú',
 
     // Lambayeque
-    'Chiclayo', 'Ferreñafe', 'Lambayeque',
+    'Chiclayo',
+    'Ferreñafe',
+    'Lambayeque',
 
     // Lima
-    'Barranca', 'Cajatambo', 'Cañete', 'Canta', 'Huaral', 'Huarochirí', 'Huaura', 'Lima', 'Oyón', 'Yauyos',
+    'Barranca',
+    'Cajatambo',
+    'Cañete',
+    'Canta',
+    'Huaral',
+    'Huarochirí',
+    'Huaura',
+    'Lima',
+    'Oyón',
+    'Yauyos',
 
     // Loreto
-    'Alto Amazonas', 'Datem del Marañón', 'Loreto', 'Mariscal Ramón Castilla', 'Maynas', 'Requena', 'Ucayali',
+    'Alto Amazonas',
+    'Datem del Marañón',
+    'Loreto',
+    'Mariscal Ramón Castilla',
+    'Maynas',
+    'Requena',
+    'Ucayali',
 
     // Madre de Dios
-    'Manu', 'Tahuamanu', 'Tambopata',
+    'Manu',
+    'Tahuamanu',
+    'Tambopata',
 
     // Moquegua
-    'General Sánchez Cerro', 'Ilo', 'Mariscal Nieto',
+    'General Sánchez Cerro',
+    'Ilo',
+    'Mariscal Nieto',
 
     // Pasco
-    'Oxapampa', 'Pasco', 'Daniel Alcides Carrión',
+    'Oxapampa',
+    'Pasco',
+    'Daniel Alcides Carrión',
 
     // Piura
-    'Ayabaca', 'Huancabamba', 'Morropón', 'Paita', 'Piura', 'Sechura', 'Sullana', 'Talara',
+    'Ayabaca',
+    'Huancabamba',
+    'Morropón',
+    'Paita',
+    'Piura',
+    'Sechura',
+    'Sullana',
+    'Talara',
 
     // Puno
-    'Azángaro', 'Carabaya', 'Chucuito', 'El Collao', 'Huancané', 'Lampa', 'Melgar', 'Moho', 'Puno',
-    'San Antonio de Putina', 'San Román', 'Sandia', 'Yunguyo',
+    'Azángaro',
+    'Carabaya',
+    'Chucuito',
+    'El Collao',
+    'Huancané',
+    'Lampa',
+    'Melgar',
+    'Moho',
+    'Puno',
+    'San Antonio de Putina',
+    'San Román',
+    'Sandia',
+    'Yunguyo',
 
     // San Martín
-    'Bellavista', 'El Dorado', 'Huallaga', 'Lamas', 'Mariscal Cáceres', 'Moyobamba', 'Picota', 'Rioja',
-    'San Martín', 'Tocache',
+    'Bellavista',
+    'El Dorado',
+    'Huallaga',
+    'Lamas',
+    'Mariscal Cáceres',
+    'Moyobamba',
+    'Picota',
+    'Rioja',
+    'San Martín',
+    'Tocache',
 
     // Tacna
-    'Candarave', 'Jorge Basadre', 'Tacna', 'Tarata',
+    'Candarave',
+    'Jorge Basadre',
+    'Tacna',
+    'Tarata',
 
     // Tumbes
-    'Contralmirante Villar', 'Tumbes', 'Zarumilla',
+    'Contralmirante Villar',
+    'Tumbes',
+    'Zarumilla',
 
     // Ucayali
-    'Atalaya', 'Coronel Portillo', 'Padre Abad'
+    'Atalaya',
+    'Coronel Portillo',
+    'Padre Abad',
   ].sort((a, b) => a.localeCompare(b, 'es'));
 
   departamentoList = [
@@ -131,78 +325,80 @@ export class RegisterFormNextComponent implements OnInit {
     'San Martin',
     'Tacna',
     'Tumbes',
-    'Ucayali'
+    'Ucayali',
   ];
 
   formData: any = {};
-  currentStudentID = "";
+  currentStudentID = '';
 
   registrationForm = this.fb.group({
-    institucion_nombre: ["", [Validators.required, Validators.minLength(1)]],
-    institucion_departamento: ["", [Validators.required]],
-    institucion_provincia: ["", [Validators.required]],
-    institucion_distrito: ["", [Validators.required]],
-    institucion_direccion: ["", [Validators.required]],
-    tipo_educacion: ["", [Validators.required]],
-    grado_academico: ["", [Validators.required]],
-    promedio_academico: ["", [Validators.required]],
-    motivo_solicitud: ["", [Validators.required, Validators.minLength(1)]],
-    bydni: ''
+    institucion_nombre: ['', [Validators.required, Validators.minLength(1)]],
+    institucion_departamento: ['', [Validators.required]],
+    ruc_institucion: ['', [Validators.required]],
+    institucion_provincia: ['', [Validators.required]],
+    institucion_distrito: ['', [Validators.required]],
+    institucion_direccion: ['', [Validators.required]],
+    tipo_educacion: ['', [Validators.required]],
+    grado_academico: ['', [Validators.required]],
+    promedio_academico: ['', [Validators.required]],
+    motivo_solicitud: ['', [Validators.required, Validators.minLength(1)]],
+    bydni: '',
   });
 
-  constructor(private http: HttpClient, private router: Router, private formDataService: FormularioBecasService, private fb: FormBuilder, private toastr: ToastrService) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private formDataService: FormularioBecasService,
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+  ) {}
 
   ngOnInit() {
-
     this.formData = this.formDataService.getFormData();
-
 
     if (this.formData) {
       this.registrationForm.patchValue(this.formData);
     }
-
   }
-
 
   saveNextFields(event: Event) {
     event.preventDefault();
 
     let bodyData = {
-      "institucion_nombre": this.registrationForm.value.institucion_nombre,
-      "institucion_departamento": this.registrationForm.value.institucion_departamento,
-      "institucion_provincia": this.registrationForm.value.institucion_provincia,
-      "institucion_distrito": this.registrationForm.value.institucion_distrito,
-      "institucion_direccion": this.registrationForm.value.institucion_direccion,
-      "tipo_educacion": this.registrationForm.value.tipo_educacion,
-      "promedio_academico": this.registrationForm.value.promedio_academico,
-      "motivo_solicitud": this.registrationForm.value.motivo_solicitud,
-      "grado_academico": this.registrationForm.value.grado_academico
+      institucion_nombre: this.registrationForm.value.institucion_nombre,
+      institucion_departamento:
+        this.registrationForm.value.institucion_departamento,
+      institucion_provincia: this.registrationForm.value.institucion_provincia,
+      ruc_institucion: this.registrationForm.value.ruc_institucion,
+      institucion_distrito: this.registrationForm.value.institucion_distrito,
+      institucion_direccion: this.registrationForm.value.institucion_direccion,
+      tipo_educacion: this.registrationForm.value.tipo_educacion,
+      promedio_academico: this.registrationForm.value.promedio_academico,
+      motivo_solicitud: this.registrationForm.value.motivo_solicitud,
+      grado_academico: this.registrationForm.value.grado_academico,
     };
-
 
     this.formDataService.setFormData(bodyData);
 
-
-    this.router.navigate(['register-form-final'])
+    this.router.navigate(['register-form-final']);
   }
 
-  openDialog() {
-  }
+  openDialog() {}
 
   backtStep(event: Event) {
-
     event.preventDefault();
 
     let bodyData = {
       institucion_nombre: this.registrationForm.value.institucion_nombre,
-      institucion_departamento: this.registrationForm.value.institucion_departamento,
+      institucion_departamento:
+        this.registrationForm.value.institucion_departamento,
       institucion_provincia: this.registrationForm.value.institucion_provincia,
       institucion_distrito: this.registrationForm.value.institucion_distrito,
       institucion_direccion: this.registrationForm.value.institucion_direccion,
       tipo_educacion: this.registrationForm.value.tipo_educacion,
       grado_academico: this.registrationForm.value.grado_academico,
       promedio_academico: this.registrationForm.value.promedio_academico,
-      motivo_solicitud: this.registrationForm.value.motivo_solicitud
+      motivo_solicitud: this.registrationForm.value.motivo_solicitud,
     };
 
     this.formDataService.setFormData(bodyData);
@@ -210,20 +406,20 @@ export class RegisterFormNextComponent implements OnInit {
     this.router.navigate(['register-form']);
   }
 
-  onSubmit() {
-
-  }
-
+  onSubmit() {}
 
   goToLanding() {
-    if (confirm('¿Está seguro que desea salir? Perderá todo lo ingresado en el formulario.')) {
+    if (
+      confirm(
+        '¿Está seguro que desea salir? Perderá todo lo ingresado en el formulario.',
+      )
+    ) {
       this.formDataService.clearFormData();
       window.location.href = 'https://fundacioncharlescrosland.org/';
     }
   }
 
   getDni() {
-
     const bydni = this.registrationForm.get('bydni')?.value;
 
     if (!bydni) {
@@ -231,18 +427,19 @@ export class RegisterFormNextComponent implements OnInit {
       return;
     }
 
-    this.http.get(`https://backendbecas.azurewebsites.net/solicitudes/dni/${bydni}`).subscribe({
-      next: (response: any) => {
-
-        this.registrationForm.patchValue(response);
-        this.toastr.success(`Se cargo sus datos exitosamente`);
-      },
-      error: (error) => {
-        console.error('Upload error', error);
-        this.toastr.error(`Error intente de nuevo. Por favor, refresca la página y vuelve a intentarlo.`);
-      }
-    });
+    this.http
+      .get(`https://backendbecas.azurewebsites.net/solicitudes/dni/${bydni}`)
+      .subscribe({
+        next: (response: any) => {
+          this.registrationForm.patchValue(response);
+          this.toastr.success(`Se cargo sus datos exitosamente`);
+        },
+        error: (error) => {
+          console.error('Upload error', error);
+          this.toastr.error(
+            `Error intente de nuevo. Por favor, refresca la página y vuelve a intentarlo.`,
+          );
+        },
+      });
   }
-
-
 }
