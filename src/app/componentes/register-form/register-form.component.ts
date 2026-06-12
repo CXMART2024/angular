@@ -6,12 +6,26 @@ import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import moment from 'moment';
 
+interface Provincia {
+  nombre: string;
+  distritos: string[];
+}
+
+interface Departamento {
+  nombre: string;
+  provincias: Provincia[];
+}
+
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.css',
 })
 export class RegisterFormComponent implements OnInit {
+  peruData: Departamento[] = [];
+  provinciasFiltradas: string[] = [];
+  distritosFiltrados: string[] = [];
+
   //fb = inject(FormBuilder)
   limaDistricts = [
     'Lima',
@@ -372,9 +386,70 @@ export class RegisterFormComponent implements OnInit {
     if (this.formData) {
       this.registrationForm.patchValue(this.formData);
     }
+
+    // Cargar el JSON
+    this.http
+      .get<Departamento[]>('assets/data/peru_data.json')
+      .subscribe((data) => {
+        this.peruData = data;
+      });
+
+    // Escuchar cambios en departamento
+    this.registrationForm
+      .get('departamento')
+      ?.valueChanges.subscribe((depSeleccionado) => {
+        const dep = this.peruData.find((d) => d.nombre === depSeleccionado);
+        this.provinciasFiltradas = dep
+          ? dep.provincias.map((p) => p.nombre)
+          : [];
+        this.distritosFiltrados = [];
+
+        this.registrationForm.patchValue(
+          {
+            provincia: '',
+            distrito: '',
+          },
+          { emitEvent: false },
+        ); // evita que se disparen valueChanges en cascada al resetear
+      });
+
+    // Escuchar cambios en provincia
+    this.registrationForm
+      .get('provincia')
+      ?.valueChanges.subscribe((provSeleccionada) => {
+        const depSeleccionado =
+          this.registrationForm.get('departamento')?.value;
+        const dep = this.peruData.find((d) => d.nombre === depSeleccionado);
+        const prov = dep?.provincias.find((p) => p.nombre === provSeleccionada);
+
+        this.distritosFiltrados = prov ? prov.distritos : [];
+
+        this.registrationForm.patchValue(
+          {
+            distrito: '',
+          },
+          { emitEvent: false },
+        );
+      });
   }
 
   openDialog() {}
+
+  debugForm() {
+    console.log('FORM VALID:', this.registrationForm.valid);
+    console.log('FORM STATUS:', this.registrationForm.status);
+
+    Object.keys(this.registrationForm.controls).forEach((key) => {
+      const control = this.registrationForm.get(key);
+
+      if (control?.invalid) {
+        console.log('-------------------');
+        console.log('Campo inválido:', key);
+        console.log('Valor:', control.value);
+        console.log('Errores:', control.errors);
+      }
+    });
+  }
 
   openNextStep() {
     this.router.navigate(['nextstep']);
