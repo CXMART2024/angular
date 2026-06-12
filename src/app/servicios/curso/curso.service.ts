@@ -3,14 +3,12 @@ import { Injectable } from '@angular/core';
 import { Curso } from '../../modelos/curso';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CursoService {
-
   private apiUrl = 'https://backendbecas.azurewebsites.net/registro/curso';
 
-  constructor(private http: HttpClient) { 
-  }
+  constructor(private http: HttpClient) {}
 
   //Retornar curso
   getCurso(id: number) {
@@ -22,32 +20,31 @@ export class CursoService {
     return this.http.get<Curso[]>(`${this.apiUrl}/ciclo/${id_registro_ciclo}`);
   }
 
-  //Crear curso 
+  //Crear curso
   createCurso(curso: Curso) {
     return this.http.post(`${this.apiUrl}`, curso);
   }
 
-  //Actualizar curso 
+  //Actualizar curso
   updateCurso(curso: Curso) {
     return this.http.put(`${this.apiUrl}/${curso.id}`, curso);
   }
 
-  //Eliminar curso 
+  //Eliminar curso
   deleteCurso(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
   //Eliminar cursos por ciclo
-  deleteCursoByCiclo(id_registro_ciclo: number){
-    return this.http.delete(`${this.apiUrl}/ciclo/${id_registro_ciclo}`)
+  deleteCursoByCiclo(id_registro_ciclo: number) {
+    return this.http.delete(`${this.apiUrl}/ciclo/${id_registro_ciclo}`);
   }
 
   getNumCursos(cursos: Array<Curso>): number {
-    return cursos.length
+    return cursos.length;
   }
 
   getTotalCreditos(cursos: Array<Curso>): number {
-    return cursos.reduce((total, curso) => total + curso.creditos,0);
+    return cursos.reduce((total, curso) => total + curso.creditos, 0);
   }
 }
-

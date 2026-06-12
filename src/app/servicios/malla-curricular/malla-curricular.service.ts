@@ -9,19 +9,22 @@ import { RelacionMalla } from '../../modelos/relacion-malla';
   providedIn: 'root',
 })
 export class MallaCurricularService {
-
   private cursoMallaArray: CursoMalla[] = [];
 
   private apiUrl = 'https://backendbecas.azurewebsites.net/malla';
 
-  constructor(private http: HttpClient) { }
+  // http://localhost:3000
+  // https://backendbecas.azurewebsites.net/malla
+
+  constructor(private http: HttpClient) {}
 
   //Funciones CICLOS de malla curricular
   // Retornar ciclos de malla por solicitud
 
-
   getCiclosMallaBySolicitud(id_solicitud: number) {
-    return this.http.get<CicloMalla[]>(`${this.apiUrl}/ciclos/solicitud/${id_solicitud}`);
+    return this.http.get<CicloMalla[]>(
+      `${this.apiUrl}/ciclos/solicitud/${id_solicitud}`,
+    );
   }
 
   //Retornar ciclo de malla
@@ -32,12 +35,10 @@ export class MallaCurricularService {
     return this.http.get<CicloMalla[]>(`${this.apiUrl}/ciclo/${id}`);
   }
 
-
   //Crear ciclo malla
   createCicloMalla(ciclo: CicloMalla) {
     return this.http.post<CicloMalla>(`${this.apiUrl}/ciclo`, ciclo);
   }
-
 
   //Actualiza ciclo malla
   updateCicloMalla(ciclo: CicloMalla) {
@@ -56,13 +57,14 @@ export class MallaCurricularService {
     return this.http.get(`${this.apiUrl}/curso/${id}`);
   }
 
-
   // Retornar cursos de malla por ciclo
   /* getCursoMallaByCiclo(id_ciclo: number) {
     return this.http.get(`${this.apiUrl}/cursos/ciclo/${id_ciclo}`);
   }*/
   getCursoMallaByCiclo(id_ciclo: number): Observable<CursoMalla[]> {
-    return this.http.get<CursoMalla[]>(`${this.apiUrl}/cursos/ciclo/${id_ciclo}`);
+    return this.http.get<CursoMalla[]>(
+      `${this.apiUrl}/cursos/ciclo/${id_ciclo}`,
+    );
   }
 
   // Crear cursos de malla
@@ -97,7 +99,6 @@ export class MallaCurricularService {
     return this.cursoMallaArray;
   }
 
-
   // Encontrar mi instancia por index
   getCursoMallaTemporal(index: number): CursoMalla | undefined {
     return this.cursoMallaArray[index];
@@ -110,19 +111,15 @@ export class MallaCurricularService {
     }
   }
 
-
   // Limpiar todo mi array
   clearCursoMallasTemporal() {
     this.cursoMallaArray = [];
   }
 
-  //Eliminar instancia por index 
+  //Eliminar instancia por index
   deleteCursoMallaTemporal(index: number) {
     if (index >= 0 && index < this.cursoMallaArray.length) {
       this.cursoMallaArray.splice(index, 1);
     }
   }
-
-
-
 }

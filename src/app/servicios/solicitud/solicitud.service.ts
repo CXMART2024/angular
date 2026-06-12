@@ -3,10 +3,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SolicitudService {
-
   private solicitudData: any;
   private apiUrl = 'https://backendbecas.azurewebsites.net/solicitudes';
   private solicitudDataSubject: BehaviorSubject<any>;
@@ -15,8 +14,9 @@ export class SolicitudService {
 
   constructor(private http: HttpClient) {
     const storedSolicitudData = localStorage.getItem('solicitudData');
-    this.solicitudDataSubject = new BehaviorSubject<any>(storedSolicitudData ? JSON.parse(storedSolicitudData) : null);
-
+    this.solicitudDataSubject = new BehaviorSubject<any>(
+      storedSolicitudData ? JSON.parse(storedSolicitudData) : null,
+    );
   }
 
   //setear data solicitud después del login
@@ -25,17 +25,14 @@ export class SolicitudService {
       next: (data: any) => {
         this.solicitudDataSubject.next(data);
         localStorage.setItem('solicitudData', JSON.stringify(data));
-      }
-    })
-    
+      },
+    });
   }
-
 
   //obtener datos solicitud
   getSolicitudData(): Observable<any> {
-   return this.solicitudDataSubject.asObservable();
+    return this.solicitudDataSubject.asObservable();
   }
-
 
   //limpiar data solicitud
   clearSolicitudData() {
@@ -46,10 +43,9 @@ export class SolicitudService {
   //actualizar datos solicitud
   updateSolicitud(data: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/${data.id}`, data);
-  };
-
-  getSolicitudByDni(dni: string) {
-    return this.http.get(`${this.apiUrl}/dni/${dni}`)
   }
 
+  getSolicitudByDni(dni: string) {
+    return this.http.get(`${this.apiUrl}/dni/${dni}`);
+  }
 }

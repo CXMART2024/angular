@@ -1,68 +1,97 @@
 <div class="container-fluid">
-
-    <div class="row">
-
-        <div class="col" style="background-color:#F3F3F3;">
-
-            <div class="row">
-                <div class="col-12">
-                    <img class="img-fluid float-end"
-                        src="https://blobauroranuevo.blob.core.windows.net/images3d/fxemoji_graduationcap.png" alt="">
-                </div>
-
-                <div class="col-8 col-sm-4 mx-auto">
-                    <form [formGroup]="loginFormGroup" (ngSubmit)="onLogin()">
-                        <div class="mb-3">
-                            <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Group 10.png" alt="">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for=""><strong>DNI</strong></label>
-                            <input [(ngModel)]="dni" name="dni" required class="form-control" type="text"
-                                formControlName="dni">
-                            @if(loginFormGroup.get('dni')?.errors?.['required'] &&
-                            loginFormGroup.get('dni')?.touched)
-                            {<div class="mistake">
-                                Por favor coloque su DNI
-                            </div>
-                            }
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for=""><strong>Contraseña</strong></label>
-                            <input class="form-control" type="password" [(ngModel)]="clave" name="clave" required
-                                formControlName="clave">
-                            @if(loginFormGroup.get('clave')?.errors?.['required'] &&
-                            loginFormGroup.get('clave')?.touched)
-                            {<div class="mistake">
-                                Por favor coloque su clave correctamente
-                            </div>
-                            }
-                        </div>
-
-                        <div class="mb-3">
-                            <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha">
-                            </ngx-recaptcha2>
-                        </div>
-
-                        <div class="d-grid mb-3">
-                            <button class="btn text-white" style="background-color: #4180C2;" type="submit"
-                                (click)="onLogin()" [disabled]="loginFormGroup.invalid">Ingresar</button>
-                            <!-- [disabled]="loginFormGroup.invalid"-->
-                        </div>
-                    </form>
-                </div>
-
-                <div class="col-12">
-                    <img src="https://blobauroranuevo.blob.core.windows.net/images3d/fxemoji_graduationcap.png" alt="">
-                </div>
-
-            </div>
+  <div class="row">
+    <div class="col" style="background-color: #f3f3f3">
+      <div class="row">
+        <div class="col-12">
+          <img
+            class="img-fluid float-end"
+            src="https://blobauroranuevo.blob.core.windows.net/images3d/fxemoji_graduationcap.png"
+            alt=""
+          />
         </div>
 
+        <div class="col-8 col-sm-4 mx-auto">
+          <form [formGroup]="loginFormGroup" (ngSubmit)="onLogin()">
+            <div class="mb-3">
+              <img
+                src="https://blobauroranuevo.blob.core.windows.net/images3d/Group 10.png"
+                alt=""
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for=""><strong>DNI</strong></label>
+              <input
+                [(ngModel)]="dni"
+                name="dni"
+                required
+                class="form-control"
+                type="text"
+                formControlName="dni"
+              />
+              @if (
+                loginFormGroup.get("dni")?.errors?.["required"] &&
+                loginFormGroup.get("dni")?.touched
+              ) {
+                <div class="mistake">Por favor coloque su DNI</div>
+              }
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for=""
+                ><strong>Contraseña</strong></label
+              >
+              <input
+                class="form-control"
+                type="password"
+                [(ngModel)]="clave"
+                name="clave"
+                required
+                formControlName="clave"
+              />
+              @if (
+                loginFormGroup.get("clave")?.errors?.["required"] &&
+                loginFormGroup.get("clave")?.touched
+              ) {
+                <div class="mistake">
+                  Por favor coloque su clave correctamente
+                </div>
+              }
+            </div>
 
-        <!--<div class="col-12 col-md-6 g-0">
-            <img class="img-fluid w-100" src="https://blobauroranuevo.blob.core.windows.net/images3d/Rectangle 110.png">
-        </div>-->
+            <div class="mb-3">
+              <ngx-recaptcha2
+                #captchaElem
+                [siteKey]="siteKey"
+                formControlName="recaptcha"
+              >
+              </ngx-recaptcha2>
+            </div>
 
+            <div class="d-grid mb-3">
+              <button
+                class="btn text-white"
+                style="background-color: #4180c2"
+                type="submit"
+                (click)="onLogin()"
+                [disabled]="loginFormGroup.invalid"
+              >
+                Ingresar
+              </button>
+              <!-- [disabled]="loginFormGroup.invalid"-->
+            </div>
+          </form>
+        </div>
+
+        <div class="col-12">
+          <img
+            src="https://blobauroranuevo.blob.core.windows.net/images3d/fxemoji_graduationcap.png"
+            alt=""
+          />
+        </div>
+      </div>
     </div>
 
+    <!--<div class="col-12 col-md-6 g-0">
+            <img class="img-fluid w-100" src="https://blobauroranuevo.blob.core.windows.net/images3d/Rectangle 110.png">
+        </div>-->
+  </div>
 </div>

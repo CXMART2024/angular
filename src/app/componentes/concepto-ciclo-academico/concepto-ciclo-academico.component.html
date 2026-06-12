@@ -1,6 +1,5 @@
 <div class="container-fluid">
-
-    <!--<div class="row">
+  <!--<div class="row">
 
         <div class="col-12 col-md-2" style="background-color: #4180C2;">
 
@@ -83,412 +82,685 @@
 
         <div class="col-12 col-md-10" style="background-color: #F3F3F3;">-->
 
-    <nav aria-label="breadcrumb" class="mt-2">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a routerLink="/informacion-view">Información de Beca</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{selectedCiclo?.nombre_ciclo}}</li>
-        </ol>
-    </nav>
-    <div class="card mt-1 mb-3">
-
-        <div class="card-header">
-            <div class="row">
-                <div class="col d-flex align-items-center"><span class="text-success my-auto"><strong
-                            class="text-dark">{{selectedCiclo?.nombre_ciclo}}</strong>
-                    </span></div>
-                <div class="col d-flex justify-content-end"><button class="btn btn-outline-primary w-50"
-                        routerLink="/edit-modulo-academico">Editar Datos</button></div>
-            </div>
+  <nav aria-label="breadcrumb" class="mt-2">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a routerLink="/informacion-view">Información de Beca</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        {{ selectedCiclo?.nombre_ciclo }}
+      </li>
+    </ol>
+  </nav>
+  <div class="card mt-1 mb-3">
+    <div class="card-header">
+      <div class="row">
+        <div class="col d-flex align-items-center">
+          <span class="text-success my-auto"
+            ><strong class="text-dark">{{
+              selectedCiclo?.nombre_ciclo
+            }}</strong>
+          </span>
         </div>
-        <div class="card-body">
-            <!--aqui-->
-            <div class="row">
-                <div class="col-4">
-                    <label class="form-label my-auto"><strong>Ciclo/Grado:</strong></label>
-                    <input type="text" class="form-control-plaintext text-muted disabled" readonly
-                        value="{{selectedCiclo?.nombre_ciclo}}" [disabled]="true">
-                </div>
-                <div class="col-4">
-                    <label class="form-label my-auto"><strong>N° Cursos:</strong></label>
-                    <input type="text" class="form-control-plaintext text-muted disabled" readonly
-                        value="{{getNumCursos()}}" [disabled]="true">
-                </div>
-                <div class="col-4">
-                    <label class="form-label my-auto"><strong>N° Créditos:</strong></label>
-                    <input type="text" class="form-control-plaintext text-muted disabled" readonly
-                        value="{{getTotaCreditos()}}" [disabled]="true">
-                </div>
-                <div class="col-4">
-                    <label class="form-label my-auto"><strong>Fecha Inicio:</strong></label>
-                    <input type="text" class="form-control-plaintext text-muted disabled" readonly
-                        value="{{selectedCiclo?.fecha_inicio | date:'dd/MM/yyyy':'UTC'}}" [disabled]="true">
-                </div>
-                <div class="col-4">
-                    <label class="form-label my-auto"><strong>Fecha Fin:</strong></label>
-                    <input type="text" class="form-control-plaintext text-muted disabled" readonly
-                        value="{{selectedCiclo?.fecha_fin | date:'dd/MM/yyyy':'UTC'}}" [disabled]="true">
-                </div>
-                <div class="col-4">
-                    <label class="form-label my-auto"><strong>Matrícula:</strong>
-                    </label>
-                    <a type="url" class="form-control-plaintext text-primary disabled"
-                        href="{{selectedCiclo?.id_doc_matricula}}" target="_blank">
-                        matrícual{{selectedCiclo?.nombre_ciclo}}.pdf
-                    </a>
-                </div>
-            </div> <!--aqui-->
+        <div class="col d-flex justify-content-end">
+          <button
+            class="btn btn-outline-primary w-50"
+            routerLink="/edit-modulo-academico"
+          >
+            Editar Datos
+          </button>
         </div>
-
+      </div>
     </div>
-    <div class="card mb-3">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-7 d-flex align-items-center">
-                    <h6 class="my-auto"><strong>Cronograma de Pagos</strong></h6>
-                </div>
-                <div *ngIf="selectedCiclo && selectedCiclo.estado !='Finalizado'"
-                    class="col-5 d-flex justify-content-end"><button class="btn btn-primary" type="button"
-                        data-bs-toggle="modal" data-bs-target="#addConcepto">Agregar Concepto</button></div>
-            </div>
+    <div class="card-body">
+      <!--aqui-->
+      <div class="row">
+        <div class="col-4">
+          <label class="form-label my-auto"
+            ><strong>Ciclo/Grado:</strong></label
+          >
+          <input
+            type="text"
+            class="form-control-plaintext text-muted disabled"
+            readonly
+            value="{{ selectedCiclo?.nombre_ciclo }}"
+            [disabled]="true"
+          />
         </div>
-        <div class="card-body">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead style="background-color: rgba(244, 243, 248, 1);">
-                                <tr>
-                                    <th class="text-center">Concepto</th>
-                                    <th class="text-center">Descripción</th>
-                                    <th class="text-center">Monto</th>
-                                    <th class="text-center">F. Solicitud Programada</th>
-                                    <th class="text-center">Constancia Pago</th>
-                                    <th class="text-center">Estado</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let pago of listPagos">
-                                    <td class="text-center">{{pago.concepto}}</td>
-                                    <td class="text-center">{{pago.descripcion}}</td>
-                                    <td class="text-center">S/ {{pago.monto}}</td>
-                                    <td class="text-center">{{pago.fecha_solicitud | date:'dd/MM/yyyy':'UTC'}}</td>
-                                    <td class="text-center text-primary">
-                                        <ng-container *ngIf="pago.id_constancia_pago; else empty">
-                                            <a class="form-control-plaintext text-primary"
-                                                href="{{pago.id_constancia_pago}}" target="_blank">
-                                                Constancia Pago
-                                            </a>
-                                        </ng-container>
-                                        <ng-template #empty>
-                                            <span>-</span>
-                                        </ng-template>
-                                    </td>
-                                    <td class="text-center"><span class="badge rounded-pill text-dark"
-                                            [ngStyle]="{'background-color': getColorByState(pago.PagoEstado)}">{{pago.PagoEstado}}</span>
-                                    </td>
-                                    <td><button *ngIf="['Pagado', 'Observado'].includes(pago.PagoEstado)"
-                                            (click)="setSelectedPago(pago)" class="btn" data-bs-toggle="modal"
-                                            data-bs-target="#editConcepto" type="button"><i
-                                                class="bi bi-pencil"></i></button></td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-            </div>
-
+        <div class="col-4">
+          <label class="form-label my-auto"><strong>N° Cursos:</strong></label>
+          <input
+            type="text"
+            class="form-control-plaintext text-muted disabled"
+            readonly
+            value="{{ getNumCursos() }}"
+            [disabled]="true"
+          />
         </div>
-
+        <div class="col-4">
+          <label class="form-label my-auto"
+            ><strong>N° Créditos:</strong></label
+          >
+          <input
+            type="text"
+            class="form-control-plaintext text-muted disabled"
+            readonly
+            value="{{ getTotaCreditos() }}"
+            [disabled]="true"
+          />
+        </div>
+        <div class="col-4">
+          <label class="form-label my-auto"
+            ><strong>Fecha Inicio:</strong></label
+          >
+          <input
+            type="text"
+            class="form-control-plaintext text-muted disabled"
+            readonly
+            value="{{
+              selectedCiclo?.fecha_inicio | date: 'dd/MM/yyyy' : 'UTC'
+            }}"
+            [disabled]="true"
+          />
+        </div>
+        <div class="col-4">
+          <label class="form-label my-auto"><strong>Fecha Fin:</strong></label>
+          <input
+            type="text"
+            class="form-control-plaintext text-muted disabled"
+            readonly
+            value="{{ selectedCiclo?.fecha_fin | date: 'dd/MM/yyyy' : 'UTC' }}"
+            [disabled]="true"
+          />
+        </div>
+        <div class="col-4">
+          <label class="form-label my-auto"><strong>Matrícula:</strong> </label>
+          <a
+            type="url"
+            class="form-control-plaintext text-primary disabled"
+            href="{{ selectedCiclo?.id_doc_matricula }}"
+            target="_blank"
+          >
+            matrícual{{ selectedCiclo?.nombre_ciclo }}.pdf
+          </a>
+        </div>
+      </div>
+      <!--aqui-->
     </div>
-    <!--</div>
+  </div>
+  <div class="card mb-3">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-7 d-flex align-items-center">
+          <h6 class="my-auto">
+            <strong>Cronograma de Pagos</strong>
+          </h6>
+        </div>
+        <div
+          *ngIf="selectedCiclo && selectedCiclo.estado != 'Finalizado'"
+          class="col-5 d-flex justify-content-end"
+        >
+          <button
+            class="btn btn-primary"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#addConcepto"
+          >
+            Agregar Concepto
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead style="background-color: rgba(244, 243, 248, 1)">
+                <tr>
+                  <th class="text-center">Concepto</th>
+                  <th class="text-center">Descripción</th>
+                  <th class="text-center">Monto</th>
+                  <th class="text-center">F. Solicitud Programada</th>
+                  <th class="text-center">Constancia Pago</th>
+                  <th class="text-center">Estado</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let pago of listPagos">
+                  <td class="text-center">{{ pago.concepto }}</td>
+                  <td class="text-center">{{ pago.descripcion }}</td>
+                  <td class="text-center">S/ {{ pago.monto }}</td>
+                  <td class="text-center">
+                    {{ pago.fecha_solicitud | date: "dd/MM/yyyy" : "UTC" }}
+                  </td>
+                  <td class="text-center text-primary">
+                    <ng-container *ngIf="pago.id_constancia_pago; else empty">
+                      <a
+                        class="form-control-plaintext text-primary"
+                        href="{{ pago.id_constancia_pago }}"
+                        target="_blank"
+                      >
+                        Constancia Pago
+                      </a>
+                    </ng-container>
+                    <ng-template #empty>
+                      <span>-</span>
+                    </ng-template>
+                  </td>
+                  <td class="text-center">
+                    <span
+                      class="badge rounded-pill text-dark"
+                      [ngStyle]="{
+                        'background-color': getColorByState(pago.PagoEstado),
+                      }"
+                      >{{ pago.PagoEstado }}</span
+                    >
+                  </td>
+                  <td>
+                    <button
+                      *ngIf="['Pagado', 'Observado'].includes(pago.PagoEstado)"
+                      (click)="setSelectedPago(pago)"
+                      class="btn"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editConcepto"
+                      type="button"
+                    >
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--</div>
 
     </div>-->
-
 </div>
 
-
-
-
-<div class="modal fade" id="viewMalla" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="row w-100 g-0">
-                    <div class="col d-flex align-items-center">
-                        <h6 class="my-auto">Ciclos Malla Curricular</h6>
-                    </div>
-                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
-                            data-bs-dismiss="modal"></i></div>
-
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="card mb-3 ">
-                    <div class="card-header text-center bg-light">Ciclo I</div>
-                    <div class="card-body">
-                        <div class="container table-responsive">
-                            <table class="table table-bordered">
-                                <thead class="bg-light">
-                                    <tr>
-                                        <th class="text-center">Curso</th>
-                                        <th class="text-center">Tipo</th>
-                                        <th class="text-center">Créditos</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="text-center">Ciencias</td>
-                                        <td class="text-center">Obligatorio</td>
-                                        <td class="text-center">6</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">Ciencias</td>
-                                        <td class="text-center">Obligatorio</td>
-                                        <td class="text-center">6</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">Ciencias</td>
-                                        <td class="text-center">Obligatorio</td>
-                                        <td class="text-center">6</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-3">
-                    <div class="card-header text-center bg-light">Ciclo II</div>
-                    <div class="card-body">
-                        <div class="container table-responsive">
-                            <table class="table table-bordered">
-                                <thead class="bg-light">
-                                    <tr>
-                                        <th class="text-center">Curso</th>
-                                        <th class="text-center">Tipo</th>
-                                        <th class="text-center">Créditos</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="text-center">Ciencias</td>
-                                        <td class="text-center">Obligatorio</td>
-                                        <td class="text-center">6</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">Ciencias</td>
-                                        <td class="text-center">Obligatorio</td>
-                                        <td class="text-center">6</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">Ciencias</td>
-                                        <td class="text-center">Obligatorio</td>
-                                        <td class="text-center">6</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+<div
+  class="modal fade"
+  id="viewMalla"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="row w-100 g-0">
+          <div class="col d-flex align-items-center">
+            <h6 class="my-auto">Ciclos Malla Curricular</h6>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <i
+              class="bi bi-x-circle"
+              style="color: black"
+              data-bs-dismiss="modal"
+            ></i>
+          </div>
         </div>
+      </div>
+      <div class="modal-body">
+        <div class="card mb-3">
+          <div class="card-header text-center bg-light">Ciclo I</div>
+          <div class="card-body">
+            <div class="container table-responsive">
+              <table class="table table-bordered">
+                <thead class="bg-light">
+                  <tr>
+                    <th class="text-center">Curso</th>
+                    <th class="text-center">Tipo</th>
+                    <th class="text-center">Créditos</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-center">Ciencias</td>
+                    <td class="text-center">Obligatorio</td>
+                    <td class="text-center">6</td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">Ciencias</td>
+                    <td class="text-center">Obligatorio</td>
+                    <td class="text-center">6</td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">Ciencias</td>
+                    <td class="text-center">Obligatorio</td>
+                    <td class="text-center">6</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header text-center bg-light">Ciclo II</div>
+          <div class="card-body">
+            <div class="container table-responsive">
+              <table class="table table-bordered">
+                <thead class="bg-light">
+                  <tr>
+                    <th class="text-center">Curso</th>
+                    <th class="text-center">Tipo</th>
+                    <th class="text-center">Créditos</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-center">Ciencias</td>
+                    <td class="text-center">Obligatorio</td>
+                    <td class="text-center">6</td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">Ciencias</td>
+                    <td class="text-center">Obligatorio</td>
+                    <td class="text-center">6</td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">Ciencias</td>
+                    <td class="text-center">Obligatorio</td>
+                    <td class="text-center">6</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
-
-<div class="modal fade" id="addConcepto" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="row w-100 g-0">
-                    <div class="col">
-                        <h6>Nuevo Concepto</h6>
-                    </div>
-                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
-                            data-bs-dismiss="modal"></i></div>
-
-                </div>
-            </div>
-            <div class="modal-body">
-                <form [formGroup]="conceptoPagoForm" (ngSubmit)="onAgregarConceptoPago()">
-                    <div class="mb-3">
-                        <label class="form-label text-dark">Concepto: * </label>
-                        <!--<input type="text" class="form-control" formControlName="concepto">-->
-                        <select class="form-select" name="concepto" required formControlName="concepto">
-                            <option value="" selected disabled class="text-muted">Seleccione una opción</option>
-                            <option value="Matricula">Matricula</option>
-                            <option value="Pensión">Pensión</option>
-                            <option value="Otros">Otros</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label text-dark">Descripción: * </label>
-                        <textarea class="form-control" formControlName="descripcion" rows="3"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label text-dark">Monto: * </label>
-                        <input type="number" class="form-control" formControlName="monto" min="0">
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label text-dark">Fecha Solicitud Programada: * </label>
-                        <input type="date" class="form-control" formControlName="fechaSolicitud">
-                    </div>
-                    <div class="d-grid mb-2">
-                        <button type="submit" data-bs-dismiss="modal" class="btn btn-primary"
-                            [disabled]="conceptoPagoForm.invalid">Añadir Concepto de Pago</button>
-                    </div>
-                </form>
-            </div>
-
+<div
+  class="modal fade"
+  id="addConcepto"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="row w-100 g-0">
+          <div class="col">
+            <h6>Nuevo Concepto</h6>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <i
+              class="bi bi-x-circle"
+              style="color: black"
+              data-bs-dismiss="modal"
+            ></i>
+          </div>
         </div>
+      </div>
+      <div class="modal-body" style="background-color: #f2f2f2">
+        <form
+          [formGroup]="conceptoPagoForm"
+          (ngSubmit)="onAgregarConceptoPago()"
+        >
+          <div class="row">
+            <div class="mb-3 col-12 col-md-6">
+              <label class="form-label text-dark"
+                >Fecha Solicitud Programada: *
+              </label>
+              <input
+                type="date"
+                class="form-control"
+                formControlName="fechaSolicitud"
+              />
+            </div>
+            <div class="mb-3 col-12 col-md-6">
+              <label class="form-label text-dark">Concepto: * </label>
+              <!--<input type="text" class="form-control" formControlName="concepto">-->
+              <select
+                class="form-select"
+                name="concepto"
+                required
+                formControlName="concepto"
+              >
+                <option value="" selected disabled class="text-muted">
+                  Seleccione una opción
+                </option>
+                <option value="Matricula">Matricula</option>
+                <option value="Pensión">Pensión</option>
+                <option value="Otros">Otros</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-dark">Descripción: * </label>
+            <textarea
+              class="form-control"
+              formControlName="descripcion"
+              rows="3"
+            ></textarea>
+          </div>
+          <div class="row">
+            <div class="mb-3 col-12 col-md-6">
+              <label class="form-label text-dark">N° cta bancaria: * </label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="nro_cuentabancaria"
+              />
+            </div>
+            <div class="mb-3 col-12 col-md-6">
+              <label class="form-label text-dark">Código Sociedad: * </label>
+              <!--<input type="text" class="form-control" formControlName="concepto">-->
+              <input
+                type="text"
+                class="form-control"
+                formControlName="codigo_sociedad"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="mb-3 col-12 col-md-6">
+              <label class="form-label text-dark">CECO: * </label>
+              <input type="text" class="form-control" formControlName="ceco" />
+            </div>
+            <div class="mb-3 col-12 col-md-6">
+              <label class="form-label text-dark">Área Solicitante: * </label>
+              <!--<input type="text" class="form-control" formControlName="concepto">-->
+              <input
+                type="text"
+                class="form-control"
+                formControlName="area_solicitante"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="mb-3 col-12 col-md-6">
+              <label class="form-label text-dark">Moneda: * </label>
+              <select
+                class="form-select"
+                name="moneda"
+                formControlName="moneda"
+              >
+                <option value="" selected disabled class="text-muted">
+                  Seleccione una opción
+                </option>
+                <option value="Soles">Soles</option>
+                <option value="Dolares">Dolares</option>
+              </select>
+            </div>
+            <div class="mb-3 col-12 col-md-6">
+              <label class="form-label text-dark">Importe Total: * </label>
+              <!--<input type="text" class="form-control" formControlName="concepto">-->
+              <input type="text" class="form-control" formControlName="monto" />
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="mb-3 col-12 col-md-6">
+              <label class="form-label text-dark"
+                >Fecha Regularización: *
+              </label>
+              <input
+                type="date"
+                class="form-control"
+                formControlName="fecha_regularizacion"
+              />
+            </div>
+          </div>
+
+          <div class="d-grid mb-2">
+            <button
+              type="submit"
+              data-bs-dismiss="modal"
+              class="btn btn-primary"
+              [disabled]="conceptoPagoForm.invalid"
+            >
+              Añadir Concepto de Pago
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 
-<div class="modal fade" id="editConcepto" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="row w-100 g-0">
-                    <div class="col">
-                        <h6>Concepto</h6>
-                    </div>
-                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
-                            data-bs-dismiss="modal" (click)="resetFileInput()"></i></div>
-
-                </div>
-            </div>
-            <div *ngIf="selectedPago" class="modal-body">
-                <form action="">
-                    <div class="mb-3">
-                        <label class="form-label text-dark">Concepto: * </label>
-                        <input [(ngModel)]="selectedPago.concepto" name="concepto" type="text" class="form-control"
-                            [disabled]="true">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label text-dark">Descripción: * </label>
-                        <textarea [(ngModel)]="selectedPago.descripcion" name="conceptoDescripcion" class="form-control"
-                            rows="3" [disabled]="true"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label text-dark">Monto: * </label>
-                        <input [(ngModel)]="selectedPago.monto" name="conceptoMonto" type="number"
-                            class="form-control disabled" [disabled]="true">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label text-dark">Fecha Solicitud Programada: * </label>
-                        <input name="fechaConceptoPago" type="text" class="form-control disabled" [disabled]="true"
-                            value="{{fechaConceptoPago | date:'dd/MM/yyyy'}}">
-
-                    </div>
-                    <div class="mb-4">
-                        <label for="constanciaFile" class="form-label text-dark">Constancia de Pago: * </label>
-                        <input (change)="onFileChange($event)" id="constanciaFile" type="file" class="form-control"
-                            #constanciaFile>
-                    </div>
-                    <div class="d-grid mb-2">
-                        <button (click)="updateConceptoPago()" [disabled]="!isFileSelected()" data-bs-dismiss="modal"
-                            class="btn btn-primary">Enviar Constancia de Pago</button>
-                    </div>
-                </form>
-            </div>
-
+<div
+  class="modal fade"
+  id="editConcepto"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+>
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="row w-100 g-0">
+          <div class="col">
+            <h6>Concepto</h6>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <i
+              class="bi bi-x-circle"
+              style="color: black"
+              data-bs-dismiss="modal"
+              (click)="resetFileInput()"
+            ></i>
+          </div>
         </div>
+      </div>
+      <div *ngIf="selectedPago" class="modal-body">
+        <form action="">
+          <div class="mb-3">
+            <label class="form-label text-dark">Concepto: * </label>
+            <input
+              [(ngModel)]="selectedPago.concepto"
+              name="concepto"
+              type="text"
+              class="form-control"
+              [disabled]="true"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-dark">Descripción: * </label>
+            <textarea
+              [(ngModel)]="selectedPago.descripcion"
+              name="conceptoDescripcion"
+              class="form-control"
+              rows="3"
+              [disabled]="true"
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-dark">Monto: * </label>
+            <input
+              [(ngModel)]="selectedPago.monto"
+              name="conceptoMonto"
+              type="number"
+              class="form-control disabled"
+              [disabled]="true"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-dark"
+              >Fecha Solicitud Programada: *
+            </label>
+            <input
+              name="fechaConceptoPago"
+              type="text"
+              class="form-control disabled"
+              [disabled]="true"
+              value="{{ fechaConceptoPago | date: 'dd/MM/yyyy' }}"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="constanciaFile" class="form-label text-dark"
+              >Constancia de Pago: *
+            </label>
+            <input
+              (change)="onFileChange($event)"
+              id="constanciaFile"
+              type="file"
+              class="form-control"
+              #constanciaFile
+            />
+          </div>
+          <div class="d-grid mb-2">
+            <button
+              (click)="updateConceptoPago()"
+              [disabled]="!isFileSelected()"
+              data-bs-dismiss="modal"
+              class="btn btn-primary"
+            >
+              Enviar Constancia de Pago
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 
-
-<div class="modal fade" id="showNot" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-custom modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="row w-100 g-0">
-                    <div class="col">
-                        <h6>Notificaciones</h6>
-                    </div>
-                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
-                            data-bs-dismiss="modal"></i></div>
-
-                </div>
-            </div>
-            <div class="modal-body">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item" style="font-size: small;"><span class="badge badge-pill"><i
-                                class="bi bi-circle-fill" style="color: #4180C2;"></i></span>Te quedan 2 días para
-                        cargar tu información de periodo de beca
-                    </li>
-                    <li class="list-group-item" style="font-size: small;"><span class="badge badge-pill"><i
-                                class="bi bi-circle-fill" style="color: #4180C2;"></i></span>Te quedan 2 días para
-                        cargar tu información de periodo de beca
-                    </li>
-                    <li class="list-group-item" style="font-size: small;"><span class="badge badge-pill"><i
-                                class="bi bi-circle-fill" style="color: #4180C2;"></i></span>Te quedan 2 días para
-                        cargar tu información de periodo de beca
-                    </li>
-                </ul>
-            </div>
-
+<div
+  class="modal fade"
+  id="showNot"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-custom modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="row w-100 g-0">
+          <div class="col">
+            <h6>Notificaciones</h6>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <i
+              class="bi bi-x-circle"
+              style="color: black"
+              data-bs-dismiss="modal"
+            ></i>
+          </div>
         </div>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" style="font-size: small">
+            <span class="badge badge-pill"
+              ><i class="bi bi-circle-fill" style="color: #4180c2"></i></span
+            >Te quedan 2 días para cargar tu información de periodo de beca
+          </li>
+          <li class="list-group-item" style="font-size: small">
+            <span class="badge badge-pill"
+              ><i class="bi bi-circle-fill" style="color: #4180c2"></i></span
+            >Te quedan 2 días para cargar tu información de periodo de beca
+          </li>
+          <li class="list-group-item" style="font-size: small">
+            <span class="badge badge-pill"
+              ><i class="bi bi-circle-fill" style="color: #4180c2"></i></span
+            >Te quedan 2 días para cargar tu información de periodo de beca
+          </li>
+        </ul>
+      </div>
     </div>
+  </div>
 </div>
 
-<div class="modal fade" id="updateUser" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="row w-100 g-0">
-                    <div class="col">
-                        <h6>Actualizar Contraseña</h6>
-                    </div>
-                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
-                            data-bs-dismiss="modal"></i></div>
-
-                </div>
-            </div>
-            <div class="modal-body">
-                <form [formGroup]="formUpdateLogin">
-                    <div class="mb-3">
-                        <label class="form-label text-dark">DNI: </label>
-                        <input type="text" class="form-control" formControlName="dni" [readOnly]="true">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label text-dark">Contraseña Actual: </label>
-                        <input type="password" class="form-control" formControlName="antiguaClave" name="antiguaClave"
-                            value="">
-                        @if(formUpdateLogin.get('antiguaClave')?.errors?.['required'] &&
-                        formUpdateLogin.get('antiguaClave')?.touched)
-                        {<div class="mistake">
-                            Por favor coloque su contraseña actual correctamente
-                        </div>
-                        }
-
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label text-dark">Nueva Contraseña: </label>
-                        <input type="password" class="form-control" formControlName="nuevaClave" name="" value="">
-                        @if(formUpdateLogin.get('nuevaClave')?.errors?.['required'] &&
-                        formUpdateLogin.get('nuevaClave')?.touched)
-                        {<div class="mistake">
-                            Por favor coloque su nueva contraseña correctamente
-                        </div>
-                        }
-                    </div>
-                    <div class="d-grid mb-2">
-                        <button class="btn btn-primary" [disabled]="!formUpdateLogin.valid" (click)="updateLogin()"
-                            data-bs-dismiss="modal">Guardar Cambios</button>
-                    </div>
-                </form>
-            </div>
-
+<div
+  class="modal fade"
+  id="updateUser"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+>
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="row w-100 g-0">
+          <div class="col">
+            <h6>Actualizar Contraseña</h6>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <i
+              class="bi bi-x-circle"
+              style="color: black"
+              data-bs-dismiss="modal"
+            ></i>
+          </div>
         </div>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formUpdateLogin">
+          <div class="mb-3">
+            <label class="form-label text-dark">DNI: </label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="dni"
+              [readOnly]="true"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-dark">Contraseña Actual: </label>
+            <input
+              type="password"
+              class="form-control"
+              formControlName="antiguaClave"
+              name="antiguaClave"
+              value=""
+            />
+            @if (
+              formUpdateLogin.get("antiguaClave")?.errors?.["required"] &&
+              formUpdateLogin.get("antiguaClave")?.touched
+            ) {
+              <div class="mistake">
+                Por favor coloque su contraseña actual correctamente
+              </div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label text-dark">Nueva Contraseña: </label>
+            <input
+              type="password"
+              class="form-control"
+              formControlName="nuevaClave"
+              name=""
+              value=""
+            />
+            @if (
+              formUpdateLogin.get("nuevaClave")?.errors?.["required"] &&
+              formUpdateLogin.get("nuevaClave")?.touched
+            ) {
+              <div class="mistake">
+                Por favor coloque su nueva contraseña correctamente
+              </div>
+            }
+          </div>
+          <div class="d-grid mb-2">
+            <button
+              class="btn btn-primary"
+              [disabled]="!formUpdateLogin.valid"
+              (click)="updateLogin()"
+              data-bs-dismiss="modal"
+            >
+              Guardar Cambios
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>

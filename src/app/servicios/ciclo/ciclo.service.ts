@@ -5,27 +5,26 @@ import { DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CicloService {
-
   private apiUrl = 'https://backendbecas.azurewebsites.net/registro/ciclo';
   private selectedCiclo: Ciclo | null = null;
-  private readonly STORAGE_KEY = 'selectedCiclo'
+  private readonly STORAGE_KEY = 'selectedCiclo';
 
+  // http://localhost:3000
+  // https://backendbecas.azurewebsites.net/registro/ciclo
 
   constructor(
     private http: HttpClient,
     private datePipe: DatePipe,
-  ) {
-  }
+  ) {}
 
   //Retornar ciclo
 
   getCiclo(id: number): Observable<Ciclo[]> {
     return this.http.get<Ciclo[]>(`${this.apiUrl}/${id}`);
   }
- 
 
   //Retornar ciclo por solicitud
   getCiclosBySolicitud(id_solicitud: number) {
@@ -52,13 +51,11 @@ export class CicloService {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
-
   //setear ciclo seleccionado
   setSelectedCiclo(ciclo: Ciclo): void {
     this.selectedCiclo = ciclo;
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(ciclo));
   }
-
 
   //obtener ciclo seleccionado
   getSelectedCiclo(): Ciclo | null {
@@ -80,9 +77,13 @@ export class CicloService {
   }
 
   //Formatear fecha
- 
+
   formatDate(date: Date): string {
-    const utcDate = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+    const utcDate = new Date(
+      date.getUTCFullYear(),
+      date.getUTCMonth(),
+      date.getUTCDate(),
+    );
     return this.datePipe.transform(utcDate, 'yyyy-MM-dd') ?? '';
   }
 }

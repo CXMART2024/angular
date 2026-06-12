@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, viewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  viewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../servicios/auth/auth.service';
 import { SolicitudService } from '../../servicios/solicitud/solicitud.service';
@@ -7,7 +14,15 @@ import { CursoService } from '../../servicios/curso/curso.service';
 import { CicloService } from '../../servicios/ciclo/ciclo.service';
 import { Ciclo } from '../../modelos/ciclo';
 import moment from 'moment';
-import { catchError, forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
+import {
+  catchError,
+  forkJoin,
+  map,
+  Observable,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { RelacionCiclo } from '../../modelos/relacion-ciclo';
 import { Curso } from '../../modelos/curso';
 import { DatePipe } from '@angular/common';
@@ -17,26 +32,22 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-detalle-academico',
   templateUrl: './detalle-academico.component.html',
-  styleUrl: './detalle-academico.component.css'
+  styleUrl: './detalle-academico.component.css',
 })
-
-
 export class DetalleAcademicoComponent implements OnInit {
-
-
   solicitud: any;
   //isChecked: boolean = false;
   listCiclo: Array<Ciclo> = [];
   cicloData: Ciclo | null = null;
   listCurso: Array<Curso> = [];
   selectedCicloId: number = 0;
-  promedio: number = 0
+  promedio: number = 0;
   cicloCursoRelacion?: RelacionCiclo[];
   id_documento_evidencia = new FormData();
   formUpdateLogin = this.formBuilder.group({
     dni: ['', [Validators.required]],
     antiguaClave: ['', [Validators.required]],
-    nuevaClave: ['', [Validators.required]]
+    nuevaClave: ['', [Validators.required]],
   });
 
   constructor(
@@ -49,40 +60,34 @@ export class DetalleAcademicoComponent implements OnInit {
     private cicloAcademico: CicloService,
     private datePipe: DatePipe,
     private http: HttpClient,
-    private toastr: ToastrService
-  ) {
-
-  }
+    private toastr: ToastrService,
+  ) {}
 
   ngOnInit(): void {
-    this.solicitudService.getSolicitudData().subscribe(data => {
+    this.solicitudService.getSolicitudData().subscribe((data) => {
       this.solicitud = data;
       if (this.solicitud) {
         this.formUpdateLogin.patchValue({
-          dni: this.solicitud.dni
+          dni: this.solicitud.dni,
         });
 
-        this.cicloAcademico.getCiclosBySolicitud(this.solicitud.id)
-          .subscribe({
-            next: (listCiclo: Array<Ciclo>) => {
-              this.listCiclo = listCiclo;
-              this.cdr.detectChanges();
-            },
-            error: (error) => {
-              console.error('Error obteniendo ciclos:', error);
-            },
-          });
-
+        this.cicloAcademico.getCiclosBySolicitud(this.solicitud.id).subscribe({
+          next: (listCiclo: Array<Ciclo>) => {
+            this.listCiclo = listCiclo;
+            this.cdr.detectChanges();
+          },
+          error: (error) => {
+            console.error('Error obteniendo ciclos:', error);
+          },
+        });
       }
       /*if (this.solicitud.contratoBecario == '0') {
         this.showModal();
       }*/
-
     });
 
     this.cdr.detectChanges();
   }
-
 
   /*
   showModal() {
@@ -112,19 +117,17 @@ export class DetalleAcademicoComponent implements OnInit {
   }
 */
 
-
-
   logout() {
-    this.authService.logout()
+    this.authService.logout();
   }
 
   /*Resetear los controles al actualizar*/
   updateLogin() {
-
     const dni: string = this.formUpdateLogin.get('dni')?.value as string;
-    const antiguaClave: string = this.formUpdateLogin.get('antiguaClave')?.value as string;
-    const nuevaClave: string = this.formUpdateLogin.get('nuevaClave')?.value as string;
-
+    const antiguaClave: string = this.formUpdateLogin.get('antiguaClave')
+      ?.value as string;
+    const nuevaClave: string = this.formUpdateLogin.get('nuevaClave')
+      ?.value as string;
 
     this.authService.actualizarClave(dni, antiguaClave, nuevaClave).subscribe({
       next: (response: any) => {
@@ -134,24 +137,23 @@ export class DetalleAcademicoComponent implements OnInit {
       error: (error: any) => {
         console.error('Error actualizando clave', error);
         this.formUpdateLogin.reset();
-        this.toastr.error(`Error actualizando clave. Por favor, refresca la página y vuelve a intentarlo.`);
-      }
+        this.toastr.error(
+          `Error actualizando clave. Por favor, refresca la página y vuelve a intentarlo.`,
+        );
+      },
     });
   }
-
 
   formatDate(date: Date | null): string {
     return date ? this.datePipe.transform(date, 'yyyy-MM-dd', 'UTC') || '' : '';
   }
 
-
   updateCursos() {
     if (!this.cicloCursoRelacion) return;
 
-    const updateRequests = this.cicloCursoRelacion.flatMap(ciclo =>
-      ciclo.cursos.map(curso => this.cursoAcademico.updateCurso(curso))
+    const updateRequests = this.cicloCursoRelacion.flatMap((ciclo) =>
+      ciclo.cursos.map((curso) => this.cursoAcademico.updateCurso(curso)),
     );
-
 
     forkJoin(updateRequests).subscribe({
       next: (responses) => {
@@ -159,10 +161,9 @@ export class DetalleAcademicoComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error actualizando cursos', error);
-      }
+      },
     });
   }
-
 
   onFileChange_id_documento_evidencia(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -172,7 +173,6 @@ export class DetalleAcademicoComponent implements OnInit {
     }
   }
 
-
   obtenerCursosDeCiclo(ciclo: any) {
     this.selectedCicloId = ciclo.target.value;
 
@@ -181,9 +181,6 @@ export class DetalleAcademicoComponent implements OnInit {
         this.listCurso = listCurso;
 
         this.promedio = this.sumarPromedio();
-
-
-
       },
       error: (error) => {
         console.error('Error obteniendo cursos:', error);
@@ -193,20 +190,26 @@ export class DetalleAcademicoComponent implements OnInit {
     this.getDataCiclo();
   }
 
+  // https://backendbecas.azurewebsites.net/upload
+
   updateInformacionBecario(id_documento_evidencia: HTMLInputElement) {
     const cargaArchivos: Observable<any>[] = [];
     const cursoUpdateRequests: Observable<any>[] = [];
 
     if (this.id_documento_evidencia.has('file')) {
-      cargaArchivos.push(this.http.post('https://backendbecas.azurewebsites.net/upload', this.id_documento_evidencia));
+      cargaArchivos.push(
+        this.http.post(
+          'https://backendbecas.azurewebsites.net/upload',
+          this.id_documento_evidencia,
+        ),
+      );
     }
 
-    this.listCurso.forEach(curso => {
+    this.listCurso.forEach((curso) => {
       if (curso.nota) {
         cursoUpdateRequests.push(this.cursoAcademico.updateCurso(curso));
       }
     });
-
 
     forkJoin([...cargaArchivos, ...cursoUpdateRequests]).subscribe({
       next: (responses: any[]) => {
@@ -218,7 +221,9 @@ export class DetalleAcademicoComponent implements OnInit {
         }
 
         const selectedId = +this.selectedCicloId;
-        const cicloToUpdate = this.listCiclo.find(ciclo => ciclo.id === selectedId);
+        const cicloToUpdate = this.listCiclo.find(
+          (ciclo) => ciclo.id === selectedId,
+        );
 
         if (cicloToUpdate) {
           cicloToUpdate.id_documento_evidencia = fileUrl;
@@ -226,7 +231,6 @@ export class DetalleAcademicoComponent implements OnInit {
 
           this.cicloAcademico.updateCiclo(cicloToUpdate).subscribe({
             next: (response: any) => {
-
               this.toastr.success(`Se actualizó correctamente.`);
               this.id_documento_evidencia = new FormData();
               this.selectedCicloId = 0;
@@ -236,18 +240,24 @@ export class DetalleAcademicoComponent implements OnInit {
             },
             error: (error: any) => {
               console.error('Error al actualizar ciclo', error);
-              this.toastr.error(`Error al actualizar ciclo. Por favor, refresca la página y vuelve a intentarlo.`);
-            }
+              this.toastr.error(
+                `Error al actualizar ciclo. Por favor, refresca la página y vuelve a intentarlo.`,
+              );
+            },
           });
         } else {
           console.error('Ciclo no encontrado para actualizar');
-          this.toastr.error(`Error al actualizar ciclo. Por favor, refresca la página y vuelve a intentarlo.`);
+          this.toastr.error(
+            `Error al actualizar ciclo. Por favor, refresca la página y vuelve a intentarlo.`,
+          );
         }
       },
       error: (error: any) => {
         console.error('Error subiendo archivos o actualizando cursos', error);
-        this.toastr.error(`Error subiendo archivos o actualizando cursos. Por favor, refresca la página y vuelve a intentarlo.`);
-      }
+        this.toastr.error(
+          `Error subiendo archivos o actualizando cursos. Por favor, refresca la página y vuelve a intentarlo.`,
+        );
+      },
     });
   }
 
@@ -261,7 +271,10 @@ export class DetalleAcademicoComponent implements OnInit {
 
   sumarPromedio(): number {
     if (this.listCurso.length === 0) return 0;
-    const totalNotas = this.listCurso.reduce((total, curso) => total + (curso.nota || 0), 0);
+    const totalNotas = this.listCurso.reduce(
+      (total, curso) => total + (curso.nota || 0),
+      0,
+    );
     const promedio = totalNotas / this.listCurso.length;
     //console.log(`Total Notas: ${totalNotas}, Promedio: ${promedio}`);
     return parseFloat(promedio.toFixed(2));
@@ -279,9 +292,7 @@ export class DetalleAcademicoComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error obteniendo ciclo:', error);
-      }
+      },
     });
   }
-
-
 }

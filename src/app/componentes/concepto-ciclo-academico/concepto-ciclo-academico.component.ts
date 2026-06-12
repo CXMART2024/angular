@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, OnInit, viewChild, ElementRef, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  viewChild,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { Ciclo } from '../../modelos/ciclo';
 import { CicloService } from '../../servicios/ciclo/ciclo.service';
 import { Router } from '@angular/router';
@@ -7,7 +14,12 @@ import { Curso } from '../../modelos/curso';
 import { CursoService } from '../../servicios/curso/curso.service';
 import { Pago } from '../../modelos/pago';
 import { PagoService } from '../../servicios/pago/pago.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { forkJoin } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
@@ -17,22 +29,47 @@ import { AuthService } from '../../servicios/auth/auth.service';
 @Component({
   selector: 'app-concepto-ciclo-academico',
   templateUrl: './concepto-ciclo-academico.component.html',
-  styleUrl: './concepto-ciclo-academico.component.css'
+  styleUrl: './concepto-ciclo-academico.component.css',
 })
 export class ConceptoCicloAcademicoComponent implements OnInit {
-
   @ViewChild('constanciaFile') constanciaFile!: ElementRef;
 
   conceptoPagoForm: FormGroup = new FormGroup({
     concepto: new FormControl('', Validators.required),
     descripcion: new FormControl('', Validators.required),
     monto: new FormControl('', [Validators.required, Validators.min(1)]),
-    fechaSolicitud: new FormControl('', Validators.required)
-  })
+    nro_cuentabancaria: new FormControl('', Validators.required),
+    codigo_sociedad: new FormControl('', Validators.required),
+    ceco: new FormControl('', Validators.required),
+    area_solicitante: new FormControl('', Validators.required),
+    moneda: new FormControl('', Validators.required),
+    fecha_regularizacion: new FormControl('', Validators.required),
+    fechaSolicitud: new FormControl('', Validators.required),
+  });
 
   fechaConceptoPago: string = '';
   url = new FormData();
-  pago: Pago = new Pago(0, new Date, 0, '', '', '', 0, 0, '', '', '', '', '');
+  pago: Pago = new Pago(
+    0,
+    new Date(),
+    0,
+    '',
+    '',
+    '',
+    0,
+    0,
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    new Date(),
+  );
   selectedPago: Pago | null = null;
   solicitud: any;
   selectedCiclo: Ciclo | null = null;
@@ -41,7 +78,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
   formUpdateLogin = this.formBuilder.group({
     dni: ['', [Validators.required]],
     antiguaClave: ['', [Validators.required]],
-    nuevaClave: ['', [Validators.required]]
+    nuevaClave: ['', [Validators.required]],
   });
 
   constructor(
@@ -56,12 +93,10 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
     private toastr: ToastrService,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
-    this.solicitudService.getSolicitudData().subscribe(data => {
+    this.solicitudService.getSolicitudData().subscribe((data) => {
       this.solicitud = data;
       if (this.solicitud) {
         this.selectedCiclo = this.cicloService.getSelectedCiclo();
@@ -69,19 +104,19 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
           this.getCursosCiclo(this.selectedCiclo.id);
           this.getPagosCiclo(this.selectedCiclo.id);
           this.cdr.detectChanges();
-        };
+        }
 
         const myModal = document.getElementById('addConcepto');
         if (myModal) {
           myModal.addEventListener('shown.bs.modal', () => {
             this.conceptoPagoForm.reset(); // Reset form when modal is shown
-          })
+          });
         }
         this.formUpdateLogin.patchValue({
-          dni: this.solicitud.dni
+          dni: this.solicitud.dni,
         });
       }
-    })
+    });
   }
 
   onAgregarConceptoPago(): void {
@@ -93,21 +128,34 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
       pago.concepto = this.conceptoPagoForm.value.concepto;
       pago.descripcion = this.conceptoPagoForm.value.descripcion;
       pago.monto = this.conceptoPagoForm.value.monto;
+      pago.nro_cuentabancaria = this.conceptoPagoForm.value.nro_cuentabancaria;
+      pago.codigo_sociedad = this.conceptoPagoForm.value.codigo_sociedad;
+      pago.ceco = this.conceptoPagoForm.value.ceco;
+      pago.area_solicitante = this.conceptoPagoForm.value.area_solicitante;
+      pago.moneda = this.conceptoPagoForm.value.moneda;
+      pago.fecha_regularizacion =
+        this.conceptoPagoForm.value.fecha_regularizacion;
       pago.PagoEstado = 'Programado';
       pago.adminestado = 'Programado';
       this.pagoService.createPago(pago).subscribe({
         next: (newPago: Pago) => {
           if (this.selectedCiclo) {
             this.getPagosCiclo(this.selectedCiclo.id);
-            this.toastr.success(`Pago ${newPago.concepto} registrado correctamente`)
+            this.toastr.success(
+              `Pago ${newPago.concepto} registrado correctamente`,
+            );
           }
         },
         error: (error) => {
-          this.toastr.error(`Ha ocurrido un error, no se ha podido registrar el pago correctamente`)
-        }
-      })
+          this.toastr.error(
+            `Ha ocurrido un error, no se ha podido registrar el pago correctamente`,
+          );
+        },
+      });
     } else {
-      this.toastr.error(`Ha ocurrido un error, no se ha podido registrar el pago correctamente`)
+      this.toastr.error(
+        `Ha ocurrido un error, no se ha podido registrar el pago correctamente`,
+      );
     }
   }
 
@@ -117,8 +165,8 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
       next: (listCurso: Array<Curso>) => {
         this.listCursos = listCurso;
         this.cdr.detectChanges();
-      }
-    })
+      },
+    });
   }
 
   //Obtener pagos del ciclo
@@ -126,10 +174,9 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
     this.pagoService.getPagoByCiclo(id_ciclo).subscribe({
       next: (listPagos: Array<Pago>) => {
         this.listPagos = listPagos;
-      }
-    })
+      },
+    });
   }
-
 
   //Retorna el numero de cursos
   getNumCursos(): number {
@@ -141,7 +188,6 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
     return this.cursoService.getTotalCreditos(this.listCursos);
   }
 
-
   //Volver pantalla anterior
   regresarInformacionBeca() {
     this.cicloService.clearSelectedCiclo();
@@ -152,7 +198,8 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
   setSelectedPago(pago: Pago): void {
     this.selectedPago = pago;
     this.url = new FormData();
-    this.fechaConceptoPago = this.datePipe.transform(pago.fecha_solicitud, 'yyyy-MM-dd') ?? ''
+    this.fechaConceptoPago =
+      this.datePipe.transform(pago.fecha_solicitud, 'yyyy-MM-dd') ?? '';
   }
 
   //Al agregar archivo
@@ -160,7 +207,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
       const file = input.files[0];
-      this.url.append('file', file, file.name)
+      this.url.append('file', file, file.name);
     }
   }
 
@@ -180,8 +227,8 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
   //ACtualizar concepto pago
   updateConceptoPago(): void {
     const cargaArchivos = [
-      this.http.post('https://backendbecas.azurewebsites.net/upload', this.url)
-    ]
+      this.http.post('https://backendbecas.azurewebsites.net/upload', this.url),
+    ];
 
     forkJoin(cargaArchivos).subscribe({
       next: (response: any[]) => {
@@ -192,15 +239,19 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
           this.selectedPago.fecha_solicitud = new Date(this.fechaConceptoPago);
           this.pagoService.updatePago(this.selectedPago).subscribe({
             next: (pago: Pago) => {
-              this.toastr.success(`Pago ${pago.concepto} registrado correctamente`)
+              this.toastr.success(
+                `Pago ${pago.concepto} registrado correctamente`,
+              );
             },
             error: (error) => {
-              this.toastr.error(`Ha ocurrido un error, no se ha podido registrar el pago correctamente`)
-            }
-          })
+              this.toastr.error(
+                `Ha ocurrido un error, no se ha podido registrar el pago correctamente`,
+              );
+            },
+          });
         }
-      }
-    })
+      },
+    });
   }
 
   //Colores de fondo estado
@@ -222,15 +273,15 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout()
+    this.authService.logout();
   }
 
   updateLogin() {
-
     const dni: string = this.formUpdateLogin.get('dni')?.value as string;
-    const antiguaClave: string = this.formUpdateLogin.get('antiguaClave')?.value as string;
-    const nuevaClave: string = this.formUpdateLogin.get('nuevaClave')?.value as string;
-
+    const antiguaClave: string = this.formUpdateLogin.get('antiguaClave')
+      ?.value as string;
+    const nuevaClave: string = this.formUpdateLogin.get('nuevaClave')
+      ?.value as string;
 
     this.authService.actualizarClave(dni, antiguaClave, nuevaClave).subscribe({
       next: (response: any) => {
@@ -240,9 +291,10 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
       error: (error: any) => {
         console.error('Error actualizando clave', error);
         this.formUpdateLogin.reset();
-        this.toastr.error(`Error actualizando clave. Por favor, refresca la página y vuelve a intentarlo.`);
-      }
+        this.toastr.error(
+          `Error actualizando clave. Por favor, refresca la página y vuelve a intentarlo.`,
+        );
+      },
     });
   }
-
 }

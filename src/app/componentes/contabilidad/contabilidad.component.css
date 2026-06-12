@@ -1,0 +1,16 @@
+.mod-sub {
+  color: #636363;
+}
+
+.mod-dat {
+  font-weight: 500;
+  color: black;
+}
+
+/* El truco del separador vertical */
+.separador-vertical {
+  width: 1px; /* Grosor de la línea */
+  height: 40px; /* Altura de la línea (ajústala a tu gusto) */
+  background-color: #d1d5db; /* Color gris suave (similar al de tu imagen) */
+  margin: 0 15px; /* Espaciado lateral para que los datos no se peguen */
+}

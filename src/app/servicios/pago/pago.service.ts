@@ -3,14 +3,12 @@ import { Injectable } from '@angular/core';
 import { Pago } from '../../modelos/pago';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PagoService {
-
   private apiUrl = 'https://backendbecas.azurewebsites.net/pago';
 
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   //Retornar pago
   getPago(id: number) {
@@ -24,12 +22,12 @@ export class PagoService {
 
   //Crear pago
   createPago(pago: Pago) {
-    return this.http.post<Pago>(`${this.apiUrl}`,pago);
+    return this.http.post<Pago>(`${this.apiUrl}`, pago);
   }
-  
+
   //Actualizar pago
   updatePago(pago: Pago) {
-    return this.http.put<Pago>(`${this.apiUrl}/${pago.id}`,pago);
+    return this.http.put<Pago>(`${this.apiUrl}/${pago.id}`, pago);
   }
 
   //Eliminar pago
