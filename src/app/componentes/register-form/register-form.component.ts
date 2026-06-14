@@ -354,7 +354,7 @@ export class RegisterFormComponent implements OnInit {
     nombre_completo: ['', [Validators.required, Validators.minLength(3)]],
     dni: ['', [Validators.required, Validators.minLength(8)]],
     celular: ['', [Validators.required]],
-    codigo_estudiante: ['', [Validators.required]],
+    codigo_estudiante: [''],
     genero: ['', [Validators.required]],
     fecha_nacimiento: [null, [Validators.required]],
     correo: ['', [Validators.required, Validators.email]],

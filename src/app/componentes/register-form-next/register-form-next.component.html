@@ -148,8 +148,8 @@
                 <option value="" selected disabled>
                   Seleccione una opción
                 </option>
-                <ng-container *ngFor="let departamento of departamentoList">
-                  <option [value]="departamento">{{ departamento }}</option>
+                <ng-container *ngFor="let dep of peruData">
+                  <option [value]="dep.nombre">{{ dep.nombre }}</option>
                 </ng-container>
               </select>
               @if (
@@ -173,7 +173,7 @@
                 <option value="" selected disabled>
                   Seleccione una opción
                 </option>
-                <ng-container *ngFor="let provincia of peruProvinces">
+                <ng-container *ngFor="let provincia of provinciasFiltradas">
                   <option [value]="provincia">{{ provincia }}</option>
                 </ng-container>
               </select>
@@ -198,7 +198,7 @@
                 <option value="" selected disabled>
                   Seleccione una opción
                 </option>
-                <ng-container *ngFor="let distrito of limaDistricts">
+                <ng-container *ngFor="let distrito of distritosFiltrados">
                   <option [value]="distrito">{{ distrito }}</option>
                 </ng-container>
               </select>
