@@ -1,456 +1,221 @@
 <div class="container py-4">
   <div class="row">
-    <!-- Progress Bar Section -->
     <div class="col-md-4 p-5" style="background-color: #ecf3f9">
       <div class="container">
         <h3 style="font-weight: bold">Solicitud de Beca</h3>
       </div>
-
       <table class="container">
         <tr>
-          <td>
-            <i
-              class="bi bi-check-circle-fill"
-              style="color: #4180c2; font-size: 40px"
-            ></i>
-          </td>
-          <td>
-            <label
-              class="form-label m-2"
-              style="font-weight: bold; text-align: left; color: #4180c2"
-              >Información Personal</label
-            >
-          </td>
+          <td><i class="bi bi-check-circle-fill" style="color: #4180c2; font-size: 40px"></i></td>
+          <td><label class="form-label m-2" style="font-weight: bold; text-align: left; color: #4180c2">Información Personal</label></td>
         </tr>
+        <tr><td><i class="bi bi-three-dots-vertical" style="color: #4180c2; font-size: 40px"></i></td></tr>
         <tr>
-          <td>
-            <i
-              class="bi bi-three-dots-vertical"
-              style="color: #4180c2; font-size: 40px"
-            ></i>
-          </td>
+          <td><i class="bi bi-check-circle" style="color: #939393; font-size: 40px"></i></td>
+          <td><label class="form-label m-2" style="font-weight: bold; color: #939393">Información Académica</label></td>
         </tr>
+        <tr><td><i class="bi bi-three-dots-vertical" style="color: #939393; font-size: 40px"></i></td></tr>
         <tr>
-          <td>
-            <i
-              class="bi bi-check-circle"
-              style="color: #939393; font-size: 40px"
-            ></i>
-          </td>
-          <td>
-            <label
-              class="form-label m-2"
-              style="font-weight: bold; color: #939393"
-              >Información Académica</label
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <i
-              class="bi bi-three-dots-vertical"
-              style="color: #939393; font-size: 40px"
-            ></i>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <i
-              class="bi bi-check-circle"
-              style="color: #939393; font-size: 40px"
-            ></i>
-          </td>
-          <td>
-            <label
-              class="form-label m-2"
-              style="font-weight: bold; color: #939393"
-              >Carga de Documentos</label
-            >
-          </td>
+          <td><i class="bi bi-check-circle" style="color: #939393; font-size: 40px"></i></td>
+          <td><label class="form-label m-2" style="font-weight: bold; color: #939393">Carga de Documentos</label></td>
         </tr>
       </table>
-
       <div class="d-flex align-items-center flex-column" style="height: 410px">
-        <button
-          class="btn btn-outline-danger col-md-10 mt-auto btn-sm mb-2"
-          (click)="goToLanding()"
-        >
-          Volver al inicio
+        <button class="btn btn-outline-danger col-md-10 mt-auto btn-sm mb-2" (click)="goToLanding()" [disabled]="isRedirecting">
+          {{ isRedirecting ? 'Redirigiendo...' : 'Volver al inicio' }}
         </button>
-        <button
-          class="btn btn-outline-primary col-md-10 btn-sm"
-          data-bs-toggle="modal"
-          data-bs-target="#searchByDni"
-        >
-          Subsanación
-        </button>
+        <button class="btn btn-outline-primary col-md-10 btn-sm" data-bs-toggle="modal" data-bs-target="#searchByDni">Subsanación</button>
       </div>
     </div>
-
-    <!-- Form Section -->
 
     <div class="col-md-8 p-5" style="background-color: #f7f7f7">
       <div class="card">
         <div class="card-header">
-          <h3 class="text-left" style="color: #4180c2; font-weight: bold">
-            Información Personal
-          </h3>
+          <h3 class="text-left" style="color: #4180c2; font-weight: bold">Información Personal</h3>
         </div>
-
         <div class="card-body">
-          <form
-            [formGroup]="registrationForm"
-            class="row g-3"
-            (submit)="onSubmit()"
-          >
+          <form [formGroup]="registrationForm" class="row g-3" (submit)="onSubmit()">
+
             <div class="col-md-6">
-              <label class="form-label" style="font-weight: bold"
-                >Nombres y Apellidos *</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="nombre_completo"
-                formControlName="nombre_completo"
-              />
-              @if (
-                registrationForm.get("nombre_completo")?.errors?.["required"] &&
-                registrationForm.get("nombre_completo")?.touched
-              ) {
-                <div class="mistake">
-                  Por favor ingrese su nombre y apellidos.
-                </div>
+              <label class="form-label" style="font-weight: bold">Nombres y Apellidos *</label>
+              <input type="text" class="form-control" id="nombre_completo" formControlName="nombre_completo" />
+              @if (registrationForm.get('nombre_completo')?.errors?.['required'] && registrationForm.get('nombre_completo')?.touched) {
+                <div class="mistake">Por favor ingrese su nombre y apellidos.</div>
               }
             </div>
 
             <div class="col-md-6">
-              <label class="form-label" style="font-weight: bold"
-                >Código Estudiante
-              </label>
-              <input
-                type="text"
-                class="form-control"
-                id="codigo_estudiante"
-                formControlName="codigo_estudiante"
-              />
+              <label class="form-label" style="font-weight: bold">Código Estudiante</label>
+              <input type="text" class="form-control" id="codigo_estudiante" formControlName="codigo_estudiante" />
             </div>
 
             <div class="col-md-4">
-              <label class="form-label" style="font-weight: bold"
-                >N° Doc. Identidad *</label
-              >
-              <input type="text" class="form-control" formControlName="dni" />
-              @if (
-                registrationForm.get("dni")?.errors?.["required"] &&
-                registrationForm.get("dni")?.touched
-              ) {
-                <div class="mistake">
-                  Por favor ingrese su número de documento de identidad.
-                </div>
+              <label class="form-label" style="font-weight: bold">N° Doc. Identidad *</label>
+              <input type="text" class="form-control" formControlName="dni" (keypress)="onlyNumbers($event)" inputmode="numeric" />
+              @if (registrationForm.get('dni')?.errors?.['required'] && registrationForm.get('dni')?.touched) {
+                <div class="mistake">Por favor ingrese su número de documento de identidad.</div>
               }
             </div>
 
             <div class="col-md-4">
-              <label class="form-label" style="font-weight: bold"
-                >N° Celular *</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                formControlName="celular"
-              />
-              @if (
-                registrationForm.get("celular")?.errors?.["required"] &&
-                registrationForm.get("celular")?.touched
-              ) {
-                <div class="mistake">
-                  Por favor ingrese su número de celular.
-                </div>
+              <label class="form-label" style="font-weight: bold">N° Celular *</label>
+              <input type="text" class="form-control" formControlName="celular" (keypress)="onlyNumbers($event)" inputmode="numeric" />
+              @if (registrationForm.get('celular')?.errors?.['required'] && registrationForm.get('celular')?.touched) {
+                <div class="mistake">Por favor ingrese su número de celular.</div>
               }
             </div>
 
             <div class="col-md-4">
-              <label class="form-label" style="font-weight: bold"
-                >Género *</label
-              >
-              <select
-                class="form-select"
-                style="font-size: small"
-                formControlName="genero"
-              >
-                <option value="" selected disabled>
-                  Seleccione una opción
-                </option>
+              <label class="form-label" style="font-weight: bold">Género *</label>
+              <select class="form-select" style="font-size: small" formControlName="genero">
+                <option value="" selected disabled>Seleccione una opción</option>
                 <option>Masculino</option>
                 <option>Femenino</option>
               </select>
-              @if (
-                registrationForm.get("genero")?.errors?.["required"] &&
-                registrationForm.get("genero")?.touched
-              ) {
+              @if (registrationForm.get('genero')?.errors?.['required'] && registrationForm.get('genero')?.touched) {
                 <div class="mistake">Por favor seleccione su género.</div>
               }
             </div>
 
             <div class="col-md-4">
-              <label class="form-label" style="font-weight: bold"
-                >Fecha Nacimiento *</label
-              >
-              <input
-                type="date"
-                class="form-control"
-                formControlName="fecha_nacimiento"
-              />
-              @if (
-                registrationForm.get("fecha_nacimiento")?.errors?.[
-                  "required"
-                ] && registrationForm.get("fecha_nacimiento")?.touched
-              ) {
-                <div class="mistake">
-                  Por favor ingrese su fecha de nacimiento.
-                </div>
+              <label class="form-label" style="font-weight: bold">Fecha Nacimiento *</label>
+              <input type="date" class="form-control" formControlName="fecha_nacimiento" [max]="maxFechaNacimiento" />
+              @if (registrationForm.get('fecha_nacimiento')?.errors?.['required'] && registrationForm.get('fecha_nacimiento')?.touched) {
+                <div class="mistake">Por favor ingrese su fecha de nacimiento.</div>
+              }
+              @if (registrationForm.get('fecha_nacimiento')?.value && registrationForm.get('fecha_nacimiento')?.value > maxFechaNacimiento) {
+                <div class="mistake">La fecha no es válida. El solicitante debe tener al menos 5 años.</div>
               }
             </div>
 
             <div class="col-md-8">
-              <label class="form-label" style="font-weight: bold"
-                >Correo Electrónico *</label
-              >
-              <input
-                type="email"
-                class="form-control"
-                formControlName="correo"
-              />
-              @if (
-                registrationForm.get("correo")?.errors?.["required"] &&
-                registrationForm.get("correo")?.touched
-              ) {
-                <div class="mistake">
-                  Por favor ingrese su correo electrónico válido.
-                </div>
+              <label class="form-label" style="font-weight: bold">Correo Electrónico *</label>
+              <input type="email" class="form-control" formControlName="correo" />
+              @if (registrationForm.get('correo')?.errors?.['required'] && registrationForm.get('correo')?.touched) {
+                <div class="mistake">Por favor ingrese su correo electrónico.</div>
+              }
+              @if (registrationForm.get('correo')?.errors?.['email'] && registrationForm.get('correo')?.touched) {
+                <div class="mistake">El formato del correo electrónico no es válido.</div>
               }
             </div>
 
             <div class="col-md-4">
-              <label class="form-label" style="font-weight: bold"
-                >Departamento *</label
-              >
-              <select
-                class="form-select"
-                formControlName="departamento"
-                style="font-size: small"
-              >
-                <option value="" selected disabled>
-                  Seleccione una opción
-                </option>
+              <label class="form-label" style="font-weight: bold">Departamento *</label>
+              <select class="form-select" formControlName="departamento" style="font-size: small">
+                <option value="" selected disabled>Seleccione una opción</option>
                 <ng-container *ngFor="let dep of peruData">
                   <option [value]="dep.nombre">{{ dep.nombre }}</option>
                 </ng-container>
               </select>
-              @if (
-                registrationForm.get("departamento")?.errors?.["required"] &&
-                registrationForm.get("departamento")?.touched
-              ) {
+              @if (registrationForm.get('departamento')?.errors?.['required'] && registrationForm.get('departamento')?.touched) {
                 <div class="mistake">Por favor seleccione su departamento.</div>
               }
             </div>
 
             <div class="col-md-4">
-              <label class="form-label" style="font-weight: bold"
-                >Provincia *</label
-              >
-              <select
-                class="form-select"
-                formControlName="provincia"
-                style="font-size: small"
-              >
-                <option value="" selected disabled>
-                  Seleccione una opción
-                </option>
+              <label class="form-label" style="font-weight: bold">Provincia *</label>
+              <select class="form-select" formControlName="provincia" style="font-size: small">
+                <option value="" selected disabled>Seleccione una opción</option>
                 <ng-container *ngFor="let provincia of provinciasFiltradas">
                   <option [value]="provincia">{{ provincia }}</option>
                 </ng-container>
               </select>
-              @if (
-                registrationForm.get("provincia")?.errors?.["required"] &&
-                registrationForm.get("provincia")?.touched
-              ) {
+              @if (registrationForm.get('provincia')?.errors?.['required'] && registrationForm.get('provincia')?.touched) {
                 <div class="mistake">Por favor seleccione su provincia.</div>
               }
             </div>
 
             <div class="col-md-4">
-              <label class="form-label" style="font-weight: bold"
-                >Distrito *</label
-              >
-              <select
-                class="form-select"
-                formControlName="distrito"
-                style="font-size: small"
-              >
-                <option value="" selected disabled>
-                  Seleccione una opción
-                </option>
+              <label class="form-label" style="font-weight: bold">Distrito *</label>
+              <select class="form-select" formControlName="distrito" style="font-size: small">
+                <option value="" selected disabled>Seleccione una opción</option>
                 <ng-container *ngFor="let distrito of distritosFiltrados">
                   <option [value]="distrito">{{ distrito }}</option>
                 </ng-container>
               </select>
-              @if (
-                registrationForm.get("distrito")?.errors?.["required"] &&
-                registrationForm.get("distrito")?.touched
-              ) {
+              @if (registrationForm.get('distrito')?.errors?.['required'] && registrationForm.get('distrito')?.touched) {
                 <div class="mistake">Por favor seleccione su distrito.</div>
               }
             </div>
 
             <div class="col-md-8">
-              <label class="form-label" style="font-weight: bold"
-                >Dirección *</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                formControlName="direccion"
-              />
-              @if (
-                registrationForm.get("direccion")?.errors?.["required"] &&
-                registrationForm.get("direccion")?.touched
-              ) {
+              <label class="form-label" style="font-weight: bold">Dirección *</label>
+              <input type="text" class="form-control" formControlName="direccion" />
+              @if (registrationForm.get('direccion')?.errors?.['required'] && registrationForm.get('direccion')?.touched) {
                 <div class="mistake">Por favor ingrese su dirección.</div>
               }
             </div>
 
             <div class="col-md-4">
-              <label class="form-label" style="font-weight: bold"
-                >Ingreso Familiar Mensual *</label
-              >
-              <input
-                type="number"
-                class="form-control"
-                formControlName="ingreso_familiar_mensual"
-                min="0"
-              />
-              @if (
-                registrationForm.get("ingreso_familiar_mensual")?.errors?.[
-                  "required"
-                ] && registrationForm.get("ingreso_familiar_mensual")?.touched
-              ) {
-                <div class="mistake">
-                  Por favor ingrese el ingreso familiar mensual.
-                </div>
+              <label class="form-label" style="font-weight: bold">Ingreso Familiar Mensual *</label>
+              <input type="text" class="form-control" formControlName="ingreso_familiar_mensual"
+                (input)="formatCurrency($event)" inputmode="decimal" placeholder="0" />
+              @if (registrationForm.get('ingreso_familiar_mensual')?.errors?.['required'] && registrationForm.get('ingreso_familiar_mensual')?.touched) {
+                <div class="mistake">Por favor ingrese el ingreso familiar mensual.</div>
               }
             </div>
 
-            <!-- Información del Padre o Apoderado -->
-            <div>
-              <h3 class="text-left" style="color: #4180c2; font-weight: bold">
-                Información del Padre o Apoderado
-              </h3>
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label" style="font-weight: bold"
-                >Nombres y Apellidos</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                formControlName="apoderado_nombre"
-              />
-            </div>
-
-            <div class="col-md-4">
-              <label class="form-label" style="font-weight: bold"
-                >N° Doc. Identidad</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                formControlName="apoderado_dni"
-              />
-            </div>
-
-            <div class="col-md-4">
-              <label class="form-label" style="font-weight: bold"
-                >N° Celular</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                formControlName="apoderado_celular"
-              />
-            </div>
-
-            <div class="col-md-4">
-              <label class="form-label" style="font-weight: bold">Correo</label>
-              <input
-                type="email"
-                class="form-control"
-                formControlName="apoderado_correo"
-              />
-            </div>
+            @if (esMenorDeEdad) {
+              <div>
+                <h3 class="text-left" style="color: #4180c2; font-weight: bold">Información del Padre o Apoderado</h3>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" style="font-weight: bold">Nombres y Apellidos *</label>
+                <input type="text" class="form-control" formControlName="apoderado_nombre" />
+                @if (registrationForm.get('apoderado_nombre')?.errors?.['required'] && registrationForm.get('apoderado_nombre')?.touched) {
+                  <div class="mistake">Por favor ingrese el nombre del apoderado.</div>
+                }
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" style="font-weight: bold">N° Doc. Identidad *</label>
+                <input type="text" class="form-control" formControlName="apoderado_dni" (keypress)="onlyNumbers($event)" inputmode="numeric" />
+                @if (registrationForm.get('apoderado_dni')?.errors?.['required'] && registrationForm.get('apoderado_dni')?.touched) {
+                  <div class="mistake">Por favor ingrese el documento del apoderado.</div>
+                }
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" style="font-weight: bold">N° Celular *</label>
+                <input type="text" class="form-control" formControlName="apoderado_celular" (keypress)="onlyNumbers($event)" inputmode="numeric" />
+                @if (registrationForm.get('apoderado_celular')?.errors?.['required'] && registrationForm.get('apoderado_celular')?.touched) {
+                  <div class="mistake">Por favor ingrese el celular del apoderado.</div>
+                }
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" style="font-weight: bold">Correo *</label>
+                <input type="email" class="form-control" formControlName="apoderado_correo" />
+                @if (registrationForm.get('apoderado_correo')?.errors?.['required'] && registrationForm.get('apoderado_correo')?.touched) {
+                  <div class="mistake">Por favor ingrese el correo del apoderado.</div>
+                }
+                @if (registrationForm.get('apoderado_correo')?.errors?.['email'] && registrationForm.get('apoderado_correo')?.touched) {
+                  <div class="mistake">El formato del correo no es válido.</div>
+                }
+              </div>
+            }
 
             <div class="col-md-6"></div>
-            <div
-              class="modal fade"
-              id="searchByDni"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="myLargeModalLabel"
-              aria-hidden="true"
-              data-bs-backdrop="static"
-            >
+            <div class="modal fade" id="searchByDni" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-bs-backdrop="static">
               <div class="modal-dialog modal-md">
                 <div class="modal-content">
                   <div class="modal-header">
                     <div class="row w-100 g-0">
-                      <div class="col">
-                        <h6 class="mb-2 mt-2">Subsanación</h6>
-                      </div>
-                      <div class="col d-flex justify-content-end">
-                        <i
-                          class="bi bi-x-circle mb-2 mt-2"
-                          style="color: black"
-                          data-bs-dismiss="modal"
-                        ></i>
-                      </div>
+                      <div class="col"><h6 class="mb-2 mt-2">Subsanación</h6></div>
+                      <div class="col d-flex justify-content-end"><i class="bi bi-x-circle mb-2 mt-2" style="color: black" data-bs-dismiss="modal"></i></div>
                     </div>
                   </div>
                   <div class="modal-body">
                     <div class="col mb-3">
-                      <label class="form-label" style="font-weight: bold"
-                        >N° Doc. Identidad</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        formControlName="bydni"
-                      />
+                      <label class="form-label" style="font-weight: bold">N° Doc. Identidad</label>
+                      <input type="text" class="form-control" formControlName="bydni" />
                     </div>
                     <div class="d-grid mb-3">
-                      <button
-                        class="btn btn-primary"
-                        data-bs-dismiss="modal"
-                        type="submit"
-                        (click)="getDni()"
-                      >
-                        Cargar Data
-                      </button>
+                      <button class="btn btn-primary" data-bs-dismiss="modal" type="submit" (click)="getDni()">Cargar Data</button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
-              <button
-                type="submit"
-                class="custom-button"
-                (click)="saveInitialFields($event)"
-                style="width: 100%"
-                [disabled]="!registrationForm.valid"
-              >
-                Siguiente
-              </button>
+              <button type="submit" class="custom-button" (click)="saveInitialFields($event)" style="width: 100%" [disabled]="!registrationForm.valid">Siguiente</button>
             </div>
           </form>
         </div>

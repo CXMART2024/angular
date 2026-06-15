@@ -1,394 +1,157 @@
-<div
-  class="container py-4"
-  style="max-width: 1200px; padding-top: 20px; padding-bottom: 20px"
->
+<div class="container py-4" style="max-width: 1200px; padding-top: 20px; padding-bottom: 20px">
   <div class="row">
-    <!-- Progress Bar Section -->
     <div class="col-md-4 p-5" style="background-color: #ecf3f9">
       <div class="container">
         <h3 style="font-weight: bold">Solicitud de Beca</h3>
       </div>
-
       <table class="container">
         <tr>
-          <td>
-            <i
-              class="bi bi-check-circle-fill"
-              style="color: #4180c2; font-size: 40px"
-            ></i>
-          </td>
-          <td>
-            <label
-              class="form-label m-2"
-              style="font-weight: bold; text-align: left; color: #4180c2"
-              >Información Personal</label
-            >
-          </td>
+          <td><i class="bi bi-check-circle-fill" style="color: #4180c2; font-size: 40px"></i></td>
+          <td><label class="form-label m-2" style="font-weight: bold; text-align: left; color: #4180c2">Información Personal</label></td>
         </tr>
+        <tr><td><i class="bi bi-three-dots-vertical" style="color: #4180c2; font-size: 40px"></i></td></tr>
         <tr>
-          <td>
-            <i
-              class="bi bi-three-dots-vertical"
-              style="color: #4180c2; font-size: 40px"
-            ></i>
-          </td>
+          <td><i class="bi bi-check-circle-fill" style="color: #4180c2; font-size: 40px"></i></td>
+          <td><label class="form-label m-2" style="font-weight: bold; color: #4180c2">Información Académica</label></td>
         </tr>
+        <tr><td><i class="bi bi-three-dots-vertical" style="color: #939393; font-size: 40px"></i></td></tr>
         <tr>
-          <td>
-            <i
-              class="bi bi-check-circle-fill"
-              style="color: #4180c2; font-size: 40px"
-            ></i>
-          </td>
-          <td>
-            <label
-              class="form-label m-2"
-              style="font-weight: bold; color: #4180c2"
-              >Información Académica</label
-            >
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <i
-              class="bi bi-three-dots-vertical"
-              style="color: #939393; font-size: 40px"
-            ></i>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <i
-              class="bi bi-check-circle"
-              style="color: #939393; font-size: 40px"
-            ></i>
-          </td>
-          <td>
-            <label
-              class="form-label m-2"
-              style="font-weight: bold; color: #939393"
-              >Carga de Documentos</label
-            >
-          </td>
+          <td><i class="bi bi-check-circle" style="color: #939393; font-size: 40px"></i></td>
+          <td><label class="form-label m-2" style="font-weight: bold; color: #939393">Carga de Documentos</label></td>
         </tr>
       </table>
-
       <div class="d-flex align-items-center flex-column" style="height: 410px">
-        <button
-          class="btn btn-outline-danger col-md-10 mt-auto btn-sm mb-2"
-          (click)="goToLanding()"
-        >
-          Volver al inicio
+        <button class="btn btn-outline-danger col-md-10 mt-auto btn-sm mb-2" (click)="goToLanding()" [disabled]="isRedirecting">
+          {{ isRedirecting ? 'Redirigiendo...' : 'Volver al inicio' }}
         </button>
-        <button
-          class="btn btn-outline-primary col-md-10 btn-sm"
-          data-bs-toggle="modal"
-          data-bs-target="#searchByDni"
-        >
-          Subsanación
-        </button>
+        <button class="btn btn-outline-primary col-md-10 btn-sm" data-bs-toggle="modal" data-bs-target="#searchByDni">Subsanación</button>
       </div>
     </div>
-
-    <!-- Form Section -->
 
     <div class="col-md-8 p-5" style="background-color: #f7f7f7">
       <div class="card">
         <div class="card-header">
-          <h3 class="text-left" style="color: #4180c2; font-weight: bold">
-            Información Académica
-          </h3>
+          <h3 class="text-left" style="color: #4180c2; font-weight: bold">Información Académica</h3>
         </div>
         <div class="card-body">
-          <form
-            class="row g-3"
-            [formGroup]="registrationForm"
-            (submit)="onSubmit()"
-          >
+          <form class="row g-3" [formGroup]="registrationForm" (submit)="onSubmit()">
             <div class="col-md-6">
-              <label class="form-label" style="font-weight: bold"
-                >Nombre de la Institución *</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                formControlName="institucion_nombre"
-              />
-              @if (
-                registrationForm.get("institucion_nombre")?.errors?.[
-                  "required"
-                ] && registrationForm.get("institucion_nombre")?.touched
-              ) {
-                <div class="mistake">
-                  Por favor ingresa el nombre de la institución.
-                </div>
+              <label class="form-label" style="font-weight: bold">Nombre de la Institución *</label>
+              <input type="text" class="form-control" formControlName="institucion_nombre" />
+              @if (registrationForm.get('institucion_nombre')?.errors?.['required'] && registrationForm.get('institucion_nombre')?.touched) {
+                <div class="mistake">Por favor ingresa el nombre de la institución.</div>
               }
             </div>
-
             <div class="col-md-6">
-              <label class="form-label" style="font-weight: bold"
-                >RUC Institución *</label
-              >
-              <input
-                type="number"
-                class="form-control"
-                formControlName="ruc_institucion"
-              />
+              <label class="form-label" style="font-weight: bold">RUC Institución *</label>
+              <input type="number" class="form-control" formControlName="ruc_institucion" />
             </div>
-
             <div class="col-md-4">
-              <label class="form-label" style="font-weight: bold"
-                >Departamento *</label
-              >
-              <select
-                class="form-select"
-                formControlName="institucion_departamento"
-                style="font-size: small"
-              >
-                <option value="" selected disabled>
-                  Seleccione una opción
-                </option>
+              <label class="form-label" style="font-weight: bold">Departamento *</label>
+              <select class="form-select" formControlName="institucion_departamento" style="font-size: small">
+                <option value="" selected disabled>Seleccione una opción</option>
                 <ng-container *ngFor="let dep of peruData">
                   <option [value]="dep.nombre">{{ dep.nombre }}</option>
                 </ng-container>
               </select>
-              @if (
-                registrationForm.get("institucion_departamento")?.errors?.[
-                  "required"
-                ] && registrationForm.get("institucion_departamento")?.touched
-              ) {
+              @if (registrationForm.get('institucion_departamento')?.errors?.['required'] && registrationForm.get('institucion_departamento')?.touched) {
                 <div class="mistake">Por favor seleccione su departamento.</div>
               }
             </div>
-
             <div class="col-md-4">
-              <label class="form-label" style="font-weight: bold"
-                >Provincia *</label
-              >
-              <select
-                class="form-select"
-                formControlName="institucion_provincia"
-                style="font-size: small"
-              >
-                <option value="" selected disabled>
-                  Seleccione una opción
-                </option>
+              <label class="form-label" style="font-weight: bold">Provincia *</label>
+              <select class="form-select" formControlName="institucion_provincia" style="font-size: small">
+                <option value="" selected disabled>Seleccione una opción</option>
                 <ng-container *ngFor="let provincia of provinciasFiltradas">
                   <option [value]="provincia">{{ provincia }}</option>
                 </ng-container>
               </select>
-              @if (
-                registrationForm.get("institucion_provincia")?.errors?.[
-                  "required"
-                ] && registrationForm.get("institucion_provincia")?.touched
-              ) {
+              @if (registrationForm.get('institucion_provincia')?.errors?.['required'] && registrationForm.get('institucion_provincia')?.touched) {
                 <div class="mistake">Por favor seleccione su provincia.</div>
               }
             </div>
-
             <div class="col-md-4">
-              <label class="form-label" style="font-weight: bold"
-                >Distrito *</label
-              >
-              <select
-                class="form-select"
-                formControlName="institucion_distrito"
-                style="font-size: small"
-              >
-                <option value="" selected disabled>
-                  Seleccione una opción
-                </option>
+              <label class="form-label" style="font-weight: bold">Distrito *</label>
+              <select class="form-select" formControlName="institucion_distrito" style="font-size: small">
+                <option value="" selected disabled>Seleccione una opción</option>
                 <ng-container *ngFor="let distrito of distritosFiltrados">
                   <option [value]="distrito">{{ distrito }}</option>
                 </ng-container>
               </select>
-              @if (
-                registrationForm.get("institucion_distrito")?.errors?.[
-                  "required"
-                ] && registrationForm.get("institucion_distrito")?.touched
-              ) {
+              @if (registrationForm.get('institucion_distrito')?.errors?.['required'] && registrationForm.get('institucion_distrito')?.touched) {
                 <div class="mistake">Por favor seleccione su distrito.</div>
               }
             </div>
-
             <div class="mb-3">
-              <label class="form-label" style="font-weight: bold"
-                >Dirección de la Institución *</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                formControlName="institucion_direccion"
-              />
-              @if (
-                registrationForm.get("institucion_direccion")?.errors?.[
-                  "required"
-                ] && registrationForm.get("institucion_direccion")?.touched
-              ) {
+              <label class="form-label" style="font-weight: bold">Dirección de la Institución *</label>
+              <input type="text" class="form-control" formControlName="institucion_direccion" />
+              @if (registrationForm.get('institucion_direccion')?.errors?.['required'] && registrationForm.get('institucion_direccion')?.touched) {
                 <div class="mistake">Por favor ingrese su dirección.</div>
               }
             </div>
-
             <div class="col-md-4">
-              <label class="form-label" style="font-weight: bold"
-                >Tipo de Educación *</label
-              >
-              <select
-                class="form-select"
-                formControlName="tipo_educacion"
-                style="font-size: small"
-              >
-                <option value="" selected disabled>
-                  Seleccione una opción
-                </option>
+              <label class="form-label" style="font-weight: bold">Tipo de Educación *</label>
+              <select class="form-select" formControlName="tipo_educacion" style="font-size: small">
+                <option value="" selected disabled>Seleccione una opción</option>
                 <option>Pública</option>
                 <option>Privada</option>
               </select>
-              @if (
-                registrationForm.get("tipo_educacion")?.errors?.["required"] &&
-                registrationForm.get("tipo_educacion")?.touched
-              ) {
-                <div class="mistake">
-                  Por favor seleccione su tipo de educación.
-                </div>
+              @if (registrationForm.get('tipo_educacion')?.errors?.['required'] && registrationForm.get('tipo_educacion')?.touched) {
+                <div class="mistake">Por favor seleccione su tipo de educación.</div>
               }
             </div>
             <div class="col-md-4">
-              <label class="form-label" style="font-weight: bold"
-                >Grado Académico *</label
-              >
-              <select
-                class="form-select"
-                formControlName="grado_academico"
-                style="font-size: small"
-              >
-                <option value="" selected disabled>
-                  Seleccione una opción
-                </option>
+              <label class="form-label" style="font-weight: bold">Grado Académico *</label>
+              <select class="form-select" formControlName="grado_academico" style="font-size: small">
+                <option value="" selected disabled>Seleccione una opción</option>
                 <option>Primaria</option>
                 <option>Secundaria</option>
                 <option>Superior</option>
               </select>
-              @if (
-                registrationForm.get("grado_academico")?.errors?.["required"] &&
-                registrationForm.get("grado_academico")?.touched
-              ) {
-                <div class="mistake">
-                  Por favor seleccione su grado académico.
-                </div>
+              @if (registrationForm.get('grado_academico')?.errors?.['required'] && registrationForm.get('grado_academico')?.touched) {
+                <div class="mistake">Por favor seleccione su grado académico.</div>
               }
             </div>
             <div class="col-md-4">
-              <label class="form-label" style="font-weight: bold"
-                >Promedio Académico *</label
-              >
-              <input
-                type="number"
-                class="form-control"
-                formControlName="promedio_academico"
-                id="promedio_academico"
-                min="0"
-              />
-              @if (
-                registrationForm.get("promedio_academico")?.errors?.[
-                  "required"
-                ] && registrationForm.get("promedio_academico")?.touched
-              ) {
-                <div class="mistake">
-                  Por favor ingrese su promedio académico.
-                </div>
+              <label class="form-label" style="font-weight: bold">Promedio Académico *</label>
+              <input type="number" class="form-control" formControlName="promedio_academico" id="promedio_academico" min="0" />
+              @if (registrationForm.get('promedio_academico')?.errors?.['required'] && registrationForm.get('promedio_academico')?.touched) {
+                <div class="mistake">Por favor ingrese su promedio académico.</div>
               }
             </div>
-
             <div class="mb-3">
-              <label class="form-label" style="font-weight: bold"
-                >Motivo de Solicitud *</label
-              >
-              <textarea
-                class="form-control"
-                rows="5"
-                formControlName="motivo_solicitud"
-              ></textarea>
-              @if (
-                registrationForm.get("motivo_solicitud")?.errors?.[
-                  "required"
-                ] && registrationForm.get("motivo_solicitud")?.touched
-              ) {
-                <div class="mistake">
-                  Por favor ingrese el motivo de su solicitud.
-                </div>
+              <label class="form-label" style="font-weight: bold">Motivo de Solicitud *</label>
+              <textarea class="form-control" rows="5" formControlName="motivo_solicitud"></textarea>
+              @if (registrationForm.get('motivo_solicitud')?.errors?.['required'] && registrationForm.get('motivo_solicitud')?.touched) {
+                <div class="mistake">Por favor ingrese el motivo de su solicitud.</div>
               }
             </div>
-
-            <div
-              class="modal fade"
-              id="searchByDni"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="myLargeModalLabel"
-              aria-hidden="true"
-              data-bs-backdrop="static"
-            >
+            <div class="modal fade" id="searchByDni" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-bs-backdrop="static">
               <div class="modal-dialog modal-md">
                 <div class="modal-content">
                   <div class="modal-header">
                     <div class="row w-100 g-0">
-                      <div class="col">
-                        <h6 class="mb-2 mt-2">Subsanación</h6>
-                      </div>
-                      <div class="col d-flex justify-content-end">
-                        <i
-                          class="bi bi-x-circle mb-2 mt-2"
-                          style="color: black"
-                          data-bs-dismiss="modal"
-                        ></i>
-                      </div>
+                      <div class="col"><h6 class="mb-2 mt-2">Subsanación</h6></div>
+                      <div class="col d-flex justify-content-end"><i class="bi bi-x-circle mb-2 mt-2" style="color: black" data-bs-dismiss="modal"></i></div>
                     </div>
                   </div>
                   <div class="modal-body">
                     <div class="col mb-3">
-                      <label class="form-label" style="font-weight: bold"
-                        >N° Doc. Identidad</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        formControlName="bydni"
-                      />
+                      <label class="form-label" style="font-weight: bold">N° Doc. Identidad</label>
+                      <input type="text" class="form-control" formControlName="bydni" />
                     </div>
                     <div class="d-grid mb-3">
-                      <button
-                        class="btn btn-primary"
-                        data-bs-dismiss="modal"
-                        type="submit"
-                        (click)="getDni()"
-                      >
-                        Cargar Data
-                      </button>
+                      <button class="btn btn-primary" data-bs-dismiss="modal" type="submit" (click)="getDni()">Cargar Data</button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
             <div class="col-md-6">
-              <button
-                class="custom-button"
-                (click)="backtStep($event)"
-                style="width: 100%"
-              >
-                Atras
-              </button>
+              <button class="custom-button" (click)="backtStep($event)" style="width: 100%">Atras</button>
             </div>
             <div class="col-md-6">
-              <button
-                class="custom-button"
-                style="width: 100%"
-                (click)="saveNextFields($event)"
-                [disabled]="!registrationForm.valid"
-              >
-                Siguiente
-              </button>
+              <button class="custom-button" style="width: 100%" (click)="saveNextFields($event)" [disabled]="!registrationForm.valid">Siguiente</button>
             </div>
           </form>
         </div>
