@@ -55,11 +55,9 @@
                     data-bs-target="#searchByDni">Subsanación</button>
             </div>
 
-
         </div>
 
         <!-- Form Section -->
-
         <div class="col-md-8 p-5" style="background-color: #F7F7F7; ">
 
             <div class="card">
@@ -79,8 +77,7 @@
                             registrationForm.get('nombre_completo')?.touched)
                             {<div class="mistake">
                                 Por favor ingrese su nombre y apellidos.
-                            </div>
-                            }
+                            </div>}
                         </div>
 
                         <div class="col-md-6">
@@ -90,24 +87,24 @@
 
                         <div class="col-md-4">
                             <label class="form-label" style="font-weight: bold;">N° Doc. Identidad *</label>
-                            <input type="text" class="form-control" formControlName="dni">
+                            <input type="text" class="form-control" formControlName="dni"
+                                (keypress)="onlyNumbers($event)" inputmode="numeric">
                             @if(registrationForm.get('dni')?.errors?.['required'] &&
                             registrationForm.get('dni')?.touched)
                             {<div class="mistake">
                                 Por favor ingrese su número de documento de identidad.
-                            </div>
-                            }
+                            </div>}
                         </div>
 
                         <div class="col-md-4">
                             <label class="form-label" style="font-weight: bold;">N° Celular *</label>
-                            <input type="text" class="form-control" formControlName="celular">
+                            <input type="text" class="form-control" formControlName="celular"
+                                (keypress)="onlyNumbers($event)" inputmode="numeric">
                             @if(registrationForm.get('celular')?.errors?.['required'] &&
                             registrationForm.get('celular')?.touched)
                             {<div class="mistake">
                                 Por favor ingrese su número de celular.
-                            </div>
-                            }
+                            </div>}
                         </div>
 
                         <div class="col-md-4">
@@ -121,20 +118,23 @@
                             registrationForm.get('genero')?.touched)
                             {<div class="mistake">
                                 Por favor seleccione su género.
-                            </div>
-                            }
+                            </div>}
                         </div>
 
                         <div class="col-md-4">
                             <label class="form-label" style="font-weight: bold;">Fecha Nacimiento *</label>
-                            <input type="date" class="form-control" formControlName="fecha_nacimiento">
+                            <input type="date" class="form-control" formControlName="fecha_nacimiento"
+                                [max]="maxFechaNacimiento">
                             @if(registrationForm.get('fecha_nacimiento')?.errors?.['required'] &&
                             registrationForm.get('fecha_nacimiento')?.touched)
                             {<div class="mistake">
                                 Por favor ingrese su fecha de nacimiento.
-                            </div>
-                            }
-
+                            </div>}
+                            @if(registrationForm.get('fecha_nacimiento')?.value &&
+                            registrationForm.get('fecha_nacimiento')?.value > maxFechaNacimiento)
+                            {<div class="mistake">
+                                La fecha no es válida. El solicitante debe tener al menos 5 años.
+                            </div>}
                         </div>
 
                         <div class="col-md-8">
@@ -143,9 +143,13 @@
                             @if(registrationForm.get('correo')?.errors?.['required'] &&
                             registrationForm.get('correo')?.touched)
                             {<div class="mistake">
-                                Por favor ingrese su correo electrónico válido.
-                            </div>
-                            }
+                                Por favor ingrese su correo electrónico.
+                            </div>}
+                            @if(registrationForm.get('correo')?.errors?.['email'] &&
+                            registrationForm.get('correo')?.touched)
+                            {<div class="mistake">
+                                El formato del correo electrónico no es válido.
+                            </div>}
                         </div>
 
                         <div class="col-md-4">
@@ -160,8 +164,7 @@
                             registrationForm.get('departamento')?.touched)
                             {<div class="mistake">
                                 Por favor seleccione su departamento.
-                            </div>
-                            }
+                            </div>}
                         </div>
 
                         <div class="col-md-4">
@@ -176,8 +179,7 @@
                             registrationForm.get('provincia')?.touched)
                             {<div class="mistake">
                                 Por favor seleccione su provincia.
-                            </div>
-                            }
+                            </div>}
                         </div>
 
                         <div class="col-md-4">
@@ -192,8 +194,7 @@
                             registrationForm.get('distrito')?.touched)
                             {<div class="mistake">
                                 Por favor seleccione su distrito.
-                            </div>
-                            }
+                            </div>}
                         </div>
 
                         <div class="col-md-8">
@@ -203,51 +204,78 @@
                             registrationForm.get('direccion')?.touched)
                             {<div class="mistake">
                                 Por favor ingrese su dirección.
-                            </div>
-                            }
+                            </div>}
                         </div>
 
                         <div class="col-md-4">
                             <label class="form-label" style="font-weight: bold;">Ingreso Familiar Mensual *</label>
-                            <input type="number" class="form-control" formControlName="ingreso_familiar_mensual"
-                                min="0">
+                            <input type="text" class="form-control" formControlName="ingreso_familiar_mensual"
+                                (input)="formatCurrency($event)" inputmode="decimal" placeholder="0">
                             @if(registrationForm.get('ingreso_familiar_mensual')?.errors?.['required'] &&
                             registrationForm.get('ingreso_familiar_mensual')?.touched)
                             {<div class="mistake">
                                 Por favor ingrese el ingreso familiar mensual.
-                            </div>
-                            }
+                            </div>}
                         </div>
 
-                        <!-- Información del Padre o Apoderado -->
+                        <!-- Sección Padre/Apoderado: solo visible si el solicitante es menor de 18 años -->
+                        @if(esMenorDeEdad) {
                         <div>
                             <h3 class="text-left" style="color: #4180C2;font-weight: bold">Información del Padre o
                                 Apoderado</h3>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label" style="font-weight: bold;">Nombres y Apellidos</label>
+                            <label class="form-label" style="font-weight: bold;">Nombres y Apellidos *</label>
                             <input type="text" class="form-control" formControlName="apoderado_nombre">
+                            @if(registrationForm.get('apoderado_nombre')?.errors?.['required'] &&
+                            registrationForm.get('apoderado_nombre')?.touched)
+                            {<div class="mistake">
+                                Por favor ingrese el nombre del apoderado.
+                            </div>}
                         </div>
 
                         <div class="col-md-4">
-                            <label class="form-label" style="font-weight: bold;">N° Doc. Identidad</label>
-                            <input type="text" class="form-control" formControlName="apoderado_dni">
+                            <label class="form-label" style="font-weight: bold;">N° Doc. Identidad *</label>
+                            <input type="text" class="form-control" formControlName="apoderado_dni"
+                                (keypress)="onlyNumbers($event)" inputmode="numeric">
+                            @if(registrationForm.get('apoderado_dni')?.errors?.['required'] &&
+                            registrationForm.get('apoderado_dni')?.touched)
+                            {<div class="mistake">
+                                Por favor ingrese el documento del apoderado.
+                            </div>}
                         </div>
 
                         <div class="col-md-4">
-                            <label class="form-label" style="font-weight: bold;">N° Celular</label>
-                            <input type="text" class="form-control" formControlName="apoderado_celular">
+                            <label class="form-label" style="font-weight: bold;">N° Celular *</label>
+                            <input type="text" class="form-control" formControlName="apoderado_celular"
+                                (keypress)="onlyNumbers($event)" inputmode="numeric">
+                            @if(registrationForm.get('apoderado_celular')?.errors?.['required'] &&
+                            registrationForm.get('apoderado_celular')?.touched)
+                            {<div class="mistake">
+                                Por favor ingrese el celular del apoderado.
+                            </div>}
                         </div>
 
                         <div class="col-md-4">
-                            <label class="form-label" style="font-weight: bold;">Correo</label>
+                            <label class="form-label" style="font-weight: bold;">Correo *</label>
                             <input type="email" class="form-control" formControlName="apoderado_correo">
+                            @if(registrationForm.get('apoderado_correo')?.errors?.['required'] &&
+                            registrationForm.get('apoderado_correo')?.touched)
+                            {<div class="mistake">
+                                Por favor ingrese el correo del apoderado.
+                            </div>}
+                            @if(registrationForm.get('apoderado_correo')?.errors?.['email'] &&
+                            registrationForm.get('apoderado_correo')?.touched)
+                            {<div class="mistake">
+                                El formato del correo no es válido.
+                            </div>}
                         </div>
-
+                        }
 
                         <div class="col-md-6">
                         </div>
+
                         <div class="modal fade" id="searchByDni" tabindex="-1" role="dialog"
                             aria-labelledby="myLargeModalLabel" aria-hidden="true" data-bs-backdrop="static">
                             <div class="modal-dialog modal-md">
@@ -260,7 +288,6 @@
                                             <div class="col d-flex justify-content-end"><i
                                                     class="bi bi-x-circle mb-2 mt-2" style="color: black;"
                                                     data-bs-dismiss="modal"></i></div>
-
                                         </div>
                                     </div>
                                     <div class="modal-body">
@@ -273,12 +300,11 @@
                                             <button class="btn btn-primary" data-bs-dismiss="modal" type="submit"
                                                 (click)="getDni()">Cargar Data</button>
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <button type="submit" class="custom-button" (click)="saveInitialFields($event)"
                                 style="width: 100%;" [disabled]="!registrationForm.valid">Siguiente</button>
@@ -289,7 +315,6 @@
 
             </div>
         </div>
-
 
     </div>
 </div>
