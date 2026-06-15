@@ -6,101 +6,98 @@ import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import moment from 'moment';
 
+interface Provincia {
+  nombre: string;
+  distritos: string[];
+}
+
+interface Departamento {
+  nombre: string;
+  provincias: Provincia[];
+}
+
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
-  styleUrl: './register-form.component.css'
+  styleUrl: './register-form.component.css',
 })
 export class RegisterFormComponent implements OnInit {
-
-  limaDistricts = [
-    'Lima', 'Ancón', 'Ate', 'Barranco', 'Breña', 'Carabayllo', 'Chaclacayo', 'Chorrillos', 'Cieneguilla',
-    'Comas', 'El Agustino', 'Independencia', 'Jesús María', 'La Molina', 'La Victoria', 'Lince', 'Los Olivos',
-    'Lurigancho-Chosica', 'Lurín', 'Magdalena del Mar', 'Miraflores', 'Pachacamac', 'Pucusana', 'Pueblo Libre',
-    'Puente Piedra', 'Punta Hermosa', 'Punta Negra', 'Rímac', 'San Bartolo', 'San Borja', 'San Isidro', 'San Juan de Lurigancho',
-    'San Juan de Miraflores', 'San Luis', 'San Martín de Porres', 'San Miguel', 'Santa Anita', 'Santa María del Mar',
-    'Santa Rosa', 'Santiago de Surco', 'Surquillo', 'Villa El Salvador', 'Villa María del Triunfo'
-  ];
-
-  peruProvinces = [
-    'Bagua', 'Bongará', 'Chachapoyas', 'Condorcanqui', 'Luya', 'Rodríguez de Mendoza', 'Utcubamba',
-    'Aija', 'Antonio Raymondi', 'Asunción', 'Bolognesi', 'Carhuaz', 'Carlos Fermín Fitzcarrald', 'Casma',
-    'Corongo', 'Huari', 'Huarmey', 'Huaylas', 'Mariscal Luzuriaga', 'Ocros', 'Pallasca', 'Pomabamba',
-    'Recuay', 'Santa', 'Sihuas', 'Yungay',
-    'Abancay', 'Andahuaylas', 'Antabamba', 'Aymaraes', 'Chincheros', 'Cotabambas', 'Grau',
-    'Arequipa', 'Camaná', 'Caravelí', 'Castilla', 'Caylloma', 'Condesuyos', 'Islay', 'La Unión',
-    'Cangallo', 'Huanca Sancos', 'Huanta', 'La Mar', 'Lucanas', 'Parinacochas', 'Páucar del Sara Sara',
-    'Sucre', 'Víctor Fajardo', 'Vilcas Huamán',
-    'Cajabamba', 'Cajamarca', 'Celendín', 'Chota', 'Contumazá', 'Cutervo', 'Hualgayoc', 'Jaén',
-    'San Ignacio', 'San Marcos', 'San Miguel', 'San Pablo', 'Santa Cruz',
-    'Callao',
-    'Acomayo', 'Anta', 'Calca', 'Canas', 'Canchis', 'Chumbivilcas', 'Cusco', 'Espinar', 'La Convención',
-    'Paruro', 'Paucartambo', 'Quispicanchi', 'Urubamba',
-    'Acobamba', 'Angaraes', 'Castrovirreyna', 'Churcampa', 'Huancavelica', 'Huaytará',
-    'Ambo', 'Dos de Mayo', 'Huacaybamba', 'Huamalíes', 'Huanuco', 'Lauricocha', 'Leoncio Prado',
-    'Marañón', 'Pachitea', 'Puerto Inca', 'Yarowilca',
-    'Chincha', 'Ica', 'Nazca', 'Palpa', 'Pisco',
-    'Chanchamayo', 'Chupaca', 'Concepción', 'Huancayo', 'Jauja', 'Junín', 'Satipo', 'Tarma', 'Yauli',
-    'Ascope', 'Bolívar', 'Chepén', 'Gran Chimú', 'Julcán', 'Otuzco', 'Pacasmayo', 'Pataz',
-    'Sánchez Carrión', 'Santiago de Chuco', 'Trujillo', 'Virú',
-    'Chiclayo', 'Ferreñafe', 'Lambayeque',
-    'Barranca', 'Cajatambo', 'Cañete', 'Canta', 'Huaral', 'Huarochirí', 'Huaura', 'Lima', 'Oyón', 'Yauyos',
-    'Alto Amazonas', 'Datem del Marañón', 'Loreto', 'Mariscal Ramón Castilla', 'Maynas', 'Requena', 'Ucayali',
-    'Manu', 'Tahuamanu', 'Tambopata',
-    'General Sánchez Cerro', 'Ilo', 'Mariscal Nieto',
-    'Oxapampa', 'Pasco', 'Daniel Alcides Carrión',
-    'Ayabaca', 'Huancabamba', 'Morropón', 'Paita', 'Piura', 'Sechura', 'Sullana', 'Talara',
-    'Azángaro', 'Carabaya', 'Chucuito', 'El Collao', 'Huancané', 'Lampa', 'Melgar', 'Moho', 'Puno',
-    'San Antonio de Putina', 'San Román', 'Sandia', 'Yunguyo',
-    'Bellavista', 'El Dorado', 'Huallaga', 'Lamas', 'Mariscal Cáceres', 'Moyobamba', 'Picota', 'Rioja',
-    'San Martín', 'Tocache',
-    'Candarave', 'Jorge Basadre', 'Tacna', 'Tarata',
-    'Contralmirante Villar', 'Tumbes', 'Zarumilla',
-    'Atalaya', 'Coronel Portillo', 'Padre Abad'
-  ].sort((a, b) => a.localeCompare(b, 'es'));
-
-  departamentoList = [
-    'Amazonas', 'Ancash', 'Apurimac', 'Arequipa', 'Ayacucho', 'Cajamarca', 'Callao', 'Cusco',
-    'Huancavelica', 'Huanuco', 'Ica', 'Junin', 'La Libertad', 'Lambayeque', 'Lima', 'Loreto',
-    'Madre de Dios', 'Moquegua', 'Pasco', 'Piura', 'Puno', 'San Martin', 'Tacna', 'Tumbes', 'Ucayali'
-  ];
+  peruData: Departamento[] = [];
+  provinciasFiltradas: string[] = [];
+  distritosFiltrados: string[] = [];
 
   isRedirecting = false;
   formData: any = {};
 
   registrationForm = this.fb.group({
-    nombre_completo: ["", [Validators.required, Validators.minLength(3)]],
+    nombre_completo: ['', [Validators.required, Validators.minLength(3)]],
     dni: ['', [Validators.required, Validators.minLength(8)]],
     celular: ['', [Validators.required]],
-    genero: ["", [Validators.required]],
+    codigo_estudiante: [''],
+    genero: ['', [Validators.required]],
     fecha_nacimiento: [null, [Validators.required]],
-    correo: ["", [Validators.required, Validators.email]],
-    departamento: ["", [Validators.required]],
-    provincia: ["", [Validators.required]],
-    distrito: ["", [Validators.required]],
-    direccion: ["", [Validators.required, Validators.minLength(1)]],
+    correo: ['', [Validators.required, Validators.email]],
+    departamento: ['', [Validators.required]],
+    provincia: ['', [Validators.required]],
+    distrito: ['', [Validators.required]],
+    direccion: ['', [Validators.required, Validators.minLength(1)]],
     ingreso_familiar_mensual: ['', [Validators.required]],
     apoderado_nombre: '',
     apoderado_dni: '',
     apoderado_celular: '',
     apoderado_correo: '',
-    bydni: ''
+    bydni: '',
   });
 
-  constructor(private formDataService: FormularioBecasService, private router: Router, private fb: FormBuilder, private http: HttpClient, private toastr: ToastrService) { }
+  constructor(
+    private formDataService: FormularioBecasService,
+    private router: Router,
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private toastr: ToastrService,
+  ) {}
 
   ngOnInit(): void {
     this.formData = this.formDataService.getFormData();
 
-    if (this.formData) {
-      // Defer patchValue so *ngFor options render before matching select values
+    // Cargar JSON de departamentos/provincias/distritos
+    this.http.get<Departamento[]>('assets/data/peru_data.json').subscribe((data) => {
+      this.peruData = data;
+      // Defer patchValue until after options render
       setTimeout(() => {
-        this.registrationForm.patchValue(this.formData);
-        this.formatIngresoDisplay();
-        this.updateApoderadoValidators();
+        if (this.formData) {
+          this.registrationForm.patchValue(this.formData);
+          // Restaurar provinciasFiltradas y distritosFiltrados
+          const dep = this.peruData.find((d) => d.nombre === this.formData.departamento);
+          if (dep) {
+            this.provinciasFiltradas = dep.provincias.map((p) => p.nombre);
+            const prov = dep.provincias.find((p) => p.nombre === this.formData.provincia);
+            this.distritosFiltrados = prov ? prov.distritos : [];
+          }
+          this.formatIngresoDisplay();
+          this.updateApoderadoValidators();
+        }
       }, 0);
-    }
+    });
 
+    // Cascada departamento → provincia
+    this.registrationForm.get('departamento')?.valueChanges.subscribe((depSeleccionado) => {
+      const dep = this.peruData.find((d) => d.nombre === depSeleccionado);
+      this.provinciasFiltradas = dep ? dep.provincias.map((p) => p.nombre) : [];
+      this.distritosFiltrados = [];
+      this.registrationForm.patchValue({ provincia: '', distrito: '' }, { emitEvent: false });
+    });
+
+    // Cascada provincia → distrito
+    this.registrationForm.get('provincia')?.valueChanges.subscribe((provSeleccionada) => {
+      const depSeleccionado = this.registrationForm.get('departamento')?.value;
+      const dep = this.peruData.find((d) => d.nombre === depSeleccionado);
+      const prov = dep?.provincias.find((p) => p.nombre === provSeleccionada);
+      this.distritosFiltrados = prov ? prov.distritos : [];
+      this.registrationForm.patchValue({ distrito: '' }, { emitEvent: false });
+    });
+
+    // Validadores condicionales de apoderado
     this.registrationForm.get('fecha_nacimiento')?.valueChanges.subscribe(() => {
       this.updateApoderadoValidators();
     });
@@ -119,21 +116,21 @@ export class RegisterFormComponent implements OnInit {
     return edad < 18;
   }
 
-  // Max date: must be at least 5 years old (also blocks future dates)
+  // Max date: el solicitante debe tener al menos 5 años (también bloquea fechas futuras)
   get maxFechaNacimiento(): string {
     const d = new Date();
     d.setFullYear(d.getFullYear() - 5);
     return d.toISOString().split('T')[0];
   }
 
-  // --- Validators dinámicos para apoderado ---
+  // --- Validadores dinámicos para apoderado ---
 
   updateApoderadoValidators() {
     const apoderadoFields: Record<string, any[]> = {
       apoderado_nombre: [Validators.required],
       apoderado_dni: [Validators.required],
       apoderado_celular: [Validators.required],
-      apoderado_correo: [Validators.required, Validators.email]
+      apoderado_correo: [Validators.required, Validators.email],
     };
 
     if (this.esMenorDeEdad) {
@@ -142,7 +139,7 @@ export class RegisterFormComponent implements OnInit {
         this.registrationForm.get(field)?.updateValueAndValidity();
       });
     } else {
-      Object.keys(apoderadoFields).forEach(field => {
+      Object.keys(apoderadoFields).forEach((field) => {
         this.registrationForm.get(field)?.clearValidators();
         this.registrationForm.get(field)?.updateValueAndValidity();
       });
@@ -199,14 +196,16 @@ export class RegisterFormComponent implements OnInit {
       apoderado_nombre: this.registrationForm.value.apoderado_nombre,
       apoderado_dni: this.registrationForm.value.apoderado_dni,
       apoderado_celular: this.registrationForm.value.apoderado_celular,
-      apoderado_correo: this.registrationForm.value.apoderado_correo
+      apoderado_correo: this.registrationForm.value.apoderado_correo,
     };
 
     this.formDataService.setFormData(bodyData);
     this.router.navigate(['register-form-next']);
   }
 
-  onSubmit() { }
+  onSubmit() {}
+
+  openDialog() {}
 
   getDni() {
     const bydni = this.registrationForm.get('bydni')?.value;
@@ -226,7 +225,7 @@ export class RegisterFormComponent implements OnInit {
       error: (error) => {
         console.error('Upload error', error);
         this.toastr.error(`Error intente de nuevo. Por favor, refresca la página y vuelve a intentarlo.`);
-      }
+      },
     });
   }
 
