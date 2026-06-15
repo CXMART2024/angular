@@ -18,6 +18,7 @@ export class RegisterFormFinalComponent implements OnInit {
   fileComprobante?: File;
 
   formData: any = {};
+  isRedirecting = false;
 
   constructor(private http: HttpClient, private formDataService: FormularioBecasService, private router: Router, private toastr: ToastrService) { }
 
@@ -64,31 +65,24 @@ export class RegisterFormFinalComponent implements OnInit {
 
   onSubmit(event: Event) {
     event.preventDefault();
-
     if (!this.fileEvidencia || !this.fileDni || !this.fileCertificado || !this.fileComprobante) {
       this.toastr.warning('Por favor, suba todos los documentos requeridos.');
       return;
     }
-
     const formEvidencia = new FormData();
     formEvidencia.append('file', this.fileEvidencia, this.fileEvidencia.name);
-
     const formDni = new FormData();
     formDni.append('file', this.fileDni, this.fileDni.name);
-
     const formCertificado = new FormData();
     formCertificado.append('file', this.fileCertificado, this.fileCertificado.name);
-
     const formComprobante = new FormData();
     formComprobante.append('file', this.fileComprobante, this.fileComprobante.name);
-
     const cargaArchivos = [
       this.http.post('https://backendbecas.azurewebsites.net/upload', formEvidencia),
       this.http.post('https://backendbecas.azurewebsites.net/upload', formDni),
       this.http.post('https://backendbecas.azurewebsites.net/upload', formCertificado),
       this.http.post('https://backendbecas.azurewebsites.net/upload', formComprobante)
     ];
-
     forkJoin(cargaArchivos).subscribe({
       next: (responses: any[]) => {
         this.formData.url_doc_academico = responses[0].url;
@@ -98,7 +92,6 @@ export class RegisterFormFinalComponent implements OnInit {
         this.formData.EvaluacionEstado = 'Por Evaluar';
         this.formData.contratoBecario = '0';
         this.formData.fecha_solicitud = new Date();
-
         this.http.post('https://backendbecas.azurewebsites.net/solicitudes/upsert', this.formData).subscribe({
           next: (response: any) => {
             if (response.value == '0') {
@@ -131,6 +124,7 @@ export class RegisterFormFinalComponent implements OnInit {
 
   goToLanding() {
     if (confirm('¿Está seguro que desea salir? Perderá todo lo ingresado en el formulario.')) {
+      this.isRedirecting = true;
       this.formDataService.clearFormData();
       window.location.href = 'https://fundacioncharlescrosland.org/';
     }
@@ -141,8 +135,7 @@ export class RegisterFormFinalComponent implements OnInit {
     const dia = fecha.getDate().toString().padStart(2, '0');
     const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
     const anio = fecha.getFullYear();
-
-    const fechaFormateada = `${dia}/${mes}/${anio}`
+    const fechaFormateada = `${dia}/${mes}/${anio}`;
     this.http.post('https://prod-09.brazilsouth.logic.azure.com:443/workflows/c892f3fc19c0414891f907ba67d85ad7/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=7Pfw0bnXxG_LLWwaQRb_e6aI8crlNyeO1-LT5hAzLLU',
       {
         "Estudiante": solicitud.nombre_completo,
@@ -153,5 +146,4 @@ export class RegisterFormFinalComponent implements OnInit {
         "Motivo": solicitud.motivo_solicitud
       }).subscribe();
   }
-
 }
