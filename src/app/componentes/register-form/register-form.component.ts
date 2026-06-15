@@ -114,6 +114,13 @@ export class RegisterFormComponent implements OnInit {
     return d.toISOString().split('T')[0];
   }
 
+  // True if the entered date is invalid (younger than 5 years or in the future)
+  get fechaNacimientoInvalida(): boolean {
+    const fecha = this.registrationForm.get('fecha_nacimiento')?.value;
+    if (!fecha) return false;
+    return String(fecha) > this.maxFechaNacimiento;
+  }
+
   updateApoderadoValidators() {
     const apoderadoFields: Record<string, any[]> = {
       apoderado_nombre: [Validators.required],

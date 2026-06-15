@@ -83,7 +83,7 @@
               @if (registrationForm.get('fecha_nacimiento')?.errors?.['required'] && registrationForm.get('fecha_nacimiento')?.touched) {
                 <div class="mistake">Por favor ingrese su fecha de nacimiento.</div>
               }
-              @if (registrationForm.get('fecha_nacimiento')?.value && registrationForm.get('fecha_nacimiento')?.value > maxFechaNacimiento) {
+              @if (fechaNacimientoInvalida) {
                 <div class="mistake">La fecha no es válida. El solicitante debe tener al menos 5 años.</div>
               }
             </div>
