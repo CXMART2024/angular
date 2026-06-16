@@ -34,16 +34,19 @@ import { AuthService } from '../../servicios/auth/auth.service';
 export class ConceptoCicloAcademicoComponent implements OnInit {
   @ViewChild('constanciaFile') constanciaFile!: ElementRef;
 
+  simboloMoneda: string = 'S/';
+
   conceptoPagoForm: FormGroup = new FormGroup({
     concepto: new FormControl('', Validators.required),
     descripcion: new FormControl('', Validators.required),
-    monto: new FormControl('', [Validators.required, Validators.min(1)]),
+    monto: new FormControl(0, [Validators.required, Validators.min(1)]),
     nro_cuentabancaria: new FormControl('', Validators.required),
-    codigo_sociedad: new FormControl('', Validators.required),
-    ceco: new FormControl('', Validators.required),
-    area_solicitante: new FormControl('', Validators.required),
+    codigo_sociedad: new FormControl(''),
+    ceco: new FormControl(''),
+
+    area_solicitante: new FormControl(''),
     moneda: new FormControl('', Validators.required),
-    fecha_regularizacion: new FormControl('', Validators.required),
+    fecha_regularizacion: new FormControl(null),
     fechaSolicitud: new FormControl('', Validators.required),
   });
 
@@ -96,6 +99,15 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.conceptoPagoForm.get('moneda')?.valueChanges.subscribe((moneda) => {
+      if (moneda === 'Soles') {
+        this.simboloMoneda = 'S/';
+      } else if (moneda === 'Dolares') {
+        this.simboloMoneda = '$';
+      } else {
+        this.simboloMoneda = 'S/';
+      }
+    });
     this.solicitudService.getSolicitudData().subscribe((data) => {
       this.solicitud = data;
       if (this.solicitud) {
@@ -129,9 +141,9 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
       pago.descripcion = this.conceptoPagoForm.value.descripcion;
       pago.monto = this.conceptoPagoForm.value.monto;
       pago.nro_cuentabancaria = this.conceptoPagoForm.value.nro_cuentabancaria;
-      pago.codigo_sociedad = this.conceptoPagoForm.value.codigo_sociedad;
-      pago.ceco = this.conceptoPagoForm.value.ceco;
-      pago.area_solicitante = this.conceptoPagoForm.value.area_solicitante;
+      pago.codigo_sociedad = 'FC01';
+      pago.ceco = 'FC19101011';
+      pago.area_solicitante = 'Gerencia';
       pago.moneda = this.conceptoPagoForm.value.moneda;
       pago.fecha_regularizacion =
         this.conceptoPagoForm.value.fecha_regularizacion;

@@ -38,7 +38,7 @@ export class NuevoCicloAcademicoComponent implements OnInit {
     0,
     '',
     '',
-    ''
+    '',
   );
   url = new FormData();
 
@@ -84,7 +84,7 @@ export class NuevoCicloAcademicoComponent implements OnInit {
 
   quitarCursoDeLista(cursoAEliminar: CursoMalla) {
     this.listCurso = this.listCurso.filter(
-      (curso) => curso.id !== cursoAEliminar.id
+      (curso) => curso.id !== cursoAEliminar.id,
     );
   }
 
@@ -103,7 +103,7 @@ export class NuevoCicloAcademicoComponent implements OnInit {
 
   onAgregarCursoChange(cursoSeleccionado: any) {
     const curso = this.listCursoPopUp.find(
-      (curso) => curso.id == cursoSeleccionado.target.value
+      (curso) => curso.id == cursoSeleccionado.target.value,
     );
     if (curso) {
       this.cursoSeleccionadoPopUp = curso;
@@ -143,7 +143,7 @@ export class NuevoCicloAcademicoComponent implements OnInit {
         //this.ciclo.fecha_inicio = moment(this.ciclo.fecha_inicio).startOf('day').toDate();
         //this.ciclo.fecha_fin = moment(this.ciclo.fecha_fin).startOf('day').toDate();
 
-        this.ciclo.id_ciclo = this.selectedCicloMallaId ;
+        this.ciclo.id_ciclo = this.selectedCicloMallaId;
         this.ciclo.id_solicitud = this.solicitud.id;
         this.ciclo.id_doc_matricula = response[0].url;
         this.ciclo.estado = 'En Proceso';
@@ -159,15 +159,15 @@ export class NuevoCicloAcademicoComponent implements OnInit {
                 response.id,
                 this.solicitud.id,
                 curso.creditos,
-                curso.Nombre
+                curso.Nombre,
               );
               this.guardarCurso(newCurso);
-              this.toastr.success(`Ciclo registrado correctamente`)
+              this.toastr.success(`Ciclo registrado correctamente`);
               this.router.navigate(['informacion-view']);
             }
           },
           error: (err) => {
-            this.toastr.error(`Error al guardar ciclo`)
+            this.toastr.error(`Error al guardar ciclo`);
           },
         });
       },
@@ -176,9 +176,7 @@ export class NuevoCicloAcademicoComponent implements OnInit {
 
   guardarCurso(curso: Curso): void {
     this.cursoService.createCurso(curso).subscribe({
-      next: () => {
-        
-      }
+      next: () => {},
     });
   }
 
@@ -188,7 +186,6 @@ export class NuevoCicloAcademicoComponent implements OnInit {
   validateDates(): void {
     const fechaInicio = new Date(this.ciclo.fecha_inicio);
     const fechaFin = new Date(this.ciclo.fecha_fin);
-    this.fechaFinInvalid = fechaFin < fechaInicio; 
+    this.fechaFinInvalid = fechaFin < fechaInicio;
   }
 }
-

@@ -4,17 +4,16 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'becasFormMain';
 
-  constructor(public router: Router) { }
+  constructor(public router: Router) {}
 
   showSidebar(): boolean {
-
     const url = this.router.url;
-    
+
     const hiddenRoutes = [
       '/register-form',
       '/register-form-next',
@@ -22,12 +21,15 @@ export class AppComponent {
       '/',
       '/addmodulo',
       '/add-modulo-academico',
-      '/edit-modulo-academico'
+      '/edit-modulo-academico',
     ];
 
     const isInformacionEdit = /^\/informacion\/[^/]+$/.test(url);
 
     return !hiddenRoutes.includes(url) && !isInformacionEdit;
-    //return !hiddenRoutes.includes(this.router.url);
+  }
+
+  isContabilidad(): boolean {
+    return this.router.url === '/contabilidad';
   }
 }

@@ -1,0 +1,44 @@
+<div class="h-100 d-flex flex-column" style="background-color: #4180c2">
+  <ul class="nav flex-column nav-fill nav-pills flex-grow-1">
+    <!-- Logo -->
+    <li class="nav-item text-center py-4">
+      <img
+        src="https://blobauroranuevo.blob.core.windows.net/images3d/fxemoji_graduationcap (1).png"
+        alt="Logo"
+        style="width: 48px"
+      />
+    </li>
+
+    <!-- Links -->
+    <li class="nav-item px-2 mb-1">
+      <a
+        class="nav-link text-white rounded-3 py-3"
+        routerLink="/contabilidad"
+        routerLinkActive="active"
+      >
+        <div class="text-center">
+          <img
+            src="https://blobauroranuevo.blob.core.windows.net/images3d/Money Calculator_blue.svg"
+            style="width: 24px; height: 24px"
+          />
+          <div style="font-size: 11px; margin-top: 4px">Contabilidad</div>
+        </div>
+      </a>
+    </li>
+
+    <!-- Botones inferiores -->
+    <li class="mt-auto text-center pb-2">
+      <button
+        class="btn text-white rounded-circle mb-3 d-block mx-auto"
+        style="
+          background-color: rgba(255, 255, 255, 0.1);
+          width: 40px;
+          height: 40px;
+        "
+        (click)="logout()"
+      >
+        <i class="bi bi-box-arrow-left"></i>
+      </button>
+    </li>
+  </ul>
+</div>

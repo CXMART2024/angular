@@ -23,16 +23,11 @@ export class AuthService {
       tap((response: any) => {
         if (response && response.token) {
           localStorage.setItem('token', response.token);
+          localStorage.setItem('tipo', response.tipo);
 
-          this.http
-            .get(`${this.apiUrl}/solicitudes/dni/${dni}`, {
-              headers: new HttpHeaders({
-                Authorization: `Bearer ${response.token}`,
-              }),
-            })
-            .subscribe((solicitudData) => {
-              this.solicitudService.setSolicitudData(solicitudData);
-            });
+          if (response.permisos) {
+            localStorage.setItem('permisos', JSON.stringify(response.permisos));
+          }
         } else {
           console.error('Token not found in the response');
         }
@@ -40,8 +35,13 @@ export class AuthService {
     );
   }
 
-  registrar(dni: string, clave: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/registrar`, { dni, clave });
+  tienePermiso(permiso: string): boolean {
+    const permisos = JSON.parse(localStorage.getItem('permisos') || '[]');
+    return permisos.includes(permiso);
+  }
+
+  esAdmin(): boolean {
+    return localStorage.getItem('tipo') === 'admin';
   }
 
   actualizarClave(
@@ -58,6 +58,8 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('tipo');
+    localStorage.removeItem('permisos');
     this.solicitudService.clearSolicitudData();
     this.router.navigate(['/']);
   }

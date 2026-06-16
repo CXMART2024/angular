@@ -20,13 +20,18 @@ export class SolicitudService {
   }
 
   //setear data solicitud después del login
+  // setSolicitudData(data: any) {
+  //   this.getSolicitudByDni(data.dni).subscribe({
+  //     next: (data: any) => {
+  //       this.solicitudDataSubject.next(data);
+  //       localStorage.setItem('solicitudData', JSON.stringify(data));
+  //     },
+  //   });
+  // }
+
   setSolicitudData(data: any) {
-    this.getSolicitudByDni(data.dni).subscribe({
-      next: (data: any) => {
-        this.solicitudDataSubject.next(data);
-        localStorage.setItem('solicitudData', JSON.stringify(data));
-      },
-    });
+    this.solicitudDataSubject.next(data);
+    localStorage.setItem('solicitudData', JSON.stringify(data));
   }
 
   //obtener datos solicitud

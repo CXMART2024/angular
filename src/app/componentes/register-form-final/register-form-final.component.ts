@@ -8,10 +8,9 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-register-form-final',
   templateUrl: './register-form-final.component.html',
-  styleUrl: './register-form-final.component.css'
+  styleUrl: './register-form-final.component.css',
 })
 export class RegisterFormFinalComponent implements OnInit {
-
   fileEvidencia?: File;
   fileDni?: File;
   fileCertificado?: File;
@@ -19,7 +18,12 @@ export class RegisterFormFinalComponent implements OnInit {
 
   formData: any = {};
 
-  constructor(private http: HttpClient, private formDataService: FormularioBecasService, private router: Router, private toastr: ToastrService) { }
+  constructor(
+    private http: HttpClient,
+    private formDataService: FormularioBecasService,
+    private router: Router,
+    private toastr: ToastrService,
+  ) {}
 
   ngOnInit() {
     this.formData = this.formDataService.getFormData();
@@ -65,7 +69,12 @@ export class RegisterFormFinalComponent implements OnInit {
   onSubmit(event: Event) {
     event.preventDefault();
 
-    if (!this.fileEvidencia || !this.fileDni || !this.fileCertificado || !this.fileComprobante) {
+    if (
+      !this.fileEvidencia ||
+      !this.fileDni ||
+      !this.fileCertificado ||
+      !this.fileComprobante
+    ) {
       this.toastr.warning('Por favor, suba todos los documentos requeridos.');
       return;
     }
@@ -77,16 +86,33 @@ export class RegisterFormFinalComponent implements OnInit {
     formDni.append('file', this.fileDni, this.fileDni.name);
 
     const formCertificado = new FormData();
-    formCertificado.append('file', this.fileCertificado, this.fileCertificado.name);
+    formCertificado.append(
+      'file',
+      this.fileCertificado,
+      this.fileCertificado.name,
+    );
 
     const formComprobante = new FormData();
-    formComprobante.append('file', this.fileComprobante, this.fileComprobante.name);
+    formComprobante.append(
+      'file',
+      this.fileComprobante,
+      this.fileComprobante.name,
+    );
 
     const cargaArchivos = [
-      this.http.post('https://backendbecas.azurewebsites.net/upload', formEvidencia),
+      this.http.post(
+        'https://backendbecas.azurewebsites.net/upload',
+        formEvidencia,
+      ),
       this.http.post('https://backendbecas.azurewebsites.net/upload', formDni),
-      this.http.post('https://backendbecas.azurewebsites.net/upload', formCertificado),
-      this.http.post('https://backendbecas.azurewebsites.net/upload', formComprobante)
+      this.http.post(
+        'https://backendbecas.azurewebsites.net/upload',
+        formCertificado,
+      ),
+      this.http.post(
+        'https://backendbecas.azurewebsites.net/upload',
+        formComprobante,
+      ),
     ];
 
     forkJoin(cargaArchivos).subscribe({
@@ -99,29 +125,38 @@ export class RegisterFormFinalComponent implements OnInit {
         this.formData.contratoBecario = '0';
         this.formData.fecha_solicitud = new Date();
 
-        this.http.post('https://backendbecas.azurewebsites.net/solicitudes/upsert', this.formData).subscribe({
-          next: (response: any) => {
-            if (response.value == '0') {
-              alert(response.message);
-              this.router.navigate(['/register-form']);
-              this.formDataService.clearFormData();
-            } else {
-              this.notificarEnvioSolicitud(this.formData);
-              this.toastr.success(`Solicitud enviada correctamente.`);
-              this.router.navigate(['/register-form']);
-              this.formDataService.clearFormData();
-            }
-          },
-          error: (error) => {
-            console.error('Upload error', error);
-            this.toastr.error(`Error al enviar solicitud. Por favor, refresca la página y vuelve a intentarlo.`);
-          }
-        });
+        this.http
+          .post(
+            'https://backendbecas.azurewebsites.net/solicitudes/upsert',
+            this.formData,
+          )
+          .subscribe({
+            next: (response: any) => {
+              if (response.value == '0') {
+                alert(response.message);
+                this.router.navigate(['/register-form']);
+                this.formDataService.clearFormData();
+              } else {
+                this.notificarEnvioSolicitud(this.formData);
+                this.toastr.success(`Solicitud enviada correctamente.`);
+                this.router.navigate(['/register-form']);
+                this.formDataService.clearFormData();
+              }
+            },
+            error: (error) => {
+              console.error('Upload error', error);
+              this.toastr.error(
+                `Error al enviar solicitud. Por favor, refresca la página y vuelve a intentarlo.`,
+              );
+            },
+          });
       },
       error: (error) => {
         console.error('Error subiendo archivos', error);
-        this.toastr.error(`Error subiendo archivos. Por favor, refresca la página y vuelve a intentarlo.`);
-      }
+        this.toastr.error(
+          `Error subiendo archivos. Por favor, refresca la página y vuelve a intentarlo.`,
+        );
+      },
     });
   }
 
@@ -130,7 +165,11 @@ export class RegisterFormFinalComponent implements OnInit {
   }
 
   goToLanding() {
-    if (confirm('¿Está seguro que desea salir? Perderá todo lo ingresado en el formulario.')) {
+    if (
+      confirm(
+        '¿Está seguro que desea salir? Perderá todo lo ingresado en el formulario.',
+      )
+    ) {
       this.formDataService.clearFormData();
       window.location.href = 'https://fundacioncharlescrosland.org/';
     }
@@ -142,16 +181,19 @@ export class RegisterFormFinalComponent implements OnInit {
     const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
     const anio = fecha.getFullYear();
 
-    const fechaFormateada = `${dia}/${mes}/${anio}`
-    this.http.post('https://prod-09.brazilsouth.logic.azure.com:443/workflows/c892f3fc19c0414891f907ba67d85ad7/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=7Pfw0bnXxG_LLWwaQRb_e6aI8crlNyeO1-LT5hAzLLU',
-      {
-        "Estudiante": solicitud.nombre_completo,
-        "CorreoEstudiante": solicitud.correo,
-        "FechaSolicitud": fechaFormateada,
-        "Institucion": solicitud.institucion_nombre,
-        "IngresoFamiliar": solicitud.ingreso_familiar_mensual,
-        "Motivo": solicitud.motivo_solicitud
-      }).subscribe();
+    const fechaFormateada = `${dia}/${mes}/${anio}`;
+    this.http
+      .post(
+        'https://prod-09.brazilsouth.logic.azure.com:443/workflows/c892f3fc19c0414891f907ba67d85ad7/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=7Pfw0bnXxG_LLWwaQRb_e6aI8crlNyeO1-LT5hAzLLU',
+        {
+          Estudiante: solicitud.nombre_completo,
+          CorreoEstudiante: solicitud.correo,
+          FechaSolicitud: fechaFormateada,
+          Institucion: solicitud.institucion_nombre,
+          IngresoFamiliar: solicitud.ingreso_familiar_mensual,
+          Motivo: solicitud.motivo_solicitud,
+        },
+      )
+      .subscribe();
   }
-
 }

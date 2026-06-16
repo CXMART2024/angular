@@ -1,11 +1,14 @@
 <div class="d-flex min-vh-100">
+  <div class="p-0 flex-shrink-0" *ngIf="showSidebar()">
+    <!-- Sidebar normal para todas las rutas -->
+    <app-sidebar *ngIf="!isContabilidad()"></app-sidebar>
+    <!-- Sidebar especial solo para contabilidad -->
+    <app-sidebar-contabilidad
+      *ngIf="isContabilidad()"
+    ></app-sidebar-contabilidad>
+  </div>
 
-    <div class="p-0 flex-shrink-0" *ngIf="showSidebar()">
-        <app-sidebar></app-sidebar>
-    </div>
-
-    <div class="flex-grow-1 overflow-auto">
-        <router-outlet></router-outlet>
-    </div>
-
+  <div class="flex-grow-1 overflow-auto">
+    <router-outlet></router-outlet>
+  </div>
 </div>

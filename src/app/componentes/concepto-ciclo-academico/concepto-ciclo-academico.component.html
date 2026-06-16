@@ -389,7 +389,7 @@
   aria-hidden="true"
   data-bs-backdrop="static"
 >
-  <div class="modal-dialog modal-lg modal-dialog-centered">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <div class="row w-100 g-0">
@@ -448,7 +448,7 @@
             ></textarea>
           </div>
           <div class="row">
-            <div class="mb-3 col-12 col-md-6">
+            <div class="mb-3 col-12 col-md-12">
               <label class="form-label text-dark">N° cta bancaria: * </label>
               <input
                 type="text"
@@ -456,32 +456,8 @@
                 formControlName="nro_cuentabancaria"
               />
             </div>
-            <div class="mb-3 col-12 col-md-6">
-              <label class="form-label text-dark">Código Sociedad: * </label>
-              <!--<input type="text" class="form-control" formControlName="concepto">-->
-              <input
-                type="text"
-                class="form-control"
-                formControlName="codigo_sociedad"
-              />
-            </div>
           </div>
-          <div class="row">
-            <div class="mb-3 col-12 col-md-6">
-              <label class="form-label text-dark">CECO: * </label>
-              <input type="text" class="form-control" formControlName="ceco" />
-            </div>
-            <div class="mb-3 col-12 col-md-6">
-              <label class="form-label text-dark">Área Solicitante: * </label>
-              <!--<input type="text" class="form-control" formControlName="concepto">-->
-              <input
-                type="text"
-                class="form-control"
-                formControlName="area_solicitante"
-              />
-            </div>
-          </div>
-          <div class="row">
+          <div class="row mb-4">
             <div class="mb-3 col-12 col-md-6">
               <label class="form-label text-dark">Moneda: * </label>
               <select
@@ -499,19 +475,20 @@
             <div class="mb-3 col-12 col-md-6">
               <label class="form-label text-dark">Importe Total: * </label>
               <!--<input type="text" class="form-control" formControlName="concepto">-->
-              <input type="text" class="form-control" formControlName="monto" />
-            </div>
-          </div>
-          <div class="row mb-4">
-            <div class="mb-3 col-12 col-md-6">
-              <label class="form-label text-dark"
-                >Fecha Regularización: *
-              </label>
-              <input
-                type="date"
-                class="form-control"
-                formControlName="fecha_regularizacion"
-              />
+              <div class="input-group">
+                <!-- Símbolo como prefijo visual -->
+                <span
+                  class="input-group-text"
+                  style="background-color: white; border-right: none"
+                  >{{ simboloMoneda }}</span
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="monto"
+                  style="border-left: none"
+                />
+              </div>
             </div>
           </div>
 

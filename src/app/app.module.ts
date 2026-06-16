@@ -24,6 +24,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContabilidadComponent } from './componentes/contabilidad/contabilidad.component';
 import { SidebarComponent } from './componentes/sidebar/sidebar.component';
+import { SidebarContabilidadComponent } from './componentes/sidebar-contabilidad/sidebar-contabilidad.component';
 
 /*import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
@@ -60,6 +61,7 @@ export const MY_DATE_FORMATS = {
     EditarMallasCursosComponent,
     ContabilidadComponent,
     SidebarComponent,
+    SidebarContabilidadComponent,
 
   ],
   imports: [

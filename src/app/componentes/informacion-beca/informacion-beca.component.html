@@ -1,8 +1,7 @@
 <div class="container-fluid overflow-auto">
+  <!-- <div class="row">-->
 
-   <!-- <div class="row">-->
-        
-        <!--
+  <!--
         <div class="col-12 col-md-2" style="background-color: #4180C2;">
 
             <ul class="nav flex-column nav-fill nav-pills">
@@ -87,76 +86,140 @@
 
         </div>-->
 
-      <!--  <div class="col-12 col-md-10" style="background-color: #F3F3F3;">-->
-            <form #myForm="ngForm">
-                <div class="card mt-4 mb-5">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col">
-                                <strong class="mb-2 mt-2">Información de Periodo de Becas</strong>
-                            </div>
-                            <div class="col d-flex justify-content-end">
-                                <small class="me-2">Fecha
-                                    Inicio de Beca: {{fecha_inicio | date:'dd/MM/yyyy'}}</small>
-                                <small>Fecha Fin de
-                                    Beca: {{fecha_fin_estimada | date:'dd/MM/yyyy'}}</small>
-                            </div>
-                        </div>
+  <!--  <div class="col-12 col-md-10" style="background-color: #F3F3F3;">-->
+  <form #myForm="ngForm">
+    <div class="card mt-4 mb-5">
+      <div class="card-header">
+        <div class="row">
+          <div class="col">
+            <strong class="mb-2 mt-2">Información de Periodo de Becas</strong>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <small class="me-2"
+              >Fecha Inicio de Beca:
+              {{ fecha_inicio | date: "dd/MM/yyyy" }}</small
+            >
+            <small
+              >Fecha Fin de Beca:
+              {{ fecha_fin_estimada | date: "dd/MM/yyyy" }}</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="row card-body g-0">
+        <div class="col-12 col-md-9">
+          <!--Donde-->
 
-                    </div>
-                    <div class="row card-body g-0">
+          <div class="row mb-3 g-3">
+            <div class="col-12 col-md-2 d-flex align-items-center">
+              <label class="form-label" style="color: #636363; font-size: 12px"
+                >Nombres y Apellidos:</label
+              >
+            </div>
+            <div class="col-12 col-md-6">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="nombre_completo"
+                name="nombre_completo"
+                id="nombre_completo"
+                readonly
+                [disabled]="true"
+              />
+            </div>
+            <div class="col-12 col-md-1 d-flex align-items-center">
+              <label
+                class="form-label text-start"
+                style="color: #636363; font-size: 12px"
+                >Código Estudiante</label
+              >
+            </div>
+            <div class="col-12 col-md-3">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="codigo_estudiante"
+                name="codigo_estudiante"
+                id="codigo_estudiante"
+              />
+            </div>
+          </div>
 
-                        <div class="col-12 col-md-8">
-                            <!--Donde-->
+          <div class="row mb-3">
+            <div class="col-12 col-md-2">
+              <label class="form-label" style="color: #636363; font-size: 12px"
+                >N° Doc. Identidad:</label
+              >
+            </div>
+            <div class="col-12 col-md-10">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="dni"
+                id="dni"
+                name="dni"
+                readonly
+                [disabled]="true"
+              />
+            </div>
+          </div>
 
+          <div class="row mb-3">
+            <div class="col-12 col-md-2">
+              <label class="form-label" style="color: #636363; font-size: 12px"
+                >Institución:</label
+              >
+            </div>
+            <div class="col-12 col-md-6">
+              <input
+                type="text"
+                class="form-control disabled"
+                [(ngModel)]="institucion_nombre"
+                name="institucion_nombre"
+                readonly
+                id="institucion_nombre"
+                [disabled]="true"
+              />
+            </div>
+            <div class="col-12 col-md-1">
+              <label class="form-label" style="color: #636363; font-size: 12px"
+                >RUC Institución</label
+              >
+            </div>
+            <div class="col-12 col-md-3">
+              <input
+                type="text"
+                class="form-control disabled"
+                [(ngModel)]="ruc_institucion"
+                name="ruc_institucion"
+                id="ruc_institucion"
+              />
+            </div>
+          </div>
 
-                            <div class="row mb-3">
-                                <div class="col-12 col-md-3">
-                                    <label class="form-label" style="color: #636363 ;"><small>Nombres y
-                                            Apellidos:</small></label>
-                                </div>
-                                <div class="col-12 col-md-9">
-                                    <input type="text" class="form-control" [(ngModel)]="nombre_completo"
-                                        name="nombre_completo" id="nombre_completo" readonly [disabled]="true">
-                                </div>
-
-                            </div>
-
-
-                            <div class="row mb-3">
-                                <div class="col-12 col-md-3">
-                                    <label class="form-label" style="color: #636363;"><small>N° Doc. Identidad:
-                                        </small></label>
-                                </div>
-                                <div class="col-12 col-md-9">
-                                    <input type="text" class="form-control" [(ngModel)]="dni" id="dni" name="dni"
-                                        readonly [disabled]="true">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col-12 col-md-3">
-                                    <label class="form-label" style="color: #636363;"><small>Institución:
-                                        </small></label>
-                                </div>
-                                <div class="col-12 col-md-9">
-                                    <input type="text" class="form-control disabled" [(ngModel)]="institucion_nombre"
-                                        name="institucion_nombre" readonly id="institucion_nombre" [disabled]="true">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col">
-
-                                    <div class="row d-flex justify-content-center align-items-center">
-                                        <div class="col"><label class="form-label" style="color: #636363;"><small>Fecha
-                                                    Inicio de Beca: *</small></label></div>
-                                        <div class="col"><input type="date" class="form-control"
-                                                [(ngModel)]="fecha_inicio" name="fecha_inicio" id="fecha_inicio"
-                                                required (change)="validateDates()">
-                                        </div>
-                                    </div>
-                                    <!-- 
+          <div class="row mb-3 d-flex align-items-center">
+            <div class="col-6">
+              <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-4">
+                  <label
+                    class="form-label"
+                    style="color: #636363; font-size: 12px"
+                    >Fecha Inicio*</label
+                  >
+                </div>
+                <div class="col-8">
+                  <input
+                    type="date"
+                    class="form-control"
+                    [(ngModel)]="fecha_inicio"
+                    name="fecha_inicio"
+                    id="fecha_inicio"
+                    required
+                    (change)="validateDates()"
+                  />
+                </div>
+              </div>
+              <!-- 
                                     <mat-form-field appearance="outline">
                                         <mat-label>Seleccionar Fecha Inicio</mat-label>
                                         <input matInput [matDatepicker]="picker" [(ngModel)]="fecha_inicio">
@@ -164,590 +227,944 @@
                                         <mat-datepicker #picker></mat-datepicker>
                                       </mat-form-field>
                                       -->
-                                </div>
-                                <div class="col">
-                                    <div class="row d-flex justify-content-center align-items-center">
-                                        <div class="col">
-                                            <label class="form-label" style="color: #636363;"><small>Fecha
-                                                    Fin de Beca: *</small></label>
-                                        </div>
-                                        <div class="col">
-                                            <input type="date" class="form-control" [(ngModel)]="fecha_fin_estimada"
-                                                name="fecha_fin_estimada" id="fecha_fin_estimada" required
-                                                (change)="validateDates()">
-                                        </div>
-                                        <div *ngIf="fechaFinInvalid" class="text-danger">
-                                            La fecha de fin no puede ser anterior a la fecha de inicio.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Donde-->
-
-
-                            <div class="row custom-file-button mb-3">
-                                <div class="col-3">
-                                    <label class="form-label" style="color: #636363;"><small>Contrato: *
-                                        </small></label>
-                                </div>
-                                <div class="col-9">
-                                    <div class="input-group">
-                                        <input type="file" class="form-control"
-                                            (change)="onFileChange_contratoBecario($event)" #url_doc_contrato />
-                                        <label class="input-group-text"><i class="bi bi-cloud-arrow-up-fill"
-                                                style="color: #4180C2;width: 100%;"></i></label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row custom-file-button mb-2">
-                                <div class="col-3">
-                                    <label class="form-label" style="color: #636363;"><small>Malla Curricular: *
-                                        </small></label>
-                                </div>
-                                <div class="col-9">
-                                    <div class="input-group">
-                                        <input type="file" class="form-control"
-                                            (change)="onFileChange_id_malla_curricular($event)" #id_malla_curricular />
-                                        <label class="input-group-text"><i class="bi bi-cloud-arrow-up-fill"
-                                                style="color: #4180C2;width: 100%;"></i></label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label" style="color: #636363;">* No se olvide de cargar los archivos
-                                    correspondientes </label>
-                            </div>
-
-                        </div>
-                        <div class="col-12 col-md-4">
-                            <div class="d-flex justify-content-center mb-4">
-                                <img id="selectedAvatar"
-                                    src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
-                                    class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;"
-                                    alt="example placeholder" />
-
-                            </div>
-
-                            <div class="w-75" style="margin: auto;">
-                                <div class="d-flex justify-content-center">
-                                    <label class="form-label text-center" style="color: #636363;"><small>Foto
-                                            Estudiante: *</small></label>
-                                </div>
-                                <div class="input-group">
-                                    <input type="file" class="form-control"
-                                        (change)="onFileChange_url_foto_estudiante($event)" />
-                                    <label class="input-group-text"><i class="bi bi-cloud-arrow-up-fill"
-                                            style="color: #4180C2;width: 100%;"></i></label>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-7">
-                                <h6 class="mt-2 mb-2"><strong>Ciclos Malla Curricular</strong></h6>
-                            </div>
-                            <div *ngIf="editMallaCurricular" class="col-5 d-flex justify-content-end"><button
-                                    class="btn text-primary"
-                                    style="background-color: #ECF2F9;border: #4180C2 solid 1px;" type="button"
-                                    data-bs-toggle="modal" data-bs-target="#nuevaMalla" (click)="clearData()">Nuevo
-                                    Ciclo/Grado</button></div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card">
-
-                            <div class="card-body">
-                                <div class="container table-responsive">
-                                    <table class="table table-bordered" *ngFor="let ciclo of cicloCursoRelacion">
-                                        <thead>
-                                            <tr>
-                                                <th class="align-middle" style="background-color: #ECF2F9;">
-                                                    <div class="d-flex justify-content-center align-items-center">
-                                                        <span class="me-5">{{ciclo.ciclo.nombre}}</span>
-                                                        <button *ngIf="editMallaCurricular"
-                                                            class="btn btn-outline-info btn-sm me-2"
-                                                            data-bs-target="#editarMalla" data-bs-toggle="modal"
-                                                            (click)="selectCicloModal(ciclo.ciclo.id)"><i
-                                                                class="bi bi-pencil-fill" data-bs-toggle="tooltip"
-                                                                data-bs-placement="top" title="Editar"></i></button>
-                                                        <button *ngIf="editMallaCurricular"
-                                                            class="btn btn-outline-danger btn-sm"
-                                                            (click)="deleteCicloAll(ciclo.ciclo)"
-                                                            data-bs-toggle="tooltip" data-bs-placement="top"
-                                                            title="Eliminar"><i class="bi bi-trash3"></i></button>
-
-                                                    </div>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="m-0 p-0">
-                                            <tr>
-                                                <td>
-                                                    <table class="table table-bordered">
-                                                        <thead class="bg-light">
-                                                            <tr>
-                                                                <th class="text-center">Nombre</th>
-                                                                <th class="text-center">Tipo</th>
-                                                                <th class="text-center">Créditos</th>
-
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr *ngFor="let curso of ciclo.cursos">
-                                                                <td class="text-center">{{curso.Nombre}}</td>
-                                                                <td class="text-center">{{curso.tipo}}</td>
-                                                                <td class="text-center">{{curso.creditos}}</td>
-
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-end">
-                            <button class="btn btn-primary" (click)="submitForm()"
-                                [disabled]="!isFileSelected() || fechaFinInvalid"
-                                *ngIf="cicloCursoRelacion.length > 0">Guardar
-                                Información</button>
-                        </div>
-                    </div>
-                </div>
-
-            </form>
-      <!--  </div>-->
-
-
-
-   <!-- </div>-->
-
-</div>
-
-
-
-
-<div class="modal fade" id="showNot" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-custom modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="row w-100 g-0">
-                    <div class="col">
-                        <h6>Notificaciones</h6>
-                    </div>
-                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
-                            data-bs-dismiss="modal"></i></div>
-                </div>
             </div>
-            <div class="modal-body">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item" style="font-size: small;"><span class="badge badge-pill"><i
-                                class="bi bi-circle-fill" style="color: #4180C2;"></i></span>Te quedan 2 días para
-                        cargar tu información de periodo de beca
-                    </li>
-                    <li class="list-group-item" style="font-size: small;"><span class="badge badge-pill"><i
-                                class="bi bi-circle-fill" style="color: #4180C2;"></i></span>Te quedan 2 días para
-                        cargar tu información de periodo de beca
-                    </li>
-                    <li class="list-group-item" style="font-size: small;"><span class="badge badge-pill"><i
-                                class="bi bi-circle-fill" style="color: #4180C2;"></i></span>Te quedan 2 días para
-                        cargar tu información de periodo de beca
-                    </li>
-                </ul>
+            <div class="col-6">
+              <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-4">
+                  <label
+                    class="form-label"
+                    style="color: #636363; font-size: 12px"
+                    >Fecha Fin Estimada*</label
+                  >
+                </div>
+                <div class="col-8">
+                  <input
+                    type="date"
+                    class="form-control"
+                    [(ngModel)]="fecha_fin_estimada"
+                    name="fecha_fin_estimada"
+                    id="fecha_fin_estimada"
+                    required
+                    (change)="validateDates()"
+                  />
+                </div>
+                <div *ngIf="fechaFinInvalid" class="text-danger">
+                  La fecha de fin no puede ser anterior a la fecha de inicio.
+                </div>
+              </div>
             </div>
+          </div>
+          <!--Donde-->
 
+          <!-- Contrato -->
+          <div class="row mb-3 align-items-center">
+            <div class="col-2">
+              <label class="form-label" style="color: #636363; font-size: 12px"
+                >Contrato: *</label
+              >
+            </div>
+            <div class="col-6">
+              <div
+                class="border rounded p-2 text-center"
+                style="
+                  border: 2px dashed #3b78c2 !important;
+                  background-color: #f4f7ff;
+                  cursor: pointer;
+                  border-radius: 10px;
+                  line-height: 1;
+                "
+                (click)="fileInputContrato.click()"
+              >
+                <i
+                  class="bi bi-cloud-arrow-up"
+                  style="font-size: 1.2rem; color: #3b78c2"
+                ></i>
+                <span class="ms-2" style="color: #3b78c2; font-size: small">
+                  {{ contratoNombre || "Cargar archivo" }}
+                </span>
+                <input
+                  type="file"
+                  #fileInputContrato
+                  style="display: none"
+                  (change)="onFileChange_contratoBecario($event)"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Malla Curricular -->
+          <div class="row mb-3 align-items-center">
+            <div class="col-2">
+              <label class="form-label" style="color: #636363; font-size: 12px"
+                >Malla Curricular: *</label
+              >
+            </div>
+            <div class="col-6">
+              <div
+                class="border rounded p-2 text-center"
+                style="
+                  border: 2px dashed #3b78c2 !important;
+                  background-color: #f4f7ff;
+                  cursor: pointer;
+                  border-radius: 10px;
+                  line-height: 1;
+                "
+                (click)="fileInputMalla.click()"
+              >
+                <i
+                  class="bi bi-cloud-arrow-up"
+                  style="font-size: 1.2rem; color: #3b78c2"
+                ></i>
+                <span class="ms-2" style="color: #3b78c2; font-size: small">
+                  {{ mallaNombre || "Cargar archivo" }}
+                </span>
+                <input
+                  type="file"
+                  #fileInputMalla
+                  style="display: none"
+                  (change)="onFileChange_id_malla_curricular($event)"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <label class="form-label" style="color: #636363"
+              >* No se olvide de cargar los archivos correspondientes
+            </label>
+          </div>
         </div>
+        <div class="col-12 col-md-3">
+          <div class="d-flex justify-content-center mb-4">
+            <img
+              id="selectedAvatar"
+              [src]="fotoPreview"
+              class="rounded"
+              style="width: 150px; height: 150px; object-fit: cover"
+              alt="example placeholder"
+            />
+          </div>
+
+          <div class="w-75" style="margin: auto">
+            <div class="d-flex justify-content-center mb-3">
+              <label class="form-label text-center" style="color: #636363"
+                ><small>Foto Estudiante: *</small></label
+              >
+            </div>
+            <div class="input-group">
+              <!-- Input de texto que muestra el nombre (solo lectura) -->
+              <input
+                type="text"
+                class="form-control"
+                [value]="fotoNombre || 'Selecciona un archivo...'"
+                readonly
+                style="
+                  cursor: pointer;
+                  font-size: small;
+                  color: #636363;
+                  background-color: white;
+                "
+                (click)="fileInputFoto.click()"
+              />
+
+              <!-- Input file real, oculto -->
+              <input
+                type="file"
+                #fileInputFoto
+                style="display: none"
+                (change)="onFileChange_url_foto_estudiante($event)"
+              />
+
+              <!-- Botón de icono que también abre el file picker -->
+              <label
+                class="input-group-text"
+                style="cursor: pointer"
+                (click)="fileInputFoto.click()"
+              >
+                <i
+                  class="bi bi-cloud-arrow-up-fill"
+                  style="color: #4180c2; width: 100%"
+                ></i>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div class="card mb-3">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-7">
+            <h6 class="mt-2 mb-2"><strong>Ciclos Malla Curricular</strong></h6>
+          </div>
+          <div
+            *ngIf="editMallaCurricular"
+            class="col-5 d-flex justify-content-end"
+          >
+            <button
+              class="btn text-primary"
+              style="background-color: #ecf2f9; border: #4180c2 solid 1px"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#nuevaMalla"
+              (click)="clearData()"
+            >
+              Nuevo Ciclo/Grado
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card">
+          <div class="card-body">
+            <div class="container table-responsive">
+              <table
+                class="table table-bordered"
+                *ngFor="let ciclo of cicloCursoRelacion"
+              >
+                <thead>
+                  <tr>
+                    <th class="align-middle" style="background-color: #ecf2f9">
+                      <div
+                        class="d-flex justify-content-center align-items-center"
+                      >
+                        <span class="me-5">{{ ciclo.ciclo.nombre }}</span>
+                        <button
+                          *ngIf="editMallaCurricular"
+                          class="btn btn-outline-info btn-sm me-2"
+                          data-bs-target="#editarMalla"
+                          data-bs-toggle="modal"
+                          (click)="selectCicloModal(ciclo.ciclo.id)"
+                        >
+                          <i
+                            class="bi bi-pencil-fill"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="Editar"
+                          ></i>
+                        </button>
+                        <button
+                          *ngIf="editMallaCurricular"
+                          class="btn btn-outline-danger btn-sm"
+                          (click)="deleteCicloAll(ciclo.ciclo)"
+                          data-bs-toggle="tooltip"
+                          data-bs-placement="top"
+                          title="Eliminar"
+                        >
+                          <i class="bi bi-trash3"></i>
+                        </button>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="m-0 p-0">
+                  <tr>
+                    <td>
+                      <table class="table table-bordered">
+                        <thead class="bg-light">
+                          <tr>
+                            <th class="text-center">Nombre</th>
+                            <th class="text-center">Tipo</th>
+                            <th class="text-center">Créditos</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let curso of ciclo.cursos">
+                            <td class="text-center">{{ curso.Nombre }}</td>
+                            <td class="text-center">{{ curso.tipo }}</td>
+                            <td class="text-center">{{ curso.creditos }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="d-flex justify-content-end">
+          <button
+            class="btn btn-primary"
+            (click)="submitForm()"
+            [disabled]="!isFileSelected() || fechaFinInvalid"
+            *ngIf="cicloCursoRelacion.length > 0"
+          >
+            Guardar Información
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!--  </div>-->
+
+  <!-- </div>-->
 </div>
 
-
+<div
+  class="modal fade"
+  id="showNot"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-custom modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="row w-100 g-0">
+          <div class="col">
+            <h6>Notificaciones</h6>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <i
+              class="bi bi-x-circle"
+              style="color: black"
+              data-bs-dismiss="modal"
+            ></i>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" style="font-size: small">
+            <span class="badge badge-pill"
+              ><i class="bi bi-circle-fill" style="color: #4180c2"></i></span
+            >Te quedan 2 días para cargar tu información de periodo de beca
+          </li>
+          <li class="list-group-item" style="font-size: small">
+            <span class="badge badge-pill"
+              ><i class="bi bi-circle-fill" style="color: #4180c2"></i></span
+            >Te quedan 2 días para cargar tu información de periodo de beca
+          </li>
+          <li class="list-group-item" style="font-size: small">
+            <span class="badge badge-pill"
+              ><i class="bi bi-circle-fill" style="color: #4180c2"></i></span
+            >Te quedan 2 días para cargar tu información de periodo de beca
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="modal fade" data-bs-backdrop="static" id="contrato_becario">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Contrato de Becario</h5>
-            </div>
-            <div class="modal-body">
-                <div class="embed-responsive">
-                    <iframe class="embed-responsive-item"
-                        src="https://blobauroranuevo.blob.core.windows.net/images3d/Contrato_Aceptacion_Beca.pdf"
-                        width="100%" height="600px"></iframe>
-                </div>
-            </div>
-            <div class="modal-footer mx-auto">
-                <div class="row">
-                    <div class="col-12 mb-3 d-flex justify-content-center ">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="contrato" id="contrato"
-                                (change)="onCheckboxChange($event)">
-                            <label class="form-check-label" for="contrato"
-                                style="font-size: larger; margin-left: 5px;">Acepto todos los términos de la
-                                fundación y
-                                me comprometo a cumplir todo lo estipulado.</label>
-                        </div>
-                    </div>
-                    <div class="col-12 mb-2 d-grid">
-                        <button class="btn btn-primary" [disabled]="!isChecked" (click)="aceptarContrato()">Empezar a
-                            usar
-                            la Intranet</button>
-                    </div>
-                </div>
-            </div>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="color: #3b78c2">Contrato de Becario</h5>
+      </div>
+      <div class="modal-body px-4">
+        <p class="mb-4" style="color: #636363">
+          Es necesario que cargue el contrato firmado para empezar a hacer uso
+          de la intranet
+        </p>
 
+        <!-- Descargar contrato -->
+        <div class="mb-4">
+          <a
+            href="https://blobauroranuevo.blob.core.windows.net/images3d/Contrato_Aceptacion_Beca_Editable.pdf"
+            target="_blank"
+            class="btn p-2"
+            style="
+              border-radius: 4px;
+              color: #3b78c2;
+              border: 1px solid #3b78c2;
+            "
+          >
+            <i class="bi bi-download me-2"></i> Descargar Contrato
+          </a>
         </div>
+
+        <!-- Upload contrato firmado -->
+        <div class="mb-4">
+          <label class="form-label fw-bold" style="color: #3b3b3b"
+            >Contrato Firmado</label
+          >
+          <div
+            class="border rounded p-4 text-center"
+            style="
+              border: 2px dashed #3b78c2 !important;
+              background-color: #f4f7ff;
+              cursor: pointer;
+              border-radius: 10px;
+            "
+            (click)="fileInputContrato.click()"
+          >
+            <i
+              class="bi bi-cloud-arrow-up"
+              style="font-size: 1.8rem; color: #3b78c2"
+            ></i>
+            <p class="mb-0 mt-1" style="color: #3b78c2; font-size: small">
+              {{ contratoNombre || "Cargar archivo" }}
+            </p>
+            <input
+              type="file"
+              #fileInputContrato
+              style="display: none"
+              (change)="onFileChange_contratoBecario($event)"
+            />
+          </div>
+        </div>
+
+        <!-- Checkbox -->
+        <div class="form-check mb-2">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="contrato"
+            id="contrato"
+            (change)="onCheckboxChange($event)"
+          />
+          <label
+            class="form-check-label ms-1"
+            for="contrato"
+            style="font-size: medium"
+          >
+            Acepto todos los términos de la fundación y me comprometo a cumplir
+            todo lo estipulado.
+          </label>
+        </div>
+        <button
+          class="btn btn-primary py-2 mb-4 mt-3"
+          style="border-radius: 4px; font-size: medium; width: 100%"
+          [disabled]="!isChecked || !contratoNombre"
+          (click)="aceptarContrato()"
+        >
+          Empezar a usar la Intranet
+        </button>
+      </div>
     </div>
+  </div>
 </div>
-
-
-
-<div class="modal fade" id="updateUser" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="row w-100 g-0">
-                    <div class="col">
-                        <h6>Actualizar Contraseña</h6>
-                    </div>
-                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
-                            data-bs-dismiss="modal"></i></div>
-
-                </div>
-            </div>
-            <div class="modal-body">
-                <form [formGroup]="formUpdateLogin">
-                    <div class="mb-3">
-                        <label class="form-label text-dark">DNI: </label>
-                        <input type="text" class="form-control" formControlName="dni" [readOnly]="true">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label text-dark">Contraseña Actual: </label>
-                        <input type="password" class="form-control" formControlName="antiguaClave" name="antiguaClave"
-                            value="">
-                        @if(formUpdateLogin.get('antiguaClave')?.errors?.['required'] &&
-                        formUpdateLogin.get('antiguaClave')?.touched)
-                        {<div class="mistake">
-                            Por favor coloque su contraseña actual correctamente
-                        </div>
-                        }
-
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label text-dark">Nueva Contraseña: </label>
-                        <input type="password" class="form-control" formControlName="nuevaClave" name="" value="">
-                        @if(formUpdateLogin.get('nuevaClave')?.errors?.['required'] &&
-                        formUpdateLogin.get('nuevaClave')?.touched)
-                        {<div class="mistake">
-                            Por favor coloque su nueva contraseña correctamente
-                        </div>
-                        }
-                    </div>
-                    <div class="d-grid mb-2">
-                        <button class="btn btn-primary" [disabled]="!formUpdateLogin.valid" (click)="updateLogin()"
-                            data-bs-dismiss="modal">Guardar Cambios</button>
-                    </div>
-                </form>
-            </div>
-
+<div
+  class="modal fade"
+  id="updateUser"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+>
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="row w-100 g-0">
+          <div class="col">
+            <h6>Actualizar Contraseña</h6>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <i
+              class="bi bi-x-circle"
+              style="color: black"
+              data-bs-dismiss="modal"
+            ></i>
+          </div>
         </div>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formUpdateLogin">
+          <div class="mb-3">
+            <label class="form-label text-dark">DNI: </label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="dni"
+              [readOnly]="true"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-dark">Contraseña Actual: </label>
+            <input
+              type="password"
+              class="form-control"
+              formControlName="antiguaClave"
+              name="antiguaClave"
+              value=""
+            />
+            @if (
+              formUpdateLogin.get("antiguaClave")?.errors?.["required"] &&
+              formUpdateLogin.get("antiguaClave")?.touched
+            ) {
+              <div class="mistake">
+                Por favor coloque su contraseña actual correctamente
+              </div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label text-dark">Nueva Contraseña: </label>
+            <input
+              type="password"
+              class="form-control"
+              formControlName="nuevaClave"
+              name=""
+              value=""
+            />
+            @if (
+              formUpdateLogin.get("nuevaClave")?.errors?.["required"] &&
+              formUpdateLogin.get("nuevaClave")?.touched
+            ) {
+              <div class="mistake">
+                Por favor coloque su nueva contraseña correctamente
+              </div>
+            }
+          </div>
+          <div class="d-grid mb-2">
+            <button
+              class="btn btn-primary"
+              [disabled]="!formUpdateLogin.valid"
+              (click)="updateLogin()"
+              data-bs-dismiss="modal"
+            >
+              Guardar Cambios
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 
 <!--HTML Agregar Malla-->
 <div class="modal fade" data-bs-backdrop="static" id="nuevaMalla">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col">
-                        <h6 class="mb-2 mt-2">Contrato de Becario</h6>
-                    </div>
-                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle mb-2 mt-2"
-                            style="color: black;" data-bs-dismiss="modal"></i></div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <form #addMalla="ngForm">
-                    <div class="card-body">
-
-                        <p class="card-subtitle mb-2"><strong>Ciclo/Grado *</strong></p>
-                        <div class="w-50">
-                            <input type="text" class="form-control rounded" [(ngModel)]="nombre" name="nombre"
-                                required />
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-4 col-md-6 d-flex align-items-center">
-                                <span class="m-b mt-2"><strong>Cursos *</strong></span>
-                            </div>
-                            <div class="col-8 col-md-6 d-flex justify-content-end">
-                                <button class="btn btn-outline-primary w-50" data-bs-toggle="modal"
-                                    data-bs-target="#addCurso">Añadir Curso</button>
-                            </div>
-
-                        </div>
-
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <div class="container table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead class="bg-light">
-
-                                            <tr>
-                                                <th class="text-center">Curso</th>
-                                                <th class="text-center">Tipo</th>
-                                                <th class="text-center">Crédito</th>
-                                                <th></th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let curso of getCursoMallas(); let i = index">
-                                                <td class="text-center">{{curso.Nombre}}</td>
-                                                <td class="text-center">{{curso.tipo}}</td>
-                                                <td class="text-center">{{curso.creditos}}</td>
-                                                <td class="text-center">
-                                                    <div class="row">
-                                                        <div class="col-12 col-md-6 d-sm-flex justify-content-md-end">
-                                                            <button type="button" class="btn btn-outline-primary"
-                                                                data-bs-toggle="modal" data-bs-target="#addCurso"
-                                                                (click)="editCursoMalla(i)"><i
-                                                                    class="bi bi-pencil text-info"
-                                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                    title="Editar"></i></button>
-                                                        </div>
-                                                        <div class="col-12 col-md-6 d-sm-flex justify-content-md-start">
-                                                            <button type="button" class="btn btn-outline-danger"
-                                                                style="background-color: rgba(234, 76, 83, 0.1); border: solid red 1px;"
-                                                                (click)="deleteCursoMalla(i)" data-bs-toggle="tooltip"
-                                                                data-bs-placement="top" title="Eliminar"><i
-                                                                    class="bi bi-trash"
-                                                                    style="color: red;"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="d-flex justify-content-end">
-                            <button class="btn btn-primary w-25" [disabled]="addMalla.invalid"
-                                (click)="createAndSaveCiclo()" data-bs-dismiss="modal">Guardar Cambios</button>
-                        </div>
-
-                    </div>
-                </form>
-            </div>
-
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col">
+            <h6 class="mb-2 mt-2">Contrato de Becario</h6>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <i
+              class="bi bi-x-circle mb-2 mt-2"
+              style="color: black"
+              data-bs-dismiss="modal"
+            ></i>
+          </div>
         </div>
+      </div>
+      <div class="modal-body">
+        <form #addMalla="ngForm">
+          <div class="card-body">
+            <p class="card-subtitle mb-2"><strong>Ciclo/Grado *</strong></p>
+            <div class="w-50">
+              <input
+                type="text"
+                class="form-control rounded"
+                [(ngModel)]="nombre"
+                name="nombre"
+                required
+              />
+            </div>
+            <div class="row mb-4">
+              <div class="col-4 col-md-6 d-flex align-items-center">
+                <span class="m-b mt-2"><strong>Cursos *</strong></span>
+              </div>
+              <div class="col-8 col-md-6 d-flex justify-content-end">
+                <button
+                  class="btn btn-outline-primary w-50"
+                  data-bs-toggle="modal"
+                  data-bs-target="#addCurso"
+                >
+                  Añadir Curso
+                </button>
+              </div>
+            </div>
+
+            <div class="card mb-2">
+              <div class="card-body">
+                <div class="container table-responsive">
+                  <table class="table table-bordered">
+                    <thead class="bg-light">
+                      <tr>
+                        <th class="text-center">Curso</th>
+                        <th class="text-center">Tipo</th>
+                        <th class="text-center">Crédito</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let curso of getCursoMallas(); let i = index">
+                        <td class="text-center">{{ curso.Nombre }}</td>
+                        <td class="text-center">{{ curso.tipo }}</td>
+                        <td class="text-center">{{ curso.creditos }}</td>
+                        <td class="text-center">
+                          <div class="row">
+                            <div
+                              class="col-12 col-md-6 d-sm-flex justify-content-md-end"
+                            >
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#addCurso"
+                                (click)="editCursoMalla(i)"
+                              >
+                                <i
+                                  class="bi bi-pencil text-info"
+                                  data-bs-toggle="tooltip"
+                                  data-bs-placement="top"
+                                  title="Editar"
+                                ></i>
+                              </button>
+                            </div>
+                            <div
+                              class="col-12 col-md-6 d-sm-flex justify-content-md-start"
+                            >
+                              <button
+                                type="button"
+                                class="btn btn-outline-danger"
+                                style="
+                                  background-color: rgba(234, 76, 83, 0.1);
+                                  border: solid red 1px;
+                                "
+                                (click)="deleteCursoMalla(i)"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Eliminar"
+                              >
+                                <i class="bi bi-trash" style="color: red"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+              <button
+                class="btn btn-primary w-25"
+                [disabled]="addMalla.invalid"
+                (click)="createAndSaveCiclo()"
+                data-bs-dismiss="modal"
+              >
+                Guardar Cambios
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 
-
-<div class="modal fade" id="addCurso" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
-    data-bs-backdrop="static">
-    <div class="modal-dialog modal-md modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="row w-100 g-0">
-                    <div class="col">
-                        <h6>{{ editingIndex !== null ? 'Editar Curso' : 'Añadir Curso' }}</h6>
-                    </div>
-                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
-                            data-bs-dismiss="modal"></i></div>
-
-                </div>
-            </div>
-            <div class="modal-body">
-                <form #formMallaCurso="ngForm">
-                    <div class="mb-3">
-                        <label class="form-label text-dark">Curso: * </label>
-                        <input type="text" class="form-control" [(ngModel)]="newCursoMalla.Nombre" name="Nombre"
-                            required #Nombre="ngModel">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label text-dark">Tipo: * </label>
-                        <select class="form-select" name="tipo" [(ngModel)]="newCursoMalla.tipo" required>
-                            <option value="" selected disabled class="text-muted">Seleccione una opción</option>
-                            <option value="Obligatorio">Obligatorio</option>
-                            <option value="No Obligatorio">No Obligatorio</option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label text-dark">Crédito: * <i
-                                class="bi bi-question-circle-fill text-warning" data-bs-toggle="tooltip"
-                                data-bs-placement="top" title="Si es un estudiante de grado, introduzca 0."></i></label>
-                        <input type="number" class="form-control" [(ngModel)]="newCursoMalla.creditos" name="creditos"
-                            required min="0">
-                    </div>
-                    <div class="d-grid mb-3">
-                        <button class="btn btn-primary" type="submit" (click)="saveCursoMalla()"
-                            [disabled]="formMallaCurso.invalid" data-bs-dismiss="modal">{{ editingIndex !== null ?
-                            'Guardar Cambios' : 'Añadir Curso' }}</button>
-                    </div>
-                </form>
-            </div>
-
+<div
+  class="modal fade"
+  id="addCurso"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+>
+  <div class="modal-dialog modal-md modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="row w-100 g-0">
+          <div class="col">
+            <h6>
+              {{ editingIndex !== null ? "Editar Curso" : "Añadir Curso" }}
+            </h6>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <i
+              class="bi bi-x-circle"
+              style="color: black"
+              data-bs-dismiss="modal"
+            ></i>
+          </div>
         </div>
+      </div>
+      <div class="modal-body">
+        <form #formMallaCurso="ngForm">
+          <div class="mb-3">
+            <label class="form-label text-dark">Curso: * </label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="newCursoMalla.Nombre"
+              name="Nombre"
+              required
+              #Nombre="ngModel"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-dark">Tipo: * </label>
+            <select
+              class="form-select"
+              name="tipo"
+              [(ngModel)]="newCursoMalla.tipo"
+              required
+            >
+              <option value="" selected disabled class="text-muted">
+                Seleccione una opción
+              </option>
+              <option value="Obligatorio">Obligatorio</option>
+              <option value="No Obligatorio">No Obligatorio</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="form-label text-dark"
+              >Crédito: *
+              <i
+                class="bi bi-question-circle-fill text-warning"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Si es un estudiante de grado, introduzca 0."
+              ></i
+            ></label>
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="newCursoMalla.creditos"
+              name="creditos"
+              required
+              min="0"
+            />
+          </div>
+          <div class="d-grid mb-3">
+            <button
+              class="btn btn-primary"
+              type="submit"
+              (click)="saveCursoMalla()"
+              [disabled]="formMallaCurso.invalid"
+              data-bs-dismiss="modal"
+            >
+              {{ editingIndex !== null ? "Guardar Cambios" : "Añadir Curso" }}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 
 <!--HTML Editar Malla-->
 
 <div class="modal fade" data-bs-backdrop="static" id="editarMalla">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col">
-                        <h6 class="mb-2 mt-2">Editar Contrato de Becario</h6>
-                    </div>
-                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle mb-2 mt-2"
-                            style="color: black;" data-bs-dismiss="modal"></i></div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <form #formEditMalla="ngForm">
-                    <div class="card-body">
-
-                        <p class="card-subtitle mb-2"><strong>Ciclo/Grado *</strong></p>
-                        <div class="w-50">
-                            <input type="text" class="form-control rounded" name="nombre" [(ngModel)]="nombre"
-                                required />
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-4 col-md-6 d-flex align-items-center">
-                                <span class="m-b mt-2"><strong>Cursos *</strong></span>
-                            </div>
-                            <div class="col-8 col-md-6 d-flex justify-content-end">
-                                <button class="btn btn-outline-primary w-50" data-bs-toggle="modal"
-                                    data-bs-target="#editCurso">Añadir Curso</button>
-                            </div>
-
-                        </div>
-
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <div class="container table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead class="bg-light">
-
-                                            <tr>
-                                                <th class="text-center">Curso</th>
-                                                <th class="text-center">Tipo</th>
-                                                <th class="text-center">Crédito</th>
-                                                <th></th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let curso of cursos; let i = index">
-                                                <td class="text-center">{{curso.Nombre}}</td>
-                                                <td class="text-center">{{curso.tipo}}</td>
-                                                <td class="text-center">{{curso.creditos}}</td>
-                                                <td class="text-center">
-                                                    <div class="row">
-                                                        <div class="col-12 col-md-6 d-sm-flex justify-content-md-end">
-                                                            <button type="button" class="btn btn-outline-primary"
-                                                                (click)="editCurso(i)" data-bs-toggle="modal"
-                                                                data-bs-target="#editCurso"><i
-                                                                    class="bi bi-pencil text-info"
-                                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                    title="Editar"></i></button>
-                                                        </div>
-                                                        <div class="col-12 col-md-6 d-sm-flex justify-content-md-start">
-                                                            <button type="button" class="btn btn-outline-danger"
-                                                                (click)="deleteCurso(curso.id)"
-                                                                style="background-color: rgba(234, 76, 83, 0.1); border: solid red 1px;"><i
-                                                                    class="bi bi-trash" style="color: red;"
-                                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                    title="Eliminar"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="d-flex justify-content-end">
-                            <button class="btn btn-primary w-25" (click)="updateCiclo()"
-                                [disabled]="formEditMalla.invalid" data-bs-dismiss="modal">Guardar Cambios</button>
-                        </div>
-
-                    </div>
-                </form>
-            </div>
-
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col">
+            <h6 class="mb-2 mt-2">Editar Contrato de Becario</h6>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <i
+              class="bi bi-x-circle mb-2 mt-2"
+              style="color: black"
+              data-bs-dismiss="modal"
+            ></i>
+          </div>
         </div>
+      </div>
+      <div class="modal-body">
+        <form #formEditMalla="ngForm">
+          <div class="card-body">
+            <p class="card-subtitle mb-2"><strong>Ciclo/Grado *</strong></p>
+            <div class="w-50">
+              <input
+                type="text"
+                class="form-control rounded"
+                name="nombre"
+                [(ngModel)]="nombre"
+                required
+              />
+            </div>
+            <div class="row mb-4">
+              <div class="col-4 col-md-6 d-flex align-items-center">
+                <span class="m-b mt-2"><strong>Cursos *</strong></span>
+              </div>
+              <div class="col-8 col-md-6 d-flex justify-content-end">
+                <button
+                  class="btn btn-outline-primary w-50"
+                  data-bs-toggle="modal"
+                  data-bs-target="#editCurso"
+                >
+                  Añadir Curso
+                </button>
+              </div>
+            </div>
+
+            <div class="card mb-2">
+              <div class="card-body">
+                <div class="container table-responsive">
+                  <table class="table table-bordered">
+                    <thead class="bg-light">
+                      <tr>
+                        <th class="text-center">Curso</th>
+                        <th class="text-center">Tipo</th>
+                        <th class="text-center">Crédito</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let curso of cursos; let i = index">
+                        <td class="text-center">{{ curso.Nombre }}</td>
+                        <td class="text-center">{{ curso.tipo }}</td>
+                        <td class="text-center">{{ curso.creditos }}</td>
+                        <td class="text-center">
+                          <div class="row">
+                            <div
+                              class="col-12 col-md-6 d-sm-flex justify-content-md-end"
+                            >
+                              <button
+                                type="button"
+                                class="btn btn-outline-primary"
+                                (click)="editCurso(i)"
+                                data-bs-toggle="modal"
+                                data-bs-target="#editCurso"
+                              >
+                                <i
+                                  class="bi bi-pencil text-info"
+                                  data-bs-toggle="tooltip"
+                                  data-bs-placement="top"
+                                  title="Editar"
+                                ></i>
+                              </button>
+                            </div>
+                            <div
+                              class="col-12 col-md-6 d-sm-flex justify-content-md-start"
+                            >
+                              <button
+                                type="button"
+                                class="btn btn-outline-danger"
+                                (click)="deleteCurso(curso.id)"
+                                style="
+                                  background-color: rgba(234, 76, 83, 0.1);
+                                  border: solid red 1px;
+                                "
+                              >
+                                <i
+                                  class="bi bi-trash"
+                                  style="color: red"
+                                  data-bs-toggle="tooltip"
+                                  data-bs-placement="top"
+                                  title="Eliminar"
+                                ></i>
+                              </button>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+              <button
+                class="btn btn-primary w-25"
+                (click)="updateCiclo()"
+                [disabled]="formEditMalla.invalid"
+                data-bs-dismiss="modal"
+              >
+                Guardar Cambios
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 
-<div class="modal fade" id="editCurso" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-md modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="row w-100 g-0">
-                    <div class="col">
-                        <h6>{{ editingIndexEdit === null ? 'Añadir Curso' : 'Editar Curso' }}</h6>
-                    </div>
-                    <div class="col d-flex justify-content-end"><i class="bi bi-x-circle" style="color: black;"
-                            data-bs-dismiss="modal"></i></div>
-
-                </div>
-            </div>
-            <div class="modal-body">
-                <form #formMallaCursoEdit="ngForm">
-                    <div class="mb-3">
-                        <label class="form-label text-dark">Curso: * </label>
-                        <input type="text" class="form-control" name="Nombre" [(ngModel)]="newCursoMallaEdit.Nombre"
-                            required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label text-dark">Tipo: * </label>
-                        <select class="form-select" name="tipo" required [(ngModel)]="newCursoMallaEdit.tipo">
-                            <option value="" selected disabled class="text-muted">Seleccione una opción</option>
-                            <option value="Obligatorio">Obligatorio</option>
-                            <option value="No Obligatorio">No Obligatorio</option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label text-dark">Crédito: * <i
-                                class="bi bi-question-circle-fill text-warning" data-bs-toggle="tooltip"
-                                data-bs-placement="top" title="Si es un estudiante de grado, introduzca 0."></i></label>
-                        <input type="number" class="form-control" name="creditos" required min="0"
-                            [(ngModel)]="newCursoMallaEdit.creditos">
-                    </div>
-                    <div class="d-grid mb-3">
-                        <button class="btn btn-primary" type="submit" [disabled]="formMallaCursoEdit.invalid"
-                            data-bs-dismiss="modal" (click)="createCurso()">{{ editingIndexEdit === null ?
-                            'Añadir Curso' : 'Guardar Cambios' }}</button>
-                    </div>
-                </form>
-            </div>
-
+<div
+  class="modal fade"
+  id="editCurso"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+>
+  <div class="modal-dialog modal-md modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="row w-100 g-0">
+          <div class="col">
+            <h6>
+              {{ editingIndexEdit === null ? "Añadir Curso" : "Editar Curso" }}
+            </h6>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <i
+              class="bi bi-x-circle"
+              style="color: black"
+              data-bs-dismiss="modal"
+            ></i>
+          </div>
         </div>
+      </div>
+      <div class="modal-body">
+        <form #formMallaCursoEdit="ngForm">
+          <div class="mb-3">
+            <label class="form-label text-dark">Curso: * </label>
+            <input
+              type="text"
+              class="form-control"
+              name="Nombre"
+              [(ngModel)]="newCursoMallaEdit.Nombre"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-dark">Tipo: * </label>
+            <select
+              class="form-select"
+              name="tipo"
+              required
+              [(ngModel)]="newCursoMallaEdit.tipo"
+            >
+              <option value="" selected disabled class="text-muted">
+                Seleccione una opción
+              </option>
+              <option value="Obligatorio">Obligatorio</option>
+              <option value="No Obligatorio">No Obligatorio</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="form-label text-dark"
+              >Crédito: *
+              <i
+                class="bi bi-question-circle-fill text-warning"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Si es un estudiante de grado, introduzca 0."
+              ></i
+            ></label>
+            <input
+              type="number"
+              class="form-control"
+              name="creditos"
+              required
+              min="0"
+              [(ngModel)]="newCursoMallaEdit.creditos"
+            />
+          </div>
+          <div class="d-grid mb-3">
+            <button
+              class="btn btn-primary"
+              type="submit"
+              [disabled]="formMallaCursoEdit.invalid"
+              data-bs-dismiss="modal"
+              (click)="createCurso()"
+            >
+              {{
+                editingIndexEdit === null ? "Añadir Curso" : "Guardar Cambios"
+              }}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>

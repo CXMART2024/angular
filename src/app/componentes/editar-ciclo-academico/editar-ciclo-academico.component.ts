@@ -40,7 +40,7 @@ export class EditarCicloAcademicoComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private toastr: ToastrService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.solicitudService.getSolicitudData().subscribe((data) => {
@@ -50,12 +50,11 @@ export class EditarCicloAcademicoComponent implements OnInit {
         if (this.selectedCiclo) {
           //Asignar fecha en variables temporales tipo string para mostrarlas por default en el form
           this.fechaInicioStr = this.cicloService.formatDate(
-            this.selectedCiclo.fecha_inicio
+            this.selectedCiclo.fecha_inicio,
           );
           this.fechaFinStr = this.cicloService.formatDate(
-            this.selectedCiclo.fecha_fin
+            this.selectedCiclo.fecha_fin,
           );
-
 
           //Obtener cursos del ciclo
 
@@ -100,7 +99,7 @@ export class EditarCicloAcademicoComponent implements OnInit {
             0,
             0,
             cursoMalla.creditos,
-            cursoMalla.Nombre
+            cursoMalla.Nombre,
           );
           this.listCursos.push(curso);
         });
@@ -113,7 +112,7 @@ export class EditarCicloAcademicoComponent implements OnInit {
 
   quitarCursoDeLista(cursoEliminar: Curso) {
     this.listCursos = this.listCursos.filter(
-      (curso) => curso.id !== cursoEliminar.id
+      (curso) => curso.id !== cursoEliminar.id,
     );
   }
 
@@ -132,11 +131,10 @@ export class EditarCicloAcademicoComponent implements OnInit {
 
   onAgregarCursoChange(cursoSeleccionado: any) {
     const curso = this.listCursoPopUp.find(
-      (curso) => curso.id == cursoSeleccionado.target.value
+      (curso) => curso.id == cursoSeleccionado.target.value,
     );
     if (curso) {
       this.cursoSeleccionadoPopUp = curso;
-
     }
   }
 
@@ -150,7 +148,7 @@ export class EditarCicloAcademicoComponent implements OnInit {
         0,
         0,
         this.cursoSeleccionadoPopUp.creditos,
-        this.cursoSeleccionadoPopUp.Nombre
+        this.cursoSeleccionadoPopUp.Nombre,
       );
       this.listCursos.push(curso);
       this.cursoSeleccionadoPopUp = new CursoMalla(0, '', 0, 0, '');
@@ -183,38 +181,37 @@ export class EditarCicloAcademicoComponent implements OnInit {
             next: (ciclo: Ciclo) => {
               this.actualizarCursos(ciclo.id, this.listCursos);
               this.cicloService.setSelectedCiclo(ciclo);
-              this.toastr.success(`${ciclo.nombre_ciclo} actualizado correctamente`)
+              this.toastr.success(
+                `${ciclo.nombre_ciclo} actualizado correctamente`,
+              );
               this.router.navigate(['/concepto-modulo-academico']);
             },
             error: (error) => {
-              this.toastr.error(`Ha ocurrido un error, no se ha podido actualizar el ciclo correctamente`)
-            }
+              this.toastr.error(
+                `Ha ocurrido un error, no se ha podido actualizar el ciclo correctamente`,
+              );
+            },
           });
         }
       },
     });
   }
 
-
-
   actualizarCursos(id_registro_ciclo: number, listCursos: Array<Curso>): void {
     this.cursoService.deleteCursoByCiclo(id_registro_ciclo).subscribe({
       next: () => {
-        listCursos.forEach(curso => {
+        listCursos.forEach((curso) => {
           curso.id_registro_ciclo = id_registro_ciclo;
           this.guardarCurso(curso);
-        })
-      }
-    })
+        });
+      },
+    });
   }
-
 
   guardarCurso(curso: Curso): void {
     this.cursoService.createCurso(curso).subscribe({
-      next: () => {
-      },
-      error: (err) => {
-      },
+      next: () => {},
+      error: (err) => {},
     });
   }
 
@@ -222,15 +219,9 @@ export class EditarCicloAcademicoComponent implements OnInit {
     return this.url.has('file');
   }
 
-
   validateDates(): void {
     const fechaInicio = new Date(this.fechaInicioStr);
     const fechaFin = new Date(this.fechaFinStr);
     this.fechaFinInvalid = fechaFin < fechaInicio;
   }
-
-
-
 }
-
-

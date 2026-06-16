@@ -460,6 +460,7 @@ export class RegisterFormComponent implements OnInit {
 
     let bodyData = {
       nombre_completo: this.registrationForm.value.nombre_completo,
+      codigo_estudiante: this.registrationForm.value.codigo_estudiante,
       dni: this.registrationForm.value.dni,
       celular: this.registrationForm.value.celular,
       genero: this.registrationForm.value.genero,
