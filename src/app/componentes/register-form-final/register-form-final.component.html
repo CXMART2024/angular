@@ -1,70 +1,35 @@
 <div class="container py-4" style="max-width: 1200px; padding-top: 20px; padding-bottom: 20px;">
-
     <div class="row">
-
-        <!-- Progress Bar Section -->
-        <div class="col-md-4 p-5" style="background-color: #ECF3F9; ">
-
+        <div class="col-md-4 p-5" style="background-color: #ECF3F9;">
             <div class="container">
                 <h3 style="font-weight: bold">Solicitud de Beca</h3>
             </div>
-
             <table class="container">
                 <tr>
-                    <td>
-                        <i class="bi bi-check-circle-fill" style="color: #4180C2; font-size: 40px;"></i>
-                    </td>
-                    <td>
-                        <label class="form-label m-2"
-                            style="font-weight: bold; text-align: left; color: #4180C2;">Información Personal</label>
-                    </td>
+                    <td><i class="bi bi-check-circle-fill" style="color: #4180C2; font-size: 40px;"></i></td>
+                    <td><label class="form-label m-2" style="font-weight: bold; text-align: left; color: #4180C2;">Información Personal</label></td>
                 </tr>
+                <tr><td><i class="bi bi-three-dots-vertical" style="color: #4180C2; font-size: 40px;"></i></td></tr>
                 <tr>
-                    <td>
-                        <i class="bi bi-three-dots-vertical" style="color: #4180C2; font-size: 40px;"></i>
-                    </td>
+                    <td><i class="bi bi-check-circle-fill" style="color: #4180C2; font-size: 40px;"></i></td>
+                    <td><label class="form-label m-2" style="font-weight: bold; color:#4180C2;">Información Académica</label></td>
                 </tr>
+                <tr><td><i class="bi bi-three-dots-vertical" style="color: #4180C2; font-size: 40px;"></i></td></tr>
                 <tr>
-                    <td>
-                        <i class="bi bi-check-circle-fill" style="color: #4180C2; font-size: 40px;"></i>
-                    </td>
-                    <td>
-                        <label class="form-label m-2" style="font-weight: bold; color:#4180C2;">Información
-                            Académica</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <i class="bi bi-three-dots-vertical" style="color: #4180C2; font-size: 40px;"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <i class="bi bi-check-circle-fill" style="color: #4180C2; font-size: 40px;"></i>
-                    </td>
-                    <td>
-                        <label class="form-label m-2" style="font-weight: bold; color: #4180C2;">Carga de
-                            Documentos</label>
-                    </td>
+                    <td><i class="bi bi-check-circle-fill" style="color: #4180C2; font-size: 40px;"></i></td>
+                    <td><label class="form-label m-2" style="font-weight: bold; color: #4180C2;">Carga de Documentos</label></td>
                 </tr>
             </table>
-
             <div class="d-flex align-items-center flex-column" style="height: 410px;">
-                <button class="btn btn-outline-danger col-md-10 mt-auto btn-sm" (click)="goToLanding()">Volver al inicio</button>
+                <button class="btn btn-outline-danger col-md-10 mt-auto btn-sm" (click)="goToLanding()" [disabled]="isRedirecting">{{ isRedirecting ? 'Redirigiendo...' : 'Volver al inicio' }}</button>
             </div>
-
-
         </div>
-
-        <!-- Form Section -->
-
-        <div class="col-md-8 p-5" style="background-color: #F7F7F7; ">
+        <div class="col-md-8 p-5" style="background-color: #F7F7F7;">
             <div class="card">
                 <div class="card-header">
                     <h3 class="text-left" style="color: #4180C2;font-weight: bold">Carga de Documentos</h3>
                 </div>
                 <div class="card-body">
-                    <!-- Form  -->
                     <form #uploadForm="ngForm" class="row g-3">
                         <div class="mb-3">
                             <span style="font-weight: bold;">Evidencia Académica *</span>
@@ -74,7 +39,6 @@
                             </div>
                             <small *ngIf="fileEvidencia" class="text-success"><i class="bi bi-check-circle"></i> {{ fileEvidencia.name }}</small>
                         </div>
-
                         <div class="mb-3">
                             <span style="font-weight: bold;">DNI (Anverso y Reverso) *</span>
                             <div class="input-group">
@@ -83,7 +47,6 @@
                             </div>
                             <small *ngIf="fileDni" class="text-success"><i class="bi bi-check-circle"></i> {{ fileDni.name }}</small>
                         </div>
-
                         <div class="mb-3">
                             <span style="font-weight: bold;">Certificado *</span>
                             <div class="input-group">
@@ -92,7 +55,6 @@
                             </div>
                             <small *ngIf="fileCertificado" class="text-success"><i class="bi bi-check-circle"></i> {{ fileCertificado.name }}</small>
                         </div>
-
                         <div class="mb-3 custom-file-button">
                             <span style="font-weight: bold;">Comprobante Domicilio *</span>
                             <div class="input-group">
@@ -101,7 +63,6 @@
                             </div>
                             <small *ngIf="fileComprobante" class="text-success"><i class="bi bi-check-circle"></i> {{ fileComprobante.name }}</small>
                         </div>
-
                         <div class="col-md-6">
                             <button class="custom-button" style="width: 100%;" (click)="backtStepFinal()">Atras</button>
                         </div>
@@ -110,12 +71,8 @@
                                 [disabled]="!fileEvidencia || !fileDni || !fileCertificado || !fileComprobante">Solicitar Becas</button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
-
     </div>
-
 </div>
-
