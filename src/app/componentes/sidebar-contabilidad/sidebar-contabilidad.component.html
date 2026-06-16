@@ -1,33 +1,28 @@
-<div class="sidebar h-100 d-flex flex-column">
-  <!-- Logo -->
-  <div class="logo-container mb-5">
-    <img
-      src="https://blobauroranuevo.blob.core.windows.net/images3d/fxemoji_graduationcap (1).png"
-      alt="Logo"
-      class="logo"
-    />
-  </div>
-
-  <!-- Menú -->
-  <div class="menu-links">
-    <a
-      class="sidebar-link active"
-      routerLink="/contabilidad"
-      routerLinkActive="active"
-    >
+<div class="h-100 d-flex flex-column" style="background-color: #4180c2">
+  <ul class="nav flex-column nav-pills">
+    <!-- Logo -->
+    <li class="nav-item text-center py-4">
       <img
         src="https://blobauroranuevo.blob.core.windows.net/images3d/Money Calculator_blue.svg"
         class="menu-icon"
       />
 
       <span> Contabilidad </span>
-    </a>
-  </div>
+    </li>
 
-  <!-- Parte inferior -->
-  <div class="bottom-actions">
-    <button class="action-btn" (click)="logout()">
-      <i class="bi bi-box-arrow-left"></i>
-    </button>
-  </div>
+    <!-- Botones de acción (debajo del menú) -->
+    <li class="mt-3 text-center pb-2">
+      <button
+        class="btn text-white rounded-circle mb-3 d-block mx-auto"
+        style="
+          background-color: rgba(255, 255, 255, 0.1);
+          width: 40px;
+          height: 40px;
+        "
+        (click)="logout()"
+      >
+        <i class="bi bi-box-arrow-left"></i>
+      </button>
+    </li>
+  </ul>
 </div>
