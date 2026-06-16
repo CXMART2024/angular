@@ -54,42 +54,63 @@ export class RegisterFormNextComponent implements OnInit {
   ngOnInit() {
     this.formData = this.formDataService.getFormData();
 
-    this.http.get<Departamento[]>('assets/data/peru_data.json').subscribe((data) => {
-      this.peruData = data;
-      setTimeout(() => {
-        if (this.formData) {
-          this.registrationForm.patchValue(this.formData);
-          const dep = this.peruData.find((d) => d.nombre === this.formData.institucion_departamento);
-          if (dep) {
-            this.provinciasFiltradas = dep.provincias.map((p) => p.nombre);
-            const prov = dep.provincias.find((p) => p.nombre === this.formData.institucion_provincia);
-            this.distritosFiltrados = prov ? prov.distritos : [];
+    this.http
+      .get<Departamento[]>('assets/data/peru_data.json')
+      .subscribe((data) => {
+        this.peruData = data;
+        setTimeout(() => {
+          if (this.formData) {
+            this.registrationForm.patchValue(this.formData);
+            const dep = this.peruData.find(
+              (d) => d.nombre === this.formData.institucion_departamento,
+            );
+            if (dep) {
+              this.provinciasFiltradas = dep.provincias.map((p) => p.nombre);
+              const prov = dep.provincias.find(
+                (p) => p.nombre === this.formData.institucion_provincia,
+              );
+              this.distritosFiltrados = prov ? prov.distritos : [];
+            }
           }
-        }
-      }, 0);
-    });
+        }, 0);
+      });
 
-    this.registrationForm.get('institucion_departamento')?.valueChanges.subscribe((depSeleccionado) => {
-      const dep = this.peruData.find((d) => d.nombre === depSeleccionado);
-      this.provinciasFiltradas = dep ? dep.provincias.map((p) => p.nombre) : [];
-      this.distritosFiltrados = [];
-      this.registrationForm.patchValue({ institucion_provincia: '', institucion_distrito: '' }, { emitEvent: false });
-    });
+    this.registrationForm
+      .get('institucion_departamento')
+      ?.valueChanges.subscribe((depSeleccionado) => {
+        const dep = this.peruData.find((d) => d.nombre === depSeleccionado);
+        this.provinciasFiltradas = dep
+          ? dep.provincias.map((p) => p.nombre)
+          : [];
+        this.distritosFiltrados = [];
+        this.registrationForm.patchValue(
+          { institucion_provincia: '', institucion_distrito: '' },
+          { emitEvent: false },
+        );
+      });
 
-    this.registrationForm.get('institucion_provincia')?.valueChanges.subscribe((provSeleccionada) => {
-      const depSeleccionado = this.registrationForm.get('institucion_departamento')?.value;
-      const dep = this.peruData.find((d) => d.nombre === depSeleccionado);
-      const prov = dep?.provincias.find((p) => p.nombre === provSeleccionada);
-      this.distritosFiltrados = prov ? prov.distritos : [];
-      this.registrationForm.patchValue({ institucion_distrito: '' }, { emitEvent: false });
-    });
+    this.registrationForm
+      .get('institucion_provincia')
+      ?.valueChanges.subscribe((provSeleccionada) => {
+        const depSeleccionado = this.registrationForm.get(
+          'institucion_departamento',
+        )?.value;
+        const dep = this.peruData.find((d) => d.nombre === depSeleccionado);
+        const prov = dep?.provincias.find((p) => p.nombre === provSeleccionada);
+        this.distritosFiltrados = prov ? prov.distritos : [];
+        this.registrationForm.patchValue(
+          { institucion_distrito: '' },
+          { emitEvent: false },
+        );
+      });
   }
 
   saveNextFields(event: Event) {
     event.preventDefault();
     const bodyData = {
       institucion_nombre: this.registrationForm.value.institucion_nombre,
-      institucion_departamento: this.registrationForm.value.institucion_departamento,
+      institucion_departamento:
+        this.registrationForm.value.institucion_departamento,
       ruc_institucion: this.registrationForm.value.ruc_institucion,
       institucion_provincia: this.registrationForm.value.institucion_provincia,
       institucion_distrito: this.registrationForm.value.institucion_distrito,
@@ -109,7 +130,8 @@ export class RegisterFormNextComponent implements OnInit {
     event.preventDefault();
     const bodyData = {
       institucion_nombre: this.registrationForm.value.institucion_nombre,
-      institucion_departamento: this.registrationForm.value.institucion_departamento,
+      institucion_departamento:
+        this.registrationForm.value.institucion_departamento,
       institucion_provincia: this.registrationForm.value.institucion_provincia,
       institucion_distrito: this.registrationForm.value.institucion_distrito,
       institucion_direccion: this.registrationForm.value.institucion_direccion,
@@ -125,7 +147,11 @@ export class RegisterFormNextComponent implements OnInit {
   onSubmit() {}
 
   goToLanding() {
-    if (confirm('¿Está seguro que desea salir? Perderá todo lo ingresado en el formulario.')) {
+    if (
+      confirm(
+        '¿Está seguro que desea salir? Perderá todo lo ingresado en el formulario.',
+      )
+    ) {
       this.isRedirecting = true;
       this.formDataService.clearFormData();
       window.location.href = 'https://fundacioncharlescrosland.org/';
@@ -138,14 +164,16 @@ export class RegisterFormNextComponent implements OnInit {
       this.toastr.warning(`El documento de identidad no existe`);
       return;
     }
-    this.http.get(`https://backendbecas.azurewebsites.net/solicitudes/dni/${bydni}`).subscribe({
+    this.http.get(`http://localhost:3000/solicitudes/dni/${bydni}`).subscribe({
       next: (response: any) => {
         this.registrationForm.patchValue(response);
         this.toastr.success(`Se cargo sus datos exitosamente`);
       },
       error: (error) => {
         console.error('Upload error', error);
-        this.toastr.error(`Error intente de nuevo. Por favor, refresca la página y vuelve a intentarlo.`);
+        this.toastr.error(
+          `Error intente de nuevo. Por favor, refresca la página y vuelve a intentarlo.`,
+        );
       },
     });
   }

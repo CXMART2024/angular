@@ -60,41 +60,62 @@ export class RegisterFormComponent implements OnInit {
   ngOnInit(): void {
     this.formData = this.formDataService.getFormData();
 
-    this.http.get<Departamento[]>('assets/data/peru_data.json').subscribe((data) => {
-      this.peruData = data;
-      setTimeout(() => {
-        if (this.formData) {
-          this.registrationForm.patchValue(this.formData);
-          const dep = this.peruData.find((d) => d.nombre === this.formData.departamento);
-          if (dep) {
-            this.provinciasFiltradas = dep.provincias.map((p) => p.nombre);
-            const prov = dep.provincias.find((p) => p.nombre === this.formData.provincia);
-            this.distritosFiltrados = prov ? prov.distritos : [];
+    this.http
+      .get<Departamento[]>('assets/data/peru_data.json')
+      .subscribe((data) => {
+        this.peruData = data;
+        setTimeout(() => {
+          if (this.formData) {
+            this.registrationForm.patchValue(this.formData);
+            const dep = this.peruData.find(
+              (d) => d.nombre === this.formData.departamento,
+            );
+            if (dep) {
+              this.provinciasFiltradas = dep.provincias.map((p) => p.nombre);
+              const prov = dep.provincias.find(
+                (p) => p.nombre === this.formData.provincia,
+              );
+              this.distritosFiltrados = prov ? prov.distritos : [];
+            }
+            this.formatIngresoDisplay();
+            this.updateApoderadoValidators();
           }
-          this.formatIngresoDisplay();
-          this.updateApoderadoValidators();
-        }
-      }, 0);
-    });
+        }, 0);
+      });
 
-    this.registrationForm.get('departamento')?.valueChanges.subscribe((depSeleccionado) => {
-      const dep = this.peruData.find((d) => d.nombre === depSeleccionado);
-      this.provinciasFiltradas = dep ? dep.provincias.map((p) => p.nombre) : [];
-      this.distritosFiltrados = [];
-      this.registrationForm.patchValue({ provincia: '', distrito: '' }, { emitEvent: false });
-    });
+    this.registrationForm
+      .get('departamento')
+      ?.valueChanges.subscribe((depSeleccionado) => {
+        const dep = this.peruData.find((d) => d.nombre === depSeleccionado);
+        this.provinciasFiltradas = dep
+          ? dep.provincias.map((p) => p.nombre)
+          : [];
+        this.distritosFiltrados = [];
+        this.registrationForm.patchValue(
+          { provincia: '', distrito: '' },
+          { emitEvent: false },
+        );
+      });
 
-    this.registrationForm.get('provincia')?.valueChanges.subscribe((provSeleccionada) => {
-      const depSeleccionado = this.registrationForm.get('departamento')?.value;
-      const dep = this.peruData.find((d) => d.nombre === depSeleccionado);
-      const prov = dep?.provincias.find((p) => p.nombre === provSeleccionada);
-      this.distritosFiltrados = prov ? prov.distritos : [];
-      this.registrationForm.patchValue({ distrito: '' }, { emitEvent: false });
-    });
+    this.registrationForm
+      .get('provincia')
+      ?.valueChanges.subscribe((provSeleccionada) => {
+        const depSeleccionado =
+          this.registrationForm.get('departamento')?.value;
+        const dep = this.peruData.find((d) => d.nombre === depSeleccionado);
+        const prov = dep?.provincias.find((p) => p.nombre === provSeleccionada);
+        this.distritosFiltrados = prov ? prov.distritos : [];
+        this.registrationForm.patchValue(
+          { distrito: '' },
+          { emitEvent: false },
+        );
+      });
 
-    this.registrationForm.get('fecha_nacimiento')?.valueChanges.subscribe(() => {
-      this.updateApoderadoValidators();
-    });
+    this.registrationForm
+      .get('fecha_nacimiento')
+      ?.valueChanges.subscribe(() => {
+        this.updateApoderadoValidators();
+      });
   }
 
   get esMenorDeEdad(): boolean {
@@ -153,9 +174,9 @@ export class RegisterFormComponent implements OnInit {
     if (parts.length > 1) parts[1] = parts[1].substring(0, 2);
     const formatted = parts.join('.');
     input.value = formatted;
-    this.registrationForm.get('ingreso_familiar_mensual')?.setValue(
-      formatted.replace(/,/g, ''), { emitEvent: false }
-    );
+    this.registrationForm
+      .get('ingreso_familiar_mensual')
+      ?.setValue(formatted.replace(/,/g, ''), { emitEvent: false });
   }
 
   formatIngresoDisplay() {
@@ -163,8 +184,13 @@ export class RegisterFormComponent implements OnInit {
     if (raw) {
       const num = parseFloat(String(raw).replace(/,/g, ''));
       if (!isNaN(num)) {
-        const formatted = num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-        this.registrationForm.get('ingreso_familiar_mensual')?.setValue(formatted, { emitEvent: false });
+        const formatted = num.toLocaleString('en-US', {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2,
+        });
+        this.registrationForm
+          .get('ingreso_familiar_mensual')
+          ?.setValue(formatted, { emitEvent: false });
       }
     }
   }
@@ -183,7 +209,9 @@ export class RegisterFormComponent implements OnInit {
       provincia: this.registrationForm.value.provincia,
       distrito: this.registrationForm.value.distrito,
       direccion: this.registrationForm.value.direccion,
-      ingreso_familiar_mensual: String(this.registrationForm.value.ingreso_familiar_mensual).replace(/,/g, ''),
+      ingreso_familiar_mensual: String(
+        this.registrationForm.value.ingreso_familiar_mensual,
+      ).replace(/,/g, ''),
       apoderado_nombre: this.registrationForm.value.apoderado_nombre,
       apoderado_dni: this.registrationForm.value.apoderado_dni,
       apoderado_celular: this.registrationForm.value.apoderado_celular,
@@ -202,20 +230,26 @@ export class RegisterFormComponent implements OnInit {
       this.toastr.warning(`El documento de identidad no existe`);
       return;
     }
-    this.http.get(`https://backendbecas.azurewebsites.net/solicitudes/dni/${bydni}`).subscribe({
-      next: (response: any) => {
-        if (response.fecha_nacimiento) {
-          response.fecha_nacimiento = this.formatDateForInput(response.fecha_nacimiento);
-        }
-        this.registrationForm.patchValue(response);
-        this.formatIngresoDisplay();
-        this.toastr.success(`Se cargo sus datos exitosamente`);
-      },
-      error: (error) => {
-        console.error('Upload error', error);
-        this.toastr.error(`Error intente de nuevo. Por favor, refresca la página y vuelve a intentarlo.`);
-      },
-    });
+    this.http
+      .get(`https://backendbecas.azurewebsites.net/solicitudes/dni/${bydni}`)
+      .subscribe({
+        next: (response: any) => {
+          if (response.fecha_nacimiento) {
+            response.fecha_nacimiento = this.formatDateForInput(
+              response.fecha_nacimiento,
+            );
+          }
+          this.registrationForm.patchValue(response);
+          this.formatIngresoDisplay();
+          this.toastr.success(`Se cargo sus datos exitosamente`);
+        },
+        error: (error) => {
+          console.error('Upload error', error);
+          this.toastr.error(
+            `Error intente de nuevo. Por favor, refresca la página y vuelve a intentarlo.`,
+          );
+        },
+      });
   }
 
   formatDateForInput(dateString: string): string {
@@ -223,7 +257,11 @@ export class RegisterFormComponent implements OnInit {
   }
 
   goToLanding() {
-    if (confirm('¿Está seguro que desea salir? Perderá todo lo ingresado en el formulario.')) {
+    if (
+      confirm(
+        '¿Está seguro que desea salir? Perderá todo lo ingresado en el formulario.',
+      )
+    ) {
       this.isRedirecting = true;
       this.formDataService.clearFormData();
       window.location.href = 'https://fundacioncharlescrosland.org/';
