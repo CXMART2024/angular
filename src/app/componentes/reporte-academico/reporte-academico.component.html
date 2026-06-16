@@ -44,11 +44,89 @@
             <h4 class="metric-title">Promedio por Ciclo</h4>
 
             <div class="chart-container">
-              <img
-                src="https://blobauroranuevo.blob.core.windows.net/images3d/Frame 112.png"
-                class="img-fluid"
-                alt="Promedio por ciclo"
-              />
+              <!-- Cargando -->
+              <p *ngIf="cargandoGrafico" class="chart-empty">Cargando...</p>
+
+              <!-- Sin datos -->
+              <p
+                *ngIf="!cargandoGrafico && chartData.length === 0"
+                class="chart-empty"
+              >
+                No hay datos disponibles
+              </p>
+
+              <!-- Gráfico SVG -->
+              <svg
+                *ngIf="!cargandoGrafico && chartData.length > 0"
+                class="chart-svg"
+                [attr.viewBox]="'0 0 ' + chartWidth + ' ' + chartHeight"
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                aria-label="Gráfico de promedio por ciclo"
+              >
+                <!-- Líneas de grilla y etiquetas del eje Y -->
+                <g class="chart-grid">
+                  <ng-container *ngFor="let tick of yTicks">
+                    <line
+                      [attr.x1]="padding.left"
+                      [attr.y1]="getY(tick)"
+                      [attr.x2]="chartWidth - padding.right"
+                      [attr.y2]="getY(tick)"
+                    />
+                    <text
+                      class="chart-axis-label"
+                      [attr.x]="padding.left - 8"
+                      [attr.y]="getY(tick) + 4"
+                      text-anchor="end"
+                    >
+                      {{ tick < 10 ? '0' + tick : tick }}
+                    </text>
+                  </ng-container>
+                </g>
+
+                <!-- Línea de promedios -->
+                <polyline
+                  class="chart-line"
+                  [attr.points]="linePoints"
+                  fill="none"
+                />
+
+                <!-- Puntos y etiquetas de valor -->
+                <g *ngFor="let d of chartData; let i = index">
+                  <circle
+                    class="chart-point"
+                    [attr.cx]="getX(i)"
+                    [attr.cy]="getY(d.promedio)"
+                    r="4"
+                  />
+                  <rect
+                    class="chart-value-box"
+                    [attr.x]="getX(i) - 14"
+                    [attr.y]="getY(d.promedio) - 26"
+                    width="28"
+                    height="18"
+                    rx="3"
+                  />
+                  <text
+                    class="chart-value-text"
+                    [attr.x]="getX(i)"
+                    [attr.y]="getY(d.promedio) - 13"
+                    text-anchor="middle"
+                  >
+                    {{ d.promedio }}
+                  </text>
+
+                  <!-- Etiqueta del eje X (nombre del ciclo) -->
+                  <text
+                    class="chart-axis-label"
+                    [attr.x]="getX(i)"
+                    [attr.y]="chartHeight - padding.bottom + 20"
+                    text-anchor="middle"
+                  >
+                    {{ d.label }}
+                  </text>
+                </g>
+              </svg>
             </div>
           </div>
         </div>
