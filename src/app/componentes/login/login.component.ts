@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         // Si es admin con permiso Contabilidad → va directo a /contabilidad, sin buscar solicitud
         if (
           response.tipo === 'admin' &&
-          this.authService.tienePermiso('Contabilidad')
+          this.authService.tienePermiso('Contable')
         ) {
           this.router.navigate(['/contabilidad']);
           return; // <-- corta aquí, no busca solicitud
