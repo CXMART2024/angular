@@ -24,7 +24,7 @@ export class RegisterFormFinalComponent implements OnInit {
     private formDataService: FormularioBecasService,
     private router: Router,
     private toastr: ToastrService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.formData = this.formDataService.getFormData();
@@ -176,8 +176,8 @@ export class RegisterFormFinalComponent implements OnInit {
     const anio = fecha.getFullYear();
     const fechaFormateada = `${dia}/${mes}/${anio}`;
     this.http
-      .post(
-        'https://prod-09.brazilsouth.logic.azure.com:443/workflows/c892f3fc19c0414891f907ba67d85ad7/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=7Pfw0bnXxG_LLWwaQRb_e6aI8crlNyeO1-LT5hAzLLU',
+      .post('https://603b3a18bfeaef3c8fc4a002f51b5c.e1.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/c892f3fc19c0414891f907ba67d85ad7/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=eFmFquQxFwg2A0ww6LybAoFc6cQ4VUU6_x5KWhuY6tM',
+        /*'https://prod-09.brazilsouth.logic.azure.com:443/workflows/c892f3fc19c0414891f907ba67d85ad7/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=7Pfw0bnXxG_LLWwaQRb_e6aI8crlNyeO1-LT5hAzLLU',*/
         {
           Estudiante: solicitud.nombre_completo,
           CorreoEstudiante: solicitud.correo,
@@ -189,4 +189,6 @@ export class RegisterFormFinalComponent implements OnInit {
       )
       .subscribe();
   }
+
+
 }
