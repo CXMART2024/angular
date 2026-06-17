@@ -625,18 +625,18 @@
               cursor: pointer;
               border-radius: 10px;
             "
-            (click)="fileInputContrato.click()"
+            (click)="fileInputContratoIntranet.click()"
           >
             <i
               class="bi bi-cloud-arrow-up"
               style="font-size: 1.8rem; color: #3b78c2"
             ></i>
             <p class="mb-0 mt-1" style="color: #3b78c2; font-size: small">
-              {{ contratoNombre || "Cargar archivo" }}
+              {{ contratoIntranetNombre || "Cargar archivo" }}
             </p>
             <input
               type="file"
-              #fileInputContrato
+              #fileInputContratoIntranet
               style="display: none"
               (change)="onFileChange_url_con_intranet($event)"
             />

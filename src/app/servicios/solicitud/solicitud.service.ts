@@ -39,6 +39,10 @@ export class SolicitudService {
     return this.solicitudDataSubject.asObservable();
   }
 
+  getSolicitudById(id: number | string) {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
   //limpiar data solicitud
   clearSolicitudData() {
     this.solicitudData = null;

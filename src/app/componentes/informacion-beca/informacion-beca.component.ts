@@ -87,6 +87,15 @@ export class InformacionBecaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.url_con_intranet = new FormData();
+    this.contratoIntranetNombre = '';
+
+    this.cargarDatosSolicitud();
+
+    this.cdr.detectChanges();
+  }
+
+  cargarDatosSolicitud(): void {
     this.solicitudService.getSolicitudData().subscribe((data) => {
       this.solicitud = data;
 
@@ -103,11 +112,11 @@ export class InformacionBecaComponent implements OnInit {
         this.nombre_completo = this.solicitud.nombre_completo;
         this.codigo_estudiante = this.solicitud.codigo_estudiante;
         this.ruc_institucion = this.solicitud.ruc_institucion;
+
         if (this.solicitud.url_foto_estudiante) {
           this.fotoPreview = this.solicitud.url_foto_estudiante;
           this.fotoNombre =
             this.solicitud.url_foto_estudiante.split('/').pop() || '';
-          // Fake file para que pase la validación
           const blob = new Blob([''], { type: 'image/jpeg' });
           const fakeFile = new File([blob], this.fotoNombre, {
             type: 'image/jpeg',
@@ -115,6 +124,7 @@ export class InformacionBecaComponent implements OnInit {
           this.url_foto_estudiante = new FormData();
           this.url_foto_estudiante.append('file', fakeFile, this.fotoNombre);
         }
+
         this.dni = this.solicitud.dni;
         this.institucion_nombre = this.solicitud.institucion_nombre;
         this.fecha_inicio = this.formatDateForInput(
@@ -123,15 +133,12 @@ export class InformacionBecaComponent implements OnInit {
         this.fecha_fin_estimada = this.formatDateForInput(
           this.solicitud.fecha_fin_estimada,
         );
+
         this.getMallaCiclos();
         this.router.events.subscribe((event) => {
           if (event instanceof NavigationEnd) {
             this.getMallaCiclos();
           }
-        });
-        this.cdr.detectChanges();
-        this.formUpdateLogin.patchValue({
-          dni: this.solicitud.dni,
         });
 
         const savedFormData = localStorage.getItem('formularioDatos');
@@ -144,13 +151,23 @@ export class InformacionBecaComponent implements OnInit {
         if (this.solicitud.id_malla_curricular) {
           this.mallaNombre =
             this.solicitud.id_malla_curricular.split('/').pop() || '';
-          // Simulamos que ya hay un archivo cargado para que pase la validación
           const blob = new Blob([''], { type: 'application/pdf' });
           const fakeFile = new File([blob], this.mallaNombre, {
             type: 'application/pdf',
           });
           this.id_malla_curricular = new FormData();
           this.id_malla_curricular.append('file', fakeFile, this.mallaNombre);
+        }
+
+        if (this.solicitud.url_doc_contrato) {
+          this.contratoNombre =
+            this.solicitud.url_doc_contrato.split('/').pop() || '';
+          const blob = new Blob([''], { type: 'application/pdf' });
+          const fakeFile = new File([blob], this.contratoNombre, {
+            type: 'application/pdf',
+          });
+          this.url_doc_contrato = new FormData();
+          this.url_doc_contrato.append('file', fakeFile, this.contratoNombre);
         }
 
         if (this.solicitud.url_con_intranet) {
@@ -167,22 +184,10 @@ export class InformacionBecaComponent implements OnInit {
             this.contratoIntranetNombre,
           );
         }
-
-        if (this.solicitud.url_doc_contrato) {
-          this.contratoNombre =
-            this.solicitud.url_doc_contrato.split('/').pop() || '';
-          // Simulamos que ya hay un archivo cargado para que pase la validación
-          const blob = new Blob([''], { type: 'application/pdf' });
-          const fakeFile = new File([blob], this.contratoNombre, {
-            type: 'application/pdf',
-          });
-          this.url_doc_contrato = new FormData();
-          this.url_doc_contrato.append('file', fakeFile, this.contratoNombre);
-        }
+        this.cdr.detectChanges();
+        this.formUpdateLogin.patchValue({ dni: this.solicitud.dni });
       }
     });
-
-    this.cdr.detectChanges();
   }
 
   showModal() {
@@ -221,6 +226,7 @@ export class InformacionBecaComponent implements OnInit {
   }
 
   onFileChange_url_con_intranet(event: Event) {
+    console.log('INtranet entró');
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
       const file = input.files[0];
@@ -228,6 +234,7 @@ export class InformacionBecaComponent implements OnInit {
       this.url_con_intranet.append('file', file, file.name);
       this.contratoIntranetNombre = file.name;
       this.contratoIntranetEsNuevo = true;
+      this.cdr.detectChanges(); // <-- esto hace que el nombre aparezca en el modal
     }
   }
 
@@ -243,6 +250,8 @@ export class InformacionBecaComponent implements OnInit {
   }
 
   onFileChange_contratoBecario(event: Event) {
+    console.log('INtranet entró contrato becario');
+
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
       const file = input.files[0];
@@ -257,20 +266,12 @@ export class InformacionBecaComponent implements OnInit {
   updateInformacionBecario() {
     const cargaArchivos: Observable<any>[] = [];
 
+    // El orden aquí debe coincidir exactamente con el orden de asignación abajo
     if (this.url_foto_estudiante.has('file') && this.fotoEsNueva) {
       cargaArchivos.push(
         this.http.post(
           'https://backendbecas.azurewebsites.net/upload',
           this.url_foto_estudiante,
-        ),
-      );
-    }
-
-    if (this.url_con_intranet.has('file') && this.contratoIntranetEsNuevo) {
-      cargaArchivos.push(
-        this.http.post(
-          'https://backendbecas.azurewebsites.net/upload',
-          this.url_con_intranet,
         ),
       );
     }
@@ -293,6 +294,15 @@ export class InformacionBecaComponent implements OnInit {
       );
     }
 
+    if (this.url_con_intranet.has('file') && this.contratoIntranetEsNuevo) {
+      cargaArchivos.push(
+        this.http.post(
+          'https://backendbecas.azurewebsites.net/upload',
+          this.url_con_intranet,
+        ),
+      );
+    }
+
     this.solicitud.MallaEstado = this.editMallaCurricular
       ? 'Por Revisar'
       : this.solicitud.MallaEstado;
@@ -301,29 +311,28 @@ export class InformacionBecaComponent implements OnInit {
       forkJoin(cargaArchivos).subscribe({
         next: (responses: any[]) => {
           let index = 0;
-          if (responses.length > 0) {
-            if (this.url_foto_estudiante.has('file') && this.fotoEsNueva) {
-              this.solicitud.url_foto_estudiante = responses[index++].url;
-            }
-            if (this.id_malla_curricular.has('file') && this.mallaEsNueva) {
-              this.solicitud.id_malla_curricular = responses[index++].url;
-            }
-            if (this.url_doc_contrato.has('file') && this.contratoEsNuevo) {
-              this.solicitud.url_doc_contrato = responses[index++].url;
-            }
-            if (
-              this.url_con_intranet.has('file') &&
-              this.contratoIntranetEsNuevo
-            ) {
-              this.solicitud.url_con_intranet = responses[index++].url;
-            }
+
+          // El orden aquí debe ser EXACTAMENTE el mismo que arriba
+          if (this.url_foto_estudiante.has('file') && this.fotoEsNueva) {
+            this.solicitud.url_foto_estudiante = responses[index++].url;
+          }
+          if (this.id_malla_curricular.has('file') && this.mallaEsNueva) {
+            this.solicitud.id_malla_curricular = responses[index++].url;
+          }
+          if (this.url_doc_contrato.has('file') && this.contratoEsNuevo) {
+            this.solicitud.url_doc_contrato = responses[index++].url;
+          }
+          if (
+            this.url_con_intranet.has('file') &&
+            this.contratoIntranetEsNuevo
+          ) {
+            this.solicitud.url_con_intranet = responses[index++].url;
           }
 
           this.solicitud.fecha_inicio = this.fecha_inicio;
           this.solicitud.fecha_fin_estimada = this.fecha_fin_estimada;
           this.solicitud.codigo_estudiante = this.codigo_estudiante;
           this.solicitud.ruc_institucion = this.ruc_institucion;
-          this.solicitud.url_con_intranet = this.solicitud.url_con_intranet;
 
           this.solicitudService.updateSolicitud(this.solicitud).subscribe({
             next: (response: any) => {
@@ -351,7 +360,6 @@ export class InformacionBecaComponent implements OnInit {
       this.solicitud.fecha_fin_estimada = this.fecha_fin_estimada;
       this.solicitud.codigo_estudiante = this.codigo_estudiante;
       this.solicitud.ruc_institucion = this.ruc_institucion;
-      this.solicitud.url_con_intranet = this.solicitud.url_con_intranet;
 
       this.solicitudService.updateSolicitud(this.solicitud).subscribe({
         next: (response: any) => {
@@ -511,7 +519,7 @@ export class InformacionBecaComponent implements OnInit {
     if (this.solicitud) {
       this.solicitud.contratoBecario = '1';
 
-      if (this.url_con_intranet.has('file')) {
+      if (this.url_con_intranet.has('file') && this.contratoIntranetEsNuevo) {
         this.http
           .post(
             'https://backendbecas.azurewebsites.net/upload',
@@ -525,15 +533,18 @@ export class InformacionBecaComponent implements OnInit {
                 next: (response: any) => {
                   this.cerrarModalContrato();
                   this.solicitudService.setSolicitudData(response);
+                  this.cargarDatosSolicitud();
                 },
                 error: (error: any) => {
+                  console.error('Error actualizando solicitud', error);
                   this.toastr.error(
-                    'Error al guardar. Por favor intenta de nuevo.',
+                    'Error al guardar el contrato. Por favor intenta de nuevo.',
                   );
                 },
               });
             },
             error: (error: any) => {
+              console.error('Error subiendo contrato intranet', error);
               this.toastr.error(
                 'Error al subir el archivo. Por favor intenta de nuevo.',
               );
@@ -544,8 +555,10 @@ export class InformacionBecaComponent implements OnInit {
           next: (response: any) => {
             this.cerrarModalContrato();
             this.solicitudService.setSolicitudData(response);
+            this.cargarDatosSolicitud();
           },
           error: (error: any) => {
+            console.error('Error actualizando solicitud', error);
             this.toastr.error('Error al guardar. Por favor intenta de nuevo.');
           },
         });

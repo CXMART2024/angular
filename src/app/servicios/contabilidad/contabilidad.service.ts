@@ -8,7 +8,7 @@ import { Contabilidad } from '../../modelos/contabilidad';
 export class ContabilidadService {
   private apiUrl = 'https://backendbecas.azurewebsites.net/contabilidad';
 
-  //http://localhost:3000
+  //https://backendbecas.azurewebsites.net
   //https://backendbecas.azurewebsites.net/contabilidad
 
   constructor(private http: HttpClient) {}

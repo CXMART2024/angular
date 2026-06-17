@@ -12,7 +12,7 @@ export class CicloService {
   private selectedCiclo: Ciclo | null = null;
   private readonly STORAGE_KEY = 'selectedCiclo';
 
-  // http://localhost:3000
+  // https://backendbecas.azurewebsites.net
   // https://backendbecas.azurewebsites.net/registro/ciclo
 
   constructor(

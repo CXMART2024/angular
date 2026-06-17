@@ -164,17 +164,19 @@ export class RegisterFormNextComponent implements OnInit {
       this.toastr.warning(`El documento de identidad no existe`);
       return;
     }
-    this.http.get(`http://localhost:3000/solicitudes/dni/${bydni}`).subscribe({
-      next: (response: any) => {
-        this.registrationForm.patchValue(response);
-        this.toastr.success(`Se cargo sus datos exitosamente`);
-      },
-      error: (error) => {
-        console.error('Upload error', error);
-        this.toastr.error(
-          `Error intente de nuevo. Por favor, refresca la página y vuelve a intentarlo.`,
-        );
-      },
-    });
+    this.http
+      .get(`https://backendbecas.azurewebsites.net/solicitudes/dni/${bydni}`)
+      .subscribe({
+        next: (response: any) => {
+          this.registrationForm.patchValue(response);
+          this.toastr.success(`Se cargo sus datos exitosamente`);
+        },
+        error: (error) => {
+          console.error('Upload error', error);
+          this.toastr.error(
+            `Error intente de nuevo. Por favor, refresca la página y vuelve a intentarlo.`,
+          );
+        },
+      });
   }
 }

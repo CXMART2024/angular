@@ -13,7 +13,7 @@ export class MallaCurricularService {
 
   private apiUrl = 'https://backendbecas.azurewebsites.net/malla';
 
-  // http://localhost:3000
+  // https://backendbecas.azurewebsites.net
   // https://backendbecas.azurewebsites.net/malla
 
   constructor(private http: HttpClient) {}

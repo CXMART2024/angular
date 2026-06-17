@@ -20,6 +20,21 @@ export class PagoService {
     return this.http.get<Pago[]>(`${this.apiUrl}/ciclo/${id_registroCiclo}`);
   }
 
+  createEstadosInicialesPago(creadoPor: string, id_pago: number) {
+    return this.http.post(`${this.apiUrl}/crear-estados`, {
+      creadoPor,
+      id_pago,
+    });
+  }
+
+  createEstadosConta(creadoPor: string, estado: string, id_pago: number) {
+    return this.http.post(`${this.apiUrl}/crear-ap-den`, {
+      creadoPor,
+      estado,
+      id_pago,
+    });
+  }
+
   //Crear pago
   createPago(pago: Pago) {
     return this.http.post<Pago>(`${this.apiUrl}`, pago);

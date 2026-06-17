@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ContabilidadService } from '../../servicios/contabilidad/contabilidad.service';
 import { Contabilidad } from '../../modelos/contabilidad';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+import { SolicitudService } from '../../servicios/solicitud/solicitud.service';
+import { PagoService } from '../../servicios/pago/pago.service';
 
 declare var bootstrap: any;
 
@@ -23,20 +27,76 @@ export class ContabilidadComponent implements OnInit {
   cargadoSap: boolean = false;
   observacion: string = '';
 
-  constructor(private contabilidadService: ContabilidadService) {}
+  constructor(
+    private contabilidadService: ContabilidadService,
+    private solicitudService: SolicitudService,
+    private pagoService: PagoService,
+    private http: HttpClient,
+    private toastr: ToastrService,
+  ) {}
 
   cargarPagos(): void {
     this.contabilidadService.getPagosConEstadoContabilidad().subscribe({
       next: (data) => {
-        this.pagos = data;
-        this.pagosFiltrados = [...data];
+        // Ordenar de más reciente a más antiguo por fecha_solicitud
+        this.pagos = data.sort((a, b) => {
+          return (
+            new Date(b.fecha_solicitud).getTime() -
+            new Date(a.fecha_solicitud).getTime()
+          );
+        });
+
+        this.pagosFiltrados = [...this.pagos];
         this.actualizarIndicadores();
-        console.log('Pagos cargados:', data);
+        console.log('Pagos cargados y ordenados:', this.pagosFiltrados);
       },
       error: (err) => {
         console.error('Error cargando pagos:', err);
       },
     });
+  }
+
+  cargarEstadosInicialesPagos(): void {
+    if (!this.pagoSeleccionado?.id) {
+      console.error('No existe un id de pago');
+      return;
+    }
+
+    this.pagoService
+      .createEstadosInicialesPago(
+        'soportebi_fo@crosland.com.pe',
+        this.pagoSeleccionado.id,
+      )
+      .subscribe({
+        next: (response) => {
+          console.log('Estados creados', response);
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
+  }
+
+  cargarEstadosConta(estado: string): void {
+    if (!this.pagoSeleccionado?.id) {
+      console.error('No existe un id de pago');
+      return;
+    }
+
+    this.pagoService
+      .createEstadosConta(
+        'soportebi_fo@crosland.com.pe',
+        estado,
+        this.pagoSeleccionado.id,
+      )
+      .subscribe({
+        next: (response) => {
+          console.log('Estados creados', response);
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
   }
 
   filtrarPagos(): void {
@@ -53,6 +113,177 @@ export class ContabilidadComponent implements OnInit {
         !estado || p.ContabilidadEstado?.toLowerCase() === estado;
 
       return coincideTexto && coincideEstado;
+    });
+
+    // >>> SE AGREGA ESTA SECCIÓN AQUÍ ABAJO <<<
+    // Ordenar de más reciente a más antiguo por fecha_solicitud
+    this.pagosFiltrados.sort((a, b) => {
+      return (
+        new Date(b.fecha_solicitud).getTime() -
+        new Date(a.fecha_solicitud).getTime()
+      );
+    });
+  }
+
+  enviarCorreoPago() {
+    // 1. Obtenemos el ID de la solicitud desde el pago seleccionado
+    const idSolicitud = this.pagoSeleccionado?.id_solicitud; // <-- Cambia aquí según cómo se llame el campo id en tu modelo 'Contabilidad'
+
+    if (!idSolicitud) {
+      this.toastr.error(
+        'No se encontró el ID de la solicitud asociado a este pago.',
+      );
+      return;
+    }
+
+    // 2. Buscamos la solicitud por su ID antes de armar el envío
+    this.solicitudService.getSolicitudById(idSolicitud).subscribe({
+      next: (solicitudObtenida: any) => {
+        if (!solicitudObtenida) {
+          this.toastr.error(
+            'No se encontró ninguna solicitud con el ID proporcionado.',
+          );
+          return;
+        }
+
+        // 3. Si la encuentra con éxito, armamos el payload para el correo
+        const payload = {
+          solicitante: {
+            // Usamos el nombre real devuelto por la base de datos de solicitudes
+            nombre_completo: solicitudObtenida.nombre_completo || '',
+          },
+          pago: {
+            concepto: this.pagoSeleccionado?.concepto,
+            monto: this.pagoSeleccionado?.monto,
+            fecha_solicitud: this.pagoSeleccionado?.fecha_solicitud,
+          },
+          cargadoEnSAP: 'Si',
+          fechaCargaSAP: new Date().toISOString(),
+        };
+
+        // 4. Enviamos el correo
+        this.http
+          .post('https://backendbecas.azurewebsites.net/correo/pago', payload)
+          .subscribe({
+            next: () => {
+              this.toastr.success('Correo enviado correctamente.');
+            },
+            error: (error) => {
+              console.error('Error enviando correo:', error);
+              this.toastr.error('Error al enviar el correo.');
+            },
+          });
+      },
+      error: (err) => {
+        console.error('Error al buscar la solicitud por ID:', err);
+        this.toastr.error(
+          'Error al verificar los datos de la solicitud en el servidor.',
+        );
+      },
+    });
+  }
+
+  enviarCorreoPagoAprobado() {
+    // 1. Obtenemos el ID de la solicitud desde el pago seleccionado
+    const idSolicitud = this.pagoSeleccionado?.id_solicitud; // <-- Cambia aquí según cómo se llame el campo id en tu modelo 'Contabilidad'
+
+    if (!idSolicitud) {
+      this.toastr.error(
+        'No se encontró el ID de la solicitud asociado a este pago.',
+      );
+      return;
+    }
+
+    // 2. Buscamos la solicitud por su ID antes de armar el envío
+    this.solicitudService.getSolicitudById(idSolicitud).subscribe({
+      next: (solicitudObtenida: any) => {
+        if (!solicitudObtenida) {
+          this.toastr.error(
+            'No se encontró ninguna solicitud con el ID proporcionado.',
+          );
+          return;
+        }
+
+        // 3. Si la encuentra con éxito, armamos el payload para el correo
+        const payload = {
+          solicitante: solicitudObtenida.nombre_completo,
+          correo: solicitudObtenida.correo,
+          concepto: this.pagoSeleccionado?.concepto,
+        };
+
+        // 4. Enviamos el correo
+        this.http
+          .post(
+            'https://backendbecas.azurewebsites.net/correo/aprobado',
+            payload,
+          )
+          .subscribe({
+            next: () => {
+              this.toastr.success('Correo enviado correctamente.');
+            },
+            error: (error) => {
+              console.error('Error enviando correo:', error);
+              this.toastr.error('Error al enviar el correo.');
+            },
+          });
+      },
+      error: (err) => {
+        console.error('Error al buscar la solicitud por ID:', err);
+        this.toastr.error(
+          'Error al verificar los datos de la solicitud en el servidor.',
+        );
+      },
+    });
+  }
+
+  enviarCorreoPagoNegado() {
+    // 1. Obtenemos el ID de la solicitud desde el pago seleccionado
+    const idSolicitud = this.pagoSeleccionado?.id_solicitud; // <-- Cambia aquí según cómo se llame el campo id en tu modelo 'Contabilidad'
+
+    if (!idSolicitud) {
+      this.toastr.error(
+        'No se encontró el ID de la solicitud asociado a este pago.',
+      );
+      return;
+    }
+
+    // 2. Buscamos la solicitud por su ID antes de armar el envío
+    this.solicitudService.getSolicitudById(idSolicitud).subscribe({
+      next: (solicitudObtenida: any) => {
+        if (!solicitudObtenida) {
+          this.toastr.error(
+            'No se encontró ninguna solicitud con el ID proporcionado.',
+          );
+          return;
+        }
+
+        // 3. Si la encuentra con éxito, armamos el payload para el correo
+        const payload = {
+          solicitante: solicitudObtenida.nombre_completo,
+          correo: solicitudObtenida.correo,
+          concepto: this.pagoSeleccionado?.concepto,
+          observacion: this.observacion,
+        };
+
+        // 4. Enviamos el correo
+        this.http
+          .post('https://backendbecas.azurewebsites.net/correo/negado', payload)
+          .subscribe({
+            next: () => {
+              this.toastr.success('Correo enviado correctamente.');
+            },
+            error: (error) => {
+              console.error('Error enviando correo:', error);
+              this.toastr.error('Error al enviar el correo.');
+            },
+          });
+      },
+      error: (err) => {
+        console.error('Error al buscar la solicitud por ID:', err);
+        this.toastr.error(
+          'Error al verificar los datos de la solicitud en el servidor.',
+        );
+      },
     });
   }
 
@@ -141,6 +372,8 @@ export class ContabilidadComponent implements OnInit {
     });
 
     this.cargarPagos();
+    this.cargarEstadosInicialesPagos();
+    this.enviarCorreoPago();
   }
 
   notificarObservacion(): void {
@@ -177,6 +410,8 @@ export class ContabilidadComponent implements OnInit {
         );
 
         modalSolicitud?.hide();
+        this.cargarEstadosConta('Observado');
+        this.enviarCorreoPagoNegado();
       },
       error: (err) => {
         console.error('Error al guardar observación:', err);
@@ -208,6 +443,8 @@ export class ContabilidadComponent implements OnInit {
         );
 
         modal?.hide();
+        this.cargarEstadosConta('Aprobado');
+        this.enviarCorreoPagoAprobado();
       },
       error: (err) => {
         console.error('Error al aprobar constancia:', err);
