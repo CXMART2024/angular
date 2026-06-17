@@ -151,14 +151,20 @@ export class ContabilidadComponent implements OnInit {
           solicitante: {
             // Usamos el nombre real devuelto por la base de datos de solicitudes
             nombre_completo: solicitudObtenida.nombre_completo || '',
+            codigo_estudiante: solicitudObtenida.codigo_estudiante || '',
+          },
+          institucion: {
+            ruc: solicitudObtenida.ruc_institucion,
+            nombre: solicitudObtenida.institucion_nombre,
           },
           pago: {
+            nro_bancaria: this.pagoSeleccionado?.nro_cuentabancaria,
             concepto: this.pagoSeleccionado?.concepto,
-            monto: this.pagoSeleccionado?.monto,
-            fecha_solicitud: this.pagoSeleccionado?.fecha_solicitud,
+            moneda: this.pagoSeleccionado?.moneda,
+            codigo_sociedad: this.pagoSeleccionado?.codigo_sociedad,
+            ceco: this.pagoSeleccionado?.ceco,
+            fecha_regularizacion: this.pagoSeleccionado?.fecha_regularizacion,
           },
-          cargadoEnSAP: 'Si',
-          fechaCargaSAP: new Date().toISOString(),
         };
 
         // 4. Enviamos el correo
