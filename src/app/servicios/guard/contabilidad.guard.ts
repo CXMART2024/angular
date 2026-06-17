@@ -6,7 +6,7 @@ export const contabilidadGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (authService.esAdmin() && authService.tienePermiso('Contabilidad')) {
+  if (authService.esAdmin() && authService.tienePermiso('Contable')) {
     return true;
   }
 
