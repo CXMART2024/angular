@@ -21,7 +21,7 @@ export class PagoService {
   }
 
   createEstadosInicialesPago(creadoPor: string, id_pago: number) {
-    return this.http.post(`${this.apiUrl}/crear-estados`, {
+    return this.http.post(`${this.apiUrl}/estadosIni`, {
       creadoPor,
       id_pago,
     });

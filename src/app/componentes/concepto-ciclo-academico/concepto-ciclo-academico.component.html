@@ -181,7 +181,7 @@
             href="{{ selectedCiclo?.id_doc_matricula }}"
             target="_blank"
           >
-            matrícual{{ selectedCiclo?.nombre_ciclo }}.pdf
+            {{ obtenerNombreArchivo(selectedCiclo?.id_doc_matricula) }}
           </a>
         </div>
       </div>

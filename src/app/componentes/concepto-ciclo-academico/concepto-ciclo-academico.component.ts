@@ -118,6 +118,8 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
           this.cdr.detectChanges();
         }
 
+        console.log('este es el ciclo seleccionado', this.selectedCiclo);
+
         const myModal = document.getElementById('addConcepto');
         if (myModal) {
           myModal.addEventListener('shown.bs.modal', () => {
@@ -129,6 +131,16 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
         });
       }
     });
+  }
+
+  obtenerNombreArchivo(url: string | null | undefined): string {
+    if (!url) {
+      return 'Sin Archivo';
+    }
+
+    const nombreArchivo = url.split('/').pop();
+
+    return nombreArchivo ? decodeURIComponent(nombreArchivo) : 'Sin Archivo';
   }
 
   onAgregarConceptoPago(): void {

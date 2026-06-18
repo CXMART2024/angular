@@ -457,17 +457,18 @@ export class ContabilidadComponent implements OnInit {
       },
     });
   }
-
   formatearFecha(fecha: string | Date | null | undefined): string {
-    if (!fecha) {
-      return '';
+    if (!fecha) return '';
+
+    if (fecha instanceof Date) {
+      const dia = fecha.getDate().toString().padStart(2, '0');
+      const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+      const anio = fecha.getFullYear();
+
+      return `${dia}/${mes}/${anio}`;
     }
 
-    const fechaObj = new Date(fecha);
-
-    const dia = fechaObj.getDate().toString().padStart(2, '0');
-    const mes = (fechaObj.getMonth() + 1).toString().padStart(2, '0');
-    const anio = fechaObj.getFullYear();
+    const [anio, mes, dia] = fecha.split('T')[0].split('-');
 
     return `${dia}/${mes}/${anio}`;
   }
