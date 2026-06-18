@@ -630,6 +630,11 @@ export class InformacionBecaComponent implements OnInit {
 
   //Funciones para agregar Malla
 
+  prepararNuevoCurso() {
+    this.editingIndex = null;
+    this.newCursoMalla = new CursoMalla(0, '', 0, 0, '');
+  }
+
   saveCursoMalla() {
     if (this.editingIndex !== null) {
       // Actualizamos
