@@ -118,6 +118,7 @@ export class RegisterFormFinalComponent implements OnInit {
         this.formData.url_comprobando_domicilio = responses[3].url;
         this.formData.EvaluacionEstado = 'Por Evaluar';
         this.formData.contratoBecario = '0';
+        this.formData.informacionGuardada = '0';
         this.formData.fecha_solicitud = new Date();
         this.http
           .post(
