@@ -110,6 +110,15 @@
         <option value="en tesorería">En Tesorería</option>
       </select>
     </div>
+
+    <button
+      type="button"
+      class="btn btn-outline-primary d-flex align-items-center gap-2"
+      (click)="cargarPagos()"
+    >
+      <i class="ti ti-refresh"></i>
+      Refrescar
+    </button>
   </div>
   <!-- Tabla responsive -->
   <div class="mt-3 bg-white border rounded-3 overflow-hidden">
@@ -117,6 +126,7 @@
       <table class="table table-borderless mb-0" style="font-size: 14px">
         <thead style="background-color: #f8f9fa">
           <tr>
+            <th class="px-4 py-3 fw-semibold text-secondary">ID</th>
             <th class="px-4 py-3 fw-semibold text-secondary">Estudiante</th>
             <th class="px-4 py-3 fw-semibold text-secondary">Institución</th>
             <th class="px-4 py-3 fw-semibold text-secondary">
@@ -131,6 +141,10 @@
 
         <tbody>
           <tr class="border-top" *ngFor="let pago of pagosFiltrados">
+            <td class="px-4 py-3 align-middle text-secondary">
+              {{ pago.id }}
+            </td>
+
             <td class="px-4 py-3 align-middle">
               {{ pago.nombre_completo }}
             </td>
@@ -210,7 +224,7 @@
           <div class="mod-sub">
             <span class="mod-dat">Fecha Emisión:</span>
             {{
-              formatearFecha(pagoSeleccionado?.fecha_solicitud) ||
+              formatearFecha(pagoSeleccionado?.fecha_emision) ||
                 "No registrada"
             }}
           </div>
@@ -452,7 +466,7 @@
           <div class="mod-sub">
             <span class="mod-dat">Fecha Emisión:  </span>
             {{
-              formatearFecha(pagoSeleccionado?.fecha_solicitud) ||
+              formatearFecha(pagoSeleccionado?.fecha_emision) ||
                 "No Registrada"
             }}
           </div>
@@ -626,7 +640,7 @@
           <div class="mod-sub">
             <span class="mod-dat">Fecha Emisión:  </span>
             {{
-              formatearFecha(pagoSeleccionado?.fecha_solicitud) ||
+              formatearFecha(pagoSeleccionado?.fecha_emision) ||
                 "No Registrada"
             }}
           </div>

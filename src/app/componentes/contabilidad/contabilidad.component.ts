@@ -106,6 +106,7 @@ export class ContabilidadComponent implements OnInit {
     this.pagosFiltrados = this.pagos.filter((p) => {
       const coincideTexto =
         !texto ||
+        String(p.id ?? '').includes(texto) ||
         p.nombre_completo?.toLowerCase().includes(texto) ||
         p.institucion_nombre?.toLowerCase().includes(texto);
 
