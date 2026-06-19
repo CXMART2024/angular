@@ -164,6 +164,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
 
       this.pagoService.createPago(pago).subscribe({
         next: (newPago: Pago) => {
+          const idpagocreado = newPago.id;
           if (this.selectedCiclo) {
             this.getPagosCiclo(this.selectedCiclo.id);
             this.toastr.success(
@@ -171,7 +172,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
             );
 
             // Llamada al automate
-            this.dispararAutomate();
+            this.dispararAutomate(idpagocreado);
           }
         },
         error: (error) => {
@@ -187,12 +188,13 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
     }
   }
 
-  private dispararAutomate(): void {
+  private dispararAutomate(idpagocreado: number): void {
     const url =
       'https://603b3a18bfeaef3c8fc4a002f51b5c.e1.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/d5be7c5f58374bce9462926003ebcf93/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=mk52c_itGiWZUiM-yhN3JLKZ2Wd_Onf5SQYOpfmIpXI';
 
     const body = {
       id_solicitud: this.solicitud.id,
+      id_concepto: idpagocreado,
       // agrega aquí los campos que necesite tu automate
     };
 
@@ -281,7 +283,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
       next: (response: any[]) => {
         if (this.selectedPago) {
           this.selectedPago.id_constancia_pago = response[0].url;
-          this.selectedPago.PagoEstado = 'Enviado';
+          this.selectedPago.PagoEstado = 'Por Aprobar';
           this.selectedPago.ContabilidadEstado = 'Por Revisar';
           this.selectedPago.fecha_solicitud = new Date(this.fechaConceptoPago);
           this.pagoService.updatePago(this.selectedPago).subscribe({
@@ -385,6 +387,8 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
         return 'rgba(200, 230, 201, 1)';
       case 'Observado':
         return 'rgba(248, 187, 208, 1)';
+      case 'Por Aprobar':
+        return 'rgba(255, 224, 178, 1)';
       default:
         return 'rgba(255, 255, 255, 1)';
     }

@@ -157,6 +157,7 @@ export class ContabilidadComponent implements OnInit {
             ruc: solicitudObtenida.ruc_institucion,
             nombre: solicitudObtenida.institucion_nombre,
           },
+
           pago: {
             nro_bancaria: this.pagoSeleccionado?.nro_cuentabancaria,
             concepto: this.pagoSeleccionado?.concepto,
@@ -168,6 +169,8 @@ export class ContabilidadComponent implements OnInit {
             fecha_regularizacion: this.pagoSeleccionado?.fecha_regularizacion,
           },
         };
+
+        console.log('este es pago seleccionado', this.pagoSeleccionado);
 
         // 4. Enviamos el correo
         this.http
@@ -435,6 +438,7 @@ export class ContabilidadComponent implements OnInit {
     const pagoActualizado: Contabilidad = {
       ...this.pagoSeleccionado,
       ContabilidadEstado: 'Aprobado',
+      PagoEstado: 'Aprobado',
       fecha_aprobacion: new Date(),
     };
 
