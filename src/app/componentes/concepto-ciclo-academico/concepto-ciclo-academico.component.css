@@ -1,35 +1,71 @@
 a,
 button {
-    font-family: sans-serif;
+  font-family: sans-serif;
 }
 
-
 .btn-image-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 0;
-    border: none;
-    background: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0;
+  border: none;
+  background: none;
 }
 
 .btn-image-text img {
-    width: 32px;
-    /* Adjust as needed */
-    height: 32px;
-    /* Adjust as needed */
+  width: 32px;
+  /* Adjust as needed */
+  height: 32px;
+  /* Adjust as needed */
 }
 
 .btn-image-text span {
-    margin-top: 4px;
-    /* Adjust spacing as needed */
+  margin-top: 4px;
+  /* Adjust spacing as needed */
 }
 
 .modal-dialog-custom {
-    position: fixed;
-    top: auto;
-    right: auto;
-    left: 8rem;
-    bottom: 3rem;
+  position: fixed;
+  top: auto;
+  right: auto;
+  left: 8rem;
+  bottom: 3rem;
+}
+
+.concept-card {
+  background: #f8f8f8;
+  border-radius: 6px;
+  padding: 18px;
+  border: 1px solid #ececec;
+  font-size: 14px;
+  color: #555;
+}
+
+.concept-card strong {
+  color: #222;
+}
+
+.modal-header {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-header h6 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.bi-x-circle {
+  cursor: pointer;
+  font-size: 22px;
+}
+
+.btn-primary {
+  background: #4b84c6;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #3f76b7;
 }

@@ -535,72 +535,60 @@
         </div>
       </div>
       <div *ngIf="selectedPago" class="modal-body">
-        <form action="">
-          <div class="mb-3">
-            <label class="form-label text-dark">Concepto: * </label>
-            <input
-              [(ngModel)]="selectedPago.concepto"
-              name="concepto"
-              type="text"
-              class="form-control"
-              [disabled]="true"
-            />
+        <div class="concept-card">
+          <div class="mb-2">
+            <strong>Fecha Emisión:</strong>
+            {{ selectedPago.fecha_solicitud | date: "dd/MM/yyyy" }}
           </div>
-          <div class="mb-3">
-            <label class="form-label text-dark">Descripción: * </label>
-            <textarea
-              [(ngModel)]="selectedPago.descripcion"
-              name="conceptoDescripcion"
-              class="form-control"
-              rows="3"
-              [disabled]="true"
-            ></textarea>
+
+          <div class="mb-2">
+            <strong>Concepto:</strong>
+            {{ selectedPago.concepto }}
           </div>
-          <div class="mb-3">
-            <label class="form-label text-dark">Monto: * </label>
-            <input
-              [(ngModel)]="selectedPago.monto"
-              name="conceptoMonto"
-              type="number"
-              class="form-control disabled"
-              [disabled]="true"
-            />
+
+          <div class="mb-2">
+            <strong>Descripción:</strong>
+            {{ selectedPago.descripcion }}
           </div>
-          <div class="mb-3">
-            <label class="form-label text-dark"
-              >Fecha Solicitud Programada: *
-            </label>
-            <input
-              name="fechaConceptoPago"
-              type="text"
-              class="form-control disabled"
-              [disabled]="true"
-              value="{{ fechaConceptoPago | date: 'dd/MM/yyyy' }}"
-            />
+
+          <div class="mb-2">
+            <strong>N° cta bancaria (CCI):</strong>
+            {{ selectedPago.nro_cuentabancaria }}
           </div>
-          <div class="mb-4">
-            <label for="constanciaFile" class="form-label text-dark"
-              >Constancia de Pago: *
-            </label>
-            <input
-              (change)="onFileChange($event)"
-              id="constanciaFile"
-              type="file"
-              class="form-control"
-              #constanciaFile
-            />
+
+          <div class="mb-2">
+            <strong>Moneda:</strong>
+            {{ selectedPago.moneda }}
           </div>
-          <div class="d-grid mb-2">
-            <button
-              (click)="updateConceptoPago()"
-              [disabled]="!isFileSelected()"
-              data-bs-dismiss="modal"
-              class="btn btn-primary"
-            >
-              Enviar Constancia de Pago
-            </button>
+
+          <div>
+            <strong>Importe Total:</strong>
+            {{ simboloMoneda }} {{ selectedPago.monto }}
           </div>
-        </form>
+        </div>
+
+        <div class="mt-4">
+          <label class="fw-bold mb-2"> Constancia de Pago </label>
+
+          <input
+            (change)="onFileChange($event)"
+            id="constanciaFile"
+            type="file"
+            class="form-control"
+            #constanciaFile
+          />
+        </div>
+
+        <div class="d-grid mt-4">
+          <button
+            (click)="updateConceptoPago()"
+            [disabled]="!isFileSelected()"
+            data-bs-dismiss="modal"
+            class="btn btn-primary"
+          >
+            Enviar Constancia de Pago
+          </button>
+        </div>
       </div>
     </div>
   </div>

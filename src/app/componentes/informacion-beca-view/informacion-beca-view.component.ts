@@ -21,7 +21,6 @@ import moment from 'moment';
   styleUrl: './informacion-beca-view.component.css',
 })
 export class InformacionBecaViewComponent implements OnInit {
-
   solicitud: any;
   listCiclos: Array<Ciclo> = [];
   numCursosMap = new Map<number, number>();
@@ -31,7 +30,7 @@ export class InformacionBecaViewComponent implements OnInit {
   formUpdateLogin = this.formBuilder.group({
     dni: ['', [Validators.required]],
     antiguaClave: ['', [Validators.required]],
-    nuevaClave: ['', [Validators.required]]
+    nuevaClave: ['', [Validators.required]],
   });
 
   constructor(
@@ -43,8 +42,8 @@ export class InformacionBecaViewComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService
-  ) { }
+    private toastr: ToastrService,
+  ) {}
 
   ngOnInit(): void {
     this.solicitudService.getSolicitudData().subscribe((data) => {
@@ -52,15 +51,17 @@ export class InformacionBecaViewComponent implements OnInit {
       if (this.solicitud) {
         this.getCiclos();
         this.getMallaCurricular();
-        this.solicitud.fecha_inicio = this.formatDateForInput(this.solicitud.fecha_inicio);
-        this.solicitud.fecha_fin_estimada = this.formatDateForInput(this.solicitud.fecha_fin_estimada);
+        this.solicitud.fecha_inicio = this.formatDateForInput(
+          this.solicitud.fecha_inicio,
+        );
+        this.solicitud.fecha_fin_estimada = this.formatDateForInput(
+          this.solicitud.fecha_fin_estimada,
+        );
 
         this.formUpdateLogin.patchValue({
-          dni: this.solicitud.dni
+          dni: this.solicitud.dni,
         });
-
       }
-
     });
     this.cdr.detectChanges();
   }
@@ -78,12 +79,12 @@ export class InformacionBecaViewComponent implements OnInit {
               switchMap((cursos: any[]) => {
                 ciclo.cursos = cursos;
                 return [ciclo]; // Retornar ciclo con los cursos adjuntos
-              })
-            )
+              }),
+            ),
           );
           // Ejecutar todos los observables en paralelo y juntar los resultados
           return forkJoin(ciclosConCursosObservables);
-        })
+        }),
       )
       .subscribe({
         next: (ciclosConCursos: any[]) => {
@@ -99,10 +100,10 @@ export class InformacionBecaViewComponent implements OnInit {
     this.cicloService.getCiclosBySolicitud(this.solicitud.id).subscribe({
       next: (listCiclo: Array<Ciclo>) => {
         //this.listCiclos = listCiclo;
-        this.listCiclos = listCiclo.map(ciclo => ({
+        this.listCiclos = listCiclo.map((ciclo) => ({
           ...ciclo,
-          fecha_inicio: new Date(ciclo.fecha_inicio), 
-          fecha_fin: new Date(ciclo.fecha_fin) 
+          fecha_inicio: new Date(ciclo.fecha_inicio),
+          fecha_fin: new Date(ciclo.fecha_fin),
         }));
         this.viewRegistrarCiclo();
         this.listCiclos.forEach((ciclo) => {
@@ -127,12 +128,10 @@ export class InformacionBecaViewComponent implements OnInit {
     this.router.navigate(['/concepto-modulo-academico']);
   }
 
-
   viewRegistrarCiclo(): void {
-    this.registrarCicloBool = (
-      this.listCiclos.filter((ciclo) => ciclo.estado == 'En Proceso').length == 0
-      && this.solicitud.MallaEstado == 'Aprobado'
-    );
+    this.registrarCicloBool =
+      this.listCiclos.filter((ciclo) => ciclo.estado == 'En Proceso').length ==
+        0 && this.solicitud.MallaEstado == 'Aprobado';
   }
 
   getColorByState(cicloEstado: string): string {
@@ -151,7 +150,7 @@ export class InformacionBecaViewComponent implements OnInit {
   getColorByMalla(malla: string): string {
     switch (malla) {
       case 'Aprobado':
-        return 'rgba(200, 230, 201, 1)';
+        return 'rgb(111, 223, 115)';
       case 'No Cargado':
         return 'rgba(245, 242, 9, 1)';
       case 'Observado':
@@ -161,17 +160,16 @@ export class InformacionBecaViewComponent implements OnInit {
     }
   }
 
-
   logout() {
-    this.authService.logout()
+    this.authService.logout();
   }
 
   updateLogin() {
-
     const dni: string = this.formUpdateLogin.get('dni')?.value as string;
-    const antiguaClave: string = this.formUpdateLogin.get('antiguaClave')?.value as string;
-    const nuevaClave: string = this.formUpdateLogin.get('nuevaClave')?.value as string;
-
+    const antiguaClave: string = this.formUpdateLogin.get('antiguaClave')
+      ?.value as string;
+    const nuevaClave: string = this.formUpdateLogin.get('nuevaClave')
+      ?.value as string;
 
     this.authService.actualizarClave(dni, antiguaClave, nuevaClave).subscribe({
       next: (response: any) => {
@@ -181,14 +179,14 @@ export class InformacionBecaViewComponent implements OnInit {
       error: (error: any) => {
         console.error('Error actualizando clave', error);
         this.formUpdateLogin.reset();
-        this.toastr.error(`Error actualizando clave. Por favor, refresca la página y vuelve a intentarlo.`);
-      }
+        this.toastr.error(
+          `Error actualizando clave. Por favor, refresca la página y vuelve a intentarlo.`,
+        );
+      },
     });
   }
 
   formatDateForInput(dateString: string): string {
     return moment.utc(dateString).format('YYYY-MM-DD');
   }
- 
-
 }
