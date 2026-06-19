@@ -25,7 +25,7 @@
 
                 <li class="nav-item m-4">
                     <a class="nav-link p-3"
-                        [routerLink]="solicitud?.url_doc_contrato ? '/informacion-view' : '/informacion'">
+                        [routerLink]="solicitud?.informacionGuardada === '1' ? '/informacion-view' : '/informacion'">
                         <div class="row">
                             <div class="col-12"><img
                                     src="https://blobauroranuevo.blob.core.windows.net/images3d/Form.png" alt="Icon">

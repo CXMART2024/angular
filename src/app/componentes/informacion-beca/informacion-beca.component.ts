@@ -379,8 +379,15 @@ export class InformacionBecaComponent implements OnInit {
 
   submitForm() {
     if (this.fecha_inicio && this.fecha_fin_estimada) {
+      const esPrimerGuardado = this.solicitud.informacionGuardada !== '1';
+      // Marcamos el flag antes de guardar para que se persista en esta misma
+      // actualización. A partir de aquí el sidebar redirige a /informacion-view.
+      this.solicitud.informacionGuardada = '1';
       this.updateInformacionBecario();
-      this.notificarEnvioMalla(this.solicitud);
+      // La notificación de envío de malla solo se manda la primera vez.
+      if (esPrimerGuardado) {
+        this.notificarEnvioMalla(this.solicitud);
+      }
       this.router.navigate(['/informacion-view']);
       localStorage.removeItem('formularioDatos');
     } else {
@@ -622,6 +629,11 @@ export class InformacionBecaComponent implements OnInit {
   }
 
   //Funciones para agregar Malla
+
+  prepararNuevoCurso() {
+    this.editingIndex = null;
+    this.newCursoMalla = new CursoMalla(0, '', 0, 0, '');
+  }
 
   saveCursoMalla() {
     if (this.editingIndex !== null) {

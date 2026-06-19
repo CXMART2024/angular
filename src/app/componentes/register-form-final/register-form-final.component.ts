@@ -18,6 +18,7 @@ export class RegisterFormFinalComponent implements OnInit {
 
   formData: any = {};
   isRedirecting = false;
+  showSuccessModal = false;
 
   constructor(
     private http: HttpClient,
@@ -117,6 +118,7 @@ export class RegisterFormFinalComponent implements OnInit {
         this.formData.url_comprobando_domicilio = responses[3].url;
         this.formData.EvaluacionEstado = 'Por Evaluar';
         this.formData.contratoBecario = '0';
+        this.formData.informacionGuardada = '0';
         this.formData.fecha_solicitud = new Date();
         this.http
           .post(
@@ -131,9 +133,8 @@ export class RegisterFormFinalComponent implements OnInit {
                 this.formDataService.clearFormData();
               } else {
                 this.notificarEnvioSolicitud(this.formData);
-                this.toastr.success(`Solicitud enviada correctamente.`);
-                this.router.navigate(['/register-form']);
                 this.formDataService.clearFormData();
+                this.showSuccessModal = true;
               }
             },
             error: (error) => {
@@ -151,6 +152,11 @@ export class RegisterFormFinalComponent implements OnInit {
         );
       },
     });
+  }
+
+  cerrarModalExito() {
+    this.showSuccessModal = false;
+    this.router.navigate(['/register-form']);
   }
 
   backtStepFinal() {
