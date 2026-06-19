@@ -124,8 +124,6 @@
                 [(ngModel)]="nombre_completo"
                 name="nombre_completo"
                 id="nombre_completo"
-                readonly
-                [disabled]="true"
               />
             </div>
             <div class="col-12 col-md-1 d-flex align-items-center">
@@ -159,8 +157,6 @@
                 [(ngModel)]="dni"
                 id="dni"
                 name="dni"
-                readonly
-                [disabled]="true"
               />
             </div>
           </div>
@@ -174,12 +170,10 @@
             <div class="col-12 col-md-6">
               <input
                 type="text"
-                class="form-control disabled"
+                class="form-control"
                 [(ngModel)]="institucion_nombre"
                 name="institucion_nombre"
-                readonly
                 id="institucion_nombre"
-                [disabled]="true"
               />
             </div>
             <div class="col-12 col-md-1">

@@ -333,6 +333,9 @@ export class InformacionBecaComponent implements OnInit {
           this.solicitud.fecha_fin_estimada = this.fecha_fin_estimada;
           this.solicitud.codigo_estudiante = this.codigo_estudiante;
           this.solicitud.ruc_institucion = this.ruc_institucion;
+          this.solicitud.nombre_completo = this.nombre_completo;
+          this.solicitud.dni = this.dni;
+          this.solicitud.institucion_nombre = this.institucion_nombre;
 
           this.solicitudService.updateSolicitud(this.solicitud).subscribe({
             next: (response: any) => {
@@ -360,6 +363,9 @@ export class InformacionBecaComponent implements OnInit {
       this.solicitud.fecha_fin_estimada = this.fecha_fin_estimada;
       this.solicitud.codigo_estudiante = this.codigo_estudiante;
       this.solicitud.ruc_institucion = this.ruc_institucion;
+      this.solicitud.nombre_completo = this.nombre_completo;
+      this.solicitud.dni = this.dni;
+      this.solicitud.institucion_nombre = this.institucion_nombre;
 
       this.solicitudService.updateSolicitud(this.solicitud).subscribe({
         next: (response: any) => {

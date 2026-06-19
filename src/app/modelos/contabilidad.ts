@@ -23,6 +23,7 @@ export class Contabilidad {
   fecha_regularizacion?: Date;
   fecha_aprobacion?: Date;
   fecha_carga_SAP?: Date;
+  fecha_emision?: Date;
   nombre_completo?: string;
   observacion?: string;
   institucion_nombre?: string;
