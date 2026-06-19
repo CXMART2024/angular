@@ -160,6 +160,8 @@ export class ContabilidadComponent implements OnInit {
           pago: {
             nro_bancaria: this.pagoSeleccionado?.nro_cuentabancaria,
             concepto: this.pagoSeleccionado?.concepto,
+            descripcion: this.pagoSeleccionado?.descripcion,
+            monto: this.pagoSeleccionado?.monto,
             moneda: this.pagoSeleccionado?.moneda,
             codigo_sociedad: this.pagoSeleccionado?.codigo_sociedad,
             ceco: this.pagoSeleccionado?.ceco,

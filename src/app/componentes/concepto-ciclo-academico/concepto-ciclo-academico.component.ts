@@ -161,6 +161,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
         this.conceptoPagoForm.value.fecha_regularizacion;
       pago.PagoEstado = 'Programado';
       pago.adminestado = 'Programado';
+
       this.pagoService.createPago(pago).subscribe({
         next: (newPago: Pago) => {
           if (this.selectedCiclo) {
@@ -168,6 +169,9 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
             this.toastr.success(
               `Pago ${newPago.concepto} registrado correctamente`,
             );
+
+            // Llamada al automate
+            this.dispararAutomate();
           }
         },
         error: (error) => {
@@ -181,6 +185,25 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
         `Ha ocurrido un error, no se ha podido registrar el pago correctamente`,
       );
     }
+  }
+
+  private dispararAutomate(): void {
+    const url =
+      'https://603b3a18bfeaef3c8fc4a002f51b5c.e1.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/d5be7c5f58374bce9462926003ebcf93/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=mk52c_itGiWZUiM-yhN3JLKZ2Wd_Onf5SQYOpfmIpXI';
+
+    const body = {
+      id_solicitud: this.solicitud.id,
+      // agrega aquí los campos que necesite tu automate
+    };
+
+    this.http.post(url, body).subscribe({
+      next: () => {
+        console.log('Automate disparado correctamente');
+      },
+      error: (error) => {
+        console.error('Error al disparar el automate:', error);
+      },
+    });
   }
 
   //Obtener cursos del ciclo
@@ -266,6 +289,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
               this.toastr.success(
                 `Pago ${pago.concepto} registrado correctamente`,
               );
+              this.enviarCorreoVoucher();
             },
             error: (error) => {
               this.toastr.error(
@@ -274,6 +298,76 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
             },
           });
         }
+      },
+    });
+  }
+
+  enviarCorreoVoucher() {
+    // 1. Obtenemos el ID de la solicitud desde el pago seleccionado
+    const idSolicitud = this.selectedPago?.id_solicitud; // <-- Cambia aquí según cómo se llame el campo id en tu modelo 'Contabilidad'
+
+    if (!idSolicitud) {
+      this.toastr.error(
+        'No se encontró el ID de la solicitud asociado a este pago.',
+      );
+      return;
+    }
+
+    // 2. Buscamos la solicitud por su ID antes de armar el envío
+    this.solicitudService.getSolicitudById(this.solicitud.id).subscribe({
+      next: (solicitudObtenida: any) => {
+        if (!solicitudObtenida) {
+          this.toastr.error(
+            'No se encontró ninguna solicitud con el ID proporcionado.',
+          );
+          return;
+        }
+
+        // 3. Si la encuentra con éxito, armamos el payload para el correo
+        const payload = {
+          solicitante: {
+            nombre_completo: solicitudObtenida.nombre_completo,
+            codigo_estudiante: solicitudObtenida.codigo_estudiante,
+          },
+          pago: {
+            concepto: this.selectedPago?.concepto || '',
+            descripcion: this.selectedPago?.descripcion || '',
+            importe_total: this.selectedPago?.monto || '',
+          },
+          operadorContabilidad: {
+            nombre_completo: 'Contabilidad',
+            correo: 'soportebi_fo@crosland.com.pe',
+          },
+          administrador: {
+            correo: 'soportebi_fo@crosland.com.pe',
+          },
+          tesoreria: {
+            correo: 'soportebi_fo@crosland.com.pe',
+          },
+          diasLimite: 3,
+        };
+
+        // 4. Enviamos el correo
+        this.http
+          .post(
+            'https://backendbecas.azurewebsites.net/correo/voucher',
+            payload,
+          )
+          .subscribe({
+            next: () => {
+              this.toastr.success('Correo enviado correctamente.');
+            },
+            error: (error) => {
+              console.error('Error enviando correo:', error);
+              this.toastr.error('Error al enviar el correo.');
+            },
+          });
+      },
+      error: (err) => {
+        console.error('Error al buscar la solicitud por ID:', err);
+        this.toastr.error(
+          'Error al verificar los datos de la solicitud en el servidor.',
+        );
       },
     });
   }
