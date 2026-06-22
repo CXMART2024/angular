@@ -332,6 +332,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
             codigo_estudiante: solicitudObtenida.codigo_estudiante,
           },
           pago: {
+            id: this.selectedPago?.id || '',
             concepto: this.selectedPago?.concepto || '',
             descripcion: this.selectedPago?.descripcion || '',
             importe_total: this.selectedPago?.monto || '',
