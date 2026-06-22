@@ -20,6 +20,14 @@ export class PagoService {
     return this.http.get<Pago[]>(`${this.apiUrl}/ciclo/${id_registroCiclo}`);
   }
 
+  //Retornar el último pago del estudiante (por solicitud). Puede ser null si
+  //el estudiante no tiene pagos previos.
+  getUltimoPagoBySolicitud(id_solicitud: number) {
+    return this.http.get<Pago | null>(
+      `${this.apiUrl}/solicitud/${id_solicitud}`,
+    );
+  }
+
   createEstadosInicialesPago(creadoPor: string, id_pago: number) {
     return this.http.post(`${this.apiUrl}/estadosIni`, {
       creadoPor,

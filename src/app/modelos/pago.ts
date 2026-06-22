@@ -18,6 +18,7 @@ export class Pago {
   area_solicitante?: string;
   moneda?: string;
   fecha_regularizacion?: Date;
+  fecha_emision?: Date;
   constructor(
     id: number,
     fecha_solicitud: Date,

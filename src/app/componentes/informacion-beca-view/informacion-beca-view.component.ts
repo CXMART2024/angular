@@ -129,9 +129,7 @@ export class InformacionBecaViewComponent implements OnInit {
   }
 
   viewRegistrarCiclo(): void {
-    this.registrarCicloBool =
-      this.listCiclos.filter((ciclo) => ciclo.estado == 'En Proceso').length ==
-        0 && this.solicitud.MallaEstado == 'Aprobado';
+    this.registrarCicloBool = this.solicitud.MallaEstado == 'Aprobado';
   }
 
   getColorByState(cicloEstado: string): string {
