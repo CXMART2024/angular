@@ -72,6 +72,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
     '',
     '',
     new Date(),
+    new Date(),
   );
   selectedPago: Pago | null = null;
   ultimoPago: Pago | null = null;

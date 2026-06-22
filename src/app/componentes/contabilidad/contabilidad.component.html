@@ -224,8 +224,7 @@
           <div class="mod-sub">
             <span class="mod-dat">Fecha Emisión:</span>
             {{
-              formatearFecha(pagoSeleccionado?.fecha_emision) ||
-                "No registrada"
+              formatearFecha(pagoSeleccionado?.fecha_emision) || "No registrada"
             }}
           </div>
           <div class="mod-sub">
@@ -349,6 +348,11 @@
           class="btn w-100 py-3 rounded-3 fw-medium"
           style="background-color: #4180c2; color: white; font-size: 15px"
           (click)="aprobarConstancia()"
+          [disabled]="!pagoSeleccionado?.id_constancia_pago"
+          [style.opacity]="!pagoSeleccionado?.id_constancia_pago ? '0.4' : '1'"
+          [style.cursor]="
+            !pagoSeleccionado?.id_constancia_pago ? 'not-allowed' : 'pointer'
+          "
         >
           Aprobar Constancia de Pago
         </button>
@@ -362,6 +366,11 @@
             font-size: 15px;
           "
           id="btnNotificar"
+          [disabled]="!pagoSeleccionado?.id_constancia_pago"
+          [style.opacity]="!pagoSeleccionado?.id_constancia_pago ? '0.4' : '1'"
+          [style.cursor]="
+            !pagoSeleccionado?.id_constancia_pago ? 'not-allowed' : 'pointer'
+          "
         >
           Notificar Observación
         </button>
@@ -466,8 +475,7 @@
           <div class="mod-sub">
             <span class="mod-dat">Fecha Emisión:  </span>
             {{
-              formatearFecha(pagoSeleccionado?.fecha_emision) ||
-                "No Registrada"
+              formatearFecha(pagoSeleccionado?.fecha_emision) || "No Registrada"
             }}
           </div>
           <div class="mod-sub">
@@ -640,8 +648,7 @@
           <div class="mod-sub">
             <span class="mod-dat">Fecha Emisión:  </span>
             {{
-              formatearFecha(pagoSeleccionado?.fecha_emision) ||
-                "No Registrada"
+              formatearFecha(pagoSeleccionado?.fecha_emision) || "No Registrada"
             }}
           </div>
           <div class="mod-sub">

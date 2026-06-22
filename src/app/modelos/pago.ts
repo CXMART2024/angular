@@ -39,6 +39,7 @@ export class Pago {
     area_solicitante: string,
     moneda: string,
     fecha_regularizacion: Date,
+    fecha_emision: Date,
   ) {
     this.id = id;
     this.fecha_solicitud = fecha_solicitud;
@@ -59,5 +60,6 @@ export class Pago {
     this.area_solicitante = area_solicitante;
     this.moneda = moneda;
     this.fecha_regularizacion = fecha_regularizacion;
+    this.fecha_emision = fecha_emision;
   }
 }
