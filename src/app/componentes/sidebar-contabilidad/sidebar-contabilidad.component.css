@@ -57,6 +57,10 @@
 /* Botón debajo de Contabilidad */
 .actions-container {
   margin-top: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  padding-bottom: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .action-btn {
