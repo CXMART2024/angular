@@ -25,6 +25,7 @@ export class ContabilidadComponent implements OnInit {
   cantidadObservados = 0;
   cantidadAprobados = 0;
   cargadoSap: boolean = false;
+  nroAsientoContable: string = '';
   observacion: string = '';
 
   constructor(
@@ -302,6 +303,10 @@ export class ContabilidadComponent implements OnInit {
   abrirSolicitud(pago: any): void {
     this.pagoSeleccionado = pago;
 
+    // Precargar los campos editables del modal de contabilidad con lo ya guardado
+    this.cargadoSap = pago?.cCargoSap ?? false;
+    this.nroAsientoContable = pago?.nro_asiento_contable ?? '';
+
     const estado = pago.ContabilidadEstado?.trim().toLowerCase();
 
     let modalId = '';
@@ -351,11 +356,19 @@ export class ContabilidadComponent implements OnInit {
     if (!this.pagoSeleccionado) {
       return;
     }
+
+    // El N° de asiento contable es obligatorio antes de comunicar el cargado en SAP.
+    if (!this.nroAsientoContable || this.nroAsientoContable.trim() === '') {
+      this.toastr.error('Debe ingresar el N° de asiento contable.');
+      return;
+    }
+
     const pagoActualizado: Contabilidad = {
       ...this.pagoSeleccionado,
 
       cCargoSap: this.cargadoSap,
       fecha_carga_SAP: new Date(),
+      nro_asiento_contable: this.nroAsientoContable.trim(),
 
       ContabilidadEstado: 'En Tesorería',
       TesoreriaEstado: 'Pendiente',

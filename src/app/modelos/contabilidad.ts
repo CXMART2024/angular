@@ -28,6 +28,11 @@ export class Contabilidad {
   observacion?: string;
   institucion_nombre?: string;
   ruc_institucion?: string;
+  dni?: string;
+  codigo_estudiante?: string;
+  mail_confirmacion?: string;
+  importe_letras?: string;
+  nro_asiento_contable?: string;
 
   constructor(
     id: number,

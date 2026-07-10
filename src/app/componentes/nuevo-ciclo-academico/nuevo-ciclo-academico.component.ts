@@ -9,7 +9,6 @@ import { CicloService } from '../../servicios/ciclo/ciclo.service';
 import { CursoService } from '../../servicios/curso/curso.service';
 import { Curso } from '../../modelos/curso';
 import { Router } from '@angular/router';
-import { forkJoin } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import moment from 'moment';
@@ -23,6 +22,7 @@ export class NuevoCicloAcademicoComponent implements OnInit {
   solicitud: any;
   selectedCicloMallaId: number = 0;
   listCicloMalla: Array<CicloMalla> = [];
+  listCiclosRegistrados: Array<Ciclo> = [];
   listCurso: Array<CursoMalla> = [];
   listCursoPopUp: Array<CursoMalla> = [];
   cursoSeleccionadoPopUp: CursoMalla = new CursoMalla(0, '', 0, 0, '');
@@ -66,12 +66,46 @@ export class NuevoCicloAcademicoComponent implements OnInit {
               console.error('Error obteniendo ciclos:', error);
             },
           });
+
+        // Ciclos ya registrados por el estudiante, para validar que el nuevo
+        // ciclo no se solape en rango de fechas con uno existente.
+        this.cicloService.getCiclosBySolicitud(this.solicitud.id).subscribe({
+          next: (listCiclos: Array<Ciclo>) => {
+            this.listCiclosRegistrados = listCiclos ?? [];
+          },
+          error: (error) => {
+            console.error('Error obteniendo ciclos registrados:', error);
+            this.listCiclosRegistrados = [];
+          },
+        });
       }
+    });
+  }
+
+  // Verifica si el rango [fecha_inicio, fecha_fin] del nuevo ciclo se solapa
+  // con el de algún ciclo ya registrado. Dos rangos se solapan cuando
+  // inicio_nuevo <= fin_existente AND fin_nuevo >= inicio_existente.
+  existeSolapamientoFechas(): boolean {
+    const inicioNuevo = new Date(this.ciclo.fecha_inicio).getTime();
+    const finNuevo = new Date(this.ciclo.fecha_fin).getTime();
+
+    return this.listCiclosRegistrados.some((c) => {
+      const inicioExistente = new Date(c.fecha_inicio).getTime();
+      const finExistente = new Date(c.fecha_fin).getTime();
+      return inicioNuevo <= finExistente && finNuevo >= inicioExistente;
     });
   }
 
   obtenerCursosDeCicloMalla(cicloMalla: any) {
     this.selectedCicloMallaId = cicloMalla.target.value;
+
+    // El "Nombre Ciclo/Grado" debe ser igual al nombre del ciclo de la malla
+    // seleccionada (no editable), para no permitir duplicados con otro nombre.
+    const cicloMallaSel = this.listCicloMalla.find(
+      (c) => String(c.id) === String(cicloMalla.target.value),
+    );
+    this.ciclo.nombre_ciclo = cicloMallaSel?.nombre ?? '';
+
     this.mallaService.getCursoMallaByCiclo(cicloMalla.target.value).subscribe({
       next: (listCurso: Array<CursoMalla>) => {
         this.listCurso = listCurso;
@@ -134,42 +168,70 @@ export class NuevoCicloAcademicoComponent implements OnInit {
   }
 
   guardarCicloAcademico(): void {
-    const cargaArchivos = [
-      this.http.post('https://backendbecas.azurewebsites.net/upload', this.url),
-    ];
+    // Regla #1: no permitir un ciclo cuyo rango de fechas se solape con otro
+    // ya registrado (validación en front; el backend también la valida).
+    if (this.existeSolapamientoFechas()) {
+      this.toastr.error(
+        'Ya existe un ciclo registrado dentro del mismo rango de fechas.',
+      );
+      return;
+    }
 
-    forkJoin(cargaArchivos).subscribe({
-      next: (response: any[]) => {
-        //this.ciclo.fecha_inicio = moment(this.ciclo.fecha_inicio).startOf('day').toDate();
-        //this.ciclo.fecha_fin = moment(this.ciclo.fecha_fin).startOf('day').toDate();
-
-        this.ciclo.id_ciclo = this.selectedCicloMallaId;
-        this.ciclo.id_solicitud = this.solicitud.id;
-        this.ciclo.id_doc_matricula = response[0].url;
-        this.ciclo.estado = 'En Proceso';
-        this.ciclo.creditos = this.sumarCredito();
-        this.cicloService.createCiclo(this.ciclo).subscribe({
+    if (this.isFileSelected()) {
+      // Con "Constancia de Matrícula" adjunta: subir el archivo y luego crear.
+      this.http
+        .post('https://backendbecas.azurewebsites.net/upload', this.url)
+        .subscribe({
           next: (response: any) => {
-            for (let curso of this.listCurso) {
-              const newCurso = new Curso(
-                0,
-                curso.id,
-                curso.tipo,
-                0,
-                response.id,
-                this.solicitud.id,
-                curso.creditos,
-                curso.Nombre,
-              );
-              this.guardarCurso(newCurso);
-              this.toastr.success(`Ciclo registrado correctamente`);
-              this.router.navigate(['informacion-view']);
-            }
+            this.crearCiclo(response?.url ?? '');
           },
           error: (err) => {
-            this.toastr.error(`Error al guardar ciclo`);
+            console.error('Error subiendo constancia:', err);
+            this.toastr.error('Error al subir la constancia de matrícula');
           },
         });
+    } else {
+      // Regla #5: la constancia es opcional en el primer registro; se puede
+      // regularizar después. Se crea el ciclo sin documento de matrícula.
+      this.crearCiclo('');
+    }
+  }
+
+  private crearCiclo(idDocMatricula: string): void {
+    this.ciclo.id_ciclo = this.selectedCicloMallaId;
+    this.ciclo.id_solicitud = this.solicitud.id;
+    this.ciclo.id_doc_matricula = idDocMatricula;
+    this.ciclo.estado = 'En Proceso';
+    this.ciclo.creditos = this.sumarCredito();
+
+    this.cicloService.createCiclo(this.ciclo).subscribe({
+      next: (response: any) => {
+        for (let curso of this.listCurso) {
+          const newCurso = new Curso(
+            0,
+            curso.id,
+            curso.tipo,
+            0,
+            response.id,
+            this.solicitud.id,
+            curso.creditos,
+            curso.Nombre,
+          );
+          this.guardarCurso(newCurso);
+        }
+        this.toastr.success(`Ciclo registrado correctamente`);
+        this.router.navigate(['informacion-view']);
+      },
+      error: (err) => {
+        // El backend responde 409 cuando el rango de fechas se solapa.
+        if (err?.status === 409) {
+          this.toastr.error(
+            err?.error?.message ||
+              'Ya existe un ciclo registrado dentro del mismo rango de fechas.',
+          );
+        } else {
+          this.toastr.error(`Error al guardar ciclo`);
+        }
       },
     });
   }

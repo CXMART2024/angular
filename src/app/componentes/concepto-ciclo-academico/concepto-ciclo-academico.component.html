@@ -410,6 +410,16 @@
           [formGroup]="conceptoPagoForm"
           (ngSubmit)="onAgregarConceptoPago()"
         >
+          <!-- Datos del estudiante (solo informativo, no editable) -->
+          <div
+            class="mb-3 p-2 rounded"
+            style="background-color: #e9ecef; color: #6c757d; font-size: 13px"
+          >
+            <div><strong>Institución:</strong> {{ solicitud?.institucion_nombre || "-" }}</div>
+            <div><strong>Nombre estudiante:</strong> {{ solicitud?.nombre_completo || "-" }}</div>
+            <div><strong>DNI:</strong> {{ solicitud?.dni || "-" }}</div>
+            <div><strong>Código de estudiante:</strong> {{ solicitud?.codigo_estudiante || "-" }}</div>
+          </div>
           <div class="row">
             <div class="mb-3 col-12 col-md-6">
               <label class="form-label text-dark"
@@ -449,7 +459,9 @@
           </div>
           <div class="row">
             <div class="mb-3 col-12 col-md-12">
-              <label class="form-label text-dark">N° cta bancaria: * </label>
+              <label class="form-label text-dark"
+                >N° cta bancaria/Código de pago: *
+              </label>
               <input
                 type="text"
                 class="form-control"
