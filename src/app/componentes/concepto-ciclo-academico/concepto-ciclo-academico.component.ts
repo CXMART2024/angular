@@ -75,7 +75,6 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
     new Date(),
   );
   selectedPago: Pago | null = null;
-  ultimoPago: Pago | null = null;
   solicitud: any;
   selectedCiclo: Ciclo | null = null;
   listCursos: Array<Curso> = [];
@@ -122,15 +121,14 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
 
         console.log('este es el ciclo seleccionado', this.selectedCiclo);
 
-        // Cargamos el último pago del estudiante para autocompletar el modal
-        // "Nuevo Concepto" con su cuenta bancaria y la última moneda usada.
-        this.cargarUltimoPago();
-
         const myModal = document.getElementById('addConcepto');
         if (myModal) {
           myModal.addEventListener('shown.bs.modal', () => {
-            this.conceptoPagoForm.reset(); // Reset form when modal is shown
-            this.prefillDatosUltimoPago(); // Autocompletar luego del reset
+            // Limpiar TODOS los campos al abrir el modal para crear un nuevo
+            // concepto. Antes se autocompletaban "N° cta bancaria" y "Moneda"
+            // con el último pago y retenían el valor anterior; ahora quedan
+            // en blanco.
+            this.conceptoPagoForm.reset();
           });
         }
         this.formUpdateLogin.patchValue({
@@ -232,40 +230,6 @@ export class ConceptoCicloAcademicoComponent implements OnInit {
         this.listPagos = listPagos;
       },
     });
-  }
-
-  //Obtener el último pago del estudiante (para autocompletar el modal).
-  cargarUltimoPago(): void {
-    if (!this.solicitud?.id) {
-      return;
-    }
-    this.pagoService.getUltimoPagoBySolicitud(this.solicitud.id).subscribe({
-      next: (pago: Pago | null) => {
-        this.ultimoPago = pago;
-      },
-      error: (error) => {
-        // Si falla, simplemente no autocompletamos; el modal abre vacío.
-        console.error('Error obteniendo el último pago', error);
-        this.ultimoPago = null;
-      },
-    });
-  }
-
-  //Autocompletar cuenta bancaria y moneda con el último pago, si existe.
-  //Los campos quedan editables. Si el estudiante no tiene pagos previos
-  //(ultimoPago === null) no se setea nada y el formulario queda en blanco.
-  prefillDatosUltimoPago(): void {
-    if (!this.ultimoPago) {
-      return;
-    }
-    const datos: { nro_cuentabancaria?: string; moneda?: string } = {};
-    if (this.ultimoPago.nro_cuentabancaria) {
-      datos.nro_cuentabancaria = this.ultimoPago.nro_cuentabancaria;
-    }
-    if (this.ultimoPago.moneda) {
-      datos.moneda = this.ultimoPago.moneda;
-    }
-    this.conceptoPagoForm.patchValue(datos);
   }
 
   //Retorna el numero de cursos
