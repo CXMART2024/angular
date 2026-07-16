@@ -189,247 +189,159 @@
   data-bs-backdrop="static"
   tabindex="-1"
 >
-  <div
-    class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-    style="max-width: 760px"
-  >
-    <div class="modal-content border-0 rounded-4">
+  <div class="modal-dialog modal-dialog-centered sp-dialog">
+    <div class="modal-content sp-content">
       <!-- Header -->
-      <div class="modal-header border-0 pb-0 px-4 pt-4">
-        <h5 class="modal-title fw-semibold" style="font-size: 18px">
-          Solicitud de Pago
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-        ></button>
+      <div class="sp-header">
+        <span class="sp-hicon"><i class="bi bi-receipt"></i></span>
+        <h5 class="sp-title">Solicitud de Pago</h5>
+        <span class="sp-badge">{{ pagoSeleccionado?.ContabilidadEstado || "—" }}</span>
+        <button type="button" class="sp-close" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg"></i>
+        </button>
       </div>
 
-      <!-- Body -->
-      <div class="modal-body px-4 py-3">
-        <div class="row g-3">
-          <!-- Columna izquierda: datos del estudiante (solo lectura) -->
-          <div class="col-12 col-md-5">
-            <div
-              class="border rounded-3 p-3 h-100"
-              style="font-size: 14px; line-height: 1.9; background-color: #f8f9fa"
-            >
-              <div class="text-secondary mb-2 fw-semibold" style="font-size: 12px">
-                Enviado por el estudiante
+      <!-- Body en dos columnas -->
+      <div class="sp-body">
+        <!-- Izquierda: estudiante -->
+        <div class="sp-col-left">
+          <div class="sp-coltitle"><i class="bi bi-lock"></i> Enviado por el estudiante</div>
+          <div class="sp-field">
+            <div class="sp-label">Estudiante</div>
+            <div class="sp-value">{{ pagoSeleccionado?.nombre_completo || "No registrado" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">N° doc identidad</div>
+            <div class="sp-value">{{ pagoSeleccionado?.dni || "No registrado" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">Institución</div>
+            <div class="sp-value">{{ pagoSeleccionado?.institucion_nombre || "No registrada" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">RUC institución</div>
+            <div class="sp-value">{{ pagoSeleccionado?.ruc_institucion || "No registrado" }}</div>
+          </div>
+        </div>
+
+        <!-- Derecha: datos de la solicitud -->
+        <div class="sp-col-right">
+          <div class="sp-coltitle"><i class="bi bi-pencil-square"></i> Datos de la solicitud</div>
+          <div class="sp-grid2">
+            <div class="sp-field">
+              <div class="sp-label">
+                Fecha Emisión
+                <i class="sp-info" title="Fecha en la que se emite el documento">i</i>
               </div>
-              <div class="mod-sub mb-1">
-                <span class="mod-dat d-block text-secondary">Estudiante</span>
-                {{ pagoSeleccionado?.nombre_completo || "No registrado" }}
+              <div class="sp-value">{{ formatearFecha(pagoSeleccionado?.fecha_emision) || "No registrada" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Proveedor</div>
+              <div class="sp-value">{{ pagoSeleccionado?.institucion_nombre || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Código Sociedad</div>
+              <div class="sp-value">{{ pagoSeleccionado?.codigo_sociedad || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">RUC</div>
+              <div class="sp-value">{{ pagoSeleccionado?.ruc_institucion || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Concepto</div>
+              <div class="sp-value">{{ pagoSeleccionado?.concepto || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Moneda</div>
+              <div class="sp-value">{{ pagoSeleccionado?.moneda || "No registrada" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">N° cta bancaria (CCI)</div>
+              <div class="sp-value">{{ pagoSeleccionado?.nro_cuentabancaria || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Solicitante</div>
+              <div class="sp-value">{{ pagoSeleccionado?.area_solicitante || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Área Solicitante</div>
+              <div class="sp-value">{{ pagoSeleccionado?.area_solicitante || "No registrada" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">CECO</div>
+              <div class="sp-value">{{ pagoSeleccionado?.ceco || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Importe Total</div>
+              <div class="sp-value">{{ pagoSeleccionado?.monto || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">
+                Fecha Regularización
+                <i class="sp-info" title="Fecha programada por tesorería para hacer el pago">i</i>
               </div>
-              <div class="mod-sub mb-1">
-                <span class="mod-dat d-block text-secondary">N&deg; doc identidad</span>
-                {{ pagoSeleccionado?.dni || "No registrado" }}
-              </div>
-              <div class="mod-sub mb-1">
-                <span class="mod-dat d-block text-secondary">Instituci&oacute;n</span>
-                {{ pagoSeleccionado?.institucion_nombre || "No registrada" }}
-              </div>
-              <div class="mod-sub mb-1">
-                <span class="mod-dat d-block text-secondary">RUC instituci&oacute;n</span>
-                {{ pagoSeleccionado?.ruc_institucion || "No registrado" }}
-              </div>
+              <div class="sp-value">{{ formatearFecha(pagoSeleccionado?.fecha_regularizacion) || "No registrada" }}</div>
             </div>
           </div>
 
-          <!-- Columna derecha: datos de la solicitud / finanzas (solo lectura) -->
-          <div class="col-12 col-md-7">
-            <div
-              class="border rounded-3 p-3"
-              style="font-size: 14px; line-height: 1.9"
-            >
-              <div class="mod-sub">
-                <span class="mod-dat">Fecha Emisi&oacute;n: </span>
-                {{
-                  formatearFecha(pagoSeleccionado?.fecha_emision) ||
-                    "No registrada"
-                }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Proveedor: </span>
-                {{ pagoSeleccionado?.institucion_nombre || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">C&oacute;digo Sociedad: </span>
-                {{ pagoSeleccionado?.codigo_sociedad || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">RUC: </span>
-                {{ pagoSeleccionado?.ruc_institucion || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Concepto: </span>
-                {{ pagoSeleccionado?.concepto || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Descripci&oacute;n: </span
-                >{{ pagoSeleccionado?.descripcion || "No registrada" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Moneda: </span>
-                {{ pagoSeleccionado?.moneda || "No registrada" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">N&deg; cta bancaria (CCI): </span>
-                {{ pagoSeleccionado?.nro_cuentabancaria || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Solicitante: </span>
-                {{ pagoSeleccionado?.area_solicitante || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Mail de confirmaci&oacute;n: </span>
-                {{ pagoSeleccionado?.mail_confirmacion || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">&Aacute;rea Solicitante: </span>
-                {{ pagoSeleccionado?.area_solicitante || "No registrada" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">CECO: </span>
-                {{ pagoSeleccionado?.ceco || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Importe Total: </span>
-                {{ pagoSeleccionado?.monto || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat"
-                  >Fecha Regularizaci&oacute;n:
-                  <i
-                    class="bi bi-info-circle"
-                    style="cursor: help; color: #4180c2"
-                    title="fecha programada por tesorería para hacer el pago"
-                  ></i>
-                </span>
-                {{
-                  formatearFecha(pagoSeleccionado?.fecha_regularizacion) ||
-                    "No registrada"
-                }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Importe en letras: </span>
-                {{ pagoSeleccionado?.importe_letras || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Anticipo: </span>
-                <a
-                  href="javascript:void(0)"
-                  (click)="abrirDocumento(pagoSeleccionado?.id_doc_anticipo)"
-                  [ngStyle]="{
-                    color:
-                      obtenerNombreArchivo(pagoSeleccionado?.id_doc_anticipo) ===
-                      'Sin archivo'
-                        ? '#636363'
-                        : '#4180c2',
-                    'text-decoration':
-                      obtenerNombreArchivo(pagoSeleccionado?.id_doc_anticipo) ===
-                      'Sin archivo'
-                        ? 'none'
-                        : 'underline',
-                  }"
-                >
-                  {{ obtenerNombreArchivo(pagoSeleccionado?.id_doc_anticipo) }}
-                </a>
-              </div>
-            </div>
+          <div class="sp-field" style="margin-top: 6px">
+            <div class="sp-label">Descripción</div>
+            <div class="sp-value" style="font-weight: 500">{{ pagoSeleccionado?.descripcion || "No registrada" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">Mail de confirmación</div>
+            <div class="sp-value" style="color: #3b63d6">{{ pagoSeleccionado?.mail_confirmacion || "No registrado" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">Importe en letras</div>
+            <div class="sp-value" style="font-weight: 500">{{ pagoSeleccionado?.importe_letras || "No registrado" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">Anticipo</div>
+            <a class="sp-chip" href="javascript:void(0)" (click)="abrirDocumento(pagoSeleccionado?.id_doc_anticipo)">
+              <i class="bi bi-paperclip"></i>{{ obtenerNombreArchivo(pagoSeleccionado?.id_doc_anticipo) }}
+            </a>
           </div>
         </div>
       </div>
 
-      <!-- Documentos y evidencia de pago -->
-      <div class="px-4 pb-3">
-        <div
-          class="border rounded-3 p-3"
-          style="font-size: 14px; line-height: 1.9"
-        >
-          <div class="mod-sub">
-            <span class="mod-dat">Fecha carga en SAP: </span>
-            {{
-              formatearFecha(pagoSeleccionado?.fecha_carga_SAP) ||
-                "No registrada"
-            }}
+      <!-- Sección: evidencia / documentos -->
+      <div class="sp-section">
+        <div class="sp-grid2">
+          <div class="sp-field" style="margin-bottom: 0">
+            <div class="sp-label">Fecha carga en SAP</div>
+            <div class="sp-value">{{ formatearFecha(pagoSeleccionado?.fecha_carga_SAP) || "No registrada" }}</div>
           </div>
-          <div class="mod-sub">
-            <span class="mod-dat">Evidencia de Pago: </span>
-            <a
-              href="javascript:void(0)"
-              (click)="abrirDocumento(pagoSeleccionado?.id_evidencia_pago)"
-              [ngStyle]="{
-                color:
-                  obtenerNombreArchivo(pagoSeleccionado?.id_evidencia_pago) ===
-                  'Sin archivo'
-                    ? '#636363'
-                    : '#4180c2',
-                'text-decoration':
-                  obtenerNombreArchivo(pagoSeleccionado?.id_evidencia_pago) ===
-                  'Sin archivo'
-                    ? 'none'
-                    : 'underline',
-              }"
-            >
-              {{ obtenerNombreArchivo(pagoSeleccionado?.id_evidencia_pago) }}
+          <div class="sp-field" style="margin-bottom: 0">
+            <div class="sp-label">Evidencia de Pago</div>
+            <a class="sp-chip" href="javascript:void(0)" (click)="abrirDocumento(pagoSeleccionado?.id_evidencia_pago)">
+              <i class="bi bi-paperclip"></i>{{ obtenerNombreArchivo(pagoSeleccionado?.id_evidencia_pago) }}
             </a>
           </div>
-          <div class="mod-sub">
-            <span class="mod-dat">Constancia de Pago: </span>
-            <a
-              href="javascript:void(0)"
-              (click)="abrirDocumento(pagoSeleccionado?.id_constancia_pago)"
-              [ngStyle]="{
-                color:
-                  obtenerNombreArchivo(pagoSeleccionado?.id_constancia_pago) ===
-                  'Sin archivo'
-                    ? '#636363'
-                    : '#4180c2',
-                'text-decoration':
-                  obtenerNombreArchivo(pagoSeleccionado?.id_constancia_pago) ===
-                  'Sin archivo'
-                    ? 'none'
-                    : 'underline',
-              }"
-            >
-              {{ obtenerNombreArchivo(pagoSeleccionado?.id_constancia_pago) }}
+          <div class="sp-field" style="margin-bottom: 0">
+            <div class="sp-label">Constancia de Pago</div>
+            <a class="sp-chip" href="javascript:void(0)" (click)="abrirDocumento(pagoSeleccionado?.id_constancia_pago)">
+              <i class="bi bi-paperclip"></i>{{ obtenerNombreArchivo(pagoSeleccionado?.id_constancia_pago) }}
             </a>
           </div>
         </div>
       </div>
 
       <!-- Footer botones -->
-      <div class="modal-footer border-0 flex-column px-4 pb-4 gap-2">
+      <div class="sp-footer d-flex flex-column gap-2">
         <button
           type="button"
-          class="btn w-100 py-3 rounded-3 fw-medium"
-          style="background-color: #4180c2; color: white; font-size: 15px"
+          class="sp-btn"
           (click)="aprobarConstancia()"
           [disabled]="!pagoSeleccionado?.id_constancia_pago"
-          [style.opacity]="!pagoSeleccionado?.id_constancia_pago ? '0.4' : '1'"
-          [style.cursor]="
-            !pagoSeleccionado?.id_constancia_pago ? 'not-allowed' : 'pointer'
-          "
         >
           Aprobar Constancia de Pago
         </button>
         <button
           type="button"
-          class="btn w-100 py-3 rounded-3 fw-medium"
-          style="
-            border: 1.5px solid #e84040;
-            color: #e84040;
-            background: white;
-            font-size: 15px;
-          "
+          class="sp-btn-outline"
           id="btnNotificar"
           [disabled]="!pagoSeleccionado?.id_constancia_pago"
-          [style.opacity]="!pagoSeleccionado?.id_constancia_pago ? '0.4' : '1'"
-          [style.cursor]="
-            !pagoSeleccionado?.id_constancia_pago ? 'not-allowed' : 'pointer'
-          "
         >
           Notificar Observación
         </button>
@@ -499,228 +411,158 @@
   data-bs-backdrop="static"
   tabindex="-1"
 >
-  <div
-    class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-    style="max-width: 760px"
-  >
-    <div class="modal-content border-0 rounded-4">
+  <div class="modal-dialog modal-dialog-centered sp-dialog">
+    <div class="modal-content sp-content">
       <!-- Header -->
-      <div class="modal-header border-0 pb-0 px-4 pt-4">
-        <h5 class="modal-title fw-semibold" style="font-size: 18px">
-          Solicitud de Pago
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-        ></button>
+      <div class="sp-header">
+        <span class="sp-hicon"><i class="bi bi-receipt"></i></span>
+        <h5 class="sp-title">Solicitud de Pago</h5>
+        <span class="sp-badge">{{ pagoSeleccionado?.ContabilidadEstado || "—" }}</span>
+        <button type="button" class="sp-close" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg"></i>
+        </button>
       </div>
 
-      <!-- Body -->
-      <div class="modal-body px-4 py-3">
-        <div class="row g-3">
-          <!-- Columna izquierda: datos del estudiante (solo lectura) -->
-          <div class="col-12 col-md-5">
-            <div
-              class="border rounded-3 p-3 h-100"
-              style="font-size: 14px; line-height: 1.9; background-color: #f8f9fa"
-            >
-              <div class="text-secondary mb-2 fw-semibold" style="font-size: 12px">
-                Enviado por el estudiante
+      <!-- Body en dos columnas -->
+      <div class="sp-body">
+        <!-- Izquierda: estudiante -->
+        <div class="sp-col-left">
+          <div class="sp-coltitle"><i class="bi bi-lock"></i> Enviado por el estudiante</div>
+          <div class="sp-field">
+            <div class="sp-label">Estudiante</div>
+            <div class="sp-value">{{ pagoSeleccionado?.nombre_completo || "No registrado" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">N° doc identidad</div>
+            <div class="sp-value">{{ pagoSeleccionado?.dni || "No registrado" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">Institución</div>
+            <div class="sp-value">{{ pagoSeleccionado?.institucion_nombre || "No registrada" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">RUC institución</div>
+            <div class="sp-value">{{ pagoSeleccionado?.ruc_institucion || "No registrado" }}</div>
+          </div>
+        </div>
+
+        <!-- Derecha: datos de la solicitud -->
+        <div class="sp-col-right">
+          <div class="sp-coltitle"><i class="bi bi-pencil-square"></i> Datos de la solicitud</div>
+          <div class="sp-grid2">
+            <div class="sp-field">
+              <div class="sp-label">
+                Fecha Emisión
+                <i class="sp-info" title="Fecha en la que se emite el documento">i</i>
               </div>
-              <div class="mod-sub mb-1">
-                <span class="mod-dat d-block text-secondary">Estudiante</span>
-                {{ pagoSeleccionado?.nombre_completo || "No registrado" }}
+              <div class="sp-value">{{ formatearFecha(pagoSeleccionado?.fecha_emision) || "No registrada" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Proveedor</div>
+              <div class="sp-value">{{ pagoSeleccionado?.institucion_nombre || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Código Sociedad</div>
+              <div class="sp-value">{{ pagoSeleccionado?.codigo_sociedad || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">RUC</div>
+              <div class="sp-value">{{ pagoSeleccionado?.ruc_institucion || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Concepto</div>
+              <div class="sp-value">{{ pagoSeleccionado?.concepto || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Moneda</div>
+              <div class="sp-value">{{ pagoSeleccionado?.moneda || "No registrada" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">N° cta bancaria (CCI)</div>
+              <div class="sp-value">{{ pagoSeleccionado?.nro_cuentabancaria || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Solicitante</div>
+              <div class="sp-value">{{ pagoSeleccionado?.area_solicitante || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Área Solicitante</div>
+              <div class="sp-value">{{ pagoSeleccionado?.area_solicitante || "No registrada" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">CECO</div>
+              <div class="sp-value">{{ pagoSeleccionado?.ceco || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Importe Total</div>
+              <div class="sp-value">{{ pagoSeleccionado?.monto || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">
+                Fecha Regularización
+                <i class="sp-info" title="Fecha programada por tesorería para hacer el pago">i</i>
               </div>
-              <div class="mod-sub mb-1">
-                <span class="mod-dat d-block text-secondary">N&deg; doc identidad</span>
-                {{ pagoSeleccionado?.dni || "No registrado" }}
-              </div>
-              <div class="mod-sub mb-1">
-                <span class="mod-dat d-block text-secondary">Instituci&oacute;n</span>
-                {{ pagoSeleccionado?.institucion_nombre || "No registrada" }}
-              </div>
-              <div class="mod-sub mb-1">
-                <span class="mod-dat d-block text-secondary">RUC instituci&oacute;n</span>
-                {{ pagoSeleccionado?.ruc_institucion || "No registrado" }}
-              </div>
+              <div class="sp-value">{{ formatearFecha(pagoSeleccionado?.fecha_regularizacion) || "No registrada" }}</div>
             </div>
           </div>
 
-          <!-- Columna derecha: datos de la solicitud / finanzas (solo lectura) -->
-          <div class="col-12 col-md-7">
-            <div
-              class="border rounded-3 p-3"
-              style="font-size: 14px; line-height: 1.9"
-            >
-              <div class="mod-sub">
-                <span class="mod-dat">Fecha Emisi&oacute;n: </span>
-                {{
-                  formatearFecha(pagoSeleccionado?.fecha_emision) ||
-                    "No registrada"
-                }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Proveedor: </span>
-                {{ pagoSeleccionado?.institucion_nombre || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">C&oacute;digo Sociedad: </span>
-                {{ pagoSeleccionado?.codigo_sociedad || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">RUC: </span>
-                {{ pagoSeleccionado?.ruc_institucion || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Concepto: </span>
-                {{ pagoSeleccionado?.concepto || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Descripci&oacute;n: </span
-                >{{ pagoSeleccionado?.descripcion || "No registrada" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Moneda: </span>
-                {{ pagoSeleccionado?.moneda || "No registrada" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">N&deg; cta bancaria (CCI): </span>
-                {{ pagoSeleccionado?.nro_cuentabancaria || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Solicitante: </span>
-                {{ pagoSeleccionado?.area_solicitante || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Mail de confirmaci&oacute;n: </span>
-                {{ pagoSeleccionado?.mail_confirmacion || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">&Aacute;rea Solicitante: </span>
-                {{ pagoSeleccionado?.area_solicitante || "No registrada" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">CECO: </span>
-                {{ pagoSeleccionado?.ceco || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Importe Total: </span>
-                {{ pagoSeleccionado?.monto || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat"
-                  >Fecha Regularizaci&oacute;n:
-                  <i
-                    class="bi bi-info-circle"
-                    style="cursor: help; color: #4180c2"
-                    title="fecha programada por tesorería para hacer el pago"
-                  ></i>
-                </span>
-                {{
-                  formatearFecha(pagoSeleccionado?.fecha_regularizacion) ||
-                    "No registrada"
-                }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Importe en letras: </span>
-                {{ pagoSeleccionado?.importe_letras || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Anticipo: </span>
-                <a
-                  href="javascript:void(0)"
-                  (click)="abrirDocumento(pagoSeleccionado?.id_doc_anticipo)"
-                  [ngStyle]="{
-                    color:
-                      obtenerNombreArchivo(pagoSeleccionado?.id_doc_anticipo) ===
-                      'Sin archivo'
-                        ? '#636363'
-                        : '#4180c2',
-                    'text-decoration':
-                      obtenerNombreArchivo(pagoSeleccionado?.id_doc_anticipo) ===
-                      'Sin archivo'
-                        ? 'none'
-                        : 'underline',
-                  }"
-                >
-                  {{ obtenerNombreArchivo(pagoSeleccionado?.id_doc_anticipo) }}
-                </a>
-              </div>
-            </div>
+          <div class="sp-field" style="margin-top: 6px">
+            <div class="sp-label">Descripción</div>
+            <div class="sp-value" style="font-weight: 500">{{ pagoSeleccionado?.descripcion || "No registrada" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">Mail de confirmación</div>
+            <div class="sp-value" style="color: #3b63d6">{{ pagoSeleccionado?.mail_confirmacion || "No registrado" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">Importe en letras</div>
+            <div class="sp-value" style="font-weight: 500">{{ pagoSeleccionado?.importe_letras || "No registrado" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">Anticipo</div>
+            <a class="sp-chip" href="javascript:void(0)" (click)="abrirDocumento(pagoSeleccionado?.id_doc_anticipo)">
+              <i class="bi bi-paperclip"></i>{{ obtenerNombreArchivo(pagoSeleccionado?.id_doc_anticipo) }}
+            </a>
           </div>
         </div>
       </div>
 
-      <!-- N de asiento contable (editable, obligatorio) -->
-      <div class="px-4 pb-2">
-        <label class="mb-2 fw-semibold" style="font-size: 15px; color: #212529">
-          N&deg; de asiento contable *
+      <!-- Sección editable: asiento contable + carga en SAP -->
+      <div class="sp-section">
+        <label class="sp-label" style="font-size: 13px; color: #4a5162">
+          N° de asiento contable <span class="sp-req">*</span>
         </label>
         <input
           type="text"
-          class="form-control"
+          class="sp-input"
           name="nroAsientoContable"
           [(ngModel)]="nroAsientoContable"
-          placeholder="Ingrese el N&deg; de asiento contable"
+          placeholder="Ingrese el N° de asiento contable"
         />
-      </div>
 
-      <!-- Se cargo en SAP? -->
-      <div class="px-4 pb-3">
-        <div class="mb-3 fw-semibold" style="font-size: 15px; color: #212529">
-          &iquest;Se carg&oacute; en SAP?
+        <div class="sp-label" style="font-size: 13px; color: #4a5162; margin-top: 16px">
+          ¿Se cargó en SAP?
         </div>
-
-        <div class="d-flex align-items-center" style="gap: 120px">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="cargadoSap"
-              id="sapNo"
-              [value]="false"
-              [(ngModel)]="cargadoSap"
-            />
-            <label
-              class="form-check-label text-secondary"
-              for="sapNo"
-              style="cursor: pointer"
-            >
-              No
-            </label>
-          </div>
-
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="cargadoSap"
-              id="sapSi"
-              [value]="true"
-              [(ngModel)]="cargadoSap"
-            />
-            <label
-              class="form-check-label text-secondary"
-              for="sapSi"
-              style="cursor: pointer"
-            >
-              S&iacute;
-            </label>
-          </div>
+        <div class="sp-radios">
+          <label class="sp-radio">
+            <input type="radio" name="cargadoSap" [value]="false" [(ngModel)]="cargadoSap" />
+            <span class="dot"></span>
+            <span class="lbl">No</span>
+          </label>
+          <label class="sp-radio">
+            <input type="radio" name="cargadoSap" [value]="true" [(ngModel)]="cargadoSap" />
+            <span class="dot"></span>
+            <span class="lbl">Sí</span>
+          </label>
         </div>
       </div>
 
-      <!-- Footer botones -->
-      <div class="modal-footer border-0 flex-column px-4 pb-4 gap-2">
+      <!-- Footer -->
+      <div class="sp-footer">
         <button
           type="button"
-          class="btn w-100 py-3 rounded-3 fw-medium"
+          class="sp-btn"
           [disabled]="!nroAsientoContable"
-          [style.background-color]="nroAsientoContable ? '#4180C2' : '#E9ECEF'"
-          [style.color]="nroAsientoContable ? 'white' : 'black'"
-          [style.border]="nroAsientoContable ? 'none' : '1px solid #CED4DA'"
-          style="font-size: 15px"
           (click)="comunicarCargadoSap()"
         >
           Aceptar
@@ -730,234 +572,153 @@
   </div>
 </div>
 
-<!-- modal de cuando está aprobado y en tesorería -->
-
 <div
   class="modal fade"
   id="modalSolicitud3"
   data-bs-backdrop="static"
   tabindex="-1"
 >
-  <div
-    class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-    style="max-width: 760px"
-  >
-    <div class="modal-content border-0 rounded-4">
+  <div class="modal-dialog modal-dialog-centered sp-dialog">
+    <div class="modal-content sp-content">
       <!-- Header -->
-      <div class="modal-header border-0 pb-0 px-4 pt-4">
-        <h5 class="modal-title fw-semibold" style="font-size: 18px">
-          Solicitud de Pago
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-        ></button>
+      <div class="sp-header">
+        <span class="sp-hicon"><i class="bi bi-receipt"></i></span>
+        <h5 class="sp-title">Solicitud de Pago</h5>
+        <span class="sp-badge">{{ pagoSeleccionado?.ContabilidadEstado || "—" }}</span>
+        <button type="button" class="sp-close" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg"></i>
+        </button>
       </div>
 
-      <!-- Body -->
-      <div class="modal-body px-4 py-3">
-        <div class="row g-3">
-          <!-- Columna izquierda: datos del estudiante (solo lectura) -->
-          <div class="col-12 col-md-5">
-            <div
-              class="border rounded-3 p-3 h-100"
-              style="font-size: 14px; line-height: 1.9; background-color: #f8f9fa"
-            >
-              <div class="text-secondary mb-2 fw-semibold" style="font-size: 12px">
-                Enviado por el estudiante
+      <!-- Body en dos columnas -->
+      <div class="sp-body">
+        <!-- Izquierda: estudiante -->
+        <div class="sp-col-left">
+          <div class="sp-coltitle"><i class="bi bi-lock"></i> Enviado por el estudiante</div>
+          <div class="sp-field">
+            <div class="sp-label">Estudiante</div>
+            <div class="sp-value">{{ pagoSeleccionado?.nombre_completo || "No registrado" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">N° doc identidad</div>
+            <div class="sp-value">{{ pagoSeleccionado?.dni || "No registrado" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">Institución</div>
+            <div class="sp-value">{{ pagoSeleccionado?.institucion_nombre || "No registrada" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">RUC institución</div>
+            <div class="sp-value">{{ pagoSeleccionado?.ruc_institucion || "No registrado" }}</div>
+          </div>
+        </div>
+
+        <!-- Derecha: datos de la solicitud -->
+        <div class="sp-col-right">
+          <div class="sp-coltitle"><i class="bi bi-pencil-square"></i> Datos de la solicitud</div>
+          <div class="sp-grid2">
+            <div class="sp-field">
+              <div class="sp-label">
+                Fecha Emisión
+                <i class="sp-info" title="Fecha en la que se emite el documento">i</i>
               </div>
-              <div class="mod-sub mb-1">
-                <span class="mod-dat d-block text-secondary">Estudiante</span>
-                {{ pagoSeleccionado?.nombre_completo || "No registrado" }}
+              <div class="sp-value">{{ formatearFecha(pagoSeleccionado?.fecha_emision) || "No registrada" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Proveedor</div>
+              <div class="sp-value">{{ pagoSeleccionado?.institucion_nombre || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Código Sociedad</div>
+              <div class="sp-value">{{ pagoSeleccionado?.codigo_sociedad || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">RUC</div>
+              <div class="sp-value">{{ pagoSeleccionado?.ruc_institucion || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Concepto</div>
+              <div class="sp-value">{{ pagoSeleccionado?.concepto || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Moneda</div>
+              <div class="sp-value">{{ pagoSeleccionado?.moneda || "No registrada" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">N° cta bancaria (CCI)</div>
+              <div class="sp-value">{{ pagoSeleccionado?.nro_cuentabancaria || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Solicitante</div>
+              <div class="sp-value">{{ pagoSeleccionado?.area_solicitante || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Área Solicitante</div>
+              <div class="sp-value">{{ pagoSeleccionado?.area_solicitante || "No registrada" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">CECO</div>
+              <div class="sp-value">{{ pagoSeleccionado?.ceco || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">Importe Total</div>
+              <div class="sp-value">{{ pagoSeleccionado?.monto || "No registrado" }}</div>
+            </div>
+            <div class="sp-field">
+              <div class="sp-label">
+                Fecha Regularización
+                <i class="sp-info" title="Fecha programada por tesorería para hacer el pago">i</i>
               </div>
-              <div class="mod-sub mb-1">
-                <span class="mod-dat d-block text-secondary">N&deg; doc identidad</span>
-                {{ pagoSeleccionado?.dni || "No registrado" }}
-              </div>
-              <div class="mod-sub mb-1">
-                <span class="mod-dat d-block text-secondary">Instituci&oacute;n</span>
-                {{ pagoSeleccionado?.institucion_nombre || "No registrada" }}
-              </div>
-              <div class="mod-sub mb-1">
-                <span class="mod-dat d-block text-secondary">RUC instituci&oacute;n</span>
-                {{ pagoSeleccionado?.ruc_institucion || "No registrado" }}
-              </div>
+              <div class="sp-value">{{ formatearFecha(pagoSeleccionado?.fecha_regularizacion) || "No registrada" }}</div>
             </div>
           </div>
 
-          <!-- Columna derecha: datos de la solicitud / finanzas (solo lectura) -->
-          <div class="col-12 col-md-7">
-            <div
-              class="border rounded-3 p-3"
-              style="font-size: 14px; line-height: 1.9"
-            >
-              <div class="mod-sub">
-                <span class="mod-dat">Fecha Emisi&oacute;n: </span>
-                {{
-                  formatearFecha(pagoSeleccionado?.fecha_emision) ||
-                    "No registrada"
-                }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Proveedor: </span>
-                {{ pagoSeleccionado?.institucion_nombre || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">C&oacute;digo Sociedad: </span>
-                {{ pagoSeleccionado?.codigo_sociedad || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">RUC: </span>
-                {{ pagoSeleccionado?.ruc_institucion || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Concepto: </span>
-                {{ pagoSeleccionado?.concepto || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Descripci&oacute;n: </span
-                >{{ pagoSeleccionado?.descripcion || "No registrada" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Moneda: </span>
-                {{ pagoSeleccionado?.moneda || "No registrada" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">N&deg; cta bancaria (CCI): </span>
-                {{ pagoSeleccionado?.nro_cuentabancaria || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Solicitante: </span>
-                {{ pagoSeleccionado?.area_solicitante || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Mail de confirmaci&oacute;n: </span>
-                {{ pagoSeleccionado?.mail_confirmacion || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">&Aacute;rea Solicitante: </span>
-                {{ pagoSeleccionado?.area_solicitante || "No registrada" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">CECO: </span>
-                {{ pagoSeleccionado?.ceco || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Importe Total: </span>
-                {{ pagoSeleccionado?.monto || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat"
-                  >Fecha Regularizaci&oacute;n:
-                  <i
-                    class="bi bi-info-circle"
-                    style="cursor: help; color: #4180c2"
-                    title="fecha programada por tesorería para hacer el pago"
-                  ></i>
-                </span>
-                {{
-                  formatearFecha(pagoSeleccionado?.fecha_regularizacion) ||
-                    "No registrada"
-                }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Importe en letras: </span>
-                {{ pagoSeleccionado?.importe_letras || "No registrado" }}
-              </div>
-              <div class="mod-sub">
-                <span class="mod-dat">Anticipo: </span>
-                <a
-                  href="javascript:void(0)"
-                  (click)="abrirDocumento(pagoSeleccionado?.id_doc_anticipo)"
-                  [ngStyle]="{
-                    color:
-                      obtenerNombreArchivo(pagoSeleccionado?.id_doc_anticipo) ===
-                      'Sin archivo'
-                        ? '#636363'
-                        : '#4180c2',
-                    'text-decoration':
-                      obtenerNombreArchivo(pagoSeleccionado?.id_doc_anticipo) ===
-                      'Sin archivo'
-                        ? 'none'
-                        : 'underline',
-                  }"
-                >
-                  {{ obtenerNombreArchivo(pagoSeleccionado?.id_doc_anticipo) }}
-                </a>
-              </div>
-            </div>
+          <div class="sp-field" style="margin-top: 6px">
+            <div class="sp-label">Descripción</div>
+            <div class="sp-value" style="font-weight: 500">{{ pagoSeleccionado?.descripcion || "No registrada" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">Mail de confirmación</div>
+            <div class="sp-value" style="color: #3b63d6">{{ pagoSeleccionado?.mail_confirmacion || "No registrado" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">Importe en letras</div>
+            <div class="sp-value" style="font-weight: 500">{{ pagoSeleccionado?.importe_letras || "No registrado" }}</div>
+          </div>
+          <div class="sp-field">
+            <div class="sp-label">Anticipo</div>
+            <a class="sp-chip" href="javascript:void(0)" (click)="abrirDocumento(pagoSeleccionado?.id_doc_anticipo)">
+              <i class="bi bi-paperclip"></i>{{ obtenerNombreArchivo(pagoSeleccionado?.id_doc_anticipo) }}
+            </a>
           </div>
         </div>
       </div>
 
-      <!-- Documentos y evidencia de pago -->
-      <div class="px-4 pb-3">
-        <div
-          class="border rounded-3 p-3"
-          style="font-size: 14px; line-height: 1.9"
-        >
-          <div class="mod-sub">
-            <span class="mod-dat">Fecha carga en SAP: </span>
-            {{
-              formatearFecha(pagoSeleccionado?.fecha_carga_SAP) ||
-                "No registrada"
-            }}
+      <!-- Sección: evidencia / documentos -->
+      <div class="sp-section">
+        <div class="sp-grid2">
+          <div class="sp-field" style="margin-bottom: 0">
+            <div class="sp-label">Fecha carga en SAP</div>
+            <div class="sp-value">{{ formatearFecha(pagoSeleccionado?.fecha_carga_SAP) || "No registrada" }}</div>
           </div>
-          <div class="mod-sub">
-            <span class="mod-dat">Evidencia de Pago: </span>
-            <a
-              href="javascript:void(0)"
-              (click)="abrirDocumento(pagoSeleccionado?.id_evidencia_pago)"
-              [ngStyle]="{
-                color:
-                  obtenerNombreArchivo(pagoSeleccionado?.id_evidencia_pago) ===
-                  'Sin archivo'
-                    ? '#636363'
-                    : '#4180c2',
-                'text-decoration':
-                  obtenerNombreArchivo(pagoSeleccionado?.id_evidencia_pago) ===
-                  'Sin archivo'
-                    ? 'none'
-                    : 'underline',
-              }"
-            >
-              {{ obtenerNombreArchivo(pagoSeleccionado?.id_evidencia_pago) }}
+          <div class="sp-field" style="margin-bottom: 0">
+            <div class="sp-label">Fecha Aprobación</div>
+            <div class="sp-value">{{ formatearFecha(pagoSeleccionado?.fecha_aprobacion) || "No registrada" }}</div>
+          </div>
+          <div class="sp-field" style="margin-bottom: 0">
+            <div class="sp-label">Evidencia de Pago</div>
+            <a class="sp-chip" href="javascript:void(0)" (click)="abrirDocumento(pagoSeleccionado?.id_evidencia_pago)">
+              <i class="bi bi-paperclip"></i>{{ obtenerNombreArchivo(pagoSeleccionado?.id_evidencia_pago) }}
             </a>
           </div>
-          <div class="mod-sub">
-            <span class="mod-dat">Constancia de Pago: </span>
-            <a
-              href="javascript:void(0)"
-              (click)="abrirDocumento(pagoSeleccionado?.id_constancia_pago)"
-              [ngStyle]="{
-                color:
-                  obtenerNombreArchivo(pagoSeleccionado?.id_constancia_pago) ===
-                  'Sin archivo'
-                    ? '#636363'
-                    : '#4180c2',
-                'text-decoration':
-                  obtenerNombreArchivo(pagoSeleccionado?.id_constancia_pago) ===
-                  'Sin archivo'
-                    ? 'none'
-                    : 'underline',
-              }"
-            >
-              {{ obtenerNombreArchivo(pagoSeleccionado?.id_constancia_pago) }}
+          <div class="sp-field" style="margin-bottom: 0">
+            <div class="sp-label">Constancia de Pago</div>
+            <a class="sp-chip" href="javascript:void(0)" (click)="abrirDocumento(pagoSeleccionado?.id_constancia_pago)">
+              <i class="bi bi-paperclip"></i>{{ obtenerNombreArchivo(pagoSeleccionado?.id_constancia_pago) }}
             </a>
-          </div>
-          <div class="mod-sub">
-            <span class="mod-dat">Fecha Aprobaci&oacute;n: </span>
-            {{
-              formatearFecha(pagoSeleccionado?.fecha_aprobacion) ||
-                "No registrada"
-            }}
           </div>
         </div>
       </div>
-
-      <!-- Footer botones -->
-      <div class="modal-footer border-0 flex-column px-4 pb-4 gap-2"></div>
     </div>
   </div>
 </div>

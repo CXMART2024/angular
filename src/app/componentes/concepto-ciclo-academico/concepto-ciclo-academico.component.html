@@ -389,131 +389,120 @@
   aria-hidden="true"
   data-bs-backdrop="static"
 >
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="row w-100 g-0">
-          <div class="col">
-            <h6>Nuevo Concepto</h6>
-          </div>
-          <div class="col d-flex justify-content-end">
-            <i
-              class="bi bi-x-circle"
-              style="color: black"
-              data-bs-dismiss="modal"
-            ></i>
-          </div>
-        </div>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content nc-content">
+      <!-- Header -->
+      <div class="nc-header">
+        <span class="nc-hicon"><i class="bi bi-plus-lg"></i></span>
+        <h6 class="nc-title">Nuevo Concepto</h6>
+        <button type="button" class="nc-close" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg"></i>
+        </button>
       </div>
-      <div class="modal-body" style="background-color: #f2f2f2">
+      <div class="nc-body">
         <form
           [formGroup]="conceptoPagoForm"
           (ngSubmit)="onAgregarConceptoPago()"
         >
           <!-- Datos del estudiante (solo informativo, no editable) -->
-          <div
-            class="mb-3 p-2 rounded"
-            style="background-color: #e9ecef; color: #6c757d; font-size: 13px"
-          >
-            <div><strong>Institución:</strong> {{ solicitud?.institucion_nombre || "-" }}</div>
-            <div><strong>Nombre estudiante:</strong> {{ solicitud?.nombre_completo || "-" }}</div>
-            <div><strong>DNI:</strong> {{ solicitud?.dni || "-" }}</div>
-            <div><strong>Código de estudiante:</strong> {{ solicitud?.codigo_estudiante || "-" }}</div>
+          <div class="nc-studentcard">
+            <div>
+              <span class="nc-lbl">Institución</span>
+              <span class="nc-val">{{ solicitud?.institucion_nombre || "-" }}</span>
+            </div>
+            <div>
+              <span class="nc-lbl">Estudiante</span>
+              <span class="nc-val">{{ solicitud?.nombre_completo || "-" }}</span>
+            </div>
+            <div>
+              <span class="nc-lbl">DNI</span>
+              <span class="nc-val">{{ solicitud?.dni || "-" }}</span>
+            </div>
+            <div>
+              <span class="nc-lbl">Código</span>
+              <span class="nc-val">{{ solicitud?.codigo_estudiante || "-" }}</span>
+            </div>
           </div>
-          <div class="row">
-            <div class="mb-3 col-12 col-md-6">
-              <label class="form-label text-dark"
-                >Fecha Solicitud Programada: *
+          <div class="row g-3">
+            <div class="col-12 col-md-6">
+              <label class="nc-flabel">
+                Fecha Solicitud Programada <span class="nc-req">*</span>
                 <i
-                  class="bi bi-info-circle"
-                  style="cursor: help; color: #4180c2"
+                  class="nc-info"
                   title="Fecha en la cual se debe realizar este pago a la institución"
-                ></i>
+                  >i</i
+                >
               </label>
               <input
                 type="date"
-                class="form-control"
+                class="nc-input"
                 formControlName="fechaSolicitud"
               />
             </div>
-            <div class="mb-3 col-12 col-md-6">
-              <label class="form-label text-dark">Concepto: * </label>
-              <!--<input type="text" class="form-control" formControlName="concepto">-->
+            <div class="col-12 col-md-6">
+              <label class="nc-flabel">Concepto <span class="nc-req">*</span></label>
               <select
-                class="form-select"
+                class="nc-input"
                 name="concepto"
                 required
                 formControlName="concepto"
               >
-                <option value="" selected disabled class="text-muted">
-                  Seleccione una opción
-                </option>
+                <option value="" selected disabled>Seleccione una opción</option>
                 <option value="Matricula">Matricula</option>
                 <option value="Pensión">Pensión</option>
                 <option value="Otros">Otros</option>
               </select>
             </div>
           </div>
-          <div class="mb-3">
-            <label class="form-label text-dark">Descripción: * </label>
+          <div class="mt-3">
+            <label class="nc-flabel">Descripción <span class="nc-req">*</span></label>
             <textarea
-              class="form-control"
+              class="nc-input"
               formControlName="descripcion"
               rows="3"
+              placeholder="Describe el motivo de la solicitud..."
             ></textarea>
           </div>
-          <div class="row">
-            <div class="mb-3 col-12 col-md-12">
-              <label class="form-label text-dark"
-                >N° cta bancaria/Código de pago: *
-              </label>
+          <div class="row g-3 mt-0">
+            <div class="col-12 col-md-6">
+              <label class="nc-flabel"
+                >N° cta bancaria/Código de pago <span class="nc-req">*</span></label
+              >
               <input
                 type="text"
-                class="form-control"
+                class="nc-input"
                 formControlName="nro_cuentabancaria"
+                placeholder="Ingresa el número"
               />
             </div>
-          </div>
-          <div class="row mb-4">
-            <div class="mb-3 col-12 col-md-6">
-              <label class="form-label text-dark">Moneda: * </label>
-              <select
-                class="form-select"
-                name="moneda"
-                formControlName="moneda"
-              >
-                <option value="" selected disabled class="text-muted">
-                  Seleccione una opción
-                </option>
+            <div class="col-12 col-md-6">
+              <label class="nc-flabel">Moneda <span class="nc-req">*</span></label>
+              <select class="nc-input" name="moneda" formControlName="moneda">
+                <option value="" selected disabled>Seleccione una opción</option>
                 <option value="Soles">Soles</option>
                 <option value="Dolares">Dolares</option>
               </select>
             </div>
-            <div class="mb-3 col-12 col-md-6">
-              <label class="form-label text-dark">Importe Total: * </label>
-              <!--<input type="text" class="form-control" formControlName="concepto">-->
-              <div class="input-group">
-                <!-- Símbolo como prefijo visual -->
-                <span
-                  class="input-group-text"
-                  style="background-color: white; border-right: none"
-                  >{{ simboloMoneda }}</span
-                >
+          </div>
+          <div class="row g-3 mt-0">
+            <div class="col-12 col-md-6">
+              <label class="nc-flabel">Importe Total <span class="nc-req">*</span></label>
+              <div class="nc-inputgroup">
+                <span class="nc-prefix">{{ simboloMoneda }}</span>
                 <input
                   type="number"
-                  class="form-control"
+                  class="nc-input"
                   formControlName="monto"
-                  style="border-left: none"
                 />
               </div>
             </div>
           </div>
 
-          <div class="d-grid mb-2">
+          <div class="mt-4">
             <button
               type="submit"
               data-bs-dismiss="modal"
-              class="btn btn-primary"
+              class="nc-btn"
               [disabled]="conceptoPagoForm.invalid"
             >
               Añadir Concepto de Pago
