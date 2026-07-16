@@ -540,33 +540,33 @@
           placeholder="Ingrese el N° de asiento contable"
         />
 
-        <div class="sp-label" style="font-size: 13px; color: #4a5162; margin-top: 16px">
-          ¿Se cargó en SAP?
+        <div class="sp-sap-row">
+          <div>
+            <div class="sp-label" style="font-size: 13px; color: #4a5162">
+              ¿Se cargó en SAP?
+            </div>
+            <div class="sp-radios">
+              <label class="sp-radio">
+                <input type="radio" name="cargadoSap" [value]="false" [(ngModel)]="cargadoSap" />
+                <span class="dot"></span>
+                <span class="lbl">No</span>
+              </label>
+              <label class="sp-radio">
+                <input type="radio" name="cargadoSap" [value]="true" [(ngModel)]="cargadoSap" />
+                <span class="dot"></span>
+                <span class="lbl">Sí</span>
+              </label>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="sp-btn sp-btn-inline"
+            [disabled]="!nroAsientoContable"
+            (click)="comunicarCargadoSap()"
+          >
+            Aceptar
+          </button>
         </div>
-        <div class="sp-radios">
-          <label class="sp-radio">
-            <input type="radio" name="cargadoSap" [value]="false" [(ngModel)]="cargadoSap" />
-            <span class="dot"></span>
-            <span class="lbl">No</span>
-          </label>
-          <label class="sp-radio">
-            <input type="radio" name="cargadoSap" [value]="true" [(ngModel)]="cargadoSap" />
-            <span class="dot"></span>
-            <span class="lbl">Sí</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Footer -->
-      <div class="sp-footer">
-        <button
-          type="button"
-          class="sp-btn"
-          [disabled]="!nroAsientoContable"
-          (click)="comunicarCargadoSap()"
-        >
-          Aceptar
-        </button>
       </div>
     </div>
   </div>

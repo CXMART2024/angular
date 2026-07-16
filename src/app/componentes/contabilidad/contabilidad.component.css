@@ -102,25 +102,25 @@
 }
 .sp-col-left {
   background: #f7f8fb;
-  padding: 22px 24px;
+  padding: 16px 22px;
 }
 .sp-col-right {
   background: #fff;
-  padding: 22px 24px;
+  padding: 16px 22px;
 }
 .sp-coltitle {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.3px;
   color: #6b7488;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   gap: 6px;
   text-transform: uppercase;
 }
 .sp-field {
-  margin-bottom: 13px;
+  margin-bottom: 8px;
 }
 .sp-label {
   font-size: 11.5px;
@@ -145,7 +145,12 @@
 .sp-grid2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px 20px;
+  gap: 8px 20px;
+}
+/* Dentro del grid el espaciado lo da el gap; se anula el margin del campo
+   para evitar el doble espacio vertical entre filas. */
+.sp-grid2 .sp-field {
+  margin-bottom: 0;
 }
 
 /* Tooltip "i" */
@@ -187,8 +192,22 @@
 /* Sección inferior (bloque gris) */
 .sp-section {
   background: #f7f8fb;
-  padding: 20px 24px;
+  padding: 14px 24px 16px;
   border-top: 1px solid #edeff5;
+}
+/* Fila: bloque "¿Se cargó en SAP?" a la izquierda y botón Aceptar a la derecha,
+   para ahorrar el alto de un footer full-width. */
+.sp-sap-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 12px;
+}
+.sp-btn-inline {
+  width: auto;
+  padding: 12px 44px;
+  flex-shrink: 0;
 }
 .sp-input {
   width: 100%;
@@ -244,7 +263,7 @@
 
 /* Footer y botones */
 .sp-footer {
-  padding: 18px 24px 22px;
+  padding: 14px 24px 18px;
   background: #fff;
 }
 .sp-btn {
