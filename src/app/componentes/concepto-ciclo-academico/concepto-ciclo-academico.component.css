@@ -134,6 +134,14 @@ button {
   grid-template-columns: 1fr 1fr;
   gap: 6px 24px;
 }
+/* Cada dato: label + valor en la misma línea con separación fija.
+   El gap va por CSS (no por espacio en el HTML) porque Angular elimina
+   el whitespace entre elementos y dejaba label y valor pegados. */
+.nc-studentcard > div {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
 .nc-studentcard .nc-lbl {
   color: #9aa2b1;
   font-size: 12px;
