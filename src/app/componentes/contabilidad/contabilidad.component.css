@@ -21,6 +21,10 @@
    ========================================================= */
 .sp-dialog {
   max-width: 940px;
+  /* Se ubica cerca del borde superior (no centrado) para que el modal alto
+     no obligue a hacer scroll de la página para verlo completo. El margen
+     total (arriba+abajo = 2rem) coincide con el descuento del max-height. */
+  margin: 1rem auto;
 }
 .sp-content {
   border: 0;
@@ -199,14 +203,17 @@
    para ahorrar el alto de un footer full-width. */
 .sp-sap-row {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
   margin-top: 12px;
 }
-.sp-btn-inline {
+/* Doble clase para ganar en especificidad a ".sp-btn { width: 100% }" que
+   está declarado más abajo; si no, el botón se iba a todo el ancho y se
+   cortaba a la derecha. */
+.sp-btn.sp-btn-inline {
   width: auto;
-  padding: 12px 44px;
+  padding: 12px 40px;
   flex-shrink: 0;
 }
 .sp-input {
