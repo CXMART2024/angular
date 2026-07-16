@@ -10,19 +10,22 @@
             </div>
         </div>
         <div class="card-body">
+            <!-- Campo "Nombre Ciclo/Grado" oculto (no se elimina): se asigna
+                 automáticamente desde el ciclo de la malla seleccionado y se
+                 sigue enviando al backend. -->
+            <input [(ngModel)]="ciclo.nombre_ciclo" name="nombre_ciclo" type="hidden" />
             <div class="row">
-                <div class="col-12 col-md-6 mb-3">
-                    <label class="form-label"><strong>Nombre Ciclo/Grado *</strong></label>
-                    <input [(ngModel)]="ciclo.nombre_ciclo" name="nombre_ciclo" type="text" class="form-control"
-                        readonly
-                        title="El nombre se asigna automáticamente según el ciclo de la malla seleccionado" />
-                </div>
                 <div class="col-12 col-md-6 mb-3">
                     <label class="form-label"><strong>Ciclo Malla Curricular *</strong></label>
                     <select class="form-select" (change)="obtenerCursosDeCicloMalla($event)">
                         <option selected disabled>Seleccionar una opción</option>
                         <option *ngFor="let ciclo of listCicloMalla" value={{ciclo.id}}>{{ciclo.nombre}}</option>
                     </select>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <label class="form-label"><strong>Constancia de Matrícula</strong>
+                        <span class="text-muted fw-normal">(opcional, se puede regularizar después)</span></label>
+                    <input type="file" (change)="onFileChange($event)" class="form-control" />
                 </div>
             </div>
             <div class="row">
@@ -40,13 +43,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 mb-3">
-                    <label class="form-label"><strong>Constancia de Matrícula</strong>
-                        <span class="text-muted fw-normal">(opcional, se puede regularizar después)</span></label>
-                    <input type="file" (change)="onFileChange($event)" class="form-control" />
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-12 col-md-6 mb-3">
                     <div class="row">
                         <div class="col"><label class="form-label"><strong>N° Cursos</strong></label>
