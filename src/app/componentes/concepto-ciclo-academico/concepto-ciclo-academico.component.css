@@ -69,3 +69,159 @@ button {
 .btn-primary:hover {
   background: #3f76b7;
 }
+
+/* =========================================================
+   Rediseño visual modal "Nuevo Concepto"
+   Solo estilos: no cambia campos, validaciones ni lógica.
+   ========================================================= */
+.nc-content {
+  border: 0;
+  border-radius: 18px;
+  overflow: hidden;
+}
+.nc-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 24px 14px;
+  border-bottom: 1px solid #eef0f5;
+}
+.nc-hicon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: #eef2ff;
+  color: #3b63d6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.nc-title {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  color: #1c2331;
+}
+.nc-close {
+  margin-left: auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f1f3f8;
+  border: 0;
+  color: #6b7280;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+.nc-close:hover {
+  background: #e5e8f0;
+}
+.nc-body {
+  padding: 22px 24px 24px;
+  background: #fff;
+}
+.nc-studentcard {
+  background: #f5f6fa;
+  border: 1px solid #eceef4;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 24px;
+}
+.nc-studentcard .nc-lbl {
+  color: #9aa2b1;
+  font-size: 12px;
+  font-weight: 600;
+}
+.nc-studentcard .nc-val {
+  color: #1c2331;
+  font-size: 13.5px;
+  font-weight: 700;
+}
+.nc-flabel {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #3a4152;
+  margin-bottom: 6px;
+}
+.nc-req {
+  color: #e5484d;
+}
+.nc-info {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #e7ecfa;
+  color: #3b63d6;
+  font-size: 10px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: help;
+  font-style: normal;
+  line-height: 1;
+}
+.nc-input {
+  width: 100%;
+  border: 1px solid #e3e6ef;
+  border-radius: 9px;
+  padding: 11px 14px;
+  font-size: 14px;
+  color: #1c2331;
+  background: #fff;
+}
+.nc-input::placeholder {
+  color: #a7aebd;
+}
+.nc-inputgroup {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid #e3e6ef;
+  border-radius: 9px;
+  overflow: hidden;
+}
+.nc-inputgroup .nc-prefix {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
+  background: #f5f6fa;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 600;
+}
+.nc-inputgroup .nc-input {
+  border: 0;
+  border-radius: 0;
+}
+.nc-btn {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(90deg, #3b63d6 0%, #2f5fe0 100%);
+  box-shadow: 0 10px 24px rgba(47, 95, 224, 0.35);
+  cursor: pointer;
+}
+.nc-btn:disabled {
+  background: #e9ecef;
+  color: #9aa2b1;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+@media (max-width: 576px) {
+  .nc-studentcard {
+    grid-template-columns: 1fr;
+  }
+}

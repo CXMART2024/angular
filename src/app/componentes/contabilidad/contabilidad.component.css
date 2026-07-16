@@ -14,3 +14,266 @@
   background-color: #d1d5db; /* Color gris suave (similar al de tu imagen) */
   margin: 0 15px; /* Espaciado lateral para que los datos no se peguen */
 }
+
+/* =========================================================
+   Rediseño visual modales "Solicitud de Pago" (Contabilidad)
+   Solo estilos: no cambia campos, orden, validaciones ni lógica.
+   ========================================================= */
+.sp-dialog {
+  max-width: 940px;
+}
+.sp-content {
+  border: 0;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+/* Header oscuro con gradiente */
+.sp-header {
+  background: linear-gradient(90deg, #16204a 0%, #233268 100%);
+  color: #fff;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sp-hicon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.15);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+}
+.sp-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+.sp-badge {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+  text-transform: capitalize;
+}
+.sp-close {
+  margin-left: auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 0;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+.sp-close:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* Body en dos columnas */
+.sp-body {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+}
+.sp-col-left {
+  background: #f7f8fb;
+  padding: 22px 24px;
+}
+.sp-col-right {
+  background: #fff;
+  padding: 22px 24px;
+}
+.sp-coltitle {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #6b7488;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+}
+.sp-field {
+  margin-bottom: 13px;
+}
+.sp-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #9aa2b1;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sp-value {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #1c2331;
+  word-break: break-word;
+}
+.sp-value a {
+  font-weight: 600;
+}
+.sp-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 20px;
+}
+
+/* Tooltip "i" */
+.sp-info {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #e7ecfa;
+  color: #3b63d6;
+  font-size: 10px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: help;
+  font-style: normal;
+  line-height: 1;
+}
+
+/* Chip de adjunto */
+.sp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #eef2ff;
+  color: #3b63d6;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  border: 1px solid #e1e7ff;
+  max-width: 100%;
+}
+.sp-chip i {
+  font-size: 14px;
+}
+
+/* Sección inferior (bloque gris) */
+.sp-section {
+  background: #f7f8fb;
+  padding: 20px 24px;
+  border-top: 1px solid #edeff5;
+}
+.sp-input {
+  width: 100%;
+  border: 1px solid #e3e6ef;
+  border-radius: 9px;
+  padding: 11px 14px;
+  font-size: 14px;
+  color: #1c2331;
+  background: #fff;
+}
+.sp-input::placeholder {
+  color: #a7aebd;
+}
+
+/* Radios personalizados ¿Se cargó en SAP? */
+.sp-radios {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  margin-top: 8px;
+}
+.sp-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.sp-radio input {
+  display: none;
+}
+.sp-radio .dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #c2c8d6;
+  display: inline-block;
+  position: relative;
+}
+.sp-radio input:checked + .dot {
+  border-color: #3b63d6;
+}
+.sp-radio input:checked + .dot::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: #3b63d6;
+}
+.sp-radio .lbl {
+  color: #4a5162;
+  font-size: 14px;
+}
+
+/* Footer y botones */
+.sp-footer {
+  padding: 18px 24px 22px;
+  background: #fff;
+}
+.sp-btn {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  padding: 15px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(90deg, #3b63d6 0%, #2f5fe0 100%);
+  box-shadow: 0 10px 24px rgba(47, 95, 224, 0.35);
+  cursor: pointer;
+}
+.sp-btn:disabled {
+  background: #e9ecef;
+  color: #9aa2b1;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.sp-btn-outline {
+  width: 100%;
+  border: 1.5px solid #e5484d;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #e5484d;
+  background: #fff;
+  cursor: pointer;
+}
+.sp-btn-outline:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.sp-req {
+  color: #e5484d;
+}
+
+@media (max-width: 768px) {
+  .sp-body {
+    grid-template-columns: 1fr;
+  }
+  .sp-grid2 {
+    grid-template-columns: 1fr;
+  }
+}
