@@ -26,6 +26,17 @@
   border: 0;
   border-radius: 18px;
   overflow: hidden;
+  /* El modal nunca supera el alto de la pantalla: se ajusta dinámicamente
+     a cualquier resolución (incluida 1024x768). */
+  max-height: calc(100vh - 2rem);
+  display: flex;
+  flex-direction: column;
+}
+/* Header, secciones y footer quedan fijos; solo el cuerpo scrollea si no cabe. */
+.sp-header,
+.sp-section,
+.sp-footer {
+  flex-shrink: 0;
 }
 
 /* Header oscuro con gradiente */
@@ -83,6 +94,11 @@
 .sp-body {
   display: grid;
   grid-template-columns: 1fr 1.35fr;
+  /* Ocupa el espacio disponible y hace scroll SOLO cuando el contenido no
+     cabe en la pantalla; en pantallas altas se ve todo sin scroll. */
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
 }
 .sp-col-left {
   background: #f7f8fb;
